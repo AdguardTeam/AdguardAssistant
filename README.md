@@ -1,0 +1,2 @@
+# AdguardAssistant
+Adguard Assistant userscript

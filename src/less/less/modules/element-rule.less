@@ -1,0 +1,154 @@
+// element-rule
+
+
+
+.element-rule{
+    padding: @base-offset;
+    &_text{
+
+    }
+    &_slider{
+        margin: 5px 0 7px;
+        user-select: none;
+    }
+    &_expand-link{
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 500;
+        cursor: pointer;
+        &_txt{
+            display: inline-block;
+            vertical-align: top;
+            color: @link-color;
+            border-bottom: 1px solid lighten(@link-color, 40%);
+        }
+        &_arr{
+            display: inline-block;
+            vertical-align: top;
+            width: 5px;
+            height: 5px;
+            margin: 3px 0 0 3px;
+            border-bottom: 1px solid #91a795;
+            border-left: 1px solid #91a795;
+            transform: rotate(-45deg);
+            transition: .2s;
+        }
+        &:hover{
+            .element-rule_expand-link{
+                &_txt{
+                    color: @link-hover-color;
+                    border-bottom-color: lighten(@link-hover-color, 40%);
+                }
+            }
+        }
+        &.active{
+            .element-rule_expand-link{
+                &_arr{
+                    margin-top: 5px;
+                    transform: rotate(-225deg);
+                }
+            }
+        }
+    }
+    &_form{
+        height: 0;
+        margin: 0 -@base-offset;
+        transition: .2s;
+        overflow: hidden;
+        &.open{
+            height: auto;
+            margin-bottom: -@base-offset;
+        }
+    }
+    &_form-cont{
+        margin: 4px 0 0;
+        padding: @base-offset;
+        border-top: 1px solid #e0dfdb;
+        background: #f4f4ef;
+    }
+    &_fieldset{
+        margin: 10px 0 0;
+        &:first-child{
+            margin: 0;
+        }
+    }
+}
+
+
+
+// slider
+.adg-slide{
+    position: relative;
+    width: 500px;
+    height: 44px;
+    margin: auto;
+}
+
+.adg-slide-clue-min,
+.adg-slide-clue-max{
+    position: absolute;
+    top: 14px;
+    left: -35px;
+    width: 30px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #8f9b92;
+    cursor: pointer;
+}
+.adg-slide-clue-max{
+    left: auto;
+    right: -40px;
+    text-align: right;
+}
+
+
+.ui-slider-handle {
+    position: absolute;
+    top: 22px;
+    z-index: 2;
+    cursor: pointer;
+    &:before{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 30px;
+        height: 30px;
+        margin: -15px 0 0 -15px;
+        background: fade(#000, 10);
+        border-radius: 50%;
+        transition: .2s;
+    }
+    &:after{
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 20px;
+        margin: -10px 0 0 -10px;
+        background: @base-color;
+        border-radius: 50%;
+    }
+
+    &:hover{
+        &:active,
+        &:before{
+            background: fade(#000, 15);
+        }
+    }
+}
+
+.tick{
+    position: absolute;
+    height: 44px;
+    border: 20px solid #fff;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+}
+// /slider
+
+
+
+
+

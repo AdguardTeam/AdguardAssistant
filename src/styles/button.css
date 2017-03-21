@@ -1,0 +1,83 @@
+.adguard-alert {
+    cursor: pointer;
+    position: fixed !important;
+    font: 12px Arial, sans-serif !important;
+    line-height: 1.5 !important;
+    z-index: 2147483646 !important;
+    width: auto !important;
+    background: none !important;
+    height: auto !important;
+    zoom: 1 !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+    padding: 10px !important;
+    will-change: transform;
+}
+
+.adguard-hide {
+    display: none !important;
+}
+
+.adguard-assistant-button-right {
+    right: 0 !important;
+}
+
+.adguard-assistant-button-left {
+    left: 0 !important;
+}
+
+.adguard-assistant-button-bottom {
+    bottom: 0 !important;
+}
+
+.adguard-assistant-button-top {
+    top: 0 !important;
+}
+
+.adguard-logo {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: 1em !important;
+    line-height: 1 !important;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMGMxNSAwIDMzLjIgMy42IDQ4LjEgMTEuNCAwIDE3LjEuMiA1OS42LTQ4LjEgODguNkMxLjcgNzEgMS45IDI4LjUgMS45IDExLjQgMTYuOCAzLjYgMzUgMCA1MCAwem0wIDguNGMtMTMuNSAwLTI4IDMtMzkuNyA4LjIuMyAxNy42IDMuNiA0OS44IDM5LjcgNzMuNiAzNi4xLTIzLjkgMzkuNC01NiAzOS43LTczLjRDNzggMTEuNSA2My41IDguNCA1MCA4LjR6bTI2LjQ0NiAxNS4xNzdjMS44NTYuNDYxIDEuMDk5LjA5IDIuMzU0LjkyM0w0OC4yIDY2LjRTMjYuMSA0MCAyNiA0MGMxLjUtMS4xIDcuNy01LjIgMTIuMy4ybDkuNiAxMS43TDczLjUgMjVjLjg4OC0uOTY5IDEuNzE5LTEuMTQ3IDIuOTQ2LTEuNDIzeiIgZmlsbD0iIzQzQjY1MyIvPjwvc3ZnPg==) no-repeat 0 0/cover !important;
+    font-size: inherit !important;
+}
+
+.adguard-a-logo:hover .adguard-logo {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMGMxNSAwIDMzLjIgMy42IDQ4LjEgMTEuNCAwIDE3LjEuMiA1OS42LTQ4LjEgODguNkMxLjcgNzEgMS45IDI4LjUgMS45IDExLjQgMTYuOCAzLjYgMzUgMCA1MCAwem0wIDguNGMtMTMuNSAwLTI4IDMtMzkuNyA4LjIuMyAxNy42IDMuNiA0OS44IDM5LjcgNzMuNiAzNi4xLTIzLjkgMzkuNC01NiAzOS43LTczLjRDNzggMTEuNSA2My41IDguNCA1MCA4LjR6bTI2LjQ0NiAxNS4xNzdjMS44NTYuNDYxIDEuMDk5LjA5IDIuMzU0LjkyM0w0OC4yIDY2LjRTMjYuMSA0MCAyNiA0MGMxLjUtMS4xIDcuNy01LjIgMTIuMy4ybDkuNiAxMS43TDczLjUgMjVjLjg4OC0uOTY5IDEuNzE5LTEuMTQ3IDIuOTQ2LTEuNDIzeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+}
+.adguard-a-logo:hover{
+ background: #36BB53 !important;
+}
+
+.adguard-logo__white {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMGMxNSAwIDMzLjIgMy42IDQ4LjEgMTEuNCAwIDE3LjEuMiA1OS42LTQ4LjEgODguNkMxLjcgNzEgMS45IDI4LjUgMS45IDExLjQgMTYuOCAzLjYgMzUgMCA1MCAwem0wIDguNGMtMTMuNSAwLTI4IDMtMzkuNyA4LjIuMyAxNy42IDMuNiA0OS44IDM5LjcgNzMuNiAzNi4xLTIzLjkgMzkuNC01NiAzOS43LTczLjRDNzggMTEuNSA2My41IDguNCA1MCA4LjR6bTI2LjQ0NiAxNS4xNzdjMS44NTYuNDYxIDEuMDk5LjA5IDIuMzU0LjkyM0w0OC4yIDY2LjRTMjYuMSA0MCAyNiA0MGMxLjUtMS4xIDcuNy01LjIgMTIuMy4ybDkuNiAxMS43TDczLjUgMjVjLjg4OC0uOTY5IDEuNzE5LTEuMTQ3IDIuOTQ2LTEuNDIzeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+}
+
+.adguard-a-logo {
+    display: inline-block !important;
+    box-sizing: border-box !important;
+    vertical-align: top !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 10px 0 0 !important;
+    font-size: 20px !important;
+    text-align: center !important;
+    border: 1px solid #cdcdcd !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+}
+
+.adguard-a-logo__small {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+    padding: 6px 0 0 !important;
+}
+
+.adguard-logo:before {
+    content: "\00a0" !important;
+}
+

@@ -1,0 +1,10 @@
+{
+  "name": "assistant-compiler",
+  "version": "1.0.0",
+  "description": "Compile source files to userscript form",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "1.0.1",
+    "grunt-contrib-uglify": "2.0.0"
+  }
+}

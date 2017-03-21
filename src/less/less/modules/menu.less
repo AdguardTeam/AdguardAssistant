@@ -1,0 +1,179 @@
+// menu
+
+
+
+.menu-head{
+    padding: @base-offset - 2 @base-offset;
+    cursor: move;
+    &_title{
+        font-size: 16px;
+        font-weight: 700;
+        color: #343434;
+    }
+    &_name{
+        display: inline-block;
+        vertical-align: top;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 230px;
+    }
+    &_text{
+        margin: 4px 10px 0 0;
+        font-size: 12px;
+        color: #343434;
+    }
+}
+
+
+
+
+.menu-filter{
+    &:extend(.cf-mix all);
+    padding: @base-offset;
+    border-top: 1px solid @border-color;
+    &_lbl{
+        float: left;
+        font-size: 14px;
+        font-weight: 500;
+        color: #8f9b92;
+    }
+    &_val{
+        float: right;
+    }
+    &_label{
+        position: relative;
+        float: right;
+        width: 43px;
+        height: 22px;
+        margin: 0;
+        border-radius: 4px;
+        background: #e85037;
+        cursor: pointer;
+        overflow: hidden;
+        transition: .2s;
+        &:hover{
+            background: lighten(#e85037, 10%);
+        }
+        &:before{
+            content: '';
+            position: absolute;
+            top: 7px;
+            left: -14px;
+            width: 10px;
+            height: 5px;
+            border-bottom: 2px solid #fff;
+            border-left: 2px solid #fff;
+            transform: rotate(-45deg);
+            transition: .2s;
+        }
+        &:after{
+            content: '+';
+            position: absolute;
+            top: 9px;
+            right: -3px;
+            width: 13px;
+            height: 20px;
+            font-size: 20px;
+            line-height: 0;
+            font-weight: 400;
+            color: #fff;
+            transform: rotate(-45deg);
+            transition: .2s;
+        }
+    }
+    &_handle{
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 1px;
+        left: 1px;
+        border-radius: 4px;
+        background: #fff;
+        transition: .2s;
+    }
+
+    &_input{
+        &:extend(.form-ui-control);
+        &:checked{
+            & + .menu-filter_label{
+                background: @base-color;
+                &:hover{
+                    background: lighten(@base-color, 10%);
+                }
+                &:before{
+                    left: 7px;
+                }
+                &:after{
+                    right: -24px;
+                }
+
+                .menu-filter_handle{
+                    left: 22px;
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+[class^="i-menu-"], [class*=" i-menu-"]{
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+}
+
+.i-menu-time        { background: url(../i/menu-time.svg) }
+.i-menu-time-h      { background: url(../i/menu-time-h.svg) }
+.i-menu-select      { background: url(../i/menu-select.svg) }
+.i-menu-select-h    { background: url(../i/menu-select-h.svg) }
+.i-menu-complaint   { background: url(../i/menu-complaint.svg) }
+.i-menu-complaint-h { background: url(../i/menu-complaint-h.svg) }
+.i-menu-report      { background: url(../i/menu-report.svg) }
+.i-menu-report-h      { background: url(../i/menu-report-h.svg) }
+.i-menu-settings    { background: url(../i/menu-settings.svg) }
+.i-menu-settings-h    { background: url(../i/menu-settings-h.svg) }
+
+
+.menu{
+    padding: 11px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #8f9b92;
+    border-top: 1px solid @border-color;
+    &_i{
+        padding: 8px @base-offset;
+        cursor: pointer;
+        &:hover{
+            background: #eef7f1;
+            color: #333;
+            .menu{
+                &_ico{
+                    &_s{
+                        display: none;
+                    }
+                    &_h{
+                        display: inline-block;
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+    }
+    &_ico{
+        display: inline-block;
+        vertical-align: top;
+        &_h{
+            display: none;
+        }
+    }
+    &_name{
+        display: inline-block;
+        vertical-align: middle;
+        margin: 2px 0 0 6px;
+    }
+}

@@ -1,0 +1,161 @@
+/**
+ * Main menu controller
+ * @param $
+ * @param wot
+ * @param localization
+ * @param gmApi
+ * @returns {{init: init}}
+ * @constructor
+ */
+var DetailedMenuController = function ($, wot, localization, gmApi) {
+    var contentDocument = null;
+    var iframeCtrl = null;
+    var domain = null;
+
+    var init = function (iframe) {
+        contentDocument = iframe.contentDocument;
+        iframeCtrl = Ioc.get('iframeController');
+        _setDomain();
+        _setWotData();
+        _bindEvents();
+        _setInitFilteringState();
+    };
+
+    var _setDomain = function () {
+        domain = punycode.toUnicode(location.hostname);
+        contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain;
+    };
+
+    var _bindEvents = function () {
+        var menuEvents = {
+            '.close': iframeCtrl.removeIframe,
+            '#block-ad': _startAdSelector,
+            '#assistant-settings': iframeCtrl.showSettingsMenu,
+            '#WotDescriptionText': _goToWotUrl,
+            '#do-not-block-30-sec': _doNotBlock,
+            '#report-abuse': _reportAbuse,
+            '#site-report': _goToSiteReport,
+            '#is-filter': _onIsFilterChange
+        };
+        Object.keys(menuEvents).forEach(function (item) {
+            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+        });
+    };
+
+    var _onIsFilterChange = function () {
+        var isFilter = contentDocument.getElementById('is-filter').checked;
+        gmApi.ADG_changeFilteringState(isFilter);
+    };
+
+    var _setInitFilteringState = function () {
+        var isFiltered = gmApi.ADG_isFiltered();
+        var input = contentDocument.getElementById('is-filter');
+        input.checked = isFiltered;
+    };
+
+    var _doNotBlock = function () {
+        gmApi.ADG_temporaryDontBlock(30);
+    };
+
+    var _reportAbuse = function () {
+        gmApi.ADG_sendAbuse();
+        iframeCtrl.removeIframe();
+    };
+
+    var _goToSiteReport = function () {
+        var url = StringUtils.format('https://adguard.com/adguard-report/{0}/report.html', domain);
+        window.open(url, '_blank');
+    };
+
+    var _setWotData = function () {
+        var wotData = wot.getWotData();
+        var wotReputationSettings = _getWotReputationSettings(wotData);
+
+        if (wotReputationSettings) {
+            var wotIndication = $(contentDocument.getElementById('WotIndication'));
+            var wotDescriptionText = contentDocument.getElementById('WotDescriptionText');
+            var confidenceIndication = $(contentDocument.getElementById('ConfidenceIndication'));
+
+            contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
+            wotIndication.addClass(wotReputationSettings.class);
+            var wotLogo = $('<a id="WotLogo" href="#"><span class="wot-logo"></span></a>')[0];
+            wotDescriptionText.textContent = wotReputationSettings.text;
+            wotDescriptionText.appendChild(wotLogo);
+
+            var wotConfidenceClass = _getWotConfidenceClass(wotData);
+            confidenceIndication.addClass(wotConfidenceClass);
+
+            $(contentDocument.getElementsByClassName('wot-hide')).removeClass('wot-hide');
+        }
+    };
+
+    var _goToWotUrl = function () {
+        window.open(wot.WOT_URL, '_blank');
+    };
+
+    var _getWotReputationSettings = function (wotData) {
+        if (!wotData) {
+            return null;
+        }
+        var prefix = 'adg-wot-';
+        var averageWot = wotData.reputation;
+        var wotRatingText = null;
+        var wotRating = null;
+        if (averageWot === 0) {
+            wotRatingText = localization.getMessage('wot_unknown_description');
+            wotRating = prefix + 'unknown';
+            return {text: wotRatingText, class: wotRating};
+        }
+        var wotSettings = {
+            0: {color: 'red', string: localization.getMessage('wot_bad_description')},
+            1: {color: 'lightRed', string: localization.getMessage('wot_poor_description')},
+            2: {color: 'yellow', string: localization.getMessage('wot_unsatisfactory_description')},
+            3: {color: 'lightGreen', string: localization.getMessage('wot_good_description')},
+            4: {color: 'green', string: localization.getMessage('wot_excellent_description')},
+            5: {color: 'green', string: localization.getMessage('wot_excellent_description')}
+        };
+        var current = wotSettings[_truncateDecimals(averageWot / 20)];
+        wotRatingText = current.string;
+        wotRating = prefix + current.color;
+        return {text: wotRatingText, class: wotRating};
+    };
+
+    var _truncateDecimals = function (number) {
+        return Math[number < 0 ? 'ceil' : 'floor'](number);
+    };
+
+    var _getWotConfidenceClass = function (wotData) {
+        if (!wotData) {
+            return null;
+        }
+        var prefix = 'adg-wot-confidence-';
+        var confidenceWot = wotData.confidence;
+        if (confidenceWot >= 0 && confidenceWot < 6) {
+            return prefix + '0';
+        }
+        if (confidenceWot >= 6 && confidenceWot < 12) {
+            return prefix + '1';
+        }
+        if (confidenceWot >= 12 && confidenceWot < 23) {
+            return prefix + '2';
+        }
+        if (confidenceWot >= 23 && confidenceWot < 34) {
+            return prefix + '3';
+        }
+        if (confidenceWot >= 34 && confidenceWot < 45) {
+            return prefix + '4';
+        }
+        if (confidenceWot >= 45) {
+            return prefix + '5';
+        }
+    };
+
+
+    var _startAdSelector = function () {
+        iframeCtrl.showSelectorMenu();
+    };
+
+    return {
+        init: init
+    };
+};

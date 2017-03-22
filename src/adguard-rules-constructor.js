@@ -325,7 +325,7 @@ var AdguardRulesConstructorLib = (function (api) {
      * Constructs adguard rule text from element node and specified options
      *
      * var options = {
-	 *	urlBlockAttribute: url mask,
+	 *	urlMask: url block attributes,
 	 *	isBlockOneDomain: boolean,
 	 *	url: url,
 	 *  attributes: attributesSelectorText,

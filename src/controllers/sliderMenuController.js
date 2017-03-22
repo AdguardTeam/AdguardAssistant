@@ -127,11 +127,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         _handleShowBlockSettings(_haveUrlBlockParameter(selectedElement) && !isBlockSimilar, _haveClassAttribute(selectedElement) && !isBlockByUrl);
 
         var options = {
-            isBlockByUrl: isBlockByUrl,
             urlMask: _getUrlBlockAttribute(selectedElement),
-            isBlockSimilar: isBlockSimilar,
+            cssSelectorType: isBlockSimilar ? "SIMILAR" : "STRICT_FULL",
             isBlockOneDomain: isBlockOneDomain,
-            domain: CommonUtils.cropDomain(location.host)
+            url: document.location,
+            ruleType: isBlockByUrl ? "URL" : "CSS"
         };
 
         var ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);

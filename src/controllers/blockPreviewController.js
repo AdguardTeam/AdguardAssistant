@@ -12,7 +12,12 @@ var BlockPreviewController = function ($, selector, gmApi) {
     var selectedPath = null;
     var iframeCtrl = Ioc.get('iframeController');
 
-    var init = function (iframe) {
+    /*
+    Called from IframeController._showMenuItem to initialize view
+     */
+    var init = function (iframe, options) {
+        selectedElement = options.element;
+        selectedPath = options.path;
         contentDocument = iframe.contentDocument;
         selector.reset();
         _bindEvents();
@@ -58,13 +63,7 @@ var BlockPreviewController = function ($, selector, gmApi) {
         iframeCtrl.removeIframe();
     };
 
-    var setSelectedElement = function (element, path) {
-        selectedElement = element;
-        selectedPath = path;
-    };
-
     return {
-        init: init,
-        setSelectedElement: setSelectedElement
+        init: init
     };
 };

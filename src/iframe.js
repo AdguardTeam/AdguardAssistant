@@ -135,8 +135,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         return 'nonce="' + adgSettings.nonce + '"';
     };
 
-    var _showMenuItem = function (viewName, controller, width, height) {
-        log.info(StringUtils.format("Showing menu item: {0}", viewName));
+    var _showMenuItem = function (viewName, controller, width, height, options) {
+        log.debug(StringUtils.format("Showing menu item: {0}", viewName));
         if (currentItem == viewName) {
             return;
         }
@@ -150,7 +150,10 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         _appendContent(view);
         _localize();
         _specifyIframePosition();
-        controller.init(frameElement);
+        if (!options) {
+            options = {};
+        }
+        controller.init(frameElement, options);
         currentItem = viewName;
         onShowMenuItem.notify();
     };
@@ -175,16 +178,16 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var showSliderMenu = function (element) {
         var controller = Ioc.get(SliderMenuController);
-        controller.setSelectedElement(element);
-        _showMenuItem(settings.MenuItemsNames.SliderMenu, controller, 668, sliderMenuHeight.normal);
+        var options = {element: element};
+        _showMenuItem(settings.MenuItemsNames.SliderMenu, controller, 668, sliderMenuHeight.normal, options);
         uiUtils.makeIframeDraggable(iframe, $(iframe[0].contentDocument.getElementsByClassName('head')));
         _setCloseEventIfNotHitIframe(false);
     };
 
     var showBlockPreview = function (element, path) {
         var controller = Ioc.get(BlockPreviewController);
-        controller.setSelectedElement(element, path);
-        _showMenuItem(settings.MenuItemsNames.BlockPreview, controller, 668, 213);
+        var options = {element: element, path: path};
+        _showMenuItem(settings.MenuItemsNames.BlockPreview, controller, 668, 213, options);
         uiUtils.makeIframeDraggable(iframe, $(iframe[0].contentDocument.getElementsByClassName('head')));
         _setCloseEventIfNotHitIframe(false);
     };

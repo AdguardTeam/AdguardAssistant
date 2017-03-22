@@ -9,6 +9,9 @@ var SelectorMenuController = function ($, selector) {
     var contentDocument = null;
     var iframeCtrl = Ioc.get('iframeController');
 
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
     var init = function (iframe) {
         contentDocument = iframe.contentDocument;
         _bindEvents();

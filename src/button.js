@@ -13,6 +13,8 @@
  */
 var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) {
     var button = null;
+    var fullScreenEventsSetted = false;
+
     /**
      * Shows Adguard initial button
      */
@@ -24,7 +26,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (button) {
             return;
         }
-        log.info("Requirements checked, all ok");
+        log.debug("Requirements checked, all ok");
         button = $(resources.getResource('button.html'));
         gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
@@ -47,13 +49,13 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!uiValidationUtils.checkVisibleAreaSize()) {
             return false;
         }
-        if (_isAlreadyLoaded()) {
+        if (_isButtonAlreadyInDOM()) {
             return false;
         }
         return true;
     };
 
-    var _isAlreadyLoaded = function () {
+    var _isButtonAlreadyInDOM = function () {
         return $('.adguard-alert').length > 0;
     };
 
@@ -125,6 +127,9 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
     };
 
     var _hideRestoreOnFullScreen = function () {
+        if (fullScreenEventsSetted) {
+            return;
+        }
         $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
             if (uiUtils.tryFullScreenPrefix(document, "FullScreen") || uiUtils.tryFullScreenPrefix(document, "IsFullScreen")) {
                 _hideButton();
@@ -132,6 +137,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
                 _showButton();
             }
         });
+        fullScreenEventsSetted = true;
     };
 
     var _hideButton = function () {

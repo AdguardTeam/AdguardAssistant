@@ -15,7 +15,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     var selectedElement = null;
     var iframeCtrl = Ioc.get('iframeController');
 
-    var init = function (iframe) {
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
+    var init = function (iframe, options) {
+        selectedElement = options.element;
         contentDocument = iframe.contentDocument;
         _bindEvents();
         _createSlider();
@@ -181,16 +185,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         return contentDocument.getElementById('filter-rule').value;
     };
 
-    var setSelectedElement = function (element) {
-        selectedElement = element;
-    };
-
     var _close = function () {
         iframeCtrl.removeIframe();
     };
 
     return {
-        init: init,
-        setSelectedElement: setSelectedElement
+        init: init
     };
 };

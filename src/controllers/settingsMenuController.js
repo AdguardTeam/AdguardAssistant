@@ -16,6 +16,9 @@ var SettingsMenuController = function ($, settings, button) {
         'position-top-left': {top: true, left: true}
     };
 
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
     var init = function (iframe) {
         contentDocument = iframe.contentDocument;
         _bindEvents();

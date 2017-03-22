@@ -12,6 +12,9 @@ var DetailedMenuController = function ($, wot, localization, gmApi) {
     var iframeCtrl = null;
     var domain = null;
 
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
     var init = function (iframe) {
         contentDocument = iframe.contentDocument;
         iframeCtrl = Ioc.get('iframeController');

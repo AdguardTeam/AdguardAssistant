@@ -202,7 +202,7 @@ var UIValidationUtils = function (settings) {
      * @returns boolean. True if browser valid
      */
     var validateBrowser = function () {
-        return !document.documentMode || !(document.documentMode > settings.Constants.MINIMUM_IE_SUPPORTED_VERSION);
+        return !document.documentMode || (document.documentMode > settings.Constants.MINIMUM_IE_SUPPORTED_VERSION);
     };
 
     /**

@@ -41,6 +41,7 @@
 // @exclude *vk.com/widget_comments*
 // @exclude *www.youtube.com/embed/*
 // @exclude *://outlook.live.com*
+// @require utils\css.escape.js
 // @require ioc.js
 // @require log.js
 // @require balalaika.patched.js

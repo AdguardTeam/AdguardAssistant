@@ -64,7 +64,8 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!position) {
             return false;
         }
-        button[0].style = StringUtils.format("top:{0}px;left:{1}px;", position.top, position.left);
+        button[0].style.top = position.top + 'px';
+        button[0].style.left = position.left + 'px';
         return true;
     };
 

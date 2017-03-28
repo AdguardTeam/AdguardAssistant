@@ -15,7 +15,7 @@ var Wot = function () {
     var registerWotEventHandler = function () {
         document.addEventListener('wot-score', function (e) {
             wotData = e.data.wotData;
-            _fireEvent('wot-accepted', null);
+            fireEvent('wot-accepted', null);
         });
     };
 
@@ -27,7 +27,7 @@ var Wot = function () {
         return StringUtils.format(wotUrlScorecardTemplate, url);
     };
 
-    var _fireEvent = function (name, data) {
+    var fireEvent = function (name, data) {
         var event = document.createEvent("Events");
         event.initEvent(name, true, true);
         event.data = data;

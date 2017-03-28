@@ -21,32 +21,32 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     var init = function (iframe, options) {
         selectedElement = options.element;
         contentDocument = iframe.contentDocument;
-        _bindEvents();
-        _createSlider();
-        _onScopeChange();
+        bindEvents();
+        createSlider();
+        onScopeChange();
         selector.selectElement(selectedElement);
     };
 
-    var _bindEvents = function () {
+    var bindEvents = function () {
         var menuEvents = {
-            '.close': _close,
-            '#ExtendedSettingsText': _expandAdvanced,
-            '#adv-settings': _onScopeChange,
+            '.close': close,
+            '#ExtendedSettingsText': expandAdvanced,
+            '#adv-settings': onScopeChange,
             '#adg-cancel': iframeCtrl.showSelectorMenu,
-            '#adg-preview': _showPreview,
-            '#adg-accept': _blockElement
+            '#adg-preview': showPreview,
+            '#adg-accept': blockElement
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
 
-    var _blockElement = function () {
-        gmApi.ADG_addRule(_getFilterRuleInputText());
+    var blockElement = function () {
+        gmApi.ADG_addRule(getFilterRuleInputText());
         iframeCtrl.removeIframe();
     };
 
-    var _expandAdvanced = function () {
+    var expandAdvanced = function () {
         var hidden = !$(contentDocument.getElementById('adv-settings')).hasClass("open");
         if (hidden) {
             iframeCtrl.resizeSliderMenuToAdvanced();
@@ -59,11 +59,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         }
     };
 
-    var _showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, _getFilterRuleInputText());
+    var showPreview = function () {
+        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText());
     };
 
-    var _createSlider = function () {
+    var createSlider = function () {
         var parents = CommonUtils.getParentsLevel(selectedElement);
         var children = CommonUtils.getAllChildren(selectedElement);
         var value = Math.abs(parents.length + 1);
@@ -75,7 +75,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             //hide slider text
             $(slider).hide();
             $(contentDocument.getElementsByClassName('element-rule_text')).hide();
-            _expandAdvanced();
+            expandAdvanced();
         }
 
         options.onSliderMove = function (delta) {
@@ -89,7 +89,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             if (delta < 0) {
                 elem = children[Math.abs(delta + 1)];
             }
-            _onSliderMove(elem);
+            onSliderMove(elem);
         };
 
         sliderWidget.init(slider, {
@@ -103,31 +103,31 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         });
     };
 
-    var _onSliderMove = function (element) {
+    var onSliderMove = function (element) {
         selectedElement = element;
         selector.selectElement(element);
 
-        _makeDefaultCheckboxesForDetailedMenu();
-        _onScopeChange();
-        _handleShowBlockSettings(_haveUrlBlockParameter(element), _haveClassAttribute(element));
+        makeDefaultCheckboxesForDetailedMenu();
+        onScopeChange();
+        handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
     };
 
-    var _makeDefaultCheckboxesForDetailedMenu = function () {
+    var makeDefaultCheckboxesForDetailedMenu = function () {
         contentDocument.getElementById('block-by-url-checkbox').checked = false;
         contentDocument.getElementById('block-similar-checkbox').checked = false;
         contentDocument.getElementById('one-domain-checkbox').checked = false;
     };
 
-    var _onScopeChange = function () {
+    var onScopeChange = function () {
 
         var isBlockByUrl = contentDocument.getElementById('block-by-url-checkbox').checked;
         var isBlockSimilar = contentDocument.getElementById('block-similar-checkbox').checked;
         var isBlockOneDomain = contentDocument.getElementById('one-domain-checkbox').checked;
 
-        _handleShowBlockSettings(_haveUrlBlockParameter(selectedElement) && !isBlockSimilar, _haveClassAttribute(selectedElement) && !isBlockByUrl);
+        handleShowBlockSettings(haveUrlBlockParameter(selectedElement) && !isBlockSimilar, haveClassAttribute(selectedElement) && !isBlockByUrl);
 
         var options = {
-            urlMask: _getUrlBlockAttribute(selectedElement),
+            urlMask: getUrlBlockAttribute(selectedElement),
             cssSelectorType: isBlockSimilar ? "SIMILAR" : "STRICT_FULL",
             isBlockOneDomain: isBlockOneDomain,
             url: document.location,
@@ -135,15 +135,15 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         };
 
         var ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);
-        _setFilterRuleInputText(ruleText);
+        setFilterRuleInputText(ruleText);
     };
 
-    var _haveUrlBlockParameter = function (element) {
-        var value = _getUrlBlockAttribute(element);
+    var haveUrlBlockParameter = function (element) {
+        var value = getUrlBlockAttribute(element);
         return value && value !== '';
     };
 
-    var _getUrlBlockAttribute = function (element) {
+    var getUrlBlockAttribute = function (element) {
         var urlBlockAttributes = ["src", "data"];
         for (var i = 0; i < urlBlockAttributes.length; i++) {
             var attr = urlBlockAttributes[i];
@@ -155,12 +155,12 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         return null;
     };
 
-    var _haveClassAttribute = function (element) {
+    var haveClassAttribute = function (element) {
         var className = element.className;
         return className && className.trim() !== '';
     };
 
-    var _handleShowBlockSettings = function (showBlockByUrl, showBlockSimilar) {
+    var handleShowBlockSettings = function (showBlockByUrl, showBlockSimilar) {
         var blockByUrlBlock = $(contentDocument.getElementById('block-by-url-checkbox-block'));
         var blockSimilarBlock = $(contentDocument.getElementById('block-similar-checkbox-block'));
         if (showBlockByUrl) {
@@ -177,15 +177,15 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         }
     };
 
-    var _setFilterRuleInputText = function (ruleText) {
+    var setFilterRuleInputText = function (ruleText) {
         contentDocument.getElementById('filter-rule').value = ruleText;
     };
 
-    var _getFilterRuleInputText = function () {
+    var getFilterRuleInputText = function () {
         return contentDocument.getElementById('filter-rule').value;
     };
 
-    var _close = function () {
+    var close = function () {
         iframeCtrl.removeIframe();
     };
 

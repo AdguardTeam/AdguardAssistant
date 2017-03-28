@@ -27,43 +27,43 @@ var Localization = function () {
             while (element.lastChild) {
                 element.removeChild(element.lastChild);
             }
-            _processString(message, element);
+            processString(message, element);
         } catch (ex) {
             // Ignore exceptions
         }
     };
 
-    var _processString = function (str, element) {
+    var processString = function (str, element) {
         var el;
 
         var match1 = /^([^]*?)<(a|strong|span|i)([^>]*)>(.*?)<\/\2>([^]*)$/m.exec(str);
         var match2 = /^([^]*?)<(br|input)([^>]*)\/?>([^]*)$/m.exec(str);
         if (match1) {
 
-            _processString(match1[1], element);
+            processString(match1[1], element);
 
-            el = _createElement(match1[2], match1[3]);
+            el = createElement(match1[2], match1[3]);
 
-            _processString(match1[4], el);
+            processString(match1[4], el);
             element.appendChild(el);
 
-            _processString(match1[5], element);
+            processString(match1[5], element);
 
         } else if (match2) {
 
-            _processString(match2[1], element);
+            processString(match2[1], element);
 
-            el = _createElement(match2[2], match2[3]);
+            el = createElement(match2[2], match2[3]);
             element.appendChild(el);
 
-            _processString(match2[4], element);
+            processString(match2[4], element);
 
         } else {
             element.appendChild(document.createTextNode(str.replace(/&nbsp;/g, '\u00A0')));
         }
     };
 
-    var _createElement = function (tagName, attributes) {
+    var createElement = function (tagName, attributes) {
 
         var el = document.createElement(tagName);
         if (!attributes) {

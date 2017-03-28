@@ -13,53 +13,55 @@ var BlockPreviewController = function ($, selector, gmApi) {
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
-    Called from IframeController._showMenuItem to initialize view
+    Called from IframeController.showMenuItem to initialize view
      */
     var init = function (iframe, options) {
         selectedElement = options.element;
         selectedPath = options.path;
         contentDocument = iframe.contentDocument;
         selector.reset();
-        _bindEvents();
-        _hideElement();
+        bindEvents();
+        hideElement();
     };
 
-    var _bindEvents = function () {
+    var bindEvents = function () {
         var menuEvents = {
-            '.close': _close,
-            '#select-another-element': _selectAnotherElement,
-            '#end-preview': _showDetailedMenu,
-            '#block-element': _blockElement
+            '.close': close,
+            '#select-another-element': selectAnotherElement,
+            '#end-preview': showDetailedMenu,
+            '#block-element': blockElement
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
 
-    var _hideElement = function () {
+    var hideElement = function () {
+        if (!selectedElement) return;
         $(selectedElement).addClass('adguard-hide');
     };
 
-    var _showElement = function () {
+    var showElement = function () {
+        if (!selectedElement) return;
         $(selectedElement).removeClass('adguard-hide');
     };
 
-    var _selectAnotherElement = function () {
-        _showElement();
+    var selectAnotherElement = function () {
+        showElement();
         iframeCtrl.showSelectorMenu();
     };
 
-    var _blockElement = function () {
+    var blockElement = function () {
         gmApi.ADG_addRule(selectedPath);
     };
 
-    var _showDetailedMenu = function () {
-        _showElement();
+    var showDetailedMenu = function () {
+        showElement();
         iframeCtrl.showSliderMenu(selectedElement);
     };
 
-    var _close = function () {
-        _showElement();
+    var close = function () {
+        showElement();
         iframeCtrl.removeIframe();
     };
 

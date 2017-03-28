@@ -9,7 +9,7 @@
  * @param uiValidationUtils
  * @param localization
  * @param resources
- * @returns {{showDetailedMenu: showDetailedMenu, showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, showSettingsMenu: showSettingsMenu, setButtonPosition: setButtonPosition, onCloseMenu: Event, onShowMenuItem: Event, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
+ * @returns {{showDetailedMenu: showDetailedMenu, showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, showSettingsMenu: showSettingsMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
  * @constructor
  */
 var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) {
@@ -22,13 +22,13 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var sliderMenuHeight = {advanced: 503, normal: 403};
     var buttonPosition = null;
 
-    var onCloseMenu = new Event();
-    var onShowMenuItem = new Event();
+    var onCloseMenu = new CustomEvent();
+    var onShowMenuItem = new CustomEvent();
 
-    var _createIframe = function (onIframeLoadCallback) {
+    var createIframe = function (onIframeLoadCallback) {
         log.debug('Creating iframe');
         iframe = $('<iframe/>');
-        var iframePosition = _getIframePosition();
+        var iframePosition = getIframePosition();
         var css = {
             position: 'fixed',
             left: iframePosition.left + 'px',
@@ -54,13 +54,13 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
                 return;
             }
             iframeAlreadyLoaded = true;
-            _appendDefaultStyle();
+            appendDefaultStyle();
             onIframeLoadCallback();
         });
         $('body')[0].appendChild(iframe[0]);
     };
 
-    var _getIframePosition = function () {
+    var getIframePosition = function () {
         var viewPort = uiValidationUtils.getViewPort();
 
         var defaultPosition = {
@@ -105,7 +105,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         return defaultPosition;
     };
 
-    var _specifyIframePosition = function () {
+    var specifyIframePosition = function () {
         var viewPort = uiValidationUtils.getViewPort();
         var frameElement = iframe[0];
         if ((frameElement.offsetLeft + frameElement.offsetWidth) > viewPort.width) {
@@ -123,20 +123,20 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     };
 
-    var _appendDefaultStyle = function () {
+    var appendDefaultStyle = function () {
         try {
             log.info('Iframe loaded writing styles');
             var doc = iframe[0].contentDocument;
             doc.open();
             doc.write(StringUtils.format("<html><head>{0}</head></html>",
-                '<style ' + _getStyleNonce() + ' type="text/css">' + resources.getResource('style.css') + '</style>'));
+                '<style ' + getStyleNonce() + ' type="text/css">' + resources.getResource('style.css') + '</style>'));
             doc.close();
         } catch (ex) {
             log.error(ex);
         }
     };
 
-    var _getStyleNonce = function () {
+    var getStyleNonce = function () {
         var adgSettings = settings.getAdguardSettings();
         if (adgSettings === null) {
             return '';
@@ -144,7 +144,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         return 'nonce="' + adgSettings.nonce + '"';
     };
 
-    var _showMenuItem = function (viewName, controller, width, height, options) {
+    var showMenuItem = function (viewName, controller, width, height, options) {
         log.debug(StringUtils.format("Showing menu item: {0}", viewName));
         if (currentItem == viewName) {
             return;
@@ -154,9 +154,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             frameElement.width = width;
             frameElement.height = height;
             var view = $(resources.getResource(viewName))[0];
-            _appendContent(view);
-            _localize();
-            _specifyIframePosition();
+            appendContent(view);
+            localize();
+            specifyIframePosition();
             if (!options) {
                 options = {};
             }
@@ -168,7 +168,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             }
         };
         if (!iframe) {
-            _createIframe(onIframeLoad);
+            createIframe(onIframeLoad);
             return;
         }
         onIframeLoad();
@@ -181,39 +181,39 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var showDetailedMenu = function () {
         var controller = Ioc.get(DetailedMenuController);
         var options = {dragElement: 'menu-head'};
-        _showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, 418, 456, options);
-        _setCloseEventIfNotHitIframe(true);
+        showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, 418, 456, options);
+        setCloseEventIfNotHitIframe(true);
     };
 
     var showSelectorMenu = function () {
         var controller = Ioc.get(SelectorMenuController);
         var options = {dragElement: 'head'};
-        _showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, 668, 213, options);
-        _setCloseEventIfNotHitIframe(false);
+        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, 668, 213, options);
+        setCloseEventIfNotHitIframe(false);
     };
 
     var showSliderMenu = function (element) {
         var controller = Ioc.get(SliderMenuController);
         var options = {element: element, dragElement: 'head'};
-        _showMenuItem(settings.MenuItemsNames.SliderMenu, controller, 668, sliderMenuHeight.normal, options);
-        _setCloseEventIfNotHitIframe(false);
+        showMenuItem(settings.MenuItemsNames.SliderMenu, controller, 668, sliderMenuHeight.normal, options);
+        setCloseEventIfNotHitIframe(false);
     };
 
     var showBlockPreview = function (element, path) {
         var controller = Ioc.get(BlockPreviewController);
         var options = {element: element, path: path, dragElement: 'head'};
-        _showMenuItem(settings.MenuItemsNames.BlockPreview, controller, 668, 213, options);
-        _setCloseEventIfNotHitIframe(false);
+        showMenuItem(settings.MenuItemsNames.BlockPreview, controller, 668, 213, options);
+        setCloseEventIfNotHitIframe(false);
     };
 
     var showSettingsMenu = function () {
         var controller = Ioc.get(SettingsMenuController);
         var options = {dragElement: 'head'};
-        _showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 458, 414, options);
-        _setCloseEventIfNotHitIframe(false);
+        showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 458, 414, options);
+        setCloseEventIfNotHitIframe(false);
     };
 
-    var _localize = function () {
+    var localize = function () {
         var elements = iframe[0].contentDocument.querySelectorAll("[i18n]");
         for (var i = 0; i < elements.length; i++) {
             var message = localization.getMessage(elements[i].getAttribute("i18n"));
@@ -221,7 +221,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         }
     };
 
-    var _resizeIframe = function (width, height) {
+    var resizeIframe = function (width, height) {
         var frame = iframe[0];
         if (width) {
             frame.style.width = width + 'px';
@@ -232,14 +232,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var resizeSliderMenuToAdvanced = function () {
-        _resizeIframe(null, sliderMenuHeight.advanced);
+        resizeIframe(null, sliderMenuHeight.advanced);
     };
 
     var resizeSliderMenuToNormal = function () {
-        _resizeIframe(null, sliderMenuHeight.normal);
+        resizeIframe(null, sliderMenuHeight.normal);
     };
 
-    var _appendContent = function (view) {
+    var appendContent = function (view) {
         var body = iframe[0].contentDocument.body;
         for (var i = 0; i < body.children.length; i++) {
             body.removeChild(body.children[i]);
@@ -247,7 +247,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         body.appendChild(view);
     };
 
-    var _setCloseEventIfNotHitIframe = function (isNeedToBeSet) {
+    var setCloseEventIfNotHitIframe = function (isNeedToBeSet) {
         if (!needSetCloseEvent) {
             return;
         }
@@ -264,7 +264,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var removeIframe = function () {
-        _setCloseEventIfNotHitIframe(false);
+        setCloseEventIfNotHitIframe(false);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

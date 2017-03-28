@@ -14,30 +14,30 @@ var SelectorMenuController = function ($, selector) {
      */
     var init = function (iframe) {
         contentDocument = iframe.contentDocument;
-        _bindEvents();
-        _startSelector();
+        bindEvents();
+        startSelector();
     };
 
-    var _bindEvents = function () {
+    var bindEvents = function () {
         var menuEvents = {
-            '.close': _close,
-            '.btn-default': _close
+            '.close': close,
+            '.btn-default': close
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
 
-    var _close = function () {
+    var close = function () {
         iframeCtrl.removeIframe();
     };
 
-    var _startSelector = function () {
+    var startSelector = function () {
         selector.reset();
-        selector.init(_onElementSelected);
+        selector.init(onElementSelected);
     };
 
-    var _onElementSelected = function (element) {
+    var onElementSelected = function (element) {
         iframeCtrl.showSliderMenu(element);
     };
 

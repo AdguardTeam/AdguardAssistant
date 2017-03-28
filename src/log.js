@@ -14,22 +14,22 @@ var Log = function () {
     };
 
     var debug = function () {
-        _print("DEBUG", "log", arguments);
+        print("DEBUG", "log", arguments);
     };
 
     var info = function () {
-        _print("INFO", "info", arguments);
+        print("INFO", "info", arguments);
     };
 
     var warn = function () {
-        _print("WARN", "info", arguments);
+        print("WARN", "info", arguments);
     };
 
     var error = function () {
-        _print("ERROR", "error", arguments);
+        print("ERROR", "error", arguments);
     };
 
-    var _print = function (level, method, args) {
+    var print = function (level, method, args) {
         //check log level
         if (LogLevels[currentLevel] < LogLevels[level]) {
             return;

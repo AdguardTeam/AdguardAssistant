@@ -10,7 +10,8 @@ var Settings = function (log, gmApi) {
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         BUTTON_POSITION_ITEM_NAME: 'Adguard_Button_Position',
-        IFRAME_ID: 'adguard-assistant-dialog'
+        IFRAME_ID: 'adguard-assistant-dialog',
+        REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
     var MenuItemsNames = {
         DetailedMenu: 'mainMenu.html',
@@ -41,7 +42,7 @@ var Settings = function (log, gmApi) {
         var settings = gmApi.GM_getValue('settings');
         try {
             config = JSON.parse(settings);
-            _validateSettings(config);
+            validateSettings(config);
             log.info('Settings parsed successfully');
         } catch (ex) {
             log.error(ex);
@@ -108,7 +109,7 @@ var Settings = function (log, gmApi) {
         return null;
     };
 
-    var _validateSettings = function (settings) {
+    var validateSettings = function (settings) {
         if (!settings) {
             throw 'Invalid settings object';
         }

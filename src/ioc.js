@@ -6,7 +6,7 @@
 var Ioc = (function () {
     var dependencies = {};
 
-    var add = function (qualifier, obj) {
+    var register = function (qualifier, obj) {
         dependencies[qualifier] = obj;
     };
 
@@ -18,7 +18,7 @@ var Ioc = (function () {
             }
             return resolved;
         }
-        var resolvedDependencies = _resolveDependencies(func);
+        var resolvedDependencies = resolveDependencies(func);
 
         function funcWrapper() {
             return func.apply(func, resolvedDependencies);
@@ -28,8 +28,8 @@ var Ioc = (function () {
         return new funcWrapper();
     };
 
-    var _resolveDependencies = function (func) {
-        var args = _getArguments(func);
+    var resolveDependencies = function (func) {
+        var args = getArguments(func);
         var resolved = [];
         for (var i = 0; i < args.length; i++) {
             var depName = StringUtils.trim(args[i]);
@@ -42,7 +42,7 @@ var Ioc = (function () {
         return resolved;
     };
 
-    var _getArguments = function (func) {
+    var getArguments = function (func) {
         //This regex is from require.js
         var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
         var args = func.toString().match(FN_ARGS)[1].split(',');
@@ -53,7 +53,7 @@ var Ioc = (function () {
     };
 
     return {
-        add: add,
+        register: register,
         get: get
     };
 

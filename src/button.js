@@ -1,25 +1,25 @@
 /**
  * Adguard assistant button
- * @param log
- * @param settings
- * @param uiValidationUtils
- * @param $
- * @param gmApi
- * @param uiUtils
- * @param iframeController
- * @param resources
+ * @param log Logger
+ * @param settings User settings
+ * @param uiValidationUtils Validation utils
+ * @param $ balalaika
+ * @param gmApi Gm API impl
+ * @param uiUtils UI Utils
+ * @param iframeController Iframe controller
+ * @param resources Resources that generates in compiler
  * @returns {{show: show, remove: removeButton}}
  * @constructor
  */
 var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) {
     var button = null;
-    var fullScreenEventsSetted = false;
+    var isFullScreenEventsRegistered = false;
 
     /**
      * Shows Adguard initial button
      */
     var show = function () {
-        if (!_checkRequirements()) {
+        if (!checkRequirements()) {
             log.info("Environment doesn't satisfy requirements, so don't show Adguard");
             return;
         }
@@ -30,16 +30,16 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         button = $(resources.getResource('button.html'));
         gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
-        _setPositionSettingsToButton(button);
+        setPositionSettingsToButton(button);
         $('body')[0].appendChild(button[0]);
-        _registerEvents(button);
+        registerEvents(button);
     };
 
     /**
      * Checking browser and other requirements.
      * @private
      */
-    var _checkRequirements = function () {
+    var checkRequirements = function () {
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
@@ -49,17 +49,17 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!uiValidationUtils.checkVisibleAreaSize()) {
             return false;
         }
-        if (_isButtonAlreadyInDOM()) {
+        if (isButtonAlreadyInDOM()) {
             return false;
         }
         return true;
     };
 
-    var _isButtonAlreadyInDOM = function () {
+    var isButtonAlreadyInDOM = function () {
         return $('.adguard-alert').length > 0;
     };
 
-    var _setUserPositionIfExists = function (button) {
+    var setUserPositionIfExists = function (button) {
         var position = settings.getUserPositionForButton();
         if (!position) {
             return false;
@@ -69,12 +69,12 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         return true;
     };
 
-    var _setPositionSettingsToButton = function (button) {
+    var setPositionSettingsToButton = function (button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
             $(button[0].getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
         }
-        if (_setUserPositionIfExists(button)) {
+        if (setUserPositionIfExists(button)) {
             return;
         }
         if (config.buttonPositionTop) {
@@ -91,18 +91,18 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         }
     };
 
-    var _registerEvents = function (button) {
+    var registerEvents = function (button) {
         var onDragEnd = function (coords) {
             localStorage.setItem(settings.Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
         };
 
         var openMenu = function () {
-            iframeController.setButtonPosition(_getButtonPosition());
+            iframeController.setButtonPosition(getButtonPosition());
             iframeController.showDetailedMenu();
         };
 
-        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu, _removeFixedPosition);
-        _hideRestoreOnFullScreen();
+        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu, removeFixedPosition);
+        hideRestoreOnFullScreen();
     };
 
     /**
@@ -110,13 +110,13 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * @returns {{left: *, top: *}}
      * @private
      */
-    var _getButtonPosition = function () {
+    var getButtonPosition = function () {
         var left = button[0].offsetLeft + button[0].offsetWidth / 2;
         var top = button[0].offsetTop + button[0].offsetHeight / 2;
         return {left: left, top: top};
     };
 
-    var _removeFixedPosition = function () {
+    var removeFixedPosition = function () {
         var buttonPositionClasses = ['adguard-assistant-button-top',
             'adguard-assistant-button-bottom', 'adguard-assistant-button-left', 'adguard-assistant-button-right'];
         for (var i = 0; i < buttonPositionClasses.length; i++) {
@@ -127,25 +127,25 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         }
     };
 
-    var _hideRestoreOnFullScreen = function () {
-        if (fullScreenEventsSetted) {
+    var hideRestoreOnFullScreen = function () {
+        if (isFullScreenEventsRegistered) {
             return;
         }
         $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
             if (uiUtils.tryFullScreenPrefix(document, "FullScreen") || uiUtils.tryFullScreenPrefix(document, "IsFullScreen")) {
-                _hideButton();
+                hideButton();
             } else {
-                _showButton();
+                showButton();
             }
         });
-        fullScreenEventsSetted = true;
+        isFullScreenEventsRegistered = true;
     };
 
-    var _hideButton = function () {
+    var hideButton = function () {
         button.addClass('adguard-hide');
     };
 
-    var _showButton = function () {
+    var showButton = function () {
         button.removeClass('adguard-hide');
     };
 
@@ -154,8 +154,8 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         button = null;
     };
 
-    iframeController.onCloseMenu.attach(_showButton);
-    iframeController.onShowMenuItem.attach(_hideButton);
+    iframeController.onCloseMenu.attach(showButton);
+    iframeController.onShowMenuItem.attach(hideButton);
 
     return {
         show: show,

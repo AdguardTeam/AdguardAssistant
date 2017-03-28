@@ -3,7 +3,7 @@
  * @returns {{attach: attach, notify: notify}}
  * @constructor
  */
-var Event = function () {
+var CustomEvent = function () {
     var listeners = [];
 
     var attach = function (listener) {

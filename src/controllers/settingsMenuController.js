@@ -21,22 +21,22 @@ var SettingsMenuController = function ($, settings, button) {
      */
     var init = function (iframe) {
         contentDocument = iframe.contentDocument;
-        _bindEvents();
-        _setDefaultSettings();
+        bindEvents();
+        setDefaultSettings();
     };
 
-    var _bindEvents = function () {
+    var bindEvents = function () {
         var menuEvents = {
-            '.close': _close,
+            '.close': close,
             '#cancel': iframeCtrl.showDetailedMenu,
-            '#save-settings': _saveSettings
+            '#save-settings': saveSettings
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
 
-    var _saveSettings = function () {
+    var saveSettings = function () {
         var largeIcon = contentDocument.getElementById('size-big').checked;
         var sideItem = null;
         Object.keys(buttonSides).forEach(function (item) {
@@ -52,12 +52,12 @@ var SettingsMenuController = function ($, settings, button) {
             settings.removeUserPosition();
         }
         settings.saveSettings(config);
-        _close();
+        close();
         button.remove();
         button.show();
     };
 
-    var _setDefaultSettings = function () {
+    var setDefaultSettings = function () {
         var currentSettings = settings.getSettings();
         if (currentSettings.largeIcon) {
             contentDocument.getElementById('size-big').checked = true;
@@ -78,7 +78,7 @@ var SettingsMenuController = function ($, settings, button) {
         });
     };
 
-    var _close = function () {
+    var close = function () {
         iframeCtrl.removeIframe();
     };
 

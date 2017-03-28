@@ -15,7 +15,6 @@
 var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) {
     var iframe = null;
     var currentItem = null;
-    var needSetCloseEvent = (document.onclick === null);
     var iframeMaxWidth = 418;
     var iframeMaxHeight = 407;
     var iframePositionOffset = 5;
@@ -37,7 +36,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         };
         var attributes = {
             id: settings.Constants.IFRAME_ID,
-            'class': 'sg_ignore',
+            'class': selector.ignoreClassName(),
             frameBorder: 0,
             allowTransparency: 'true'
         };
@@ -247,24 +246,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         body.appendChild(view);
     };
 
-    var setCloseEventIfNotHitIframe = function (isNeedToBeSet) {
-        if (!needSetCloseEvent) {
-            return;
-        }
-        if (isNeedToBeSet && !document.onclick) {
-            window.setTimeout(function () {
-                document.onclick = function () {
-                    removeIframe();
-                };
-            }, 150);
-        }
-        else {
-            document.onclick = null;
-        }
+    var setCloseEventIfNotHitIframe = function () {
+        window.setTimeout(function () {
+            $(document).on('click', removeIframe);
+        }, 150);
     };
 
     var removeIframe = function () {
-        setCloseEventIfNotHitIframe(false);
+        $(document).off('click', removeIframe);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

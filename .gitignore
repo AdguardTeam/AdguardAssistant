@@ -2,3 +2,6 @@
 src/build
 src/node_modules
 src/less/node_modules
+src/less/skin
+beta.bat
+replace.py

@@ -1,5 +1,3 @@
-var SupportedLocales = {'en': en, 'ru': ru};
-
 /**
  * Object that manages localizations
  * @returns {{getMessage: Function, translateElement: Function}}
@@ -7,6 +5,8 @@ var SupportedLocales = {'en': en, 'ru': ru};
  */
 var Localization = function () {
     var currentLocale = null;
+    var SupportedLocales = {'en': en, 'ru': ru};
+
     if (typeof AdguardSettings != 'undefined') {
         var locale = AdguardSettings.locale;
         if (SupportedLocales[locale]) {

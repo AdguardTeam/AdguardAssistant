@@ -2,9 +2,6 @@
  * String utils
  */
 var StringUtils = {
-    trim: function (str) {
-        return str.replace(/(^\s+|\s+$)/g, '');
-    },
     /**
      * Replaces the format items in a specified String with the text equivalents of the values of corresponding object instances.
      * @param format
@@ -20,7 +17,7 @@ var StringUtils = {
 
 /**
  * Common utils
- * @type {{getParentsLevel: Function, getNodeName: Function, getAllChilds: Function, getChildren: Function, cropDomain: Function}}
+ * @type {{getParentsLevel: Function, getNodeName: Function, getAllChilds: Function, getSingleChildren: Function, cropDomain: Function}}
  */
 var CommonUtils = {
     getParentsLevel: function (element) {
@@ -39,13 +36,13 @@ var CommonUtils = {
     getAllChildren: function (element) {
         var childArray = [];
         var child = element;
-        while ((child = CommonUtils.getChildren(child))) {
+        while ((child = CommonUtils.getSingleChildren(child))) {
             childArray.push(child);
         }
         return childArray;
     },
 
-    getChildren: function (element) {
+    getSingleChildren: function (element) {
         var children = element.childNodes;
         if (children) {
             var count = 0;
@@ -59,13 +56,6 @@ var CommonUtils = {
             }
         }
         return count == 1 ? child : null;
-    },
-
-    fireEvent : function (name, data) {
-        var event = document.createEvent("Events");
-        event.initEvent(name, true, true);
-        event.data = data;
-        document.dispatchEvent(event);
     },
 
     cropDomain: function (domain) {

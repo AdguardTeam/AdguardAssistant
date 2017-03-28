@@ -34,7 +34,6 @@ module.exports = function (grunt) {
                 if (directiveIdx > -1) {
                     return {directive: directive, value: line.substring(directive.length).trim()};
                 }
-                continue;
             }
             return null;
         };

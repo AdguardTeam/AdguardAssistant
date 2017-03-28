@@ -32,7 +32,7 @@ var Ioc = (function () {
         var args = getArguments(func);
         var resolved = [];
         for (var i = 0; i < args.length; i++) {
-            var depName = StringUtils.trim(args[i]);
+            var depName = args[i].trim();
             var dep = dependencies[depName];
             if (!dep) {
                 throw  "Can't find dependency: " + depName;

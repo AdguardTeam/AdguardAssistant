@@ -10,32 +10,32 @@
  */
 var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) {
     if (!ADG_addRule) {
-        var ADG_addRule = function (rule) {
-            alert(rule + ' rule added');
+        ADG_addRule = function (rule) {
+            alert('GM_api is not supported. ' + rule + ' rule added');
         };
     }
 
     if (!ADG_sendAbuse) {
-        var ADG_sendAbuse = function (url) {
-            alert(url + 'abused');
+        ADG_sendAbuse = function (url) {
+            alert('GM_api is not supported. ' + url + 'abused');
         };
     }
 
     if (!ADG_temporaryDontBlock) {
-        var ADG_temporaryDontBlock = function (timeout) {
-            alert('Do not block for ' + timeout + ' seconds');
+        ADG_temporaryDontBlock = function (timeout) {
+            alert('GM_api is not supported. ' + 'Do not block for ' + timeout + ' seconds');
         };
     }
 
     if (!ADG_isFiltered) {
-        var ADG_isFiltered = function () {
+        ADG_isFiltered = function () {
             return true;
         };
     }
 
     if (!ADG_changeFilteringState) {
-        var ADG_changeFilteringState = function () {
-            alert('State changed');
+        ADG_changeFilteringState = function () {
+            alert('GM_api is not supported. ' + 'State changed');
         };
     }
 

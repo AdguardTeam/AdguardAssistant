@@ -93,7 +93,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
 
     var registerEvents = function (button) {
         var onDragEnd = function (coords) {
-            localStorage.setItem(settings.Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
+            settings.setUserPosition(coords);
         };
 
         var openMenu = function () {
@@ -150,6 +150,9 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
     };
 
     var removeButton = function () {
+        if (!button) {
+            return;
+        }
         $('body')[0].removeChild(button[0]);
         button = null;
     };

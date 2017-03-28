@@ -37,13 +37,13 @@ var Settings = function (log, gmApi) {
 
     var loadSettings = function () {
         var config;
-        log.info("Trying to get settings");
+        log.debug("Trying to get settings");
         // Empty settings
         var settings = gmApi.GM_getValue('settings');
         try {
             config = JSON.parse(settings);
             validateSettings(config);
-            log.info('Settings parsed successfully');
+            log.debug('Settings parsed successfully');
         } catch (ex) {
             log.error(ex);
             config = JSON.parse(JSON.stringify(DefaultConfig));
@@ -86,12 +86,16 @@ var Settings = function (log, gmApi) {
     };
 
     var removeUserPosition = function () {
-        localStorage.removeItem(settings.Constants.BUTTON_POSITION_ITEM_NAME);
+        localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
+    };
+
+    var setUserPosition = function (coords) {
+        localStorage.setItem(settings.Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
     };
 
     var getUserPositionForButton = function () {
         try {
-            var userPosition = localStorage.getItem(settings.Constants.BUTTON_POSITION_ITEM_NAME);
+            var userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
             log.info("Check user position for domain");
             if (userPosition) {
                 log.info("User position is set for this domain");
@@ -137,6 +141,7 @@ var Settings = function (log, gmApi) {
         saveSettings: saveSettings,
         getUserPositionForButton: getUserPositionForButton,
         removeUserPosition: removeUserPosition,
+        setUserPosition: setUserPosition,
         selectedElement: selectedElement,
         setAdguardSettings: setAdguardSettings,
         getAdguardSettings: getAdguardSettings

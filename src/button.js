@@ -31,7 +31,11 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
-        $('body')[0].appendChild(button[0]);
+        var body = $('body')[0];
+        if (!body){
+            log.error('Cant find body');
+        }
+        body.appendChild(button[0]);
         registerEvents(button);
     };
 

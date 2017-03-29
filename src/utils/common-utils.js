@@ -5,9 +5,8 @@ var StringUtils = {
     /**
      * Replaces the format items in a specified String with the text equivalents of the values of corresponding object instances.
      * @param format
-     * @param args
      */
-    format: function (format, args) {
+    format: function (format) {
         for (var i = 1; i < arguments.length; i++) {
             format = format.replace('{' + (i - 1) + '}', arguments[i]);
         }
@@ -54,8 +53,8 @@ var CommonUtils = {
                     count++;
                 }
             }
+            return count == 1 ? child : null;
         }
-        return count == 1 ? child : null;
     },
 
     cropDomain: function (domain) {

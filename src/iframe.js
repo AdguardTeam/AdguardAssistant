@@ -56,7 +56,12 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             appendDefaultStyle();
             onIframeLoadCallback();
         });
-        $('body')[0].appendChild(iframe[0]);
+        var body = $('body')[0];
+        if (!body) {
+            log.error("Body not found");
+            return;
+        }
+        body.appendChild(iframe[0]);
     };
 
     var getIframePosition = function () {
@@ -128,7 +133,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var doc = iframe[0].contentDocument;
             doc.open();
             doc.write(StringUtils.format("<html><head>{0}</head></html>",
-                '<style ' + getStyleNonce() + ' type="text/css">' + resources.getResource('style.css') + '</style>'));
+                StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), resources.getResource('style.css'))));
             doc.close();
         } catch (ex) {
             log.error(ex);

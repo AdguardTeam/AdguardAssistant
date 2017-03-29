@@ -49,7 +49,7 @@ var SettingsMenuController = function ($, settings, button) {
         if (sideItem) {
             config.buttonPositionTop = buttonSides[sideItem].top;
             config.buttonPositionLeft = buttonSides[sideItem].left;
-            settings.removeUserPosition();
+            settings.removeUserPositionForButton();
         }
         settings.saveSettings(config);
         close();

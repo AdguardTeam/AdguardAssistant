@@ -20,7 +20,7 @@ var UIUtils = function ($) {
             };
         };
 
-        element.onmousedown = function (e) {
+        $(element).on('mousedown', function (e) {
             var coords = getCoords(element);
             var shiftX = e.pageX - coords.left;
             var shiftY = e.pageY - coords.top;
@@ -37,13 +37,14 @@ var UIUtils = function ($) {
                 onMouseDown();
             }
 
-            document.onmousemove = function (e) {
+            var onMouseMove = function (e) {
                 moveAt(e);
             };
+            $(document).on('mousemove', onMouseMove);
 
-            element.onmouseup = function (e) {
-                document.onmousemove = null;
-                element.onmouseup = null;
+            var onMouseUp = function (e) {
+                $(document).off('mousemove', onMouseMove);
+                $(element).off('mouseup', onMouseUp);
                 var lastCoords = getCoords(element);
                 if ((coords.left != lastCoords.left) || (coords.top != lastCoords.top)) {
                     if (onDragEnd) {
@@ -57,11 +58,12 @@ var UIUtils = function ($) {
                     }
                 }
             };
-        };
+            $(element).on('mouseup', onMouseUp);
+        });
 
-        element.ondragstart = function () {
+        $(element).on('dragstart', function () {
             return false;
-        };
+        });
     };
 
     /**
@@ -145,18 +147,22 @@ var UIUtils = function ($) {
         $iframeDocument.on('mouseup', onMouseUp);
     };
 
-    var browser_prefixes = ["webkit", "moz", "ms", "o", ""];
+    var browserPrefixes = ["webkit", "moz", "ms", "o", ""];
+
+    /*
+     Checks prefixes for full screen mode.
+     */
     var tryFullScreenPrefix = function (obj, method) {
         var i = 0, currentMethod, type;
-        while (i < browser_prefixes.length && !obj[currentMethod]) {
+        while (i < browserPrefixes.length && !obj[currentMethod]) {
             currentMethod = method;
-            if (browser_prefixes[i] == "") {
+            if (browserPrefixes[i] === "") {
                 currentMethod = currentMethod.substr(0, 1).toLowerCase() + currentMethod.substr(1);
             }
-            currentMethod = browser_prefixes[i] + currentMethod;
+            currentMethod = browserPrefixes[i] + currentMethod;
             type = typeof obj[currentMethod];
             if (type != "undefined") {
-                browser_prefixes = [browser_prefixes[i]];
+                browserPrefixes = [browserPrefixes[i]];
                 return (type == "function" ? obj[currentMethod]() : obj[currentMethod]);
             }
             i++;
@@ -167,7 +173,7 @@ var UIUtils = function ($) {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix
-    }
+    };
 };
 
 /**
@@ -191,8 +197,8 @@ var UIValidationUtils = function (settings) {
         var viewPortWidth;
         var viewPortHeight;
 
-        viewPortWidth = window.innerWidth,
-            viewPortHeight = window.innerHeight;
+        viewPortWidth = window.innerWidth;
+        viewPortHeight = window.innerHeight;
 
         return {width: viewPortWidth, height: viewPortHeight};
     };
@@ -210,7 +216,9 @@ var UIValidationUtils = function (settings) {
      */
     var validatePage = function () {
         // Assistant do not work in iframes
-        if (window != top) return false;
+        if (window !== top) {
+            return false;
+        }
 
         // Check for necessary html elements existence
         return document.getElementsByTagName('head').length &&
@@ -223,7 +231,7 @@ var UIValidationUtils = function (settings) {
         validateBrowser: validateBrowser,
         validatePage: validatePage,
         getViewPort: getViewPort
-    }
+    };
 };
 
 

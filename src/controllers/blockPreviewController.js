@@ -37,12 +37,16 @@ var BlockPreviewController = function ($, selector, gmApi) {
     };
 
     var hideElement = function () {
-        if (!selectedElement) return;
+        if (!selectedElement) {
+            return;
+        }
         $(selectedElement).addClass('adguard-hide');
     };
 
     var showElement = function () {
-        if (!selectedElement) return;
+        if (!selectedElement) {
+            return;
+        }
         $(selectedElement).removeClass('adguard-hide');
     };
 

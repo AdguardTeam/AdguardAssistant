@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Simple ioc implementation
  * @type {{add, get}}
@@ -14,7 +13,7 @@ var Ioc = (function () {
         if (typeof func == 'string') {
             var resolved = dependencies[func];
             if (!resolved) {
-                throw StringUtils.format("Can't resolve {0}", func);
+                throw "Can't resolve " + func;
             }
             return resolved;
         }

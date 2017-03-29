@@ -19,6 +19,10 @@ var Localization = function () {
 
 
     var getMessage = function (messageId) {
+        var message = SupportedLocales[currentLocale][messageId];
+        if (!message) {
+            throw messageId + ' not localized';
+        }
         return SupportedLocales[currentLocale][messageId].message;
     };
 

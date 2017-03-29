@@ -2,7 +2,7 @@
  * Object that manages user settings.
  * @param log
  * @param gmApi
- * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPosition: removeUserPosition, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
+ * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
  * @constructor
  */
 var Settings = function (log, gmApi) {
@@ -29,7 +29,6 @@ var Settings = function (log, gmApi) {
         scriptVersion: 1
     };
 
-    var selectedElement = null;
     var wotData = null;
     var adguardSettings = null;
 
@@ -85,12 +84,12 @@ var Settings = function (log, gmApi) {
         return adguardSettings;
     };
 
-    var removeUserPosition = function () {
+    var removeUserPositionForButton = function () {
         localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
     };
 
-    var setUserPosition = function (coords) {
-        localStorage.setItem(settings.Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
+    var setUserPositionForButton = function (coords) {
+        localStorage.setItem(Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
     };
 
     var getUserPositionForButton = function () {
@@ -99,15 +98,11 @@ var Settings = function (log, gmApi) {
             log.info("Check user position for domain");
             if (userPosition) {
                 log.info("User position is set for this domain");
-                var position = JSON.parse(userPosition);
-                if (!position.top || !position.left) {
-                    removeUserPosition();
-                    throw "Invalid position";
-                }
-                return position;
+                return JSON.parse(userPosition);
             }
         }
         catch (ex) {
+            removeUserPositionForButton();
             log.error(ex);
         }
         return null;
@@ -140,9 +135,8 @@ var Settings = function (log, gmApi) {
         setWotData: setWotData,
         saveSettings: saveSettings,
         getUserPositionForButton: getUserPositionForButton,
-        removeUserPosition: removeUserPosition,
-        setUserPosition: setUserPosition,
-        selectedElement: selectedElement,
+        removeUserPositionForButton: removeUserPositionForButton,
+        setUserPositionForButton: setUserPositionForButton,
         setAdguardSettings: setAdguardSettings,
         getAdguardSettings: getAdguardSettings
     };

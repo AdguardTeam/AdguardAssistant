@@ -93,7 +93,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
 
     var registerEvents = function (button) {
         var onDragEnd = function (coords) {
-            settings.setUserPosition(coords);
+            settings.setUserPositionForButton(coords);
         };
 
         var openMenu = function () {
@@ -142,10 +142,16 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
     };
 
     var hideButton = function () {
+        if (!button) {
+            return;
+        }
         button.addClass('adguard-hide');
     };
 
     var showButton = function () {
+        if (!button) {
+            return;
+        }
         button.removeClass('adguard-hide');
     };
 

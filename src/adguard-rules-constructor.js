@@ -23,7 +23,7 @@ var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
     var makeDefaultCssFilter = function (element, classList, excludeTagName, excludeId) {
         var cssSelector = excludeTagName ? '' : element.tagName.toLowerCase();
         if (element.id && !excludeId) {
-            cssSelector += '#' + CSS.escape(element.id);
+            cssSelector += '#' + cssEscape(element.id);
         }
         cssSelector += constructClassCssSelectorByAND(classList || element.classList);
         return cssSelector;
@@ -234,7 +234,7 @@ var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
         var selectors = [];
         if (classList) {
             for (var i = 0; i < classList.length; i++) {
-                selectors.push('.' + CSS.escape(classList[i]));
+                selectors.push('.' + cssEscape(classList[i]));
             }
         }
         return selectors.join('');
@@ -249,7 +249,7 @@ var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
         var selectors = [];
         if (classList) {
             for (var i = 0; i < classList.length; i++) {
-                selectors.push('.' + CSS.escape(classList[i]));
+                selectors.push('.' + cssEscape(classList[i]));
             }
         }
         return selectors.join(', ');

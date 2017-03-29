@@ -7,7 +7,7 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, punycode, StringUtils */
+/* global Ioc, StringUtils, punycode */
 var DetailedMenuController = function ($, wot, localization, gmApi, settings) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = null;

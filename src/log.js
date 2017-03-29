@@ -3,7 +3,8 @@
  * @returns {{warn: warn, info: info, debug: debug, error: error}}
  * @constructor
  */
-var Log = function () {
+var Log = function () { // jshint ignore:line
+
     var currentLevel = "INFO";
 
     var LogLevels = {
@@ -11,6 +12,26 @@ var Log = function () {
         WARN: 2,
         INFO: 3,
         DEBUG: 4
+    };
+
+    var print = function (level, method, args) {
+        //check log level
+        if (LogLevels[currentLevel] < LogLevels[level]) {
+            return;
+        }
+        if (!args || args.length === 0 || !args[0]) {
+            return;
+        }
+        var str = args[0] + "";
+        args = Array.prototype.slice.call(args, 1);
+        var formatted = str.replace(/{(\d+)}/g, function (match, number) {
+            return typeof  args[number] !== "undefined" ? args[number] : match;
+        });
+        if (LogLevels[level] >= LogLevels[currentLevel]) {
+            var now = new Date();
+            formatted = now.toISOString() + ": " + formatted;
+        }
+        console[method](formatted);
     };
 
     var debug = function () {
@@ -29,25 +50,6 @@ var Log = function () {
         print("ERROR", "error", arguments);
     };
 
-    var print = function (level, method, args) {
-        //check log level
-        if (LogLevels[currentLevel] < LogLevels[level]) {
-            return;
-        }
-        if (!args || args.length === 0 || !args[0]) {
-            return;
-        }
-        var str = args[0] + "";
-        args = Array.prototype.slice.call(args, 1);
-        var formatted = str.replace(/{(\d+)}/g, function (match, number) {
-            return typeof  args[number] != "undefined" ? args[number] : match;
-        });
-        if (LogLevels[level] >= LogLevels["INFO"]) {
-            var now = new Date();
-            formatted = now.toISOString() + ": " + formatted;
-        }
-        console[method](formatted);
-    };
     return {
         warn: warn,
         info: info,

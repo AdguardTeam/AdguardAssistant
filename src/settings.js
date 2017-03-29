@@ -5,7 +5,7 @@
  * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
  * @constructor
  */
-var Settings = function (log, gmApi) {
+var Settings = function (log, gmApi) { // jshint ignore:line
     var Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
@@ -46,7 +46,7 @@ var Settings = function (log, gmApi) {
         } catch (ex) {
             log.error(ex);
             config = JSON.parse(JSON.stringify(DefaultConfig));
-            if (typeof settings != 'undefined') {
+            if (typeof settings !== 'undefined') {
                 config.assistantFirstStart = false;
             }
             saveSettings(config);
@@ -55,7 +55,7 @@ var Settings = function (log, gmApi) {
     };
 
     var saveSettings = function (config) {
-        log.info("Saving settings");
+        log.debug("Saving settings");
         gmApi.GM_setValue('settings', JSON.stringify(config));
         Config = config;
     };
@@ -73,7 +73,7 @@ var Settings = function (log, gmApi) {
     };
 
     var setAdguardSettings = function (settings) {
-        if (typeof settings == 'undefined') {
+        if (typeof settings === 'undefined') {
             log.info("No Adguard API Found");
             return;
         }
@@ -100,8 +100,7 @@ var Settings = function (log, gmApi) {
                 log.info("User position is set for this domain");
                 return JSON.parse(userPosition);
             }
-        }
-        catch (ex) {
+        } catch (ex) {
             removeUserPositionForButton();
             log.error(ex);
         }
@@ -117,7 +116,7 @@ var Settings = function (log, gmApi) {
                 continue;
             }
             var property = DefaultConfig[prop];
-            if (typeof property != typeof settings[prop]) {
+            if (typeof property !== typeof settings[prop]) {
                 throw 'Invalid settings object';
             }
         }

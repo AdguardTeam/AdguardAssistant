@@ -6,7 +6,8 @@
  * @returns {{init: init}}
  * @constructor
  */
-var SettingsMenuController = function ($, settings, button) {
+/* global Ioc */
+var SettingsMenuController = function ($, settings, button) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = Ioc.get('iframeController');
     var buttonSides = {
@@ -23,6 +24,10 @@ var SettingsMenuController = function ($, settings, button) {
         contentDocument = iframe.contentDocument;
         bindEvents();
         setDefaultSettings();
+    };
+
+    var close = function () {
+        iframeCtrl.removeIframe();
     };
 
     var bindEvents = function () {
@@ -61,8 +66,7 @@ var SettingsMenuController = function ($, settings, button) {
         var currentSettings = settings.getSettings();
         if (currentSettings.largeIcon) {
             contentDocument.getElementById('size-big').checked = true;
-        }
-        else {
+        } else {
             contentDocument.getElementById('size-small').checked = true;
         }
         var position = settings.getUserPositionForButton();
@@ -72,14 +76,10 @@ var SettingsMenuController = function ($, settings, button) {
         var sideFromSettings = {top: currentSettings.buttonPositionTop, left: currentSettings.buttonPositionLeft};
         Object.keys(buttonSides).forEach(function (item) {
             var sideItem = buttonSides[item];
-            if ((sideItem.left == sideFromSettings.left) && (sideItem.top == sideFromSettings.top)) {
+            if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
                 contentDocument.getElementById(item).checked = true;
             }
         });
-    };
-
-    var close = function () {
-        iframeCtrl.removeIframe();
     };
 
     return {

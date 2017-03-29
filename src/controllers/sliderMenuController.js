@@ -7,10 +7,11 @@
  * @param adguardRulesConstructor
  * @param localization
  * @param gmApi
- * @returns {{init: init, setSelectedElement: setSelectedElement}}
+ * @returns {{init: init}}
  * @constructor
  */
-var SliderMenuController = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, gmApi) {
+/* global Ioc, CommonUtils */
+var SliderMenuController = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, gmApi) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
     var iframeCtrl = Ioc.get('iframeController');
@@ -25,6 +26,10 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         createSlider();
         onScopeChange();
         selector.selectElement(selectedElement);
+    };
+
+    var close = function () {
+        iframeCtrl.removeIframe();
     };
 
     var bindEvents = function () {
@@ -71,7 +76,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         var min = 1;
         var options = {value: value, min: min, max: max};
         var slider = contentDocument.getElementById('slider');
-        if (min == max) {
+        if (min === max) {
             //hide slider text
             $(slider).hide();
             $(contentDocument.getElementsByClassName('element-rule_text')).hide();
@@ -183,10 +188,6 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
     var getFilterRuleInputText = function () {
         return contentDocument.getElementById('filter-rule').value;
-    };
-
-    var close = function () {
-        iframeCtrl.removeIframe();
     };
 
     return {

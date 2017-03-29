@@ -2,7 +2,7 @@
  * Simple ioc implementation
  * @type {{add, get}}
  */
-var Ioc = (function () {
+var Ioc = (function () { // jshint ignore:line
     var dependencies = {};
 
     var register = function (qualifier, obj) {
@@ -10,7 +10,7 @@ var Ioc = (function () {
     };
 
     var get = function (func) {
-        if (typeof func == 'string') {
+        if (typeof func === 'string') {
             var resolved = dependencies[func];
             if (!resolved) {
                 throw "Can't resolve " + func;
@@ -19,12 +19,12 @@ var Ioc = (function () {
         }
         var resolvedDependencies = resolveDependencies(func);
 
-        function funcWrapper() {
+        function FuncWrapper() {
             return func.apply(func, resolvedDependencies);
         }
 
-        funcWrapper.prototype = func.prototype;
-        return new funcWrapper();
+        FuncWrapper.prototype = func.prototype;
+        return new FuncWrapper();
     };
 
     var resolveDependencies = function (func) {

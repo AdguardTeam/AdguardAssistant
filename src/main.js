@@ -1,11 +1,15 @@
+/* global Ioc, Log, GM, Resources, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
+
+/* global ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState */
+
 (function () {
     Ioc.register('log', new Log());
 
-    var addRule = typeof (ADG_addRule) == 'undefined' ? null : ADG_addRule;
-    var dontBlock = typeof (ADG_temporaryDontBlock) == 'undefined' ? null : ADG_temporaryDontBlock;
-    var sendAbuse = typeof (ADG_sendAbuse) == 'undefined' ? null : ADG_sendAbuse;
-    var checkRule = typeof (ADG_isFiltered) == 'undefined' ? null : ADG_isFiltered;
-    var changeFilteringState = typeof (ADG_changeFilteringState) == 'undefined' ? null : ADG_changeFilteringState;
+    var addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
+    var dontBlock = typeof (ADG_temporaryDontBlock) === 'undefined' ? null : ADG_temporaryDontBlock;
+    var sendAbuse = typeof (ADG_sendAbuse) === 'undefined' ? null : ADG_sendAbuse;
+    var checkRule = typeof (ADG_isFiltered) === 'undefined' ? null : ADG_isFiltered;
+    var changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
 
     Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState));
 

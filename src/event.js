@@ -3,7 +3,7 @@
  * @returns {{attach: attach, notify: notify}}
  * @constructor
  */
-var CustomEvent = function () {
+var CustomEvent = function () { // jshint ignore:line
     var listeners = [];
 
     var attach = function (listener) {

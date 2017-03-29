@@ -3,7 +3,8 @@
  * @returns {{registerWotEventHandler: Function, getWotData: Function, getWotScorecardUrl: Function, WOT_URL: string}}
  * @constructor
  */
-var Wot = function () {
+/* global StringUtils */
+var Wot = function () { // jshint ignore:line
     var wotUrlScorecardTemplate = 'http://adguard.com/wot-scorecard.html?domain={0}';
     var WOT_URL = 'http://adguard.com/wot.html';
     var wotData = null;

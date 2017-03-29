@@ -4,12 +4,13 @@
  * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function, tryFullScreenPrefix: Function}}
  * @constructor
  */
-var UIUtils = function ($) {
+var UIUtils = function ($) { // jshint ignore:line
     /**
      * Make element draggable
      * @param element
      * @param onDragEnd
      * @param onClick
+     * @param onMouseDown
      */
     var makeElementDraggable = function (element, onDragEnd, onClick, onMouseDown) {
         var getCoords = function (elem) {
@@ -46,7 +47,7 @@ var UIUtils = function ($) {
                 $(document).off('mousemove', onMouseMove);
                 $(element).off('mouseup', onMouseUp);
                 var lastCoords = getCoords(element);
-                if ((coords.left != lastCoords.left) || (coords.top != lastCoords.top)) {
+                if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
                         onDragEnd(getCoords(element));
                     }
@@ -70,6 +71,7 @@ var UIUtils = function ($) {
      * Makes iframe draggable
      *
      * @param iframe
+     * @param handleElement
      */
     var makeIframeDraggable = function (iframe, handleElement) {
 
@@ -153,7 +155,7 @@ var UIUtils = function ($) {
      Checks prefixes for full screen mode.
      */
     var tryFullScreenPrefix = function (obj, method) {
-        var i = 0, currentMethod, type;
+        var i = 0, currentMethod = null, type;
         while (i < browserPrefixes.length && !obj[currentMethod]) {
             currentMethod = method;
             if (browserPrefixes[i] === "") {
@@ -161,9 +163,9 @@ var UIUtils = function ($) {
             }
             currentMethod = browserPrefixes[i] + currentMethod;
             type = typeof obj[currentMethod];
-            if (type != "undefined") {
+            if (type !== "undefined") {
                 browserPrefixes = [browserPrefixes[i]];
-                return (type == "function" ? obj[currentMethod]() : obj[currentMethod]);
+                return (type === "function" ? obj[currentMethod]() : obj[currentMethod]);
             }
             i++;
         }
@@ -182,7 +184,7 @@ var UIUtils = function ($) {
  * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage}}
  * @constructor
  */
-var UIValidationUtils = function (settings) {
+var UIValidationUtils = function (settings) { // jshint ignore:line
     var document = window.document;
     /**
      * Check if visible area are enough to show menu.

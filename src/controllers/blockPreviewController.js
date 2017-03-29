@@ -3,17 +3,18 @@
  * @param $
  * @param selector
  * @param gmApi
- * @returns {{init: init, setSelectedElement: setSelectedElement}}
+ * @returns {{init: init}}
  * @constructor
  */
-var BlockPreviewController = function ($, selector, gmApi) {
+/* global Ioc */
+var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
     var selectedPath = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
-    Called from IframeController.showMenuItem to initialize view
+     Called from IframeController.showMenuItem to initialize view
      */
     var init = function (iframe, options) {
         selectedElement = options.element;
@@ -22,6 +23,11 @@ var BlockPreviewController = function ($, selector, gmApi) {
         selector.reset();
         bindEvents();
         hideElement();
+    };
+
+    var close = function () {
+        showElement();
+        iframeCtrl.removeIframe();
     };
 
     var bindEvents = function () {
@@ -62,11 +68,6 @@ var BlockPreviewController = function ($, selector, gmApi) {
     var showDetailedMenu = function () {
         showElement();
         iframeCtrl.showSliderMenu(selectedElement);
-    };
-
-    var close = function () {
-        showElement();
-        iframeCtrl.removeIframe();
     };
 
     return {

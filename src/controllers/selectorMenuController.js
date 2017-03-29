@@ -5,7 +5,8 @@
  * @returns {{init: init}}
  * @constructor
  */
-var SelectorMenuController = function ($, selector) {
+/* global Ioc */
+var SelectorMenuController = function ($, selector) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = Ioc.get('iframeController');
 
@@ -18,6 +19,10 @@ var SelectorMenuController = function ($, selector) {
         startSelector();
     };
 
+    var close = function () {
+        iframeCtrl.removeIframe();
+    };
+
     var bindEvents = function () {
         var menuEvents = {
             '.close': close,
@@ -27,11 +32,6 @@ var SelectorMenuController = function ($, selector) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
-
-    var close = function () {
-        iframeCtrl.removeIframe();
-    };
-
     var startSelector = function () {
         selector.reset();
         selector.init(onElementSelected);

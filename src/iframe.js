@@ -12,7 +12,8 @@
  * @returns {{showDetailedMenu: showDetailedMenu, showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, showSettingsMenu: showSettingsMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
  * @constructor
  */
-var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) {
+/* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
+var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
     var iframe = null;
     var currentItem = null;
     var iframeMaxWidth = 418;
@@ -150,7 +151,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var showMenuItem = function (viewName, controller, width, height, options) {
         log.debug(StringUtils.format("Showing menu item: {0}", viewName));
-        if (currentItem == viewName) {
+        if (currentItem === viewName) {
             return;
         }
         var onIframeLoad = function () {

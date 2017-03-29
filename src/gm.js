@@ -8,7 +8,8 @@
  * @returns {{GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
  * @constructor
  */
-var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) {
+/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
+var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) { // jshint ignore:line
     if (!ADG_addRule) {
         ADG_addRule = function (rule) {
             alert('GM_api is not supported. ' + rule + ' rule added');

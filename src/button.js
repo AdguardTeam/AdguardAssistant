@@ -8,10 +8,10 @@
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
  * @param resources Resources that generates in compiler
- * @returns {{show: show, remove: removeButton}}
+ * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) {
+var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
     var isFullScreenEventsRegistered = false;
 

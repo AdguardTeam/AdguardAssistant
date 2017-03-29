@@ -3,11 +3,13 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-var Localization = function () {
+/* global en, ru, AdguardSettings */
+
+var Localization = function () { // jshint ignore:line
     var currentLocale = null;
     var SupportedLocales = {'en': en, 'ru': ru};
 
-    if (typeof AdguardSettings != 'undefined') {
+    if (typeof AdguardSettings !== 'undefined') {
         var locale = AdguardSettings.locale;
         if (SupportedLocales[locale]) {
             currentLocale = locale;

@@ -2,7 +2,7 @@
  * Slider widget
  * @type {Function}
  */
-var SliderWidget = (function (api, $) {
+var SliderWidget = (function (api, $) { // jshint ignore:line
     var PLACEHOLDER_CLASS = "adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all";
     var HANDLE_CLASS = "ui-slider-handle";
     var HANDLE_FULL_CLASS = "ui-slider-handle ui-state-default ui-corner-all";

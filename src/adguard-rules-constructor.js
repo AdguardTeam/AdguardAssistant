@@ -2,7 +2,7 @@
  * Adguard rules constructor
  * @type {Function}
  */
-var AdguardRulesConstructorLib = (function (api) {
+var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
 
     var CSS_RULE_MARK = '##';
     var RULE_OPTIONS_MARK = '$';
@@ -195,7 +195,7 @@ var AdguardRulesConstructorLib = (function (api) {
     };
 
     var haveIdAttribute = function (element) {
-        return element.id && element.id.trim() != '';
+        return element.id && element.id.trim() !== '';
     };
 
     var cropDomain = function (url) {
@@ -214,7 +214,7 @@ var AdguardRulesConstructorLib = (function (api) {
         };
     };
 
-    var isValidUrl = function(value) {
+    var isValidUrl = function (value) {
         if (value) {
             linkHelper.href = value;
             if (linkHelper.hostname) {
@@ -374,4 +374,4 @@ var AdguardRulesConstructorLib = (function (api) {
 
     return api;
 
-});
+};

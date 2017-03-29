@@ -1,7 +1,7 @@
 /**
  * String utils
  */
-var StringUtils = {
+var StringUtils = { // jshint ignore:line
     /**
      * Replaces the format items in a specified String with the text equivalents of the values of corresponding object instances.
      * @param format
@@ -18,11 +18,12 @@ var StringUtils = {
  * Common utils
  * @type {{getParentsLevel: Function, getNodeName: Function, getAllChilds: Function, getSingleChildren: Function, cropDomain: Function}}
  */
-var CommonUtils = {
+var CommonUtils = { // jshint ignore:line
+
     getParentsLevel: function (element) {
         var parent = element;
         var parentArr = [];
-        while ((parent = parent.parentNode) && CommonUtils.getNodeName(parent) != "BODY") {
+        while ((parent = parent.parentNode) && this.getNodeName(parent) !== "BODY") {
             parentArr.push(parent);
         }
         return parentArr;
@@ -35,7 +36,7 @@ var CommonUtils = {
     getAllChildren: function (element) {
         var childArray = [];
         var child = element;
-        while ((child = CommonUtils.getSingleChildren(child))) {
+        while ((child = this.getSingleChildren(child))) {
             childArray.push(child);
         }
         return childArray;
@@ -48,12 +49,12 @@ var CommonUtils = {
             var child;
             var i;
             for (i = 0; i < children.length; i++) {
-                if (children[i].nodeType == 1) {
+                if (children[i].nodeType === 1) {
                     child = children[i];
                     count++;
                 }
             }
-            return count == 1 ? child : null;
+            return count === 1 ? child : null;
         }
     },
 
@@ -84,10 +85,12 @@ var Base64 = {
             chr2 = input.charCodeAt(i++);
             chr3 = input.charCodeAt(i++);
 
+            // jshint ignore:start
             enc1 = chr1 >> 2;
             enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
             enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
             enc4 = chr3 & 63;
+            // jshint ignore:end
 
             if (isNaN(chr2)) {
                 enc3 = enc4 = 64;
@@ -120,16 +123,18 @@ var Base64 = {
             enc3 = Base64._keyStr.indexOf(input.charAt(i++));
             enc4 = Base64._keyStr.indexOf(input.charAt(i++));
 
+            // jshint ignore:start
             chr1 = (enc1 << 2) | (enc2 >> 4);
             chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
             chr3 = ((enc3 & 3) << 6) | enc4;
+            // jshint ignore:end
 
             output = output + String.fromCharCode(chr1);
 
-            if (enc3 != 64) {
+            if (enc3 !== 64) {
                 output = output + String.fromCharCode(chr2);
             }
-            if (enc4 != 64) {
+            if (enc4 !== 64) {
                 output = output + String.fromCharCode(chr3);
             }
 
@@ -146,6 +151,7 @@ var Base64 = {
         string = string.replace(/\r\n/g, "\n");
         var utftext = "";
 
+        // jshint ignore:start
         for (var n = 0; n < string.length; n++) {
 
             var c = string.charCodeAt(n);
@@ -160,8 +166,8 @@ var Base64 = {
                 utftext += String.fromCharCode(((c >> 6) & 63) | 128);
                 utftext += String.fromCharCode((c & 63) | 128);
             }
-
         }
+        // jshint ignore:end
 
         return utftext;
     },
@@ -171,7 +177,6 @@ var Base64 = {
         var string = "";
         var i = 0;
         var c = 0;
-        var c1 = 0;
         var c2 = 0;
         var c3 = 0;
 
@@ -184,12 +189,12 @@ var Base64 = {
                 i++;
             } else if ((c > 191) && (c < 224)) {
                 c2 = utftext.charCodeAt(i + 1);
-                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                string += String.fromCharCode(((c & 31) << 6) | (c2 & 63)); // jshint ignore:line
                 i += 2;
             } else {
                 c2 = utftext.charCodeAt(i + 1);
                 c3 = utftext.charCodeAt(i + 2);
-                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)); // jshint ignore:line
                 i += 3;
             }
 

@@ -1,0 +1,83 @@
+.adguard-alert {
+    cursor: pointer;
+    position: fixed !important;
+    font: 12px Arial, sans-serif !important;
+    line-height: 1.5 !important;
+    z-index: 2147483646 !important;
+    width: auto !important;
+    background: none !important;
+    height: auto !important;
+    zoom: 1 !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+    padding: 10px !important;
+    will-change: transform;
+}
+
+.adguard-hide {
+    display: none !important;
+}
+
+.adguard-assistant-button-right {
+    right: 0 !important;
+}
+
+.adguard-assistant-button-left {
+    left: 0 !important;
+}
+
+.adguard-assistant-button-bottom {
+    bottom: 0 !important;
+}
+
+.adguard-assistant-button-top {
+    top: 0 !important;
+}
+
+.adguard-logo {
+    display: inline-block !important;
+    vertical-align: top !important;
+    width: 1em !important;
+    line-height: 1 !important;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8IS0tIENyZWF0b3I6IENvcmVsRFJBVyBYNyAtLT4NCjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTAwcHgiIGhlaWdodD0iMTAwcHgiIHZlcnNpb249IjEuMSIgc3R5bGU9InNoYXBlLXJlbmRlcmluZzpnZW9tZXRyaWNQcmVjaXNpb247IHRleHQtcmVuZGVyaW5nOmdlb21ldHJpY1ByZWNpc2lvbjsgaW1hZ2UtcmVuZGVyaW5nOm9wdGltaXplUXVhbGl0eTsgZmlsbC1ydWxlOmV2ZW5vZGQ7IGNsaXAtcnVsZTpldmVub2RkIg0Kdmlld0JveD0iMCAwIDEwMCAxMDAiDQogeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KIDxkZWZzPg0KICA8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KICAgPCFbQ0RBVEFbDQogICAgLmZpbDAge2ZpbGw6IzRGQkU4NX0NCiAgIF1dPg0KICA8L3N0eWxlPg0KIDwvZGVmcz4NCiA8ZyBpZD0i0KHQu9C+0LlfeDAwMjBfMSI+DQogIDxtZXRhZGF0YSBpZD0iQ29yZWxDb3JwSURfMENvcmVsLUxheWVyIi8+DQogIDxwYXRoIGNsYXNzPSJmaWwwIiBkPSJNNTAgMWMxNiwwIDM1LDMgNTAsMTEgMCwxNyAxLDYwIC01MCw4OSAtNTAsLTI5IC01MCwtNzIgLTUwLC04OSAxNiwtOCAzNSwtMTEgNTAsLTExem0wIDhjLTE0LDAgLTI5LDMgLTQxLDggMCwxOCA0LDUwIDQxLDc0IDM4LC0yNCA0MSwtNTYgNDIsLTczIC0xMywtNiAtMjgsLTkgLTQyLC05eiIvPg0KICA8cGF0aCBjbGFzcz0iZmlsMCIgZD0iTTc3IDI1YzIsMCAxLDAgMiwxbC0zMiA0MWMwLDAgLTIyLC0yNiAtMjMsLTI2IDIsLTEgOCwtNSAxMywwbDEwIDEyIDI3IC0yN2MxLC0xIDIsLTEgMywtMWwwIDB6Ii8+DQogPC9nPg0KPC9zdmc+DQo=) no-repeat 0 0/cover !important;
+    font-size: inherit !important;
+}
+
+.adguard-a-logo:hover .adguard-logo {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMGMxNSAwIDMzLjIgMy42IDQ4LjEgMTEuNCAwIDE3LjEuMiA1OS42LTQ4LjEgODguNkMxLjcgNzEgMS45IDI4LjUgMS45IDExLjQgMTYuOCAzLjYgMzUgMCA1MCAwem0wIDguNGMtMTMuNSAwLTI4IDMtMzkuNyA4LjIuMyAxNy42IDMuNiA0OS44IDM5LjcgNzMuNiAzNi4xLTIzLjkgMzkuNC01NiAzOS43LTczLjRDNzggMTEuNSA2My41IDguNCA1MCA4LjR6bTI2LjQ0NiAxNS4xNzdjMS44NTYuNDYxIDEuMDk5LjA5IDIuMzU0LjkyM0w0OC4yIDY2LjRTMjYuMSA0MCAyNiA0MGMxLjUtMS4xIDcuNy01LjIgMTIuMy4ybDkuNiAxMS43TDczLjUgMjVjLjg4OC0uOTY5IDEuNzE5LTEuMTQ3IDIuOTQ2LTEuNDIzeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+}
+.adguard-a-logo:hover{
+ background: #36BB53 !important;
+}
+
+.adguard-logo__white {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNTAgMGMxNSAwIDMzLjIgMy42IDQ4LjEgMTEuNCAwIDE3LjEuMiA1OS42LTQ4LjEgODguNkMxLjcgNzEgMS45IDI4LjUgMS45IDExLjQgMTYuOCAzLjYgMzUgMCA1MCAwem0wIDguNGMtMTMuNSAwLTI4IDMtMzkuNyA4LjIuMyAxNy42IDMuNiA0OS44IDM5LjcgNzMuNiAzNi4xLTIzLjkgMzkuNC01NiAzOS43LTczLjRDNzggMTEuNSA2My41IDguNCA1MCA4LjR6bTI2LjQ0NiAxNS4xNzdjMS44NTYuNDYxIDEuMDk5LjA5IDIuMzU0LjkyM0w0OC4yIDY2LjRTMjYuMSA0MCAyNiA0MGMxLjUtMS4xIDcuNy01LjIgMTIuMy4ybDkuNiAxMS43TDczLjUgMjVjLjg4OC0uOTY5IDEuNzE5LTEuMTQ3IDIuOTQ2LTEuNDIzeiIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==) !important;
+}
+
+.adguard-a-logo {
+    display: inline-block !important;
+    box-sizing: border-box !important;
+    vertical-align: top !important;
+    width: 40px !important;
+    height: 40px !important;
+    padding: 10px 0 0 !important;
+    font-size: 20px !important;
+    text-align: center !important;
+    border: 1px solid #cdcdcd !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+}
+
+.adguard-a-logo__small {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+    padding: 6px 0 0 !important;
+}
+
+.adguard-logo:before {
+    content: "\00a0" !important;
+}
+

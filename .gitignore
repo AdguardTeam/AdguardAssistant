@@ -1,7 +1,7 @@
 .idea/
-src/build
-src/node_modules
-src/less/node_modules
-src/less/skin
+build
+node_modules
+less/node_modules
+less/skin
 beta.bat
 replace.py

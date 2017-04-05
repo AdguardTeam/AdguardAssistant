@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="400" height="200" viewBox="0 0 400 200">
+    <defs>
+        <g id="arr">
+            <polygon points="18.8,84.5 18.8,32 86.7,100 100,86.7 32,18.8 84.5,18.8 84.5,0 18.8,0 0,0 0,18.8
+                0,84.5 	"/>
+        </g>
+    </defs>
+
+    <use xlink:href="#arr" fill="#ababab"/>
+    <use xlink:href="#arr" fill="#ababab" transform="rotate(90 100 100)"/>
+    <use xlink:href="#arr" fill="#ababab" transform="rotate(180 100 100)"/>
+    <use xlink:href="#arr" fill="#ababab" transform="rotate(270 100 100)"/>
+
+    <use xlink:href="#arr" fill="#fff" x="200"/>
+    <use xlink:href="#arr" fill="#fff" y="-200" transform="rotate(90 100 100)"/>
+    <use xlink:href="#arr" fill="#fff" x="-200" transform="rotate(180 100 100)"/>
+    <use xlink:href="#arr" fill="#fff" y="200" transform="rotate(270 100 100)"/>
+</svg>

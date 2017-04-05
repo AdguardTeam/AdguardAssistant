@@ -1,0 +1,143 @@
+// checkbox radio
+
+
+.form-ui {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    line-height: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.form-ui-control{
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    outline: 0 none;
+}
+
+.form-ui-txt{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    padding: 2px 0 0 30px;
+    &:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 22px;
+        height: 22px;
+    }
+    &:after{
+        content: '';
+        position: absolute;
+    }
+}
+
+
+
+
+// radio
+input[type="radio"] {
+    & + .form-ui{
+        .form-ui-txt{
+            &:before{
+                border: 1px solid #cfcfcf;
+                border-radius: 50%;
+                background: #fff;
+            }
+            &:after{
+                top: 7px;
+                left: 7px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    &:checked {
+        & + .form-ui{
+            .form-ui-txt{
+                &:after{
+                    background: @base-color;
+                }
+            }
+        }
+    }
+
+    &:disabled {
+        & + .form-ui{
+            .form-ui-txt{
+                &:before{
+                    background: #f2f2f2;
+                    opacity: .6;
+                }
+                &:after{
+                    opacity: .6;
+                }
+            }
+        }
+    }
+}
+// /radio
+
+
+
+
+// checkbox
+input[type="checkbox"] {
+    & + .form-ui{
+        .form-ui-txt{
+            &:before{
+                border: 1px solid #cfcfcf;
+                background: #fff;
+            }
+            &:after{
+                top: 7px;
+                left: 5px;
+                width: 13px;
+                height: 6px;
+                border-bottom: 2px solid transparent;
+                border-left: 2px solid transparent;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+
+    &:checked {
+        & + .form-ui{
+            .form-ui-txt{
+                &:before{
+                    border: 1px solid @base-color;
+                    background: @base-color;
+                }
+                &:after{
+                    border-bottom-color: #fff;
+                    border-left-color: #fff;
+                }
+            }
+        }
+    }
+
+    &:disabled {
+        & + .form-ui{
+            .form-ui-txt{
+                &:before{
+                    opacity: .6;
+                }
+                &:after{
+                    opacity: .6;
+                }
+            }
+        }
+    }
+}
+// /checkbox

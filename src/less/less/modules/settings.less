@@ -1,0 +1,125 @@
+// settings
+
+
+
+.settings{
+    &_fieldset{
+        padding: @base-offset;
+        border-top: 1px solid @border-color;
+        &:first-child{
+            border: 0;
+        }
+        &_lbl{
+            float: left;
+            width: 126px;
+            margin: 1px 0 0;
+            font-size: 14px;
+            font-weight: 500;
+            color: #8f9b92;
+            &__pos{
+                margin-top: 21px;
+            }
+        }
+        &_val{
+            margin: 0 0 0 126px;
+        }
+    }
+}
+
+
+
+
+// change-size
+.choice-size{
+    position: relative;
+    font-size: 14px;
+    &_field{
+        margin: 8px 0 0;
+        &:first-child{
+            margin: 0;
+        }
+    }
+    &_logo{
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        .a-logo{
+            margin: 6px 0 0;
+            &__small{
+                margin: 14px 8px 0 0;
+            }
+        }
+    }
+    &_input{
+        &:checked{
+            & ~ .choice-size_logo{
+                display: block;
+            }
+        }
+    }
+}
+// /change-size
+
+
+
+
+// change-position
+[class^="s-position-arr-"]{
+    display: block;
+    width: 11px;
+    height: 11px;
+    background: url(../i/pos-arr.svg) no-repeat;
+    background-size: 44px 22px;
+}
+.s-position-arr-top-left        { background-position: 0 0 }
+.s-position-arr-top-right       { background-position: -11px 0 }
+.s-position-arr-bottom-left     { background-position: 0 -11px }
+.s-position-arr-bottom-right    { background-position: -11px -11px }
+
+
+.change-position{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 70px;
+    margin: -3px 0 0 -3px;
+    &_i{
+        float: left;
+        margin: 3px 0 0 3px;
+    }
+    &_input{
+        &:extend(.form-ui-control);
+        &:checked{
+            & + .change-position_label{
+                border-color: @base-color;
+                background: @base-color;
+                .s-position-arr-top-left        { background-position: -22px 0 }
+                .s-position-arr-top-right       { background-position: -33px 0 }
+                .s-position-arr-bottom-left     { background-position: -22px -11px }
+                .s-position-arr-bottom-right    { background-position: -33px -11px }
+            }
+            & ~ .change-position_val{
+                display: block;
+            }
+        }
+    }
+    &_label{
+        display: block;
+        width: 32px;
+        height: 32px;
+        margin: 0;
+        padding: 9px 0 0 9px;
+        border: 1px solid #dfdedb;
+        cursor: pointer;
+    }
+    &_val{
+        display: none;
+        position: absolute;
+        top: 27px;
+        left: 82px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+// /change-position

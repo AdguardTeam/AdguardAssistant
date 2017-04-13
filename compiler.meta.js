@@ -30,7 +30,8 @@
 // @version	4.0.0
 // @downloadURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
 // @updateURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
-// @exclude	*://mil.ru/*
+// @include *
+ // @exclude	*://mil.ru/*
 // @exclude	*://feedly.com/*
 // @exclude	*wikipedia.org*
 // @exclude	*icloud.com*

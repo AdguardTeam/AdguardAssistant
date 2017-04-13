@@ -10,15 +10,15 @@
     var sendAbuse = typeof (ADG_sendAbuse) === 'undefined' ? null : ADG_sendAbuse;
     var checkRule = typeof (ADG_isFiltered) === 'undefined' ? null : ADG_isFiltered;
     var changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
+    var adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
     Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState));
-
     Ioc.register('resources', new Resources());
     var wot = new Wot();
     wot.registerWotEventHandler();
     Ioc.register('wot', wot);
     var settings = Ioc.get(Settings);
-    settings.setAdguardSettings(AdguardSettings);
+    settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('$', balalaika);

@@ -52,18 +52,22 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
     };
 
     var setInitFilteringState = function () {
-        var isFiltered = gmApi.ADG_isFiltered();
-        var input = contentDocument.getElementById('is-filter');
-        input.checked = isFiltered;
+        gmApi.ADG_isFiltered(function (isFiltered) {
+            var input = contentDocument.getElementById('is-filter');
+            input.checked = isFiltered;
+        });
     };
 
     var doNotBlock = function () {
-        gmApi.ADG_temporaryDontBlock(30);
+        gmApi.ADG_temporaryDontBlock(30, function () {
+            location.reload(true);
+        });
     };
 
     var reportAbuse = function () {
-        gmApi.ADG_sendAbuse();
-        iframeCtrl.removeIframe();
+        gmApi.ADG_sendAbuse(function () {
+            iframeCtrl.removeIframe();
+        });
     };
 
     var goToSiteReport = function () {

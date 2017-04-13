@@ -73,7 +73,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     };
 
     var setAdguardSettings = function (settings) {
-        if (typeof settings === 'undefined') {
+        if (!settings) {
             log.info("No Adguard API Found");
             return;
         }

@@ -1,44 +1,128 @@
-var en = {
-    'menu_filtration_status': {message: 'Filtering on this website'},
-    'menu_do_not_filter_30_sec': {message: 'Do not filter for 30 seconds'},
-    'menu_block_ad_on_site': {message: 'Block ad on this website'},
-    'menu_report_abuse': {message: 'Report the website'},
-    'menu_site_report': {message: 'Website security report'},
-    'menu_settings': {message: 'Assistant settings'},
-    'assistant_select_element': {message: 'Element blocking'},
-    'assistant_select_element_ext': {message: 'Choose an element on the page to block'},
-    'assistant_select_element_cancel': {message: 'Cancel'},
-    'assistant_block_element': {message: 'Element blocking'},
-    'assistant_block_element_explain': {message: 'Adjust element blocking rule'},
-    'assistant_slider_explain': {message: 'Move the slider to change the size of the frame the new rule will work for:'},
-    'assistant_slider_min': {message: 'MIN'},
-    'assistant_slider_max': {message: 'MAX'},
-    'assistant_extended_settings': {message: 'Advanced settings'},
-    'assistant_apply_rule_to_all_sites': {message: 'Apply the rule to all websites'},
-    'assistant_block_by_reference': {message: 'Block by reference link'},
-    'assistant_block_similar': {message: 'Block similar'},
-    'assistant_another_element': {message: 'Select another element'},
-    'assistant_preview': {message: 'Preview'},
-    'assistant_block': {message: 'Block'},
-    'assistant_settings': {message: 'Assistant settings'},
-    'assistant_preview_header': {"message": 'Element blocking - preview'},
-    'assistant_preview_header_info': {"message": 'Make sure that element is blocked as intended'},
-    'assistant_preview_end': {"message": 'Exit preview'},
-    'wot_unknown_description': {message: 'Reputation is not defined'},
-    'wot_bad_description': {message: 'This website has very bad reputation\naccording to '},
-    'wot_poor_description': {message: 'This website has bad reputation\naccording to '},
-    'wot_unsatisfactory_description': {message: 'This website has poor reputation\naccording to '},
-    'wot_good_description': {message: 'This website has good reputation\naccording to '},
-    'wot_excellent_description': {message: 'This website has excellent reputation\naccording to '},
-    'settings_choose_size_and_position': {message: 'Adjust Adguard Assistant size and position'},
-    'settings_icon_size': {message: 'Icon size:'},
-    'settings_small': {message: 'Small'},
-    'settings_big': {message: 'Large'},
-    'settings_position': {message: 'Position:'},
-    'settings_left_top': {message: 'Top left'},
-    'settings_right_top': {message: 'Top right'},
-    'settings_left_bottom': {message: 'Bottom left'},
-    'settings_right_bottom': {message: 'Bottom right'},
-    'settings_cancel': {message: 'Cancel'},
-    'settings_save': {message: 'Save changes'}
-};
+en = {
+    "menu_filtration_status": {
+        "message": "Filtering on this website"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Do not filter for 30 seconds"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Block ad on this website"
+    },
+    "menu_report_abuse": {
+        "message": "Report the website"
+    },
+    "menu_site_report": {
+        "message": "Website security report"
+    },
+    "menu_settings": {
+        "message": "Assistant settings"
+    },
+    "assistant_select_element": {
+        "message": "Element blocking"
+    },
+    "assistant_select_element_ext": {
+        "message": "Choose an element on the page to block"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Cancel"
+    },
+    "assistant_block_element": {
+        "message": "Element blocking"
+    },
+    "assistant_block_element_explain": {
+        "message": "Adjust element blocking rule"
+    },
+    "assistant_slider_explain": {
+        "message": "Move the slider to change the size of the frame the new rule will work for:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
+    },
+    "assistant_slider_max": {
+        "message": "MAX"
+    },
+    "assistant_extended_settings": {
+        "message": "Advanced settings"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Apply the rule to all websites"
+    },
+    "assistant_block_by_reference": {
+        "message": "Block by reference link"
+    },
+    "assistant_block_similar": {
+        "message": "Block similar"
+    },
+    "assistant_another_element": {
+        "message": "Select another element"
+    },
+    "assistant_preview": {
+        "message": "Preview"
+    },
+    "assistant_block": {
+        "message": "Block"
+    },
+    "assistant_settings": {
+        "message": "Assistant settings"
+    },
+    "assistant_preview_header": {
+        "message": "Element blocking - preview"
+    },
+    "assistant_preview_header_info": {
+        "message": "Make sure that element is blocked as intended"
+    },
+    "assistant_preview_end": {
+        "message": "Exit preview"
+    },
+    "wot_unknown_description": {
+        "message": "Reputation is not defined"
+    },
+    "wot_bad_description": {
+        "message": "This website has very bad reputation\naccording to "
+    },
+    "wot_poor_description": {
+        "message": "This website has bad reputation\naccording to "
+    },
+    "wot_unsatisfactory_description": {
+        "message": "This website has poor reputation\naccording to "
+    },
+    "wot_good_description": {
+        "message": "This website has good reputation\naccording to "
+    },
+    "wot_excellent_description": {
+        "message": "This website has excellent reputation\naccording to "
+    },
+    "settings_choose_size_and_position": {
+        "message": "Adjust Adguard Assistant size and position"
+    },
+    "settings_icon_size": {
+        "message": "Icon size:"
+    },
+    "settings_small": {
+        "message": "Small"
+    },
+    "settings_big": {
+        "message": "Large"
+    },
+    "settings_position": {
+        "message": "Position:"
+    },
+    "settings_left_top": {
+        "message": "Top left"
+    },
+    "settings_right_top": {
+        "message": "Top right"
+    },
+    "settings_left_bottom": {
+        "message": "Bottom left"
+    },
+    "settings_right_bottom": {
+        "message": "Bottom right"
+    },
+    "settings_cancel": {
+        "message": "Cancel"
+    },
+    "settings_save": {
+        "message": "Save changes"
+    }
+}

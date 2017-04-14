@@ -11,32 +11,37 @@
 /* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
 var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) { // jshint ignore:line
     if (!ADG_addRule) {
-        ADG_addRule = function (rule) {
+        ADG_addRule = function (rule, callback) {
             alert('GM_api is not supported. ' + rule + ' rule added');
+            callback();
         };
     }
 
     if (!ADG_sendAbuse) {
-        ADG_sendAbuse = function (url) {
+        ADG_sendAbuse = function (url, callback) {
             alert('GM_api is not supported. ' + url + 'abused');
+            callback();
         };
     }
 
     if (!ADG_temporaryDontBlock) {
-        ADG_temporaryDontBlock = function (timeout) {
+        ADG_temporaryDontBlock = function (timeout, callback) {
             alert('GM_api is not supported. ' + 'Do not block for ' + timeout + ' seconds');
+            callback();
         };
     }
 
     if (!ADG_isFiltered) {
-        ADG_isFiltered = function () {
+        ADG_isFiltered = function (callback) {
+            callback();
             return true;
         };
     }
 
     if (!ADG_changeFilteringState) {
-        ADG_changeFilteringState = function () {
+        ADG_changeFilteringState = function (callback) {
             alert('GM_api is not supported. ' + 'State changed');
+            callback();
         };
     }
 

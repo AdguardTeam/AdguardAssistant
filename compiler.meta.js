@@ -40,7 +40,6 @@
 // @exclude *disqus.com/embed/comments*
 // @exclude *vk.com/widget_comments*
 // @exclude *www.youtube.com/embed/*
-// @exclude *://outlook.live.com*
 // @require src\utils\css.escape.js
 // @require src\ioc.js
 // @require src\log.js

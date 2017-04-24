@@ -49,6 +49,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     var blockElement = function () {
         gmApi.ADG_addRule(getFilterRuleInputText(), function () {
             iframeCtrl.removeIframe();
+            document.location.reload(true);
         });
     };
 

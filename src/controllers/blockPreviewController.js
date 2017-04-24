@@ -63,6 +63,7 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
 
     var blockElement = function () {
         gmApi.ADG_addRule(selectedPath);
+        iframeCtrl.removeIframe();
     };
 
     var showDetailedMenu = function () {

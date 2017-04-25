@@ -27,7 +27,7 @@
 // @description:es	Permite fácilmente gestionar los filtros desde el navegador
 // @description:id	Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:hu	Könnyű és kényelmes módot nyújt egyenesen a böngészőből történő szűrések kezeléséhez
-// @version	4.0.1
+// @version	4.0.2
 // @downloadURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
 // @updateURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
 // @include *

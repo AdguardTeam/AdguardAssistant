@@ -1,5 +1,7 @@
 .adguard-alert {
     cursor: pointer;
+    left: 0;
+    top: 0;
     position: fixed !important;
     font: 12px Arial, sans-serif !important;
     line-height: 1.5 !important;
@@ -23,18 +25,22 @@
 
 .adguard-assistant-button-right {
     right: 0 !important;
+    left: auto !important;
 }
 
 .adguard-assistant-button-left {
     left: 0 !important;
+    right: auto !important;
 }
 
 .adguard-assistant-button-bottom {
     bottom: 0 !important;
+    top: auto !important;
 }
 
 .adguard-assistant-button-top {
     top: 0 !important;
+    bottom: auto !important;
 }
 
 .adguard-logo {
@@ -81,4 +87,3 @@
 .adguard-logo:before {
     content: "\00a0" !important;
 }
-

@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = function (grunt) {
     grunt.registerMultiTask('compile', 'Compile userscript in to one file', function () {
         grunt.log.writeln('Compiling userscript');
@@ -32,7 +34,10 @@ module.exports = function (grunt) {
                 var directive = directives[i];
                 var directiveIdx = line.indexOf(directive);
                 if (directiveIdx > -1) {
-                    return {directive: directive, value: line.substring(directive.length).trim()};
+                    var denormalizePath = line.substring(directive.length).trim();
+                    var normalizePath = path.join.apply(path, denormalizePath.split('\\'));
+
+                    return {directive: directive, value: normalizePath};
                 }
             }
             return null;
@@ -40,6 +45,10 @@ module.exports = function (grunt) {
 
         var metaContent = grunt.file.read(options.metaPath).toString();
         var metaLines = metaContent.split('\r\n');
+
+        // if file in windows mode
+        if(metaLines.length <= 1) metaLines = metaContent.split('\n');
+
         var finalContent = [];
         var newMeta = [];
         var directivesToHandle = [];
@@ -64,7 +73,7 @@ module.exports = function (grunt) {
             resources.forEach(function (element, idx, array) {
                 var resource = element.value.split(' ').filter(String);
                 var resourceName = '"' + resource[0] + '"';
-                var resourcePath = resource[1];
+                var resourcePath = path.join.apply(path, resource[1].split('\\'));
                 var resourceContent = '"' + new Buffer(grunt.file.read(resourcePath)).toString('base64') + '"';
                 var isLast = idx == array.length - 1;
                 content.push(resourceName + ': ' + resourceContent + (isLast ? '\n' : ',\n'));

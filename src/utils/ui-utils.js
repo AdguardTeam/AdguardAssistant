@@ -21,7 +21,20 @@ var UIUtils = function ($) { // jshint ignore:line
             };
         };
 
+        /**
+         * Prevent text selection
+         * With cursor drag
+         **/
+        var pauseEvent = function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.cancelBubble = true;
+            e.returnValue = false;
+            return false;
+        };
+
         $(element).on('mousedown', function (e) {
+            pauseEvent(e);
             var coords = getCoords(element);
             var shiftX = e.pageX - coords.left;
             var shiftY = e.pageY - coords.top;
@@ -29,8 +42,12 @@ var UIUtils = function ($) { // jshint ignore:line
             document.body.appendChild(element);
 
             var moveAt = function (e) {
-                element.style.left = e.pageX - shiftX + 'px';
-                element.style.top = e.pageY - shiftY + 'px';
+                var transform = 'translate3d(' + (e.pageX - shiftX) + 'px,' + (e.pageY - shiftY) + 'px, 0px)';
+                element.style.webkitTransform = transform;
+                element.style.mozTransform = transform;
+                element.style.msTransform = transform;
+                element.style.oTransform = transform;
+                element.style.transform = transform;
             };
 
             moveAt(e);
@@ -39,11 +56,13 @@ var UIUtils = function ($) { // jshint ignore:line
             }
 
             var onMouseMove = function (e) {
+                e.stopPropagation();
                 moveAt(e);
             };
             $(document).on('mousemove', onMouseMove);
 
             var onMouseUp = function (e) {
+                e.stopPropagation();
                 $(document).off('mousemove', onMouseMove);
                 $(element).off('mouseup', onMouseUp);
                 var lastCoords = getCoords(element);
@@ -235,5 +254,3 @@ var UIValidationUtils = function (settings) { // jshint ignore:line
         getViewPort: getViewPort
     };
 };
-
-

@@ -68,15 +68,8 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!position) {
             return false;
         }
-        // button[0].style.top = position.top + 'px';
-        // button[0].style.left = position.left + 'px';
 
-        var transform = 'translate3d('+position.left + 'px,' + position.top + 'px, 0px)';
-        button[0].style.webkitTransform = transform;
-        button[0].style.mozTransform = transform;
-        button[0].style.msTransform = transform;
-        button[0].style.oTransform = transform;
-        button[0].style.transform = transform;
+        uiUtils.moveElementTo(button[0], position.left, position.top);
         return true;
     };
 

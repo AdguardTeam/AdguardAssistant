@@ -42,12 +42,7 @@ var UIUtils = function ($) { // jshint ignore:line
             document.body.appendChild(element);
 
             var moveAt = function (e) {
-                var transform = 'translate3d(' + (e.pageX - shiftX) + 'px,' + (e.pageY - shiftY) + 'px, 0px)';
-                element.style.webkitTransform = transform;
-                element.style.mozTransform = transform;
-                element.style.msTransform = transform;
-                element.style.oTransform = transform;
-                element.style.transform = transform;
+                moveElementTo(element, e.pageX - shiftX, e.pageY - shiftY);
             };
 
             moveAt(e);
@@ -57,6 +52,7 @@ var UIUtils = function ($) { // jshint ignore:line
 
             var onMouseMove = function (e) {
                 e.stopPropagation();
+                    pauseEvent(e);
                 moveAt(e);
             };
             $(document).on('mousemove', onMouseMove);
@@ -190,10 +186,25 @@ var UIUtils = function ($) { // jshint ignore:line
         }
     };
 
+    /**
+     * Set transition css property for drag
+     * translate3d is for better rendering performance
+     * see: https://www.html5rocks.com/en/tutorials/speed/layers/
+     */
+    var moveElementTo = function(el, x, y) {
+        var transform = 'translate3d(' + x + 'px,' + y + 'px, 0px)';
+        el.style.webkitTransform = transform;
+        el.style.mozTransform = transform;
+        el.style.msTransform = transform;
+        el.style.oTransform = transform;
+        el.style.transform = transform;
+    };
+
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
-        tryFullScreenPrefix: tryFullScreenPrefix
+        tryFullScreenPrefix: tryFullScreenPrefix,
+        moveElementTo: moveElementTo
     };
 };
 

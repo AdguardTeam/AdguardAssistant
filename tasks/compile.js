@@ -39,11 +39,15 @@ module.exports = function (grunt) {
         };
 
         var metaContent = grunt.file.read(options.metaPath).toString();
-        var metaLines = metaContent.split('\r\n');
+        var metaLines = metaContent.split('\n');
         var finalContent = [];
         var newMeta = [];
         var directivesToHandle = [];
         metaLines.forEach(function (currentLine) {
+            currentLine = currentLine.trim();
+            if (currentLine.length === 0) {
+                return;
+            }
             var directive = parseDirectives(currentLine, SUPPORTED_DIRECTIVES);
             if (directive === null) {
                 newMeta.push(currentLine);

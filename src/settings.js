@@ -116,7 +116,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
                 continue;
             }
             var property = DefaultConfig[prop];
-            if (typeof property !== typeof settings[prop]) {
+            if (property && typeof property !== typeof settings[prop]) {
                 throw 'Invalid settings object';
             }
         }

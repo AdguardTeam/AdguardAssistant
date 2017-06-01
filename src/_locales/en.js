@@ -1,4 +1,4 @@
-en = {
+var en = {
     "menu_filtration_status": {
         "message": "Filtering on this website"
     },

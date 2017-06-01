@@ -53,6 +53,10 @@ module.exports = function (grunt) {
         var newMeta = [];
         var directivesToHandle = [];
         metaLines.forEach(function (currentLine) {
+            currentLine = currentLine.trim();
+            if (currentLine.length === 0) {
+                return;
+            }
             var directive = parseDirectives(currentLine, SUPPORTED_DIRECTIVES);
             if (directive === null) {
                 newMeta.push(currentLine);

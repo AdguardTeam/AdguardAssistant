@@ -1,4 +1,4 @@
-ru = {
+var ru = {
     "menu_filtration_status": {
         "message": "\u0424\u0438\u043b\u044c\u0442\u0440\u0430\u0446\u0438\u044f \u043d\u0430 \u044d\u0442\u043e\u043c \u0441\u0430\u0439\u0442\u0435"
     },

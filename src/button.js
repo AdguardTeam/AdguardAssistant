@@ -68,8 +68,8 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!position) {
             return false;
         }
-        button[0].style.top = position.top + 'px';
-        button[0].style.left = position.left + 'px';
+
+        uiUtils.moveElementTo(button[0], position.left, position.top);
         return true;
     };
 
@@ -115,9 +115,11 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * @private
      */
     var getButtonPosition = function () {
-        var left = button[0].offsetLeft + button[0].offsetWidth / 2;
-        var top = button[0].offsetTop + button[0].offsetHeight / 2;
-        return {left: left, top: top};
+        var box = button[0].getBoundingClientRect();
+        return {
+            top: box.top + button[0].offsetHeight / 2,
+            left: box.left + button[0].offsetWidth / 2
+        };
     };
 
     var removeFixedPosition = function () {
@@ -175,4 +177,3 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         remove: removeButton
     };
 };
-

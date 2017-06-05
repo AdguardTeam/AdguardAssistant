@@ -1,31 +1,21 @@
-module.exports = function (grunt) {
-    grunt.registerMultiTask('restore-meta', 'Restoring meta after compress', function () {
-        grunt.log.writeln('Restoring meta...');
+const gulp = require('gulp');
+const gutil = require('gulp-util');
+const fs = require('fs');
+const file = require('gulp-file');
+const path = require('path');
 
-        const ARGS_TO_CHECK = [{argName: 'metaPath', type: 'string'},
-            {argName: 'outputPath', type: 'string'}];
-        var options = {};
+module.exports = () => {
+    gutil.log('Restoring meta...');
 
-        var checkArgs = function (target, data) {
-            var checkArg = function (argName, type) {
-                var arg = data[argName];
-                if (!arg || typeof arg !== type) {
-                    grunt.log.error(argName + ' is not specified!');
-                    return;
-                }
-                options[argName] = arg;
-            };
-            ARGS_TO_CHECK.forEach(function (element) {
-                checkArg(element.argName, element.type);
-            });
-        };
+    const options = global.options || {};
 
-        checkArgs(this.target, this.data);
+    var userJsFileName = options.scriptName + '.user.js';
+    var metaString = fs.readFileSync(options.metaPath).toString();
+    var scriptContent = fs.readFileSync(path.join(options.outputPath, userJsFileName)).toString();
+    var finalString = metaString + '\n\r' + scriptContent;
 
-        var metaString = grunt.file.read(options.metaPath).toString();
-        var scriptContent = grunt.file.read(options.outputPath).toString();
-        var finalString = metaString + '\r\n' + scriptContent;
-        grunt.file.write(options.outputPath, finalString);
-        grunt.log.writeln('Meta was restored');
-    });
+    gutil.log('Meta was restored');
+
+    return file(userJsFileName, finalString)
+        .pipe(gulp.dest(options.outputPath));
 };

@@ -15,6 +15,9 @@ var Log = function () { // jshint ignore:line
     };
 
     var print = function (level, method, args) {
+        // gulp preprocess condition
+        // @if DEBUG
+
         //check log level
         if (LogLevels[currentLevel] < LogLevels[level]) {
             return;
@@ -32,6 +35,12 @@ var Log = function () { // jshint ignore:line
             formatted = now.toISOString() + ": " + formatted;
         }
         console[method](formatted);
+
+        // @endif
+
+        // @if !DEBUG
+        return false;
+        // @endif
     };
 
     var debug = function () {

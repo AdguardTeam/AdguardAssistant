@@ -117,7 +117,7 @@ var UIUtils = function ($) { // jshint ignore:line
             moveElementTo(element, position.left, position.top);
         };
 
-        window.onresize = resizeWindow;
+        window.addEventListener('resize', resizeWindow);
     };
 
     /**

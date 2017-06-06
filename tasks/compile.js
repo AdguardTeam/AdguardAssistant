@@ -1,3 +1,7 @@
+/**
+ * Compile all src files to single.
+ */
+
 const gulp = require('gulp');
 const clean = require('gulp-clean');
 const gutil = require('gulp-util');

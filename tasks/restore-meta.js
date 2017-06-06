@@ -1,3 +1,7 @@
+/**
+ * Setting meta commentaries after uglify.
+ */
+
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const fs = require('fs');

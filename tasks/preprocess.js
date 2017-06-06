@@ -1,3 +1,7 @@
+/**
+ * Preprocessing for separation prod and debug build version.
+ */
+
 const gulp = require('gulp');
 const preprocess = require('gulp-preprocess');
 

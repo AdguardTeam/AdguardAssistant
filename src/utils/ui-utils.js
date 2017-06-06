@@ -50,7 +50,7 @@ var UIUtils = function ($) { // jshint ignore:line
                 };
 
                 // stack the icon to the border and
-                // remove mousemove event listner if it outside
+                // remove mousemove event listener if it outside
                 var outsidePosition =
                     position.left + element.offsetWidth >= window.innerWidth ||
                     position.top + element.offsetHeight >= window.innerHeight ||

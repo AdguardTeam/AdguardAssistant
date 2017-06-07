@@ -11,7 +11,7 @@ module.exports = () => {
     return gulp.src(options.outputPath + '/assistant.user.js')
         .pipe(preprocess({
             context: {
-                DEBUG: true
+                DEBUG: options.debug
             }
         }))
         .pipe(gulp.dest(options.outputPath));

@@ -8,16 +8,19 @@ const options = global.options = {
     outputPath: 'build',
     locales: ['en', 'ru'],
     directoryName: 'locales_4',
-    sourceFile: 'en.json'
+    sourceFile: 'en.json',
+    debug: false
 };
 
 
 gulp.task('dev', () => {
+    options.debug = true;
     runSequence('compile', 'preprocess', 'restore-meta');
 });
 
 
 gulp.task('build', () => {
+    options.debug = false;
     runSequence('clean', 'compile', 'preprocess', 'uglify', 'restore-meta');
 });
 

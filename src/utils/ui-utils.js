@@ -17,7 +17,9 @@ var UIUtils = function ($) { // jshint ignore:line
             var box = elem.getBoundingClientRect();
             return {
                 top: box.top,
-                left: box.left
+                left: box.left,
+                bottom: box.bottom,
+                right: box.right
             };
         };
 
@@ -42,17 +44,35 @@ var UIUtils = function ($) { // jshint ignore:line
             document.body.appendChild(element);
 
             var moveAt = function (e) {
-                moveElementTo(element, e.pageX - shiftX, e.pageY - shiftY);
+                var position = {
+                    top: e.pageY - shiftY,
+                    left: e.pageX - shiftX
+                };
+
+                // stack the icon to the border and
+                // remove mousemove event listener if it outside
+                var outsidePosition =
+                    position.left + element.offsetWidth >= window.innerWidth ||
+                    position.top + element.offsetHeight >= window.innerHeight ||
+                    position.left <= 0 ||
+                    position.top <= 0;
+
+                if(outsidePosition) {
+                    $(document).off('mousemove');
+                }else{
+                    moveElementTo(element, position.left, position.top);
+                }
             };
 
             moveAt(e);
+
             if (onMouseDown) {
                 onMouseDown();
             }
 
             var onMouseMove = function (e) {
                 e.stopPropagation();
-                    pauseEvent(e);
+                pauseEvent(e);
                 moveAt(e);
             };
             $(document).on('mousemove', onMouseMove);
@@ -80,6 +100,24 @@ var UIUtils = function ($) { // jshint ignore:line
         $(element).on('dragstart', function () {
             return false;
         });
+
+
+        /**
+         * Resize window event listener to ensure that the icon
+         * does not outside the bottom right corner
+         */
+        var resizeWindow = function() {
+            var coords = getCoords(element);
+
+            var position = {
+                left: coords.right > window.innerWidth ? window.innerWidth - element.offsetWidth : coords.left,
+                top: coords.bottom > window.innerHeight ? window.innerHeight - element.offsetHeight : coords.top
+            };
+
+            moveElementTo(element, position.left, position.top);
+        };
+
+        window.addEventListener('resize', resizeWindow);
     };
 
     /**

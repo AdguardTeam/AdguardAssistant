@@ -7,7 +7,6 @@
   "devDependencies": {
     "browser-sync": "^2.18.12",
     "gulp": "^3.9.1",
-    "gulp-batch": "^1.0.5",
     "gulp-clean": "^0.3.2",
     "gulp-download-stream": "0.0.13",
     "gulp-file": "^0.3.0",

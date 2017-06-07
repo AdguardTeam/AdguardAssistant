@@ -20,6 +20,7 @@ module.exports = () => {
 
     gutil.log('Meta was restored');
 
-    return file(userJsFileName, finalString)
+    return gulp.src(userJsFileName)
+        .pipe(file(userJsFileName, finalString))
         .pipe(gulp.dest(options.outputPath));
 };

@@ -4,23 +4,27 @@ const runSequence = require('run-sequence').use(gulp);
 const options = global.options = {
     src: 'src',
     scriptName: 'assistant',
-    metaPath: 'compiler.meta.js',
+    metaBuild: 'compiler.meta.build.js',
+    metaBeta: 'compiler.meta.beta.js',
     outputPath: 'build',
     locales: ['en', 'ru'],
     directoryName: 'locales_4',
     sourceFile: 'en.json',
-    debug: false
+    debug: false,
+    metaPath: null
 };
 
 
 gulp.task('dev', () => {
     options.debug = true;
+    options.metaPath = options.metaBeta;
     runSequence('compile', 'preprocess', 'restore-meta');
 });
 
 
 gulp.task('build', () => {
     options.debug = false;
+    options.metaPath = options.metaBuild;
     runSequence('clean', 'compile', 'preprocess', 'uglify', 'restore-meta');
 });
 

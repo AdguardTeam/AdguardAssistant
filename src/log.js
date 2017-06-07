@@ -35,7 +35,6 @@ var Log = function () { // jshint ignore:line
             formatted = now.toISOString() + ": " + formatted;
         }
         console[method](formatted);
-
         // @endif
 
         // @if !DEBUG

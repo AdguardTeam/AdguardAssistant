@@ -30,6 +30,10 @@ The configuration file looks like:
 
 This file will ingored with .gitignore settings for security.
 
+For downloading and appending localizations run:
+
+    $ gulp locales
+
 For production build run:
 
     $ gulp build

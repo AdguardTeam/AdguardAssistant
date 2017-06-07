@@ -2,13 +2,13 @@
 
 Adguard Assistant userscript
 
-## How to
+## How to use
 
 For development build run:
 
     $ gulp dev
 
-It will compiling `assistant.user.js` file without minification
+It will compiling `assistant.user.js` file without minification.
 
 
 For development build with watcher on file changes and debugging from local server:
@@ -34,4 +34,4 @@ For production build run:
 
     $ gulp build
 
-It will compiling `assistant.user.js` file with minification and uglify script.
+It will compiling `assistant.user.js` file with minification and uglify.

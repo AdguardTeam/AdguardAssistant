@@ -1,14 +1,14 @@
- // ==UserScript==
-// @name	Adguard Assistant
-// @name:ru	Помощник Adguard
-// @name:uk Помічник Adguard
-// @name:de	Adguard-Assistent
-// @name:sr	Koristi Adguard-ovog pomoćnika
-// @name:pl	Asystent Adguarda
-// @name:zh	使用 Adguard 助手
-// @name:it	Assistente Adguard
-// @name:es	Asistente de Adguard
-// @name:id	Asisten Aguard
+// ==UserScript==
+// @name	Adguard Assistant Beta
+// @name:ru	Помощник Adguard Beta
+// @name:uk Помічник Adguard Beta
+// @name:de	Adguard-Assistent Beta
+// @name:sr	Koristi Adguard-ovog pomoćnika Beta
+// @name:pl	Asystent Adguarda Beta
+// @name:zh	使用 Adguard 助手 Beta
+// @name:it	Assistente Adguard Beta
+// @name:es	Asistente de Adguard Beta
+// @name:id	Asisten Aguard Beta
 // @namespace	Adguard
 // @description	Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
@@ -28,10 +28,10 @@
 // @description:id	Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:hu	Könnyű és kényelmes módot nyújt egyenesen a böngészőből történő szűrések kezeléséhez
 // @version	4.0.4
-// @downloadURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
-// @updateURL	https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
+// @downloadURL	https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/3.0/assistant.user.js
+// @updateURL	https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/3.0/assistant.meta.js
 // @include *
- // @exclude	*://mil.ru/*
+// @exclude	*://mil.ru/*
 // @exclude	*://feedly.com/*
 // @exclude	*wikipedia.org*
 // @exclude	*icloud.com*

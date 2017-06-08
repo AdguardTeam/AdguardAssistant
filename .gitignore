@@ -5,3 +5,6 @@ less/node_modules
 less/skin
 beta.bat
 replace.py
+
+locales_4
+.keys*

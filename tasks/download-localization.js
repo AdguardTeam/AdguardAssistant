@@ -38,6 +38,23 @@ module.exports = () => {
         });
     });
 
+    options.metaLocales.forEach((localization) => {
+        let timestamp = Math.round(new Date().getTime() / 1000);
+
+        let urlMeta = options.url + options.project_id;
+        urlMeta += '/translations?locale=' + localization;
+        urlMeta += '&source_file_name=' + options.sourceFileMeta;
+        urlMeta += '&export_file_name=' + localization + '.meta.json';
+        urlMeta += '&api_key=' + options.api_key;
+        urlMeta += '&timestamp=' + timestamp;
+        urlMeta += '&dev_hash=' + hashString(timestamp + options.secret_key);
+
+        urls.push({
+            file: localization + '.meta.json',
+            url: urlMeta
+        });
+    });
+
     return download(urls)
         .pipe(gulp.dest(options.directoryName));
 };

@@ -59,7 +59,6 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
     };
 
     var doNotBlock = function () {
-        console.log(CommonUtils);
         gmApi.ADG_temporaryDontBlock(30, function () {
             CommonUtils.reloadPageBypassCache();
         });

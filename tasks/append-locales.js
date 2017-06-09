@@ -1,5 +1,5 @@
 /**
- * Converting donwloaded localization from json to.
+ * Converting donwloaded localization from json to js object variable.
  */
 
 const gulp = require('gulp');

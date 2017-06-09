@@ -1,5 +1,5 @@
 /**
- * Converting donwloaded localization from json to.
+ * Update meta locales.
  */
 
 const gulp = require('gulp');

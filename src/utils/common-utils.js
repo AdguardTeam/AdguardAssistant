@@ -74,12 +74,8 @@ var CommonUtils = { // jshint ignore:line
         xhr.setRequestHeader('Cache-Control', 'no-cache');
 
         xhr.onreadystatechange = function() {
-            if (xhr.status != 200) {
-                console.log(xhr.status + ': ' + xhr.statusText);
-            } else {
-                if(xhr.readyState === 4) {
-                    window.location.reload(true);
-                }
+            if (xhr.status === 200 && xhr.readyState === 4) {
+                window.location.reload(true);
             }
         };
 

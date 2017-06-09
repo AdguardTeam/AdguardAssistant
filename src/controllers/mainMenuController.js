@@ -59,10 +59,13 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
     };
 
     var doNotBlock = function () {
+        console.log(CommonUtils);
         gmApi.ADG_temporaryDontBlock(30, function () {
-            location.reload(true);
+            CommonUtils.reloadPageBypassCache();
         });
     };
+
+
 
     var reportAbuse = function () {
         gmApi.ADG_sendAbuse(function () {

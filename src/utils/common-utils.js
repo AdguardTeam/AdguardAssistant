@@ -60,6 +60,30 @@ var CommonUtils = { // jshint ignore:line
 
     cropDomain: function (domain) {
         return domain.replace("www.", "").replace(/:\d+/, '');
+    },
+
+    /**
+     * Force clear page cache
+     */
+    reloadPageBypassCache: function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', window.location.href, true);
+
+        xhr.setRequestHeader('Pragma', 'no-cache');
+        xhr.setRequestHeader('Expires', -1);
+        xhr.setRequestHeader('Cache-Control', 'no-cache');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.status != 200) {
+                console.log(xhr.status + ': ' + xhr.statusText);
+            } else {
+                if(xhr.readyState === 4) {
+                    window.location.reload(true);
+                }
+            }
+        };
+
+        xhr.send();
     }
 };
 
@@ -202,4 +226,3 @@ var Base64 = {
         return string;
     }
 };
-

@@ -33,12 +33,12 @@ module.exports = () => {
     });
 
     compilerMeta = compilerMeta
-        .replace('// [NAMES IN OTHER LANGUAGES]', compilerMetaNames.join(endOfLine))
-        .replace('// [DESCRIPTIONS IN OTHER LANGUAGES]', compilerMetaDescriptions.join(endOfLine));
+        .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaNames.join(endOfLine))
+        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine));
 
     compilerMetaBeta = compilerMetaBeta
-        .replace('// [NAMES IN OTHER LANGUAGES]', compilerMetaBetaNames.join(endOfLine))
-        .replace('// [DESCRIPTIONS IN OTHER LANGUAGES]', compilerMetaDescriptions.join(endOfLine))
+        .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaBetaNames.join(endOfLine))
+        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
         .replace('@name Adguard Assistant', '@name Adguard Assistant Beta')
         .replace(new RegExp('/Userscripts/AdguardAssistant', 'g'), '/Userscripts/Beta/AdguardAssistant');
 

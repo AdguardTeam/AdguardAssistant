@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name Adguard Assistant
-// [NAMES IN OTHER LANGUAGES]
+// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
-// [DESCRIPTIONS IN OTHER LANGUAGES]
+// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
 // @version 4.0.4
 // @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js

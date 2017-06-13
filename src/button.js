@@ -93,6 +93,8 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         else {
             button.addClass('adguard-assistant-button-right');
         }
+
+        uiUtils.respectPageElements(button[0]);
     };
 
     var registerEvents = function (button) {

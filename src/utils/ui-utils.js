@@ -52,8 +52,8 @@ var UIUtils = function ($) { // jshint ignore:line
                 // stack the icon to the border and
                 // remove mousemove event listener if it outside
                 var outsidePosition =
-                    position.left + element.offsetWidth >= window.innerWidth ||
-                    position.top + element.offsetHeight >= window.innerHeight ||
+                    position.left + element.offsetWidth > window.innerWidth ||
+                    position.top + element.offsetHeight > window.innerHeight ||
                     position.left <= 0 ||
                     position.top <= 0;
 
@@ -238,11 +238,22 @@ var UIUtils = function ($) { // jshint ignore:line
         el.style.transform = transform;
     };
 
+
+    var respectPageElements = function(element) {
+        switch (document.location.hostname) {
+            case 'vk.com':
+            case 'new.vk.com':
+                $(element).addClass('respect-vk-elements');
+            break;
+        }
+    };
+
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
-        moveElementTo: moveElementTo
+        moveElementTo: moveElementTo,
+        respectPageElements: respectPageElements
     };
 };
 

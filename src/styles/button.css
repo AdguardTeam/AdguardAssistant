@@ -42,6 +42,10 @@
     bottom: auto !important;
 }
 
+.respect-vk-elements {
+    transform: translate3d(-70px, 0, 0);
+}
+
 .adguard-logo {
     display: inline-block !important;
     vertical-align: top !important;

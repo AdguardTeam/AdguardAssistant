@@ -47,12 +47,15 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
+
         if (!uiValidationUtils.validatePage()) {
             return false;
         }
+
         if (!uiValidationUtils.checkVisibleAreaSize()) {
             return false;
         }
+
         if (isButtonAlreadyInDOM()) {
             return false;
         }
@@ -94,7 +97,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
             button.addClass('adguard-assistant-button-right');
         }
 
-        uiUtils.respectPageElements(button[0]);
+        respectPageElements(button[0]);
     };
 
     var registerEvents = function (button) {
@@ -169,6 +172,21 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         }
         $('body')[0].removeChild(button[0]);
         button = null;
+    };
+
+    /**
+     * Set a special classes for the pages on which
+     * under the button there are important elements
+     */
+    var respectPageElements = function(element) {
+        if(document.location.hostname.indexOf('vk.com') >= 0) {
+            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
+            return false;
+        }
+        if(document.location.hostname.indexOf('facebook.com') >= 0) {
+            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
+            return false;
+        }
     };
 
     iframeController.onCloseMenu.attach(showButton);

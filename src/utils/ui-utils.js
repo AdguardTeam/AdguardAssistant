@@ -107,6 +107,12 @@ var UIUtils = function ($) { // jshint ignore:line
          * does not outside the bottom right corner
          */
         var resizeWindow = function() {
+            var fixedClasses =
+                $(element).hasClass('adguard-assistant-button-bottom') ||
+                $(element).hasClass('adguard-assistant-button-right');
+
+            if(fixedClasses) return false;
+
             var coords = getCoords(element);
 
             var position = {
@@ -238,22 +244,11 @@ var UIUtils = function ($) { // jshint ignore:line
         el.style.transform = transform;
     };
 
-
-    var respectPageElements = function(element) {
-        switch (document.location.hostname) {
-            case 'vk.com':
-            case 'new.vk.com':
-                $(element).addClass('respect-vk-elements');
-            break;
-        }
-    };
-
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
-        moveElementTo: moveElementTo,
-        respectPageElements: respectPageElements
+        moveElementTo: moveElementTo
     };
 };
 
@@ -297,7 +292,7 @@ var UIValidationUtils = function (settings) { // jshint ignore:line
      */
     var validatePage = function () {
         // Assistant do not work in iframes
-        if (window !== top) {
+        if (window.window !== window.top) {
             return false;
         }
 

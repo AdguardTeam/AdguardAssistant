@@ -42,10 +42,6 @@
     bottom: auto !important;
 }
 
-.respect-vk-elements {
-    transform: translate3d(-70px, 0, 0);
-}
-
 .adguard-logo {
     display: inline-block !important;
     vertical-align: top !important;
@@ -89,4 +85,12 @@
 
 .adguard-logo:before {
     content: "\00a0" !important;
+}
+
+.adguard-assistant-button-respect-vk {
+    transform: translate3d(-70px, 0, 0);
+}
+
+.adguard-assistant-button-respect-fb {
+    transform: translate3d(0px, -30px, 0);
 }

@@ -11,6 +11,7 @@ module.exports = () => {
     const options = global.options || {};
 
     browserSync.init({
+        port: 3001,
         server: {
             baseDir: './build/'
         }

@@ -41,3 +41,4 @@ gulp.task('uglify', require('./tasks/uglify'));
 gulp.task('watch', require('./tasks/watch'));
 gulp.task('download-localization', require('./tasks/download-localization'));
 gulp.task('append-locales', require('./tasks/append-locales'));
+gulp.task('css', require('./tasks/css'));

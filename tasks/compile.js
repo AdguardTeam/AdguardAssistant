@@ -29,7 +29,8 @@ module.exports = () => {
         return null;
     };
 
-    var metaContent = fs.readFileSync(options.metaPath).toString();
+    let metaPath = path.join(options.localesDir, options.metaPath);
+    var metaContent = fs.readFileSync(metaPath).toString();
     var metaLines = metaContent.split('\n');
     var finalContent = [];
     var newMeta = [];

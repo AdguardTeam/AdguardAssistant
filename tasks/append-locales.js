@@ -1,5 +1,5 @@
 /**
- * Converting donwloaded localization from json to.
+ * Converting donwloaded localization from json to js object variable.
  */
 
 const gulp = require('gulp');
@@ -13,10 +13,11 @@ module.exports = () => {
 
     gutil.log('Appending locales...');
 
-    return options.locales.forEach((val, key) => {
-        let localesJSON = fs.readFileSync(path.join(options.directoryName, val + '.json')).toString();
-        let string = 'var ' + val + ' = ' + localesJSON;
-        let filename = val + '.js';
+    return options.locales.forEach((language) => {
+        let localePath = path.join(options.localesDir, language + '.json');
+        let localesJSON = fs.readFileSync(localePath).toString();
+        let string = 'var ' + language + ' = ' + localesJSON;
+        let filename = language + '.js';
 
         file(filename, string)
             .pipe(gulp.dest(options.src + '/_locales'));

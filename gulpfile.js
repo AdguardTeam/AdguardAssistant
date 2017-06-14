@@ -8,8 +8,10 @@ const options = global.options = {
     metaBeta: 'compiler.meta.beta.js',
     outputPath: 'build',
     locales: ['en', 'ru'],
-    directoryName: 'locales_4',
+    metaLocales: ['ru', 'uk', 'de', 'sr', 'pl', 'zh-cn', 'it', 'es', 'id'],
+    localesDir: 'locales_4',
     sourceFile: 'en.json',
+    sourceFileMeta: 'en.meta.json',
     debug: false,
     metaPath: null
 };
@@ -29,7 +31,7 @@ gulp.task('build', () => {
 });
 
 gulp.task('locales', () => {
-    runSequence('download-localization', 'append-locales');
+    runSequence('download-localization', 'append-locales', 'update-meta-locales');
 });
 
 
@@ -41,3 +43,4 @@ gulp.task('uglify', require('./tasks/uglify'));
 gulp.task('watch', require('./tasks/watch'));
 gulp.task('download-localization', require('./tasks/download-localization'));
 gulp.task('append-locales', require('./tasks/append-locales'));
+gulp.task('update-meta-locales', require('./tasks/update-meta-locales'));

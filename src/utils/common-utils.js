@@ -64,6 +64,7 @@ var CommonUtils = { // jshint ignore:line
 
     /**
      * Force clear page cache
+     * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
      */
     reloadPageBypassCache: function() {
         var xhr = new XMLHttpRequest();
@@ -74,7 +75,7 @@ var CommonUtils = { // jshint ignore:line
         xhr.setRequestHeader('Cache-Control', 'no-cache');
 
         xhr.onreadystatechange = function() {
-            if (xhr.status === 200 && xhr.readyState === 4) {
+            if (xhr.readyState === 4) {
                 window.location.reload(true);
             }
         };

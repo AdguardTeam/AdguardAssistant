@@ -23,6 +23,7 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
         setWotData();
         bindEvents();
         setInitFilteringState();
+        showHideBlockAdButton(contentDocument.getElementById('is-filter').checked);
     };
 
     var setDomain = function () {
@@ -48,6 +49,7 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
 
     var onIsFilterChange = function () {
         var isFilter = contentDocument.getElementById('is-filter').checked;
+        showHideBlockAdButton(isFilter);
         gmApi.ADG_changeFilteringState(isFilter);
     };
 
@@ -158,9 +160,16 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
         }
     };
 
-
     var startAdSelector = function () {
         iframeCtrl.showSelectorMenu();
+    };
+
+    var showHideBlockAdButton = function (isFilter) {
+        if(isFilter) {
+            $(contentDocument.getElementById('block-ad')).removeClass('hidden');
+        }else{
+            $(contentDocument.getElementById('block-ad')).addClass('hidden');
+        }
     };
 
     return {

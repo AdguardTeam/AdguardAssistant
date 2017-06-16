@@ -60,6 +60,27 @@ var CommonUtils = { // jshint ignore:line
 
     cropDomain: function (domain) {
         return domain.replace("www.", "").replace(/:\d+/, '');
+    },
+
+    /**
+     * Force clear page cache
+     * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
+     */
+    reloadPageBypassCache: function() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', window.location.href, true);
+
+        xhr.setRequestHeader('Pragma', 'no-cache');
+        xhr.setRequestHeader('Expires', -1);
+        xhr.setRequestHeader('Cache-Control', 'no-cache');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4) {
+                window.location.reload(true);
+            }
+        };
+
+        xhr.send();
     }
 };
 
@@ -202,4 +223,3 @@ var Base64 = {
         return string;
     }
 };
-

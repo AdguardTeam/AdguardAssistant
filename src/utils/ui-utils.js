@@ -13,6 +13,8 @@ var UIUtils = function ($) { // jshint ignore:line
      * @param onMouseDown
      */
     var makeElementDraggable = function (element, onDragEnd, onClick, onMouseDown) {
+        var events = getEvents(UIValidationUtils.isTouchDevice);
+
         var getCoords = function (elem) {
             var box = elem.getBoundingClientRect();
             return {
@@ -35,7 +37,7 @@ var UIUtils = function ($) { // jshint ignore:line
             return false;
         };
 
-        $(element).on('mousedown', function (e) {
+        $(element).on(events.mousedown, function (e) {
             pauseEvent(e);
             var coords = getCoords(element);
             var shiftX = e.pageX - coords.left;
@@ -58,7 +60,7 @@ var UIUtils = function ($) { // jshint ignore:line
                     position.top <= 0;
 
                 if(outsidePosition) {
-                    $(document).off('mousemove');
+                    $(document).off(events.mousemove);
                 }else{
                     moveElementTo(element, position.left, position.top);
                 }
@@ -75,12 +77,12 @@ var UIUtils = function ($) { // jshint ignore:line
                 pauseEvent(e);
                 moveAt(e);
             };
-            $(document).on('mousemove', onMouseMove);
+            $(document).on(events.mousemove, onMouseMove);
 
             var onMouseUp = function (e) {
                 e.stopPropagation();
-                $(document).off('mousemove', onMouseMove);
-                $(element).off('mouseup', onMouseUp);
+                $(document).off(events.mousemove, onMouseMove);
+                $(element).off(events.mouseup, onMouseUp);
                 var lastCoords = getCoords(element);
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
@@ -94,7 +96,7 @@ var UIUtils = function ($) { // jshint ignore:line
                     }
                 }
             };
-            $(element).on('mouseup', onMouseUp);
+            $(element).on(events.mouseup, onMouseUp);
         });
 
         $(element).on('dragstart', function () {
@@ -127,7 +129,7 @@ var UIUtils = function ($) { // jshint ignore:line
      * @param handleElement
      */
     var makeIframeDraggable = function (iframe, handleElement) {
-
+        var events = getEvents(UIValidationUtils.isTouchDevice);
         var iframeJ = iframe;
         var dragHandle = handleElement;
         var $iframeDocument = $(iframe[0].contentDocument);
@@ -189,17 +191,17 @@ var UIUtils = function ($) { // jshint ignore:line
             offset.x = rect.left + dragHandleEl.offsetLeft - eventPosition.x;
             offset.y = rect.top + dragHandleEl.offsetTop - eventPosition.y;
 
-            $iframeDocument.on('mousemove', onMouseMove);
+            $iframeDocument.on(events.mousemove, onMouseMove);
             $iframeDocument.on('selectstart', cancelIFrameSelection);
         };
 
         var onMouseUp = function () {
-            $iframeDocument.off('mousemove', onMouseMove);
+            $iframeDocument.off(events.mousemove, onMouseMove);
             $iframeDocument.off('selectstart', cancelIFrameSelection);
         };
 
-        dragHandle.on('mousedown', onMouseDown);
-        $iframeDocument.on('mouseup', onMouseUp);
+        dragHandle.on(events.mousedown, onMouseDown);
+        $iframeDocument.on(events.mouseup, onMouseUp);
     };
 
     var browserPrefixes = ["webkit", "moz", "ms", "o", ""];
@@ -236,6 +238,14 @@ var UIUtils = function ($) { // jshint ignore:line
         el.style.msTransform = transform;
         el.style.oTransform = transform;
         el.style.transform = transform;
+    };
+
+    var getEvents = function(isTouch) {
+        return {
+            mousedown: isTouch ? 'touchstart' : 'mousedown',
+            mousemove: isTouch ? 'touchmove' : 'mousemove',
+            mouseup: isTouch ? 'touchend' : 'mouseup'
+        };
     };
 
     return {
@@ -295,11 +305,17 @@ var UIValidationUtils = function (settings) { // jshint ignore:line
             document.getElementsByTagName('body').length;
     };
 
+    var isTouchDevice = function() {
+        return (('ontouchstart' in window) ||
+            (navigator.MaxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0));
+    };
 
     return {
         checkVisibleAreaSize: checkVisibleAreaSize,
         validateBrowser: validateBrowser,
         validatePage: validatePage,
-        getViewPort: getViewPort
+        getViewPort: getViewPort,
+        isTouchDevice: isTouchDevice
     };
 };

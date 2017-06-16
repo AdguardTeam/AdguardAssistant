@@ -4,7 +4,7 @@
  * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function, tryFullScreenPrefix: Function}}
  * @constructor
  */
-var UIUtils = function ($) { // jshint ignore:line
+var UIUtils = function($) { // jshint ignore:line
     /**
      * Make element draggable
      * @param element
@@ -12,10 +12,10 @@ var UIUtils = function ($) { // jshint ignore:line
      * @param onClick
      * @param onMouseDown
      */
-    var makeElementDraggable = function (element, onDragEnd, onClick, onMouseDown) {
+    var makeElementDraggable = function(element, onDragEnd, onClick, onMouseDown) {
         var events = getEvents(UIValidationUtils.isTouchDevice);
 
-        var getCoords = function (elem) {
+        var getCoords = function(elem) {
             var box = elem.getBoundingClientRect();
             return {
                 top: box.top,
@@ -29,7 +29,7 @@ var UIUtils = function ($) { // jshint ignore:line
          * Prevent text selection
          * With cursor drag
          **/
-        var pauseEvent = function (e) {
+        var pauseEvent = function(e) {
             e.stopPropagation();
             e.preventDefault();
             e.cancelBubble = true;
@@ -37,18 +37,18 @@ var UIUtils = function ($) { // jshint ignore:line
             return false;
         };
 
-        $(element).on(events.mousedown, function (e) {
+        $(element).on(events.mousedown, function(e) {
             pauseEvent(e);
             var coords = getCoords(element);
-            var shiftX = e.pageX - coords.left;
-            var shiftY = e.pageY - coords.top;
+            var shiftX = getOriginalEvent(e).pageX - coords.left;
+            var shiftY = getOriginalEvent(e).pageY - coords.top;
 
             document.body.appendChild(element);
 
-            var moveAt = function (e) {
+            var moveAt = function(e) {
                 var position = {
-                    top: e.pageY - shiftY,
-                    left: e.pageX - shiftX
+                    top: getOriginalEvent(e).pageY - shiftY,
+                    left: getOriginalEvent(e).pageX - shiftX
                 };
 
                 // stack the icon to the border and
@@ -59,9 +59,9 @@ var UIUtils = function ($) { // jshint ignore:line
                     position.left <= 0 ||
                     position.top <= 0;
 
-                if(outsidePosition) {
+                if (outsidePosition) {
                     $(document).off(events.mousemove);
-                }else{
+                } else {
                     moveElementTo(element, position.left, position.top);
                 }
             };
@@ -72,14 +72,14 @@ var UIUtils = function ($) { // jshint ignore:line
                 onMouseDown();
             }
 
-            var onMouseMove = function (e) {
+            var onMouseMove = function(e) {
                 e.stopPropagation();
                 pauseEvent(e);
                 moveAt(e);
             };
             $(document).on(events.mousemove, onMouseMove);
 
-            var onMouseUp = function (e) {
+            var onMouseUp = function(e) {
                 e.stopPropagation();
                 $(document).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
@@ -88,8 +88,7 @@ var UIUtils = function ($) { // jshint ignore:line
                     if (onDragEnd) {
                         onDragEnd(getCoords(element));
                     }
-                }
-                else {
+                } else {
                     if (onClick) {
                         onClick(e);
                         e.stopPropagation();
@@ -99,7 +98,7 @@ var UIUtils = function ($) { // jshint ignore:line
             $(element).on(events.mouseup, onMouseUp);
         });
 
-        $(element).on('dragstart', function () {
+        $(element).on('dragstart', function() {
             return false;
         });
 
@@ -128,7 +127,7 @@ var UIUtils = function ($) { // jshint ignore:line
      * @param iframe
      * @param handleElement
      */
-    var makeIframeDraggable = function (iframe, handleElement) {
+    var makeIframeDraggable = function(iframe, handleElement) {
         var events = getEvents(UIValidationUtils.isTouchDevice);
         var iframeJ = iframe;
         var dragHandle = handleElement;
@@ -142,7 +141,7 @@ var UIUtils = function ($) { // jshint ignore:line
          * @param e
          * @returns {{x: (Number|number), y: (Number|number)}}
          */
-        var getEventPosition = function (e) {
+        var getEventPosition = function(e) {
             if (!e) {
                 e = window.event;
             }
@@ -158,7 +157,7 @@ var UIUtils = function ($) { // jshint ignore:line
          * @param x
          * @param y
          */
-        var drag = function (x, y) {
+        var drag = function(x, y) {
             var newPositionX = x;
             var newPositionY = y;
             // Don't drag it off the top or left of the screen?
@@ -173,17 +172,17 @@ var UIUtils = function ($) { // jshint ignore:line
             iframeJ.css('top', newPositionY + 'px');
         };
 
-        var cancelIFrameSelection = function (e) {
+        var cancelIFrameSelection = function(e) {
             e.preventDefault();
             e.stopPropagation();
         };
 
-        var onMouseMove = function (e) {
+        var onMouseMove = function(e) {
             var eventPosition = getEventPosition(e);
             drag(eventPosition.x + offset.x, eventPosition.y + offset.y);
         };
 
-        var onMouseDown = function (e) {
+        var onMouseDown = function(e) {
             var eventPosition = getEventPosition(e);
             var dragHandleEl = dragHandle.get(0);
             var rect = iframeJ.get(0).getBoundingClientRect();
@@ -195,7 +194,7 @@ var UIUtils = function ($) { // jshint ignore:line
             $iframeDocument.on('selectstart', cancelIFrameSelection);
         };
 
-        var onMouseUp = function () {
+        var onMouseUp = function() {
             $iframeDocument.off(events.mousemove, onMouseMove);
             $iframeDocument.off('selectstart', cancelIFrameSelection);
         };
@@ -209,8 +208,10 @@ var UIUtils = function ($) { // jshint ignore:line
     /*
      Checks prefixes for full screen mode.
      */
-    var tryFullScreenPrefix = function (obj, method) {
-        var i = 0, currentMethod = null, type;
+    var tryFullScreenPrefix = function(obj, method) {
+        var i = 0,
+            currentMethod = null,
+            type;
         while (i < browserPrefixes.length && !obj[currentMethod]) {
             currentMethod = method;
             if (browserPrefixes[i] === "") {
@@ -240,12 +241,28 @@ var UIUtils = function ($) { // jshint ignore:line
         el.style.transform = transform;
     };
 
+
+    /**
+     * Get touch event strings for touch devices
+     * @param {Boolean}
+     * @return {Object}
+     */
     var getEvents = function(isTouch) {
         return {
             mousedown: isTouch ? 'touchstart' : 'mousedown',
             mousemove: isTouch ? 'touchmove' : 'mousemove',
             mouseup: isTouch ? 'touchend' : 'mouseup'
         };
+    };
+
+    /**
+     * Get original event object for touch
+     * devices to getting current coordinates
+     * @param {Object}
+     * @return {Object}
+     */
+    var getOriginalEvent = function(e) {
+        return e.targetTouches ? e.targetTouches[0] : e;
     };
 
     return {
@@ -262,39 +279,42 @@ var UIUtils = function ($) { // jshint ignore:line
  * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage}}
  * @constructor
  */
-var UIValidationUtils = function (settings) { // jshint ignore:line
+var UIValidationUtils = function(settings) { // jshint ignore:line
     var document = window.document;
     /**
      * Check if visible area are enough to show menu.
      * @returns boolean. True if area enough
      */
-    var checkVisibleAreaSize = function () {
+    var checkVisibleAreaSize = function() {
         var viewPort = getViewPort();
         return viewPort.height > settings.Constants.MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON;
     };
 
-    var getViewPort = function () {
+    var getViewPort = function() {
         var viewPortWidth;
         var viewPortHeight;
 
         viewPortWidth = window.innerWidth;
         viewPortHeight = window.innerHeight;
 
-        return {width: viewPortWidth, height: viewPortHeight};
+        return {
+            width: viewPortWidth,
+            height: viewPortHeight
+        };
     };
 
     /**
      * Checks if browser is valid for Adguard assistant
      * @returns boolean. True if browser valid
      */
-    var validateBrowser = function () {
+    var validateBrowser = function() {
         return !document.documentMode || (document.documentMode > settings.Constants.MINIMUM_IE_SUPPORTED_VERSION);
     };
 
     /**
      * Checks if page is valid for Adguard assistant to work here.
      */
-    var validatePage = function () {
+    var validatePage = function() {
         // Assistant do not work in iframes
         if (window !== top) {
             return false;

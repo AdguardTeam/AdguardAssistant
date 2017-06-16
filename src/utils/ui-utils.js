@@ -241,7 +241,6 @@ var UIUtils = function($) { // jshint ignore:line
         el.style.transform = transform;
     };
 
-
     /**
      * Get touch event strings for touch devices
      * @param {Boolean}

@@ -11,3 +11,4 @@ locales_4
 
 compiler.meta.beta.js
 compiler.meta.build.js
+src/styles/style.css

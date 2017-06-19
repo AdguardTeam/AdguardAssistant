@@ -12,6 +12,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
     var contentDocument = null;
     var iframeCtrl = null;
     var domain = null;
+    var FILTERING_STATE = 'Adguard_Filtering_State';
 
     /*
      Called from IframeController._showMenuItem to initialize view
@@ -23,7 +24,6 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
         setWotData();
         bindEvents();
         setInitFilteringState();
-        showHideBlockAdButton(contentDocument.getElementById('is-filter').checked);
     };
 
     var setDomain = function() {
@@ -49,6 +49,10 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
 
     var onIsFilterChange = function() {
         var isFilter = contentDocument.getElementById('is-filter').checked;
+
+        // animate class for prevent animation while the state from the application is determined
+        $(contentDocument.querySelectorAll(".menu-filter_label")).addClass("animate");
+        
         showHideBlockAdButton(isFilter);
         setFilteringStateToStore(isFilter);
         gmApi.ADG_changeFilteringState(isFilter);
@@ -56,15 +60,16 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
 
     var setInitFilteringState = function() {
         var input = contentDocument.getElementById('is-filter');
-        $(contentDocument.querySelectorAll(".menu-filter_label")).addClass("animate");
         input.checked = getFilteringStateFromStore();
         gmApi.ADG_isFiltered(function(isFiltered) {
             input.checked = isFiltered;
+            setFilteringStateToStore(isFiltered);
+            showHideBlockAdButton(isFiltered);
         });
     };
 
     /**
-     * Storing the filtering state for quick initialization, while the state from the application is determined
+     * Storing the filtering state for quick initialization
      *
      * @param {Boolean} state  on/off filtering state
      */
@@ -75,7 +80,8 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
     };
 
     /**
-     * Getting the filtering state for quick initialization from the localStorage
+     * Getting the filtering state for quick initialization from the localStorage,
+     * while the state from the application is determined
      *
      * @returns {Boolean} on/off filtering state
      */

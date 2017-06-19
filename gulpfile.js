@@ -20,14 +20,14 @@ const options = global.options = {
 gulp.task('dev', () => {
     options.debug = true;
     options.metaPath = options.metaBeta;
-    runSequence('compile', 'preprocess', 'restore-meta');
+    runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
 
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
-    runSequence('clean', 'compile', 'preprocess', 'uglify', 'restore-meta');
+    runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta');
 });
 
 gulp.task('locales', () => {

@@ -98,7 +98,7 @@ module.exports = () => {
     var userJsFileName = options.scriptName + '.user.js';
     var userMetaFileName = options.scriptName + '.meta.js';
 
-    return gulp.src(options.outputPath + '/' + userMetaFileName)
+    return gulp.src(userJsFileName)
         .pipe(file(userJsFileName, finalContent.join('\n')))
         .pipe(file(userMetaFileName, newMeta.join('\n')))
         .pipe(gulp.dest(options.outputPath));

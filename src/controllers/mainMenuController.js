@@ -12,7 +12,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
     var contentDocument = null;
     var iframeCtrl = null;
     var domain = null;
-    var FILTERING_STATE = 'Adguard_Filtering_State';
+    var FILTERING_STATE_LS_PROPERTY = 'Adguard_Filtering_State';
 
     /*
      Called from IframeController._showMenuItem to initialize view
@@ -52,7 +52,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
 
         // animate class for prevent animation while the state from the application is determined
         $(contentDocument.querySelectorAll(".menu-filter_label")).addClass("animate");
-        
+
         showHideBlockAdButton(isFilter);
         setFilteringStateToStore(isFilter);
         gmApi.ADG_changeFilteringState(isFilter);
@@ -74,9 +74,13 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
      * @param {Boolean} state  on/off filtering state
      */
     var setFilteringStateToStore = function(state) {
-        localStorage.setItem(FILTERING_STATE, JSON.stringify({
-            "state": state
-        }));
+        try {
+            localStorage.setItem(FILTERING_STATE_LS_PROPERTY, JSON.stringify({
+                "state": state
+            }));
+        } catch (ex) {
+            return null;
+        }
     };
 
     /**
@@ -87,7 +91,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
      */
     var getFilteringStateFromStore = function() {
         try {
-            var state = localStorage.getItem(FILTERING_STATE);
+            var state = localStorage.getItem(FILTERING_STATE_LS_PROPERTY);
             if (state) {
                 return JSON.parse(state).state;
             } else {

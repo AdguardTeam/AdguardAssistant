@@ -8,11 +8,11 @@
  * @constructor
  */
 /* global Ioc, StringUtils, punycode */
-var DetailedMenuController = function($, wot, localization, gmApi, settings) { // jshint ignore:line
+var DetailedMenuController = function($, wot, localization, gmApi, settings, log) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = null;
     var domain = null;
-    var FILTERING_STATE_LS_PROPERTY = 'Adguard_Filtering_State';
+    var FILTERING_STATE_LS_PROPERTY = '__adfstate';
 
     /*
      Called from IframeController._showMenuItem to initialize view
@@ -79,6 +79,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
                 "state": state
             }));
         } catch (ex) {
+            log.error(ex);
             return null;
         }
     };
@@ -98,6 +99,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
                 return false;
             }
         } catch (ex) {
+            log.error(ex);
             return false;
         }
         return false;
@@ -108,8 +110,6 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings) { /
             CommonUtils.reloadPageBypassCache();
         });
     };
-
-
 
     var reportAbuse = function() {
         gmApi.ADG_sendAbuse(function() {

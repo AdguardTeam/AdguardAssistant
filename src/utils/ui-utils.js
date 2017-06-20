@@ -54,8 +54,8 @@ var UIUtils = function($) { // jshint ignore:line
                 // stack the icon to the border and
                 // remove mousemove event listener if it outside
                 var outsidePosition =
-                    position.left + element.offsetWidth >= window.innerWidth ||
-                    position.top + element.offsetHeight >= window.innerHeight ||
+                    position.left + element.offsetWidth > window.innerWidth ||
+                    position.top + element.offsetHeight > window.innerHeight ||
                     position.left <= 0 ||
                     position.top <= 0;
 
@@ -108,6 +108,12 @@ var UIUtils = function($) { // jshint ignore:line
          * does not outside the bottom right corner
          */
         var resizeWindow = function() {
+            var fixedClasses =
+                $(element).hasClass('adguard-assistant-button-bottom') ||
+                $(element).hasClass('adguard-assistant-button-right');
+
+            if(fixedClasses) return false;
+
             var coords = getCoords(element);
 
             var position = {
@@ -315,7 +321,7 @@ var UIValidationUtils = function(settings) { // jshint ignore:line
      */
     var validatePage = function() {
         // Assistant do not work in iframes
-        if (window !== top) {
+        if (window.window !== window.top) {
             return false;
         }
 

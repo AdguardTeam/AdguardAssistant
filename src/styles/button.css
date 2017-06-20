@@ -86,3 +86,11 @@
 .adguard-logo:before {
     content: "\00a0" !important;
 }
+
+.adguard-assistant-button-respect-vk {
+    transform: translate3d(-70px, 0, 0);
+}
+
+.adguard-assistant-button-respect-fb {
+    transform: translate3d(0px, -30px, 0);
+}

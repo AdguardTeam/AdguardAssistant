@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.ui('bdd');
+            mocha.reporter('html');
+
+            window.GM_getValue = function() {return false;};
+            window.GM_setValue = function() {return false;};
+            window.GM_getResourceText = function() {return false;};
+            window.GM_addStyle = function() {return false;};
+
+            var expect = chai.expect;
+        </script>
+        <script src="../build/assistant.user.js"></script>
+        <script src="./tests.js"></script>
+        <script>
+            mocha.run()
+        </script>
+    </body>
+</html>

@@ -4,8 +4,12 @@
   "description": "Compile source files to userscript form",
   "main": "gulpfile.js",
   "dependencies": {},
+  "scripts": {
+    "test": "mocha-phantomjs test/index.html"
+  },
   "devDependencies": {
     "browser-sync": "^2.18.12",
+    "chai": "^4.0.2",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^3.4.2",
@@ -20,6 +24,8 @@
     "gulp-watch": "^4.3.11",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-inline-urls": "^1.2.0",
+    "mocha": "^3.4.2",
+    "mocha-phantomjs": "^4.1.0",
     "run-sequence": "^1.2.2"
   }
 }

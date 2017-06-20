@@ -9,9 +9,12 @@
         <script src="../node_modules/mocha/mocha.js"></script>
         <script src="../node_modules/chai/chai.js"></script>
         <script>
-            mocha.ui('bdd');
-            mocha.reporter('html');
-
+            mocha.setup({
+              ui: 'bdd',
+              ignoreLeaks: false
+            });
+            mocha.checkLeaks();
+            
             window.GM_getValue = function() {return false;};
             window.GM_setValue = function() {return false;};
             window.GM_getResourceText = function() {return false;};
@@ -19,7 +22,9 @@
 
             var expect = chai.expect;
         </script>
+
         <script src="../build/assistant.user.js"></script>
+
         <script src="./tests.js"></script>
         <script>
             mocha.run()

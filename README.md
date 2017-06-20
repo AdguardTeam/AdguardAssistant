@@ -8,14 +8,14 @@ For development build run:
 
     $ gulp dev
 
-It will compiling `assistant.user.js` file without minification.
+This will compile `assistant.user.js` file without minification.
 
 
 For development build with watcher on file changes and debugging from local server:
 
     $ gulp watch
 
-This starts the browser with the address `http://localhost:3000` for debugging using extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify a script in the address like `http://localhost:3000/assistant.user.js`.
+This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify a script in the address like `http://localhost:3000/assistant.user.js`.
 
 To run the task of downloading the localization files, put the `.keys.json` configuration file in the `config` directory.
 
@@ -28,9 +28,9 @@ The configuration file looks like:
         "api_key": "some api key"
     }
 
-This file will ingored with .gitignore settings for security.
+For security reasons, this file is ingored by .gitignore settings.
 
-For downloading and appending localizations run:
+To download and append localizations run:
 
     $ gulp locales
 
@@ -38,4 +38,4 @@ For production build run:
 
     $ gulp build
 
-It will compiling `assistant.user.js` file with minification and uglify.
+This will compile `assistant.user.js` file with minification and uglify.

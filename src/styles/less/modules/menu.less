@@ -51,7 +51,6 @@
         background: #e85037;
         cursor: pointer;
         overflow: hidden;
-        transition: .2s;
         &:hover{
             background: lighten(#e85037, 10%);
         }
@@ -65,7 +64,6 @@
             border-bottom: 2px solid #fff;
             border-left: 2px solid #fff;
             transform: rotate(-45deg);
-            transition: .2s;
         }
         &:after{
             content: '+';
@@ -79,6 +77,11 @@
             font-weight: 400;
             color: #fff;
             transform: rotate(-45deg);
+        }
+        &.animate,
+        &.animate:before,
+        &.animate:after,
+        &.animate .menu-filter_handle{
             transition: .2s;
         }
     }
@@ -90,7 +93,6 @@
         left: 1px;
         border-radius: 4px;
         background: #fff;
-        transition: .2s;
     }
 
     &_input{

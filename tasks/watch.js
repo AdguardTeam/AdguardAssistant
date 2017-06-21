@@ -19,7 +19,7 @@ module.exports = () => {
 
     gutil.log(gutil.colors.green('Watcher is running...'));
 
-    return watch(options.src + '/**/*.{css,js,html}', () => {
+    return watch(options.src + '/**/*.{less,js,html}', () => {
         gulp.start('dev');
     });
 };

@@ -9,7 +9,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     var Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
-        BUTTON_POSITION_ITEM_NAME: 'Adguard_Button_Position',
+        BUTTON_POSITION_ITEM_NAME: '__adbpos',
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
@@ -140,4 +140,3 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         getAdguardSettings: getAdguardSettings
     };
 };
-

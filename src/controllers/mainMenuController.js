@@ -8,30 +8,30 @@
  * @constructor
  */
 /* global Ioc, StringUtils, punycode */
-var DetailedMenuController = function ($, wot, localization, gmApi, settings) { // jshint ignore:line
+var DetailedMenuController = function($, wot, localization, gmApi, settings, log) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = null;
     var domain = null;
+    var FILTERING_STATE_LS_PROPERTY = '__adfstate';
 
     /*
      Called from IframeController._showMenuItem to initialize view
      */
-    var init = function (iframe) {
+    var init = function(iframe) {
         contentDocument = iframe.contentDocument;
         iframeCtrl = Ioc.get('iframeController');
         setDomain();
         setWotData();
         bindEvents();
         setInitFilteringState();
-        showHideBlockAdButton(contentDocument.getElementById('is-filter').checked);
     };
 
-    var setDomain = function () {
+    var setDomain = function() {
         domain = punycode.toUnicode(location.hostname);
         contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain;
     };
 
-    var bindEvents = function () {
+    var bindEvents = function() {
         var menuEvents = {
             '.close': iframeCtrl.removeIframe,
             '#block-ad': startAdSelector,
@@ -42,44 +42,87 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
             '#site-report': goToSiteReport,
             '#is-filter': onIsFilterChange
         };
-        Object.keys(menuEvents).forEach(function (item) {
+        Object.keys(menuEvents).forEach(function(item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
     };
 
-    var onIsFilterChange = function () {
+    var onIsFilterChange = function() {
         var isFilter = contentDocument.getElementById('is-filter').checked;
+
+        // animate class for prevent animation while the state from the application is determined
+        $(contentDocument.querySelectorAll(".menu-filter_label")).addClass("animate");
+
         showHideBlockAdButton(isFilter);
+        setFilteringStateToStore(isFilter);
         gmApi.ADG_changeFilteringState(isFilter);
     };
 
-    var setInitFilteringState = function () {
-        gmApi.ADG_isFiltered(function (isFiltered) {
-            var input = contentDocument.getElementById('is-filter');
+    var setInitFilteringState = function() {
+        var input = contentDocument.getElementById('is-filter');
+        input.checked = getFilteringStateFromStore();
+        gmApi.ADG_isFiltered(function(isFiltered) {
             input.checked = isFiltered;
+            setFilteringStateToStore(isFiltered);
+            showHideBlockAdButton(isFiltered);
         });
     };
 
-    var doNotBlock = function () {
-        gmApi.ADG_temporaryDontBlock(30, function () {
+    /**
+     * Storing the filtering state for quick initialization
+     *
+     * @param {Boolean} state  on/off filtering state
+     */
+    var setFilteringStateToStore = function(state) {
+        try {
+            localStorage.setItem(FILTERING_STATE_LS_PROPERTY, JSON.stringify({
+                "state": state
+            }));
+        } catch (ex) {
+            log.error(ex);
+            return null;
+        }
+    };
+
+    /**
+     * Getting the filtering state for quick initialization from the localStorage,
+     * while the state from the application is determined
+     *
+     * @returns {Boolean} on/off filtering state
+     */
+    var getFilteringStateFromStore = function() {
+        try {
+            var state = localStorage.getItem(FILTERING_STATE_LS_PROPERTY);
+            if (state) {
+                return JSON.parse(state).state;
+            } else {
+                return false;
+            }
+        } catch (ex) {
+            log.error(ex);
+            return false;
+        }
+        return false;
+    };
+
+    var doNotBlock = function() {
+        gmApi.ADG_temporaryDontBlock(30, function() {
             CommonUtils.reloadPageBypassCache();
         });
     };
 
-
-
-    var reportAbuse = function () {
-        gmApi.ADG_sendAbuse(function () {
+    var reportAbuse = function() {
+        gmApi.ADG_sendAbuse(function() {
             iframeCtrl.removeIframe();
         });
     };
 
-    var goToSiteReport = function () {
+    var goToSiteReport = function() {
         var url = StringUtils.format(settings.Constants.REPORT_URL, domain);
         window.open(url, '_blank');
     };
 
-    var setWotData = function () {
+    var setWotData = function() {
         var wotData = wot.getWotData();
         var wotReputationSettings = getWotReputationSettings(wotData);
 
@@ -101,11 +144,11 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
         }
     };
 
-    var goToWotUrl = function () {
+    var goToWotUrl = function() {
         window.open(wot.WOT_URL, '_blank');
     };
 
-    var getWotReputationSettings = function (wotData) {
+    var getWotReputationSettings = function(wotData) {
         if (!wotData) {
             return null;
         }
@@ -116,27 +159,51 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
         if (averageWot === 0) {
             wotRatingText = localization.getMessage('wot_unknown_description');
             wotRating = prefix + 'unknown';
-            return {text: wotRatingText, class: wotRating};
+            return {
+                text: wotRatingText,
+                class: wotRating
+            };
         }
         var wotSettings = {
-            0: {color: 'red', string: localization.getMessage('wot_bad_description')},
-            1: {color: 'lightRed', string: localization.getMessage('wot_poor_description')},
-            2: {color: 'yellow', string: localization.getMessage('wot_unsatisfactory_description')},
-            3: {color: 'lightGreen', string: localization.getMessage('wot_good_description')},
-            4: {color: 'green', string: localization.getMessage('wot_excellent_description')},
-            5: {color: 'green', string: localization.getMessage('wot_excellent_description')}
+            0: {
+                color: 'red',
+                string: localization.getMessage('wot_bad_description')
+            },
+            1: {
+                color: 'lightRed',
+                string: localization.getMessage('wot_poor_description')
+            },
+            2: {
+                color: 'yellow',
+                string: localization.getMessage('wot_unsatisfactory_description')
+            },
+            3: {
+                color: 'lightGreen',
+                string: localization.getMessage('wot_good_description')
+            },
+            4: {
+                color: 'green',
+                string: localization.getMessage('wot_excellent_description')
+            },
+            5: {
+                color: 'green',
+                string: localization.getMessage('wot_excellent_description')
+            }
         };
         var current = wotSettings[truncateDecimals(averageWot / 20)];
         wotRatingText = current.string;
         wotRating = prefix + current.color;
-        return {text: wotRatingText, class: wotRating};
+        return {
+            text: wotRatingText,
+            class: wotRating
+        };
     };
 
-    var truncateDecimals = function (number) {
+    var truncateDecimals = function(number) {
         return Math[number < 0 ? 'ceil' : 'floor'](number);
     };
 
-    var getWotConfidenceClass = function (wotData) {
+    var getWotConfidenceClass = function(wotData) {
         if (!wotData) {
             return null;
         }
@@ -162,14 +229,14 @@ var DetailedMenuController = function ($, wot, localization, gmApi, settings) { 
         }
     };
 
-    var startAdSelector = function () {
+    var startAdSelector = function() {
         iframeCtrl.showSelectorMenu();
     };
 
-    var showHideBlockAdButton = function (isFilter) {
-        if(isFilter) {
+    var showHideBlockAdButton = function(isFilter) {
+        if (isFilter) {
             $(contentDocument.getElementById('block-ad')).removeClass('hidden');
-        }else{
+        } else {
             $(contentDocument.getElementById('block-ad')).addClass('hidden');
         }
     };

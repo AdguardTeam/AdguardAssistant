@@ -4,6 +4,7 @@ node_js:
 install:
   - npm install
 script:
+  - gulp locales
   - gulp dev
 deploy:
   - provider: pages
@@ -11,4 +12,4 @@ deploy:
     local_dir: 'build'
     github_token: $GITHUB_TOKEN
     on:
-      branch: iss60
+      branch: master

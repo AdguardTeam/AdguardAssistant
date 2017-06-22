@@ -1,5 +1,7 @@
 .idea/
 build
+beta
+dev
 node_modules
 less/node_modules
 less/skin

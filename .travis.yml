@@ -1,0 +1,14 @@
+language: javascript
+node_js:
+  - "4.1"
+install:
+  - npm install
+script:
+  - gulp dev
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    local_dir: 'build'
+    github_token: $GITHUB_TOKEN
+    on:
+      branch: master

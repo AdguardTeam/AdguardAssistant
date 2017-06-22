@@ -6,6 +6,7 @@ const options = global.options = {
     scriptName: 'assistant',
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
+    metaDev: 'compiler.meta.dev.js',
     outputPath: 'build',
     locales: ['en', 'ru'],
     metaLocales: ['ru', 'uk', 'de', 'sr', 'pl', 'zh-cn', 'it', 'es', 'id'],
@@ -17,12 +18,17 @@ const options = global.options = {
 };
 
 
-gulp.task('dev', () => {
+gulp.task('beta', () => {
     options.debug = true;
     options.metaPath = options.metaBeta;
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
+gulp.task('dev', () => {
+    options.debug = true;
+    options.metaPath = options.metaDev;
+    runSequence('css', 'compile', 'preprocess', 'restore-meta');
+});
 
 gulp.task('build', () => {
     options.debug = false;

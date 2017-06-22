@@ -34,6 +34,8 @@ To download and append localizations run:
 
     $ gulp locales
 
+Localization list in options in `gulpfile.js`.
+
 For production build run:
 
     $ gulp build

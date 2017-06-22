@@ -14,8 +14,10 @@ module.exports = () => {
 
     let compilerMeta = fs.readFileSync('compiler.meta.template.js').toString();
     let compilerMetaBeta = compilerMeta;
+    let compilerMetaDev = compilerMeta;
     let compilerMetaNames = [];
     let compilerMetaBetaNames = [];
+    let compilerMetaDevNames = [];
     let compilerMetaDescriptions = [];
 
     options.metaLocales.forEach((language) => {
@@ -28,6 +30,7 @@ module.exports = () => {
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);
             compilerMetaBetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name + ' Beta');
+            compilerMetaDevNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name + ' Dev');
             compilerMetaDescriptions.push('// @description:' + language + ' ' + localesMetaJSON.extension.assistant.description);
         }
     });
@@ -42,11 +45,19 @@ module.exports = () => {
         .replace('@name Adguard Assistant', '@name Adguard Assistant Beta')
         .replace(new RegExp('/Userscripts/AdguardAssistant', 'g'), '/Userscripts/Beta/AdguardAssistant');
 
+    compilerMetaDev = compilerMetaDev
+        .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDevNames.join(endOfLine))
+        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
+        .replace('@name Adguard Assistant', '@name Adguard Assistant Dev')
+        .replace(new RegExp('/Userscripts/AdguardAssistant', 'g'), '/Userscripts/Dev/AdguardAssistant');
+
     let metaBuildPath = path.join(options.localesDir, options.metaBuild);
     let metaBetaPath = path.join(options.localesDir, options.metaBeta);
+    let metaDevPath = path.join(options.localesDir, options.metaDev);
 
     return gulp.src(options.localesDir)
         .pipe(file(metaBuildPath, compilerMeta))
         .pipe(file(metaBetaPath, compilerMetaBeta))
+        .pipe(file(metaDevPath, compilerMetaDev))
         .pipe(gulp.dest(process.cwd()));
 };

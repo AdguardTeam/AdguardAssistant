@@ -8,9 +8,6 @@ less/skin
 beta.bat
 replace.py
 
-locales_4
 .keys*
 
-compiler.meta.beta.js
-compiler.meta.build.js
 src/styles/style.css

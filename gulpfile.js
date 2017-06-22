@@ -13,7 +13,7 @@ const options = global.options = {
     outputPath: 'build',
     locales: ['en', 'ru'],
     metaLocales: ['ru', 'uk', 'de', 'sr', 'pl', 'zh-cn', 'it', 'es', 'id'],
-    localesDir: 'locales_4',
+    localesDir: 'locales',
     sourceFile: 'en.json',
     sourceFileMeta: 'en.meta.json',
     debug: false,

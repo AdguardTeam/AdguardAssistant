@@ -2,6 +2,8 @@
 
 Adguard Assistant userscript
 
+[![Build Status](https://travis-ci.org/4-life/AdguardAssistant?branch=master)](https://travis-ci.org/4-life/AdguardAssistant)
+
 ## How to use
 
 For development build run:

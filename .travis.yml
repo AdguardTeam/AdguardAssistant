@@ -5,6 +5,7 @@ install:
   - npm install
 script:
   - gulp dev
+  - npm test
 deploy:
   - provider: pages
     skip_cleanup: true

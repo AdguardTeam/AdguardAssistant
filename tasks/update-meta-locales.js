@@ -37,19 +37,23 @@ module.exports = () => {
 
     compilerMeta = compilerMeta
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaNames.join(endOfLine))
-        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine));
+        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
+        .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlBuild + 'assistant.user.js')
+        .replace('[UPDATE_URL]', options.downloadUpdateUrlBuild + 'assistant.meta.js');
 
     compilerMetaBeta = compilerMetaBeta
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaBetaNames.join(endOfLine))
         .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
         .replace('@name Adguard Assistant', '@name Adguard Assistant Beta')
-        .replace(new RegExp('/Userscripts/AdguardAssistant', 'g'), '/Userscripts/Beta/AdguardAssistant');
+        .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlBeta + 'assistant.user.js')
+        .replace('[UPDATE_URL]', options.downloadUpdateUrlBeta + 'assistant.meta.js');
 
     compilerMetaDev = compilerMetaDev
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDevNames.join(endOfLine))
         .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
         .replace('@name Adguard Assistant', '@name Adguard Assistant Dev')
-        .replace(new RegExp('/Userscripts/AdguardAssistant', 'g'), '/Userscripts/Dev/AdguardAssistant');
+        .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlDev + 'assistant.user.js')
+        .replace('[UPDATE_URL]', options.downloadUpdateUrlDev + 'assistant.meta.js');
 
     let metaBuildPath = path.join(options.localesDir, options.metaBuild);
     let metaBetaPath = path.join(options.localesDir, options.metaBeta);

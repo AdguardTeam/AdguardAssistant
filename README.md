@@ -1,8 +1,6 @@
-# AdguardAssistant
+# AdguardAssistant [![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
 
 Adguard Assistant userscript
-
-[![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
 
 ## How to use
 

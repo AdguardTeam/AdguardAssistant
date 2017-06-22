@@ -5,8 +5,8 @@
 // @description Provides easy and convenient way to manage filtering right from the browser
 // [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
 // @version 4.0.4
-// @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
-// @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
+// @downloadURL [DOWNLOAD_URL]
+// @updateURL [UPDATE_URL]
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *://feedly.com/*

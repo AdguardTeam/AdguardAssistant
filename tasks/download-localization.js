@@ -6,7 +6,8 @@ const gulp = require('gulp');
 const gutil = require('gulp-util');
 const download = require('gulp-download-stream');
 const md5 = require('gulp-hash-creator');
-const config = require('../config/.keys.json');
+const fs = require('fs');
+const path = require('path')
 
 function hashString(stringContent) {
     return md5({
@@ -17,7 +18,20 @@ function hashString(stringContent) {
 module.exports = () => {
     let options = global.options || {};
 
-    options = Object.assign(options, config);
+    let keys;
+
+    try {
+        keys = fs.readFileSync(path.join('config', '.keys.json')).toString();
+    } catch (err) {
+        throw new gutil.PluginError({
+          plugin: 'compile',
+          message: gutil.colors.green('Make sure you have uploaded file with keys `.keys.json` in /config directory')
+        });
+    }
+
+    keys = JSON.parse(keys);
+
+    options = Object.assign(options, keys);
 
     let urls = [];
 

@@ -30,7 +30,17 @@ module.exports = () => {
     };
 
     let metaPath = path.join(options.localesDir, options.metaPath);
-    var metaContent = fs.readFileSync(metaPath).toString();
+    let metaContent;
+
+    try {
+        metaContent = fs.readFileSync(metaPath).toString();
+    } catch (err) {
+        throw new gutil.PluginError({
+          plugin: 'compile',
+          message: gutil.colors.green('Make sure you have already uploaded localizations with `gulp locales` command!')
+        });
+    }
+
     var metaLines = metaContent.split('\n');
     var finalContent = [];
     var newMeta = [];

@@ -1,12 +1,28 @@
 // ==UserScript==
 // @name Adguard Assistant
-// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]
+// @name:ru Помощник Adguard
+// @name:uk Помічник Adguard
+// @name:de Adguard-Assistent
+// @name:sr Koristi Adguard-ovog pomoćnika
+// @name:pl Asystent Adguarda
+// @name:zh-cn 使用 Adguard 助手
+// @name:it Assistente Adguard
+// @name:es Asistente de Adguard
+// @name:id Asisten Aguard
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
-// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
+// @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
+// @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
+// @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
+// @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
+// @description:pl Zapewnia łatwy i wygodny sposób na zarządzanie filtrowaniem bezpośrednio z przeglądarki
+// @description:zh-cn 提供简单方便的方法来管理浏览器筛选
+// @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
+// @description:es Permite fácilmente gestionar los filtros desde el navegador
+// @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @version 4.0.4
-// @downloadURL [DOWNLOAD_URL]
-// @updateURL [UPDATE_URL]
+// @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
+// @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *://feedly.com/*

@@ -2,6 +2,9 @@
  * Balalaika library
  *
  * https://github.com/finom/balalaika/blob/master/balalaika.js
+ *
+ * The patch includes methods `addClass`, `removeClass`, `hasClass`, `get`, `css`, `hide`, `show`, `remove`, `text`, `attr`, `trigger`.
+ * Also, for registration in the Ioc, the library is used through the variable `balalaika`
  */
 var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventListener, s_MatchesSelector, i, j, k, l, $) {
     $ = function (s, context) {
@@ -9,8 +12,34 @@ var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventList
     };
 
     $.i = function (s, context) {
-        fn.push.apply(this, !s ? fn : s.nodeType || s == window ? [s] : "" + s === s ? /</.test(s)
-            ? ( ( i = document.createElement(context || 'q') ).innerHTML = s, i.children ) : (context && $(context)[0] || document).querySelectorAll(s) : /f/.test(typeof s) ? /c/.test(document.readyState) ? s() : $(document).on('DOMContentLoaded', s) : s);
+        var st;
+        if (!s) {
+            st = fn;
+        } else {
+            if (s.nodeType || s == window) {
+                st = [s];
+            } else {
+                if ("" + s === s) {
+                    if (/</.test(s)) {
+                        st = ((i = document.createElement(context || 'q')).innerHTML = s, i.children);
+                    } else {
+                        st = (context && $(context)[0] || document).querySelectorAll(s);
+                    }
+                } else {
+                    if (/f/.test(typeof s)) {
+                        if (/c/.test(document.readyState)) {
+                            st = s();
+                        } else {
+                            st = $(document).on('DOMContentLoaded', s);
+                        }
+                    } else {
+                        st = s;
+                    }
+                }
+            }
+        }
+        st = [].slice.call(st);
+        fn.push.apply(this, st);
     };
 
     $.i[l = 'prototype'] = ( $.extend = function (obj) {

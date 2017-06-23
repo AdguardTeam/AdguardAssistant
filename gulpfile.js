@@ -6,10 +6,14 @@ const options = global.options = {
     scriptName: 'assistant',
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
+    metaDev: 'compiler.meta.dev.js',
+    downloadUpdateUrlBuild: 'https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/',
+    downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/',
+    downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
     outputPath: 'build',
     locales: ['en', 'ru'],
     metaLocales: ['ru', 'uk', 'de', 'sr', 'pl', 'zh-cn', 'it', 'es', 'id'],
-    localesDir: 'locales_4',
+    localesDir: 'locales',
     sourceFile: 'en.json',
     sourceFileMeta: 'en.meta.json',
     debug: false,
@@ -17,12 +21,17 @@ const options = global.options = {
 };
 
 
-gulp.task('dev', () => {
+gulp.task('beta', () => {
     options.debug = true;
     options.metaPath = options.metaBeta;
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
+gulp.task('dev', () => {
+    options.debug = true;
+    options.metaPath = options.metaDev;
+    runSequence('css', 'compile', 'preprocess', 'restore-meta');
+});
 
 gulp.task('build', () => {
     options.debug = false;

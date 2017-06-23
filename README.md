@@ -1,4 +1,4 @@
-# AdguardAssistant
+# AdguardAssistant [![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
 
 Adguard Assistant userscript
 
@@ -33,6 +33,8 @@ For security reasons, this file is ingored by .gitignore settings.
 To download and append localizations run:
 
     $ gulp locales
+
+Localization list in options in `gulpfile.js`.
 
 For production build run:
 

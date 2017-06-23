@@ -32,5 +32,5 @@
     var button = Ioc.get(UIButton);
     Ioc.register('button', button);
     button.show();
-
+    
 })();

@@ -42,4 +42,4 @@ For production build run:
 
 This will compile `assistant.user.js` file with minification and uglify.
 
-[Development build](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js))
+[Development build](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)

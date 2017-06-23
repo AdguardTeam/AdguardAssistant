@@ -2,6 +2,9 @@
  * Balalaika library
  *
  * https://github.com/finom/balalaika/blob/master/balalaika.js
+ *
+ * The patch includes methods `addClass`, `removeClass`, `hasClass`, `get`, `css`, `hide`, `show`, `remove`, `text`, `attr`, `trigger`.
+ * Also, for registration in the Ioc, the library is used through the variable `balalaika`
  */
 var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventListener, s_MatchesSelector, i, j, k, l, $) {
     $ = function (s, context) {

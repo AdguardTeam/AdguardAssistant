@@ -10,24 +10,25 @@
         <script src="../node_modules/chai/chai.js"></script>
         <script>
             mocha.setup({
-              ui: 'bdd',
-              ignoreLeaks: false
+              ui: 'bdd'
             });
+            mocha.globals(['GM_getValue','GM_setValue','GM_getResourceText','GM_addStyle','CSS','diff_match_patch','DIFF_DELETE','DIFF_INSERT','DIFF_EQUAL']);
+            var expect = chai.expect;
+        </script>
+
+        <script src="./tests.js"></script>
+
+        <script>
             mocha.checkLeaks();
-            
+            mocha.run();
+        </script>
+
+        <script>
             window.GM_getValue = function() {return false;};
             window.GM_setValue = function() {return false;};
             window.GM_getResourceText = function() {return false;};
             window.GM_addStyle = function() {return false;};
-
-            var expect = chai.expect;
         </script>
-
         <script src="../build/assistant.user.js"></script>
-
-        <script src="./tests.js"></script>
-        <script>
-            mocha.run()
-        </script>
     </body>
 </html>

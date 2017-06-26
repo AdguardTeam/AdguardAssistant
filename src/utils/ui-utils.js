@@ -56,12 +56,13 @@ var UIUtils = function($) { // jshint ignore:line
                 var outsidePosition =
                     position.left + element.offsetWidth > window.innerWidth ||
                     position.top + element.offsetHeight > window.innerHeight ||
-                    position.left <= 0 ||
-                    position.top <= 0;
+                    position.left < 0 ||
+                    position.top < 0;
 
                 if (outsidePosition) {
-                    $(document).off(events.mousemove);
+                    $(window).off(events.mousemove);
                 } else {
+                    tmpStoringBtnPosition = position;
                     moveElementTo(element, position.left, position.top);
                 }
             };
@@ -77,11 +78,13 @@ var UIUtils = function($) { // jshint ignore:line
                 pauseEvent(e);
                 moveAt(e);
             };
-            $(document).on(events.mousemove, onMouseMove);
+
+            // event listener on window for IE10 compatibility
+            $(window).on(events.mousemove, onMouseMove);
 
             var onMouseUp = function(e) {
                 e.stopPropagation();
-                $(document).off(events.mousemove, onMouseMove);
+                $(window).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
                 var lastCoords = getCoords(element);
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
@@ -117,8 +120,14 @@ var UIUtils = function($) { // jshint ignore:line
             var coords = getCoords(element);
 
             var position = {
-                left: coords.right > window.innerWidth ? window.innerWidth - element.offsetWidth : coords.left,
-                top: coords.bottom > window.innerHeight ? window.innerHeight - element.offsetHeight : coords.top
+                top: coords.bottom > window.innerHeight ? window.innerHeight - element.offsetHeight : coords.top,
+                left: coords.right > window.innerWidth ? window.innerWidth - element.offsetWidth : coords.left
+            };
+
+            // solution for https://github.com/AdguardTeam/AdguardAssistant/issues/68
+            position = {
+                top: tmpStoringBtnPosition.top > window.innerHeight - element.offsetHeight ? position.top : tmpStoringBtnPosition.top,
+                left: tmpStoringBtnPosition.left > window.innerWidth - element.offsetWidth? position.left : tmpStoringBtnPosition.left
             };
 
             moveElementTo(element, position.left, position.top);
@@ -269,6 +278,8 @@ var UIUtils = function($) { // jshint ignore:line
     var getOriginalEvent = function(e) {
         return e.targetTouches ? e.targetTouches[0] : e;
     };
+
+    var tmpStoringBtnPosition = null;
 
     return {
         makeElementDraggable: makeElementDraggable,

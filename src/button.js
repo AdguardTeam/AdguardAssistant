@@ -72,6 +72,14 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
             return false;
         }
 
+        log.info("Adjustment the position of the button");
+
+        // At this point, we can not determine the size of the element, so we set 70
+        position = {
+            left: position.right > window.innerWidth ? window.innerWidth - 70 : position.left,
+            top: position.bottom > window.innerHeight ? window.innerHeight - 70 : position.top
+        };
+
         uiUtils.moveElementTo(button[0], position.left, position.top);
         return true;
     };
@@ -179,14 +187,17 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * under the button there are important elements
      */
     var respectPageElements = function(element) {
-        if(document.location.hostname.indexOf('vk.com') >= 0) {
+        var buttonInRightBottom = 
+            $(element).hasClass('adguard-assistant-button-bottom') &&
+            $(element).hasClass('adguard-assistant-button-right');
+
+        if(buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
-            return false;
         }
-        if(document.location.hostname.indexOf('facebook.com') >= 0) {
+        if(buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
-            return false;
         }
+        return false;
     };
 
     iframeController.onCloseMenu.attach(showButton);

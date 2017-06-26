@@ -71,16 +71,22 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (!position) {
             return false;
         }
+        uiUtils.moveElementTo(button[0], position.x, position.y);
 
-        log.info("Adjustment the position of the button");
-
-        // At this point, we can not determine the size of the element, so we set 70
-        position = {
-            left: position.right > window.innerWidth ? window.innerWidth - 70 : position.left,
-            top: position.bottom > window.innerHeight ? window.innerHeight - 70 : position.top
-        };
-
-        uiUtils.moveElementTo(button[0], position.left, position.top);
+        if (position.storedAnchore.top) {
+            button.addClass('adguard-assistant-button-top');
+            uiUtils.setAnchorePosition.top(true);
+        } else {
+            button.addClass('adguard-assistant-button-bottom');
+            uiUtils.setAnchorePosition.top(false);
+        }
+        if (position.storedAnchore.left) {
+            button.addClass('adguard-assistant-button-left');
+            uiUtils.setAnchorePosition.left(true);
+        } else {
+            button.addClass('adguard-assistant-button-right');
+            uiUtils.setAnchorePosition.left(false);
+        }
         return true;
     };
 
@@ -92,25 +98,33 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (setUserPositionIfExists(button)) {
             return;
         }
+
         if (config.buttonPositionTop) {
             button.addClass('adguard-assistant-button-top');
-        }
-        else {
+            uiUtils.setAnchorePosition.top(true);
+        } else {
             button.addClass('adguard-assistant-button-bottom');
+            uiUtils.setAnchorePosition.top(false);
         }
         if (config.buttonPositionLeft) {
             button.addClass('adguard-assistant-button-left');
-        }
-        else {
+            uiUtils.setAnchorePosition.left(true);
+        } else {
             button.addClass('adguard-assistant-button-right');
+            uiUtils.setAnchorePosition.left(false);
         }
 
         respectPageElements(button[0]);
     };
 
     var registerEvents = function (button) {
-        var onDragEnd = function (coords) {
-            settings.setUserPositionForButton(coords);
+        var onDragEnd = function (x, y, storedAnchore) {
+            var store = {
+                "x": x,
+                "y": y,
+                "storedAnchore": storedAnchore
+            };
+            settings.setUserPositionForButton(store);
         };
 
         var openMenu = function () {
@@ -136,14 +150,14 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
     };
 
     var removeFixedPosition = function () {
-        var buttonPositionClasses = ['adguard-assistant-button-top',
-            'adguard-assistant-button-bottom', 'adguard-assistant-button-left', 'adguard-assistant-button-right'];
-        for (var i = 0; i < buttonPositionClasses.length; i++) {
-            var currentClass = buttonPositionClasses[i];
-            if (button.hasClass(currentClass)) {
-                button.removeClass(currentClass);
-            }
-        }
+        // var buttonPositionClasses = ['adguard-assistant-button-top',
+        //     'adguard-assistant-button-bottom', 'adguard-assistant-button-left', 'adguard-assistant-button-right'];
+        // for (var i = 0; i < buttonPositionClasses.length; i++) {
+        //     var currentClass = buttonPositionClasses[i];
+        //     if (button.hasClass(currentClass)) {
+        //         button.removeClass(currentClass);
+        //     }
+        // }
     };
 
     var hideRestoreOnFullScreen = function () {
@@ -187,7 +201,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * under the button there are important elements
      */
     var respectPageElements = function(element) {
-        var buttonInRightBottom = 
+        var buttonInRightBottom =
             $(element).hasClass('adguard-assistant-button-bottom') &&
             $(element).hasClass('adguard-assistant-button-right');
 

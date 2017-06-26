@@ -39,9 +39,39 @@ var UIUtils = function($) { // jshint ignore:line
 
         $(element).on(events.mousedown, function(e) {
             pauseEvent(e);
-            var coords = getCoords(element);
-            var shiftX = getOriginalEvent(e).pageX - coords.left;
-            var shiftY = getOriginalEvent(e).pageY - coords.top;
+
+            var windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
+            var windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+
+            var outsidePosition = function(position) {
+                if (storedAnchore.top) {
+                    if(position.top < 0 || (position.top + element.clientHeight) > windowHeight) return true;
+                } else {
+                    if(Math.abs(position.top)+ element.clientHeight > windowHeight || position.top > 0) return true;
+                }
+
+                if (storedAnchore.left) {
+                    if(position.left < 0 || (position.left + element.clientWidth) > windowWidth) return true;
+                } else {
+                    if(Math.abs(position.left) + element.clientWidth > windowWidth || position.left > 0) return true;
+                }
+
+                return false;
+            };
+
+            var coords = getCoords(element), shiftX, shiftY;
+
+            if (storedAnchore.top) {
+                shiftY = getOriginalEvent(e).pageY - coords.top;
+            } else {
+                shiftY = windowHeight - (coords.bottom - getOriginalEvent(e).pageY);
+            }
+
+            if (storedAnchore.left) {
+                shiftX = getOriginalEvent(e).pageX - coords.left;
+            } else {
+                shiftX = windowWidth - (coords.right - getOriginalEvent(e).pageX);
+            }
 
             document.body.appendChild(element);
 
@@ -51,18 +81,9 @@ var UIUtils = function($) { // jshint ignore:line
                     left: getOriginalEvent(e).pageX - shiftX
                 };
 
-                // stack the icon to the border and
-                // remove mousemove event listener if it outside
-                var outsidePosition =
-                    position.left + element.offsetWidth > window.innerWidth ||
-                    position.top + element.offsetHeight > window.innerHeight ||
-                    position.left < 0 ||
-                    position.top < 0;
-
-                if (outsidePosition) {
+                if (outsidePosition(position)) {
                     $(window).off(events.mousemove);
                 } else {
-                    tmpStoringBtnPosition = position;
                     moveElementTo(element, position.left, position.top);
                 }
             };
@@ -87,9 +108,38 @@ var UIUtils = function($) { // jshint ignore:line
                 $(window).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
                 var lastCoords = getCoords(element);
+
+                var x, y;
+
+                if(lastCoords.top < windowHeight/2) {
+                    setAnchorePosition.top(true);
+                    $(element).addClass('adguard-assistant-button-top');
+                    $(element).removeClass('adguard-assistant-button-bottom');
+                    y = lastCoords.top;
+                }else {
+                    setAnchorePosition.top(false);
+                    $(element).removeClass('adguard-assistant-button-top');
+                    $(element).addClass('adguard-assistant-button-bottom');
+                    y = lastCoords.bottom - windowHeight;
+                }
+
+                if(lastCoords.left < windowWidth/2) {
+                    setAnchorePosition.left(true);
+                    $(element).addClass('adguard-assistant-button-left');
+                    $(element).removeClass('adguard-assistant-button-right');
+                    x = lastCoords.left;
+                }else{
+                    setAnchorePosition.left(false);
+                    $(element).removeClass('adguard-assistant-button-left');
+                    $(element).addClass('adguard-assistant-button-right');
+                    x = lastCoords.right - windowWidth;
+                }
+
+                moveElementTo(element, x, y);
+
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
-                        onDragEnd(getCoords(element));
+                        onDragEnd(x, y, storedAnchore);
                     }
                 } else {
                     if (onClick) {
@@ -104,36 +154,6 @@ var UIUtils = function($) { // jshint ignore:line
         $(element).on('dragstart', function() {
             return false;
         });
-
-
-        /**
-         * Resize window event listener to ensure that the icon
-         * does not outside the bottom right corner
-         */
-        var resizeWindow = function() {
-            var fixedClasses =
-                $(element).hasClass('adguard-assistant-button-bottom') ||
-                $(element).hasClass('adguard-assistant-button-right');
-
-            if(fixedClasses) return false;
-
-            var coords = getCoords(element);
-
-            var position = {
-                top: coords.bottom > window.innerHeight ? window.innerHeight - element.offsetHeight : coords.top,
-                left: coords.right > window.innerWidth ? window.innerWidth - element.offsetWidth : coords.left
-            };
-
-            // solution for https://github.com/AdguardTeam/AdguardAssistant/issues/68
-            position = {
-                top: tmpStoringBtnPosition.top > window.innerHeight - element.offsetHeight ? position.top : tmpStoringBtnPosition.top,
-                left: tmpStoringBtnPosition.left > window.innerWidth - element.offsetWidth? position.left : tmpStoringBtnPosition.left
-            };
-
-            moveElementTo(element, position.left, position.top);
-        };
-
-        window.addEventListener('resize', resizeWindow);
     };
 
     /**
@@ -279,13 +299,26 @@ var UIUtils = function($) { // jshint ignore:line
         return e.targetTouches ? e.targetTouches[0] : e;
     };
 
-    var tmpStoringBtnPosition = null;
+    var setAnchorePosition = {
+        top: function(anchore) {
+            storedAnchore.top = anchore;
+        },
+        left: function(anchore) {
+            storedAnchore.left = anchore;
+        }
+    };
+
+    var storedAnchore = {
+        top: false,
+        left: false
+    };
 
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
-        moveElementTo: moveElementTo
+        moveElementTo: moveElementTo,
+        setAnchorePosition: setAnchorePosition
     };
 };
 

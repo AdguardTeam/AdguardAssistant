@@ -51,16 +51,16 @@ var UIUtils = function($) { // jshint ignore:line
 
             var outsidePosition = {
                 top: function(pos) {
-                    return storedAnchor.top && (pos.top + elHeight > windowHeight || pos.top < 0);
+                    return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
                 },
                 bottom: function(pos) {
-                    return !storedAnchor.top && (Math.abs(pos.top) + elHeight > windowHeight || pos.top > 0);
+                    return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
                 },
                 left: function(pos) {
-                    return storedAnchor.left && (pos.left + elWidth > windowWidth || pos.left < 0);
+                    return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
                 },
                 right: function(pos) {
-                    return !storedAnchor.left && (Math.abs(pos.left) + elWidth > windowWidth || pos.left > 0);
+                    return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
                 }
             };
 
@@ -83,8 +83,8 @@ var UIUtils = function($) { // jshint ignore:line
 
             var moveAt = function(e) {
                 var position = {
-                    top: getOriginalEvent(e).pageY - shiftY,
-                    left: getOriginalEvent(e).pageX - shiftX
+                    x: getOriginalEvent(e).pageX - shiftX,
+                    y: getOriginalEvent(e).pageY - shiftY
                 };
 
                 // disable mousemove if button element outside the screen
@@ -96,7 +96,7 @@ var UIUtils = function($) { // jshint ignore:line
                 if (out) {
                     onMouseUp(e);
                 } else {
-                    moveElementTo(element, position.left, position.top);
+                    moveElementTo(element, position.x, position.y);
                 }
             };
 

@@ -13,7 +13,7 @@
     display: inline-block !important;
     margin: 0 !important;
     border: 0 !important;
-    padding: 10px !important;
+    padding: 0 !important;
     will-change: transform;
     opacity: 0.7;
 }
@@ -23,23 +23,47 @@
 }
 
 .adguard-assistant-button-right {
-    right: 0 !important;
-    left: auto !important;
+    left: auto;
+    right: 0;
 }
 
 .adguard-assistant-button-left {
-    left: 0 !important;
-    right: auto !important;
-}
-
-.adguard-assistant-button-bottom {
-    bottom: 0 !important;
-    top: auto !important;
+    left: 0;
+    right: auto;
 }
 
 .adguard-assistant-button-top {
-    top: 0 !important;
-    bottom: auto !important;
+    top: 0;
+    bottom: auto;
+}
+
+.adguard-assistant-button-bottom {
+    top: auto;
+    bottom: 0;
+}
+
+.adguard-assistant-button-top.adguard-assistant-button-left {
+    left: 0;
+    right: auto;
+    transform: translate3d(10px, 10px, 0);
+}
+
+.adguard-assistant-button-top.adguard-assistant-button-right {
+    left: auto;
+    right: 0;
+    transform: translate3d(10px, -10px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-left {
+    left: 0;
+    right: auto;
+    transform: translate3d(-10px, 10px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-right {
+    left: auto;
+    right: 0;
+    transform: translate3d(-10px, -10px, 0);
 }
 
 .adguard-logo {

@@ -10,9 +10,8 @@ var UIUtils = function($) { // jshint ignore:line
      * @param element
      * @param onDragEnd
      * @param onClick
-     * @param onMouseDown
      */
-    var makeElementDraggable = function(element, onDragEnd, onClick, onMouseDown) {
+    var makeElementDraggable = function(element, onDragEnd, onClick) {
         var events = getEvents(UIValidationUtils.isTouchDevice);
 
         var getCoords = function(elem) {
@@ -40,34 +39,39 @@ var UIUtils = function($) { // jshint ignore:line
         $(element).on(events.mousedown, function(e) {
             pauseEvent(e);
 
+            // prevent right button mousedown
+            if (e.button > 0) return;
+
             var windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
             var windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+            var elWidth = element.clientWidth;
+            var elHeight = element.clientWidth;
 
-            var outsidePosition = function(position) {
-                if (storedAnchore.top) {
-                    if(position.top < 0 || (position.top + element.clientHeight) > windowHeight) return true;
-                } else {
-                    if(Math.abs(position.top)+ element.clientHeight > windowHeight || position.top > 0) return true;
+            var outsidePosition = {
+                top: function(pos) {
+                    return storedAnchor.top && (pos.top + elHeight > windowHeight || pos.top < 0);
+                },
+                bottom: function(pos) {
+                    return !storedAnchor.top && (Math.abs(pos.top) + elHeight > windowHeight || pos.top > 0);
+                },
+                left: function(pos) {
+                    return storedAnchor.left && (pos.left + elWidth > windowWidth || pos.left < 0);
+                },
+                right: function(pos) {
+                    return !storedAnchor.left && (Math.abs(pos.left) + elWidth > windowWidth || pos.left > 0);
                 }
-
-                if (storedAnchore.left) {
-                    if(position.left < 0 || (position.left + element.clientWidth) > windowWidth) return true;
-                } else {
-                    if(Math.abs(position.left) + element.clientWidth > windowWidth || position.left > 0) return true;
-                }
-
-                return false;
             };
 
-            var coords = getCoords(element), shiftX, shiftY;
+            var coords = getCoords(element),
+                shiftX, shiftY;
 
-            if (storedAnchore.top) {
+            if (storedAnchor.top) {
                 shiftY = getOriginalEvent(e).pageY - coords.top;
             } else {
                 shiftY = windowHeight - (coords.bottom - getOriginalEvent(e).pageY);
             }
 
-            if (storedAnchore.left) {
+            if (storedAnchor.left) {
                 shiftX = getOriginalEvent(e).pageX - coords.left;
             } else {
                 shiftX = windowWidth - (coords.right - getOriginalEvent(e).pageX);
@@ -81,18 +85,19 @@ var UIUtils = function($) { // jshint ignore:line
                     left: getOriginalEvent(e).pageX - shiftX
                 };
 
-                if (outsidePosition(position)) {
-                    $(window).off(events.mousemove);
+                var out = outsidePosition.top(position) ||
+                    outsidePosition.left(position) ||
+                    outsidePosition.bottom(position) ||
+                    outsidePosition.right(position);
+
+                if (out) {
+                    onMouseUp(e);
                 } else {
                     moveElementTo(element, position.left, position.top);
                 }
             };
 
             moveAt(e);
-
-            if (onMouseDown) {
-                onMouseDown();
-            }
 
             var onMouseMove = function(e) {
                 e.stopPropagation();
@@ -111,27 +116,19 @@ var UIUtils = function($) { // jshint ignore:line
 
                 var x, y;
 
-                if(lastCoords.top < windowHeight/2) {
-                    setAnchorePosition.top(true);
-                    $(element).addClass('adguard-assistant-button-top');
-                    $(element).removeClass('adguard-assistant-button-bottom');
+                if (lastCoords.top < windowHeight / 2) {
+                    setAnchorPosition.top(true, element);
                     y = lastCoords.top;
-                }else {
-                    setAnchorePosition.top(false);
-                    $(element).removeClass('adguard-assistant-button-top');
-                    $(element).addClass('adguard-assistant-button-bottom');
+                } else {
+                    setAnchorPosition.top(false, element);
                     y = lastCoords.bottom - windowHeight;
                 }
 
-                if(lastCoords.left < windowWidth/2) {
-                    setAnchorePosition.left(true);
-                    $(element).addClass('adguard-assistant-button-left');
-                    $(element).removeClass('adguard-assistant-button-right');
+                if (lastCoords.left < windowWidth / 2) {
+                    setAnchorPosition.left(true, element);
                     x = lastCoords.left;
-                }else{
-                    setAnchorePosition.left(false);
-                    $(element).removeClass('adguard-assistant-button-left');
-                    $(element).addClass('adguard-assistant-button-right');
+                } else {
+                    setAnchorPosition.left(false, element);
                     x = lastCoords.right - windowWidth;
                 }
 
@@ -139,7 +136,7 @@ var UIUtils = function($) { // jshint ignore:line
 
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
-                        onDragEnd(x, y, storedAnchore);
+                        onDragEnd(x, y, storedAnchor);
                     }
                 } else {
                     if (onClick) {
@@ -299,16 +296,32 @@ var UIUtils = function($) { // jshint ignore:line
         return e.targetTouches ? e.targetTouches[0] : e;
     };
 
-    var setAnchorePosition = {
-        top: function(anchore) {
-            storedAnchore.top = anchore;
+    var setAnchorPosition = {
+        top: function(anchor, element) {
+            storedAnchor.top = anchor;
+
+            if (storedAnchor.top) {
+                $(element).addClass('adguard-assistant-button-top');
+                $(element).removeClass('adguard-assistant-button-bottom');
+            } else {
+                $(element).addClass('adguard-assistant-button-bottom');
+                $(element).removeClass('adguard-assistant-button-top');
+            }
         },
-        left: function(anchore) {
-            storedAnchore.left = anchore;
+        left: function(anchor, element) {
+            storedAnchor.left = anchor;
+
+            if (storedAnchor.left) {
+                $(element).addClass('adguard-assistant-button-left');
+                $(element).removeClass('adguard-assistant-button-right');
+            } else {
+                $(element).addClass('adguard-assistant-button-right');
+                $(element).removeClass('adguard-assistant-button-left');
+            }
         }
     };
 
-    var storedAnchore = {
+    var storedAnchor = {
         top: false,
         left: false
     };
@@ -318,7 +331,7 @@ var UIUtils = function($) { // jshint ignore:line
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
         moveElementTo: moveElementTo,
-        setAnchorePosition: setAnchorePosition
+        setAnchorPosition: setAnchorPosition
     };
 };
 

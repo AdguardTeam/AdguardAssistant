@@ -11,14 +11,14 @@
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
+var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
     var isFullScreenEventsRegistered = false;
 
     /**
      * Shows Adguard initial button
      */
-    var show = function () {
+    var show = function() {
         if (!checkRequirements()) {
             log.info("Environment doesn't satisfy requirements, so don't show Adguard");
             return;
@@ -32,7 +32,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
         var body = $('body')[0];
-        if (!body){
+        if (!body) {
             log.error('Cant find body');
         }
         body.appendChild(button[0]);
@@ -43,7 +43,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * Checking browser and other requirements.
      * @private
      */
-    var checkRequirements = function () {
+    var checkRequirements = function() {
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
@@ -62,35 +62,25 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         return true;
     };
 
-    var isButtonAlreadyInDOM = function () {
+    var isButtonAlreadyInDOM = function() {
         return $('.adguard-alert').length > 0;
     };
 
-    var setUserPositionIfExists = function (button) {
+    var setUserPositionIfExists = function(button) {
         var position = settings.getUserPositionForButton();
-        if (!position) {
+        if (!position || !position.storedAnchor) {
             return false;
         }
+
+        uiUtils.setAnchorPosition.top(position.storedAnchor.top, button[0]);
+        uiUtils.setAnchorPosition.left(position.storedAnchor.left, button[0]);
+
         uiUtils.moveElementTo(button[0], position.x, position.y);
 
-        if (position.storedAnchore.top) {
-            button.addClass('adguard-assistant-button-top');
-            uiUtils.setAnchorePosition.top(true);
-        } else {
-            button.addClass('adguard-assistant-button-bottom');
-            uiUtils.setAnchorePosition.top(false);
-        }
-        if (position.storedAnchore.left) {
-            button.addClass('adguard-assistant-button-left');
-            uiUtils.setAnchorePosition.left(true);
-        } else {
-            button.addClass('adguard-assistant-button-right');
-            uiUtils.setAnchorePosition.left(false);
-        }
         return true;
     };
 
-    var setPositionSettingsToButton = function (button) {
+    var setPositionSettingsToButton = function(button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
             $(button[0].getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
@@ -99,40 +89,28 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
             return;
         }
 
-        if (config.buttonPositionTop) {
-            button.addClass('adguard-assistant-button-top');
-            uiUtils.setAnchorePosition.top(true);
-        } else {
-            button.addClass('adguard-assistant-button-bottom');
-            uiUtils.setAnchorePosition.top(false);
-        }
-        if (config.buttonPositionLeft) {
-            button.addClass('adguard-assistant-button-left');
-            uiUtils.setAnchorePosition.left(true);
-        } else {
-            button.addClass('adguard-assistant-button-right');
-            uiUtils.setAnchorePosition.left(false);
-        }
+        uiUtils.setAnchorPosition.top(config.buttonPositionTop, button[0]);
+        uiUtils.setAnchorPosition.left(config.buttonPositionLeft, button[0]);
 
         respectPageElements(button[0]);
     };
 
-    var registerEvents = function (button) {
-        var onDragEnd = function (x, y, storedAnchore) {
+    var registerEvents = function(button) {
+        var onDragEnd = function(x, y, storedAnchor) {
             var store = {
                 "x": x,
                 "y": y,
-                "storedAnchore": storedAnchore
+                "storedAnchor": storedAnchor
             };
             settings.setUserPositionForButton(store);
         };
 
-        var openMenu = function () {
+        var openMenu = function() {
             iframeController.setButtonPosition(getButtonPosition());
             iframeController.showDetailedMenu();
         };
 
-        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu, removeFixedPosition);
+        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu);
         hideRestoreOnFullScreen();
     };
 
@@ -141,7 +119,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * @returns {{left: *, top: *}}
      * @private
      */
-    var getButtonPosition = function () {
+    var getButtonPosition = function() {
         var box = button[0].getBoundingClientRect();
         return {
             top: box.top + button[0].offsetHeight / 2,
@@ -149,22 +127,11 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         };
     };
 
-    var removeFixedPosition = function () {
-        // var buttonPositionClasses = ['adguard-assistant-button-top',
-        //     'adguard-assistant-button-bottom', 'adguard-assistant-button-left', 'adguard-assistant-button-right'];
-        // for (var i = 0; i < buttonPositionClasses.length; i++) {
-        //     var currentClass = buttonPositionClasses[i];
-        //     if (button.hasClass(currentClass)) {
-        //         button.removeClass(currentClass);
-        //     }
-        // }
-    };
-
-    var hideRestoreOnFullScreen = function () {
+    var hideRestoreOnFullScreen = function() {
         if (isFullScreenEventsRegistered) {
             return;
         }
-        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
+        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
             if (uiUtils.tryFullScreenPrefix(document, "FullScreen") || uiUtils.tryFullScreenPrefix(document, "IsFullScreen")) {
                 hideButton();
             } else {
@@ -174,21 +141,21 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         isFullScreenEventsRegistered = true;
     };
 
-    var hideButton = function () {
+    var hideButton = function() {
         if (!button) {
             return;
         }
         button.addClass('adguard-hide');
     };
 
-    var showButton = function () {
+    var showButton = function() {
         if (!button) {
             return;
         }
         button.removeClass('adguard-hide');
     };
 
-    var removeButton = function () {
+    var removeButton = function() {
         if (!button) {
             return;
         }
@@ -205,10 +172,10 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
             $(element).hasClass('adguard-assistant-button-bottom') &&
             $(element).hasClass('adguard-assistant-button-right');
 
-        if(buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
+        if (buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
         }
-        if(buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
+        if (buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
         }
         return false;

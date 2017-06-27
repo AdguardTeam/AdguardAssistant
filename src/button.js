@@ -72,8 +72,8 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return false;
         }
 
-        uiUtils.setAnchorPosition.top(position.storedAnchor.top, button[0]);
-        uiUtils.setAnchorPosition.left(position.storedAnchor.left, button[0]);
+        uiUtils.setAnchorPosition.positionY(button[0], position.storedAnchor.top);
+        uiUtils.setAnchorPosition.positionX(button[0], position.storedAnchor.left);
 
         uiUtils.moveElementTo(button[0], position.x, position.y);
 
@@ -89,20 +89,15 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return;
         }
 
-        uiUtils.setAnchorPosition.top(config.buttonPositionTop, button[0]);
-        uiUtils.setAnchorPosition.left(config.buttonPositionLeft, button[0]);
+        uiUtils.setAnchorPosition.positionY(button[0], config.buttonPositionTop);
+        uiUtils.setAnchorPosition.positionX(button[0], config.buttonPositionLeft);
 
         respectPageElements(button[0]);
     };
 
     var registerEvents = function(button) {
-        var onDragEnd = function(x, y, storedAnchor) {
-            var store = {
-                "x": x,
-                "y": y,
-                "storedAnchor": storedAnchor
-            };
-            settings.setUserPositionForButton(store);
+        var onDragEnd = function(data) {
+            settings.setUserPositionForButton(data);
         };
 
         var openMenu = function() {
@@ -166,6 +161,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     /**
      * Set a special classes for the pages on which
      * under the button there are important elements
+     * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */
     var respectPageElements = function(element) {
         var buttonInRightBottom =

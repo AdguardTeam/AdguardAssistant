@@ -27,7 +27,7 @@ var UIUtils = function($) { // jshint ignore:line
         /**
          * Prevent text selection
          * With cursor drag
-         **/
+         */
         var pauseEvent = function(e) {
             e.stopPropagation();
             e.preventDefault();
@@ -42,8 +42,10 @@ var UIUtils = function($) { // jshint ignore:line
             // prevent right button mousedown
             if (e.button > 0) return;
 
+            // getting screen width and height without scroll bars
             var windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
             var windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+
             var elWidth = element.clientWidth;
             var elHeight = element.clientWidth;
 
@@ -85,6 +87,7 @@ var UIUtils = function($) { // jshint ignore:line
                     left: getOriginalEvent(e).pageX - shiftX
                 };
 
+                // disable mousemove if button element outside the screen
                 var out = outsidePosition.top(position) ||
                     outsidePosition.left(position) ||
                     outsidePosition.bottom(position) ||
@@ -112,31 +115,40 @@ var UIUtils = function($) { // jshint ignore:line
                 e.stopPropagation();
                 $(window).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
-                var lastCoords = getCoords(element);
 
-                var x, y;
+                // When a user finishes dragging icon, we set icon anchor
+                // depending on the icon position, i.e. which quarter
+                // of the screen it belongs.
+                var lastX, lastY, lastCoords = getCoords(element);
 
-                if (lastCoords.top < windowHeight / 2) {
-                    setAnchorPosition.top(true, element);
-                    y = lastCoords.top;
+                var topHalf = lastCoords.top < windowHeight / 2;
+                var leftHalf = lastCoords.left < windowWidth / 2;
+
+                setAnchorPosition.positionY(element, topHalf);
+                setAnchorPosition.positionX(element, leftHalf);
+
+                if (topHalf) {
+                    lastY = lastCoords.top;
                 } else {
-                    setAnchorPosition.top(false, element);
-                    y = lastCoords.bottom - windowHeight;
+                    lastY = lastCoords.bottom - windowHeight;
                 }
 
-                if (lastCoords.left < windowWidth / 2) {
-                    setAnchorPosition.left(true, element);
-                    x = lastCoords.left;
+                if (leftHalf) {
+                    lastX = lastCoords.left;
                 } else {
-                    setAnchorPosition.left(false, element);
-                    x = lastCoords.right - windowWidth;
+                    lastX = lastCoords.right - windowWidth;
                 }
 
-                moveElementTo(element, x, y);
+                moveElementTo(element, lastX, lastY);
 
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
-                        onDragEnd(x, y, storedAnchor);
+                        var store = {
+                            "x": lastX,
+                            "y": lastY,
+                            "storedAnchor": storedAnchor
+                        };
+                        onDragEnd(store);
                     }
                 } else {
                     if (onClick) {
@@ -296,8 +308,14 @@ var UIUtils = function($) { // jshint ignore:line
         return e.targetTouches ? e.targetTouches[0] : e;
     };
 
+    /**
+     * Functions for saving left/top anchors and setting class position
+     *
+     * @param {Object} element  button element
+     * @param {Boolean} anchor  anchors positions `true` for top/left or `false` for bottom/right
+     */
     var setAnchorPosition = {
-        top: function(anchor, element) {
+        positionY: function(element, anchor) {
             storedAnchor.top = anchor;
 
             if (storedAnchor.top) {
@@ -308,7 +326,7 @@ var UIUtils = function($) { // jshint ignore:line
                 $(element).removeClass('adguard-assistant-button-top');
             }
         },
-        left: function(anchor, element) {
+        positionX: function(element, anchor) {
             storedAnchor.left = anchor;
 
             if (storedAnchor.left) {

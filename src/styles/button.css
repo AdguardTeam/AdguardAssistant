@@ -45,25 +45,25 @@
 .adguard-assistant-button-top.adguard-assistant-button-left {
     left: 0;
     right: auto;
-    transform: translate3d(10px, 10px, 0);
+    transform: translate3d(5px, 5px, 0);
 }
 
 .adguard-assistant-button-top.adguard-assistant-button-right {
     left: auto;
     right: 0;
-    transform: translate3d(10px, -10px, 0);
+    transform: translate3d(-5px, 5px, 0);
 }
 
 .adguard-assistant-button-bottom.adguard-assistant-button-left {
     left: 0;
     right: auto;
-    transform: translate3d(-10px, 10px, 0);
+    transform: translate3d(5px, -5px, 0);
 }
 
 .adguard-assistant-button-bottom.adguard-assistant-button-right {
     left: auto;
     right: 0;
-    transform: translate3d(-10px, -10px, 0);
+    transform: translate3d(-5px, -5px, 0);
 }
 
 .adguard-logo {

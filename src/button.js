@@ -68,7 +68,9 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
     var setUserPositionIfExists = function(button) {
         var position = settings.getUserPositionForButton();
-        if (!position) {
+
+        // check if the browser stores old data without a anchor to prevent an error
+        if (!position || !position.storedAnchor) {
             return false;
         }
 

@@ -108,12 +108,11 @@ var UIUtils = function($) { // jshint ignore:line
                 moveAt(e);
             };
 
-            // event listener on window for IE10 compatibility
-            $(window).on(events.mousemove, onMouseMove);
+            $(document).on(events.mousemove, onMouseMove);
 
             var onMouseUp = function(e) {
                 e.stopPropagation();
-                $(window).off(events.mousemove, onMouseMove);
+                $(document).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
 
                 // When a user finishes dragging icon, we set icon anchor

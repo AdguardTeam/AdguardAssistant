@@ -10,9 +10,8 @@ var UIUtils = function($) { // jshint ignore:line
      * @param element
      * @param onDragEnd
      * @param onClick
-     * @param onMouseDown
      */
-    var makeElementDraggable = function(element, onDragEnd, onClick, onMouseDown) {
+    var makeElementDraggable = function(element, onDragEnd, onClick) {
         var events = getEvents(UIValidationUtils.isTouchDevice);
 
         var getCoords = function(elem) {
@@ -28,7 +27,7 @@ var UIUtils = function($) { // jshint ignore:line
         /**
          * Prevent text selection
          * With cursor drag
-         **/
+         */
         var pauseEvent = function(e) {
             e.stopPropagation();
             e.preventDefault();
@@ -39,54 +38,116 @@ var UIUtils = function($) { // jshint ignore:line
 
         $(element).on(events.mousedown, function(e) {
             pauseEvent(e);
-            var coords = getCoords(element);
-            var shiftX = getOriginalEvent(e).pageX - coords.left;
-            var shiftY = getOriginalEvent(e).pageY - coords.top;
+
+            // prevent right button mousedown
+            if (e.button > 0) return;
+
+            // getting screen width and height without scroll bars
+            var windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
+            var windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+
+            var elWidth = element.clientWidth;
+            var elHeight = element.clientWidth;
+
+            var outsidePosition = {
+                top: function(pos) {
+                    return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
+                },
+                bottom: function(pos) {
+                    return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
+                },
+                left: function(pos) {
+                    return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
+                },
+                right: function(pos) {
+                    return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
+                }
+            };
+
+            var coords = getCoords(element),
+                shiftX, shiftY;
+
+            if (storedAnchor.top) {
+                shiftY = getOriginalEvent(e).pageY - coords.top;
+            } else {
+                shiftY = windowHeight - (coords.bottom - getOriginalEvent(e).pageY);
+            }
+
+            if (storedAnchor.left) {
+                shiftX = getOriginalEvent(e).pageX - coords.left;
+            } else {
+                shiftX = windowWidth - (coords.right - getOriginalEvent(e).pageX);
+            }
 
             document.body.appendChild(element);
 
             var moveAt = function(e) {
                 var position = {
-                    top: getOriginalEvent(e).pageY - shiftY,
-                    left: getOriginalEvent(e).pageX - shiftX
+                    x: getOriginalEvent(e).pageX - shiftX,
+                    y: getOriginalEvent(e).pageY - shiftY
                 };
 
-                // stack the icon to the border and
-                // remove mousemove event listener if it outside
-                var outsidePosition =
-                    position.left + element.offsetWidth > window.innerWidth ||
-                    position.top + element.offsetHeight > window.innerHeight ||
-                    position.left <= 0 ||
-                    position.top <= 0;
+                // disable mousemove if button element outside the screen
+                var out = outsidePosition.top(position) ||
+                    outsidePosition.left(position) ||
+                    outsidePosition.bottom(position) ||
+                    outsidePosition.right(position);
 
-                if (outsidePosition) {
-                    $(document).off(events.mousemove);
+                if (out) {
+                    onMouseUp(e);
                 } else {
-                    moveElementTo(element, position.left, position.top);
+                    moveElementTo(element, position.x, position.y);
                 }
             };
 
             moveAt(e);
-
-            if (onMouseDown) {
-                onMouseDown();
-            }
 
             var onMouseMove = function(e) {
                 e.stopPropagation();
                 pauseEvent(e);
                 moveAt(e);
             };
+
             $(document).on(events.mousemove, onMouseMove);
 
             var onMouseUp = function(e) {
                 e.stopPropagation();
                 $(document).off(events.mousemove, onMouseMove);
                 $(element).off(events.mouseup, onMouseUp);
-                var lastCoords = getCoords(element);
+
+                // When a user finishes dragging icon, we set icon anchor
+                // depending on the icon position, i.e. which quarter
+                // of the screen it belongs.
+                var lastX, lastY, lastCoords = getCoords(element);
+
+                var topHalf = lastCoords.top < windowHeight / 2;
+                var leftHalf = lastCoords.left < windowWidth / 2;
+
+                setAnchorPosition.positionY(element, topHalf);
+                setAnchorPosition.positionX(element, leftHalf);
+
+                if (topHalf) {
+                    lastY = lastCoords.top;
+                } else {
+                    lastY = lastCoords.bottom - windowHeight;
+                }
+
+                if (leftHalf) {
+                    lastX = lastCoords.left;
+                } else {
+                    lastX = lastCoords.right - windowWidth;
+                }
+
+                moveElementTo(element, lastX, lastY);
+
                 if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
                     if (onDragEnd) {
-                        onDragEnd(getCoords(element));
+                        var store = {
+                            "x": lastX,
+                            "y": lastY,
+                            "storedAnchor": storedAnchor
+                        };
+                        onDragEnd(store);
                     }
                 } else {
                     if (onClick) {
@@ -101,30 +162,6 @@ var UIUtils = function($) { // jshint ignore:line
         $(element).on('dragstart', function() {
             return false;
         });
-
-
-        /**
-         * Resize window event listener to ensure that the icon
-         * does not outside the bottom right corner
-         */
-        var resizeWindow = function() {
-            var fixedClasses =
-                $(element).hasClass('adguard-assistant-button-bottom') ||
-                $(element).hasClass('adguard-assistant-button-right');
-
-            if(fixedClasses) return false;
-
-            var coords = getCoords(element);
-
-            var position = {
-                left: coords.right > window.innerWidth ? window.innerWidth - element.offsetWidth : coords.left,
-                top: coords.bottom > window.innerHeight ? window.innerHeight - element.offsetHeight : coords.top
-            };
-
-            moveElementTo(element, position.left, position.top);
-        };
-
-        window.addEventListener('resize', resizeWindow);
     };
 
     /**
@@ -270,11 +307,48 @@ var UIUtils = function($) { // jshint ignore:line
         return e.targetTouches ? e.targetTouches[0] : e;
     };
 
+    /**
+     * Functions for saving left/top anchors and setting class position
+     *
+     * @param {Object} element  button element
+     * @param {Boolean} anchor  anchors positions `true` for top/left or `false` for bottom/right
+     */
+    var setAnchorPosition = {
+        positionY: function(element, anchor) {
+            storedAnchor.top = anchor;
+
+            if (storedAnchor.top) {
+                $(element).addClass('adguard-assistant-button-top');
+                $(element).removeClass('adguard-assistant-button-bottom');
+            } else {
+                $(element).addClass('adguard-assistant-button-bottom');
+                $(element).removeClass('adguard-assistant-button-top');
+            }
+        },
+        positionX: function(element, anchor) {
+            storedAnchor.left = anchor;
+
+            if (storedAnchor.left) {
+                $(element).addClass('adguard-assistant-button-left');
+                $(element).removeClass('adguard-assistant-button-right');
+            } else {
+                $(element).addClass('adguard-assistant-button-right');
+                $(element).removeClass('adguard-assistant-button-left');
+            }
+        }
+    };
+
+    var storedAnchor = {
+        top: false,
+        left: false
+    };
+
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
-        moveElementTo: moveElementTo
+        moveElementTo: moveElementTo,
+        setAnchorPosition: setAnchorPosition
     };
 };
 

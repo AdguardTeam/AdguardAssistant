@@ -11,14 +11,14 @@
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
+var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
     var isFullScreenEventsRegistered = false;
 
     /**
      * Shows Adguard initial button
      */
-    var show = function () {
+    var show = function() {
         if (!checkRequirements()) {
             log.info("Environment doesn't satisfy requirements, so don't show Adguard");
             return;
@@ -32,7 +32,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
         var body = $('body')[0];
-        if (!body){
+        if (!body) {
             log.error('Cant find body');
         }
         body.appendChild(button[0]);
@@ -43,7 +43,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * Checking browser and other requirements.
      * @private
      */
-    var checkRequirements = function () {
+    var checkRequirements = function() {
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
@@ -62,21 +62,27 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         return true;
     };
 
-    var isButtonAlreadyInDOM = function () {
+    var isButtonAlreadyInDOM = function() {
         return $('.adguard-alert').length > 0;
     };
 
-    var setUserPositionIfExists = function (button) {
+    var setUserPositionIfExists = function(button) {
         var position = settings.getUserPositionForButton();
-        if (!position) {
+
+        // check if the browser stores old data without a anchor to prevent an error
+        if (!position || !position.storedAnchor) {
             return false;
         }
 
-        uiUtils.moveElementTo(button[0], position.left, position.top);
+        uiUtils.setAnchorPosition.positionY(button[0], position.storedAnchor.top);
+        uiUtils.setAnchorPosition.positionX(button[0], position.storedAnchor.left);
+
+        uiUtils.moveElementTo(button[0], position.x, position.y);
+
         return true;
     };
 
-    var setPositionSettingsToButton = function (button) {
+    var setPositionSettingsToButton = function(button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
             $(button[0].getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
@@ -84,33 +90,24 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         if (setUserPositionIfExists(button)) {
             return;
         }
-        if (config.buttonPositionTop) {
-            button.addClass('adguard-assistant-button-top');
-        }
-        else {
-            button.addClass('adguard-assistant-button-bottom');
-        }
-        if (config.buttonPositionLeft) {
-            button.addClass('adguard-assistant-button-left');
-        }
-        else {
-            button.addClass('adguard-assistant-button-right');
-        }
+
+        uiUtils.setAnchorPosition.positionY(button[0], config.buttonPositionTop);
+        uiUtils.setAnchorPosition.positionX(button[0], config.buttonPositionLeft);
 
         respectPageElements(button[0]);
     };
 
-    var registerEvents = function (button) {
-        var onDragEnd = function (coords) {
-            settings.setUserPositionForButton(coords);
+    var registerEvents = function(button) {
+        var onDragEnd = function(data) {
+            settings.setUserPositionForButton(data);
         };
 
-        var openMenu = function () {
+        var openMenu = function() {
             iframeController.setButtonPosition(getButtonPosition());
             iframeController.showDetailedMenu();
         };
 
-        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu, removeFixedPosition);
+        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu);
         hideRestoreOnFullScreen();
     };
 
@@ -119,7 +116,7 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * @returns {{left: *, top: *}}
      * @private
      */
-    var getButtonPosition = function () {
+    var getButtonPosition = function() {
         var box = button[0].getBoundingClientRect();
         return {
             top: box.top + button[0].offsetHeight / 2,
@@ -127,22 +124,11 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         };
     };
 
-    var removeFixedPosition = function () {
-        var buttonPositionClasses = ['adguard-assistant-button-top',
-            'adguard-assistant-button-bottom', 'adguard-assistant-button-left', 'adguard-assistant-button-right'];
-        for (var i = 0; i < buttonPositionClasses.length; i++) {
-            var currentClass = buttonPositionClasses[i];
-            if (button.hasClass(currentClass)) {
-                button.removeClass(currentClass);
-            }
-        }
-    };
-
-    var hideRestoreOnFullScreen = function () {
+    var hideRestoreOnFullScreen = function() {
         if (isFullScreenEventsRegistered) {
             return;
         }
-        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
+        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
             if (uiUtils.tryFullScreenPrefix(document, "FullScreen") || uiUtils.tryFullScreenPrefix(document, "IsFullScreen")) {
                 hideButton();
             } else {
@@ -152,21 +138,21 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         isFullScreenEventsRegistered = true;
     };
 
-    var hideButton = function () {
+    var hideButton = function() {
         if (!button) {
             return;
         }
         button.addClass('adguard-hide');
     };
 
-    var showButton = function () {
+    var showButton = function() {
         if (!button) {
             return;
         }
         button.removeClass('adguard-hide');
     };
 
-    var removeButton = function () {
+    var removeButton = function() {
         if (!button) {
             return;
         }
@@ -177,16 +163,20 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
     /**
      * Set a special classes for the pages on which
      * under the button there are important elements
+     * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */
     var respectPageElements = function(element) {
-        if(document.location.hostname.indexOf('vk.com') >= 0) {
+        var buttonInRightBottom =
+            $(element).hasClass('adguard-assistant-button-bottom') &&
+            $(element).hasClass('adguard-assistant-button-right');
+
+        if (buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
-            return false;
         }
-        if(document.location.hostname.indexOf('facebook.com') >= 0) {
+        if (buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
             $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
-            return false;
         }
+        return false;
     };
 
     iframeController.onCloseMenu.attach(showButton);

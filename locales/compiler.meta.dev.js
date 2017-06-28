@@ -20,7 +20,7 @@
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
 // @description:es Permite fácilmente gestionar los filtros desde el navegador
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
-// @version 4.0.4
+// @version 4.0.5
 // @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
 // @include *

@@ -2,22 +2,26 @@
 // @name Adguard Assistant
 // @name:ru Помощник Adguard
 // @name:uk Помічник Adguard
-// @name:de Adguard-Assistent
-// @name:sr Koristi Adguard-ovog pomoćnika
 // @name:pl Asystent Adguarda
+// @name:de Adguard-Assistent
 // @name:zh-cn 使用 Adguard 助手
+// @name:he העוזר האישי של אדגארד
 // @name:it Assistente Adguard
+// @name:fa دستیار اَدگارد
+// @name:sr Koristi Adguard-ovog pomoćnika
 // @name:es Asistente de Adguard
 // @name:id Asisten Aguard
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
 // @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
-// @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
-// @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
 // @description:pl Zapewnia łatwy i wygodny sposób na zarządzanie filtrowaniem bezpośrednio z przeglądarki
+// @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
 // @description:zh-cn 提供简单方便的方法来管理浏览器筛选
+// @description:he מספק דרך קלה ונוחה לנהל סינון תקין ישירות מהדפדפן
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
+// @description:fa روش راحت و آسان برای مدیریت فیلترینگ مستیق از داخل مرورگر.
+// @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
 // @description:es Permite fácilmente gestionar los filtros desde el navegador
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @version 4.0.5

@@ -1,8 +1,13 @@
-# AdguardAssistant [![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
+# Adguard Assistant [![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
 
 Adguard Assistant userscript
 
-## How to use
+## Development build
+
+Built automatically on every new commit:
+https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
+
+## How to build
 
 For development build run:
 
@@ -41,5 +46,3 @@ For production build run:
     $ gulp build
 
 This will compile `assistant.user.js` file with minification and uglify.
-
-[Development build](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)

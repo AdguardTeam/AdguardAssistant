@@ -16,6 +16,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
     var min = 0;
     var max = 1;
     var value = 0;
+    var sliderArea = null;
 
     var onValueChanged = null;
 
@@ -77,6 +78,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         var $placeholder = $(placeholder);
         var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
         var $handle = $(handle);
+        var $sliderArea = $(sliderArea);
 
         $(document).on('mouseup', function () {
             $placeholder.off('mousemove');
@@ -106,19 +108,19 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
                 setValue(value);
             });
             $placeholder.on('mousedown', function () {
-                $(this).on('mousemove', function (e) {
+                $sliderArea.on('mousemove', function (e) {
                     //calculate the correct position of the slider set the value
                     var value = getSliderValue(e.pageX);
                     setValue(value);
                 });
             });
-            $placeholder.on('mouseup', function () {
+            $sliderArea.on('mouseup', function () {
                 $(this).off('mousemove');
             });
         });
 
-        $placeholder.on('mouseleave', function () {
-            $placeholder.off('mousemove');
+        $sliderArea.on('mouseleave', function () {
+            $(this).off('mousemove');
             $placeholder.off('click');
         });
     };
@@ -135,6 +137,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         max = options.max;
         value = options.value;
         onValueChanged = options.onValueChanged;
+        sliderArea = options.sliderArea;
 
         render();
         bindEvents();

@@ -78,6 +78,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         var min = 1;
         var options = {value: value, min: min, max: max};
         var slider = contentDocument.getElementById('slider');
+        var sliderArea = contentDocument.getElementById('slider-area');
         if (min === max) {
             //hide slider text
             $(slider).hide();
@@ -106,7 +107,8 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             onValueChanged: function (value) {
                 var delta = options.value - value;
                 options.onSliderMove(delta);
-            }
+            },
+            sliderArea: sliderArea
         });
     };
 

@@ -81,35 +81,6 @@ var UIUtils = function($) { // jshint ignore:line
 
             document.body.appendChild(element);
 
-            var moveAt = function(e) {
-                var position = {
-                    x: getOriginalEvent(e).pageX - shiftX,
-                    y: getOriginalEvent(e).pageY - shiftY
-                };
-
-                // disable mousemove if button element outside the screen
-                var out = outsidePosition.top(position) ||
-                    outsidePosition.left(position) ||
-                    outsidePosition.bottom(position) ||
-                    outsidePosition.right(position);
-
-                if (out) {
-                    onMouseUp(e);
-                } else {
-                    moveElementTo(element, position.x, position.y);
-                }
-            };
-
-            moveAt(e);
-
-            var onMouseMove = function(e) {
-                e.stopPropagation();
-                pauseEvent(e);
-                moveAt(e);
-            };
-
-            $(document).on(events.mousemove, onMouseMove);
-
             var onMouseUp = function(e) {
                 e.stopPropagation();
                 $(document).off(events.mousemove, onMouseMove);
@@ -156,6 +127,35 @@ var UIUtils = function($) { // jshint ignore:line
                     }
                 }
             };
+
+            var moveAt = function(e) {
+                var position = {
+                    x: getOriginalEvent(e).pageX - shiftX,
+                    y: getOriginalEvent(e).pageY - shiftY
+                };
+
+                // disable mousemove if button element outside the screen
+                var out = outsidePosition.top(position) ||
+                    outsidePosition.left(position) ||
+                    outsidePosition.bottom(position) ||
+                    outsidePosition.right(position);
+
+                if (out) {
+                    onMouseUp(e);
+                } else {
+                    moveElementTo(element, position.x, position.y);
+                }
+            };
+
+            moveAt(e);
+
+            var onMouseMove = function(e) {
+                e.stopPropagation();
+                pauseEvent(e);
+                moveAt(e);
+            };
+
+            $(document).on(events.mousemove, onMouseMove);
             $(element).on(events.mouseup, onMouseUp);
         });
 

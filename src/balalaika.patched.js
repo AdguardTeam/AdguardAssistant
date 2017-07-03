@@ -19,7 +19,7 @@ var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventList
             if (s.nodeType || s == window) {
                 st = [s];
             } else {
-                if ("" + s === s) {
+                if (typeof(s) === 'string') {
                     if (/</.test(s)) {
                         st = ((i = document.createElement(context || 'q')).innerHTML = s, i.children);
                     } else {

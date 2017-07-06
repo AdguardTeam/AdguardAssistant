@@ -12,15 +12,40 @@
 .head{
     padding: @base-offset - 2 @base-offset ;
     cursor: move;
+    &_in{
+        &--slider{
+            @media (max-width: @mobile){
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
     &_title{
         font-size: 16px;
         font-weight: 700;
         color: #343434;
+        &--slider{
+            @media (max-width: @mobile){
+                margin-top: 9px;
+                font-size: 14px;
+            }
+        }
     }
     &_text{
         margin: 4px 0 0;
         font-size: 12px;
         color: #343434;
+        &--mobile-h{
+            @media (max-width: @mobile){
+                display: none;
+            }
+        }
+    }
+    &--slider{
+        @media (max-width: @mobile){
+            display: flex;
+            justify-content: space-between;
+        }
     }
 }
 
@@ -44,7 +69,15 @@
             font-size: 0;
             .btn + .btn{
                 margin-left: 10px;
+                @media (max-width: @mobile){
+                    margin-left: 3px;
+                }
             }
+        }
+    }
+    &--slider{
+        @media (max-width: @mobile){
+            padding: 12px 20px;
         }
     }
 }

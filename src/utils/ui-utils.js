@@ -51,7 +51,7 @@ var UIUtils = function($) { // jshint ignore:line
             }
         };
 
-        onMouseMove = function(e) {
+        var onMouseMove = function(e) {
             pauseEvent(e);
             moveAt(e);
         };
@@ -119,7 +119,6 @@ var UIUtils = function($) { // jshint ignore:line
 
         var onMouseUp = function(e) {
             e.stopPropagation();
-
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
             // of the screen it belongs.
@@ -167,8 +166,11 @@ var UIUtils = function($) { // jshint ignore:line
             $(document).off('mousemove touchmove pointermove', onMouseMove);
         };
 
-        $(element).on('touchstart mousedown', mouseDown.bind(this));
+        $(element).on('mousedown touchstart', mouseDown.bind(this));
         $(element).on('dragstart', function() {return;});
+        $(element).on('click', function(e) {
+            onClick();
+        });
     };
 
     /**

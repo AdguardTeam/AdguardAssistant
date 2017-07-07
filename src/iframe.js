@@ -18,9 +18,15 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var currentItem = null;
     var iframeMaxWidth = 418;
     var iframeMaxHeight = 407;
+    var menuMaxWidth = 668;
+    var settingsMaxWidth = 458;
     var iframePositionOffset = 5;
     var sliderMenuHeight = {advanced: 503, normal: 403};
     var buttonPosition = null;
+
+    if(window.innerWidth < iframeMaxWidth) iframeMaxWidth = window.innerWidth;
+    if(window.innerWidth < menuMaxWidth) menuMaxWidth = window.innerWidth;
+    if(window.innerWidth < settingsMaxWidth) settingsMaxWidth = window.innerWidth;
 
     var onCloseMenu = new CustomEvent();
     var onShowMenuItem = new CustomEvent();
@@ -186,35 +192,35 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var showDetailedMenu = function () {
         var controller = Ioc.get(DetailedMenuController);
         var options = {dragElement: 'menu-head'};
-        showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, 418, 456, options);
+        showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, iframeMaxWidth, 456, options);
         setCloseEventIfNotHitIframe(true);
     };
 
     var showSelectorMenu = function () {
         var controller = Ioc.get(SelectorMenuController);
         var options = {dragElement: 'head'};
-        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, 668, 213, options);
+        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 213, options);
         setCloseEventIfNotHitIframe(false);
     };
 
     var showSliderMenu = function (element) {
         var controller = Ioc.get(SliderMenuController);
         var options = {element: element, dragElement: 'head'};
-        showMenuItem(settings.MenuItemsNames.SliderMenu, controller, 668, sliderMenuHeight.normal, options);
+        showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, sliderMenuHeight.normal, options);
         setCloseEventIfNotHitIframe(false);
     };
 
     var showBlockPreview = function (element, path) {
         var controller = Ioc.get(BlockPreviewController);
         var options = {element: element, path: path, dragElement: 'head'};
-        showMenuItem(settings.MenuItemsNames.BlockPreview, controller, 668, 213, options);
+        showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 213, options);
         setCloseEventIfNotHitIframe(false);
     };
 
     var showSettingsMenu = function () {
         var controller = Ioc.get(SettingsMenuController);
         var options = {dragElement: 'head'};
-        showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 458, 414, options);
+        showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, settingsMaxWidth, 414, options);
         setCloseEventIfNotHitIframe(false);
     };
 

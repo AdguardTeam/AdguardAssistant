@@ -48,8 +48,7 @@ gulp.task('testsToGhPages', () => {
         'test/**',
         'node_modules/mocha/mocha.*',
         'node_modules/chai/chai.js'
-    ], {base:"."})
-        .pipe(gulp.dest(options.outputPath));
+    ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
 

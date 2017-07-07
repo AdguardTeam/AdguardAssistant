@@ -5,6 +5,7 @@ install:
   - npm install
 script:
   - gulp dev
+  - gulp testsToGhPages
   - npm test
 deploy:
   - provider: pages

@@ -45,18 +45,22 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      */
     var checkRequirements = function() {
         if (!uiValidationUtils.validateBrowser()) {
+            log.error('Browser is unsupported');
             return false;
         }
 
         if (!uiValidationUtils.validatePage()) {
+            log.error('Page is iframe or there is no body');
             return false;
         }
 
         if (!uiValidationUtils.checkVisibleAreaSize()) {
+            log.error('Page is too small for button');
             return false;
         }
 
         if (isButtonAlreadyInDOM()) {
+            log.error('Button is allready in DOM');
             return false;
         }
         return true;

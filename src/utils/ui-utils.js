@@ -12,7 +12,49 @@ var UIUtils = function($) { // jshint ignore:line
      * @param onClick
      */
     var makeElementDraggable = function(element, onDragEnd, onClick) {
-        var events = getEvents(UIValidationUtils.isTouchDevice);
+        var windowWidth, windowHeight, coords, shiftX, shiftY;
+
+        var elWidth = element.clientWidth;
+        var elHeight = element.clientWidth;
+
+        var outsidePosition = {
+            top: function(pos) {
+                return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
+            },
+            bottom: function(pos) {
+                return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
+            },
+            left: function(pos) {
+                return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
+            },
+            right: function(pos) {
+                return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
+            }
+        };
+
+        var moveAt = function(e) {
+            var position = {
+                x: getOriginalEvent(e).pageX - shiftX,
+                y: getOriginalEvent(e).pageY - shiftY
+            };
+
+            // disable mousemove if button element outside the screen
+            var out = outsidePosition.top(position) ||
+                outsidePosition.left(position) ||
+                outsidePosition.bottom(position) ||
+                outsidePosition.right(position);
+
+            if (out) {
+                onMouseUp(e);
+            } else {
+                moveElementTo(element, position.x, position.y);
+            }
+        };
+
+        var onMouseMove = function(e) {
+            pauseEvent(e);
+            moveAt(e);
+        };
 
         var getCoords = function(elem) {
             var box = elem.getBoundingClientRect();
@@ -23,6 +65,8 @@ var UIUtils = function($) { // jshint ignore:line
                 right: box.right
             };
         };
+
+        coords = getCoords(element);
 
         /**
          * Prevent text selection
@@ -36,36 +80,20 @@ var UIUtils = function($) { // jshint ignore:line
             return false;
         };
 
-        $(element).on(events.mousedown, function(e) {
+        var mouseDown = function(e) {
             pauseEvent(e);
 
             // prevent right button mousedown
             if (e.button > 0) return;
 
+            elWidth = element.clientWidth;
+            elHeight = element.clientWidth;
+
             // getting screen width and height without scroll bars
-            var windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
-            var windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+            windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
+            windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
 
-            var elWidth = element.clientWidth;
-            var elHeight = element.clientWidth;
-
-            var outsidePosition = {
-                top: function(pos) {
-                    return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
-                },
-                bottom: function(pos) {
-                    return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
-                },
-                left: function(pos) {
-                    return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
-                },
-                right: function(pos) {
-                    return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
-                }
-            };
-
-            var coords = getCoords(element),
-                shiftX, shiftY;
+            coords = getCoords(element);
 
             if (storedAnchor.top) {
                 shiftY = getOriginalEvent(e).pageY - coords.top;
@@ -81,86 +109,67 @@ var UIUtils = function($) { // jshint ignore:line
 
             document.body.appendChild(element);
 
-            var onMouseUp = function(e) {
-                e.stopPropagation();
-                $(document).off(events.mousemove, onMouseMove);
-                $(element).off(events.mouseup, onMouseUp);
+            /**
+             * binding both mouse and touch/pointer events simultaneously
+             * see: http://www.html5rocks.com/en/mobile/touchandmouse/
+             */
+            $(document).on('mouseup touchend pointerup', onMouseUp);
+            $(document).on('mousemove touchmove pointermove', onMouseMove);
+        };
 
-                // When a user finishes dragging icon, we set icon anchor
-                // depending on the icon position, i.e. which quarter
-                // of the screen it belongs.
-                var lastX, lastY, lastCoords = getCoords(element);
+        var onMouseUp = function(e) {
+            e.stopPropagation();
+            // When a user finishes dragging icon, we set icon anchor
+            // depending on the icon position, i.e. which quarter
+            // of the screen it belongs.
+            var lastX, lastY, lastCoords = getCoords(element);
 
-                var topHalf = lastCoords.top < windowHeight / 2;
-                var leftHalf = lastCoords.left < windowWidth / 2;
+            var topHalf = lastCoords.top < windowHeight / 2;
+            var leftHalf = lastCoords.left < windowWidth / 2;
 
-                setAnchorPosition.positionY(element, topHalf);
-                setAnchorPosition.positionX(element, leftHalf);
+            setAnchorPosition.positionY(element, topHalf);
+            setAnchorPosition.positionX(element, leftHalf);
 
-                if (topHalf) {
-                    lastY = lastCoords.top;
-                } else {
-                    lastY = lastCoords.bottom - windowHeight;
+            if (topHalf) {
+                lastY = lastCoords.top;
+            } else {
+                lastY = lastCoords.bottom - windowHeight;
+            }
+
+            if (leftHalf) {
+                lastX = lastCoords.left;
+            } else {
+                lastX = lastCoords.right - windowWidth;
+            }
+
+            moveElementTo(element, lastX, lastY);
+
+            // Open the frame if the button has been shifted by no more than 20 pixels
+            if (Math.abs(coords.left - lastCoords.left) > 20 || Math.abs(coords.top - lastCoords.top) > 20) {
+                if (onDragEnd) {
+                    var store = {
+                        "x": lastX,
+                        "y": lastY,
+                        "storedAnchor": storedAnchor
+                    };
+                    onDragEnd(store);
                 }
-
-                if (leftHalf) {
-                    lastX = lastCoords.left;
-                } else {
-                    lastX = lastCoords.right - windowWidth;
+            } else {
+                if (onClick) {
+                    onClick(e);
+                    e.stopPropagation();
                 }
+            }
 
-                moveElementTo(element, lastX, lastY);
+            $(document).off('mouseup touchend pointerup', onMouseUp);
 
-                if ((coords.left !== lastCoords.left) || (coords.top !== lastCoords.top)) {
-                    if (onDragEnd) {
-                        var store = {
-                            "x": lastX,
-                            "y": lastY,
-                            "storedAnchor": storedAnchor
-                        };
-                        onDragEnd(store);
-                    }
-                } else {
-                    if (onClick) {
-                        onClick(e);
-                        e.stopPropagation();
-                    }
-                }
-            };
+            $(document).off('mousemove touchmove pointermove', onMouseMove);
+        };
 
-            var moveAt = function(e) {
-                var position = {
-                    x: getOriginalEvent(e).pageX - shiftX,
-                    y: getOriginalEvent(e).pageY - shiftY
-                };
-
-                // disable mousemove if button element outside the screen
-                var out = outsidePosition.top(position) ||
-                    outsidePosition.left(position) ||
-                    outsidePosition.bottom(position) ||
-                    outsidePosition.right(position);
-
-                if (out) {
-                    onMouseUp(e);
-                } else {
-                    moveElementTo(element, position.x, position.y);
-                }
-            };
-
-            moveAt(e);
-
-            var onMouseMove = function(e) {
-                e.stopPropagation();
-                pauseEvent(e);
-                moveAt(e);
-            };
-
-            $(document).on(events.mousemove, onMouseMove);
-            $(element).on(events.mouseup, onMouseUp);
-        });
-
-        $(element).on('dragstart', function() {
-            return false;
+        $(element).on('mousedown touchstart', mouseDown.bind(this));
+        $(element).on('dragstart', function() {return;});
+        $(element).on('click', function(e) {
+            onClick();
         });
     };
 
@@ -171,28 +180,11 @@ var UIUtils = function($) { // jshint ignore:line
      * @param handleElement
      */
     var makeIframeDraggable = function(iframe, handleElement) {
-        var events = getEvents(UIValidationUtils.isTouchDevice);
         var iframeJ = iframe;
         var dragHandle = handleElement;
         var $iframeDocument = $(iframe[0].contentDocument);
 
         var offset = Object.create(null);
-
-        /**
-         * Generalized function to get position of an event (like mousedown, mousemove, etc)
-         *
-         * @param e
-         * @returns {{x: (Number|number), y: (Number|number)}}
-         */
-        var getEventPosition = function(e) {
-            if (!e) {
-                e = window.event;
-            }
-            return {
-                x: e.screenX,
-                y: e.screenY
-            };
-        };
 
         /**
          * Function that does actual "dragging"
@@ -221,29 +213,29 @@ var UIUtils = function($) { // jshint ignore:line
         };
 
         var onMouseMove = function(e) {
-            var eventPosition = getEventPosition(e);
-            drag(eventPosition.x + offset.x, eventPosition.y + offset.y);
+            var eventPosition = getOriginalEvent(e);
+            drag(eventPosition.screenX + offset.x, eventPosition.screenY + offset.y);
         };
 
         var onMouseDown = function(e) {
-            var eventPosition = getEventPosition(e);
+            var eventPosition = getOriginalEvent(e);
             var dragHandleEl = dragHandle.get(0);
             var rect = iframeJ.get(0).getBoundingClientRect();
 
-            offset.x = rect.left + dragHandleEl.offsetLeft - eventPosition.x;
-            offset.y = rect.top + dragHandleEl.offsetTop - eventPosition.y;
+            offset.x = rect.left + dragHandleEl.offsetLeft - eventPosition.screenX;
+            offset.y = rect.top + dragHandleEl.offsetTop - eventPosition.screenY;
 
-            $iframeDocument.on(events.mousemove, onMouseMove);
+            $iframeDocument.on('mousemove touchmove pointermove', onMouseMove);
             $iframeDocument.on('selectstart', cancelIFrameSelection);
         };
 
         var onMouseUp = function() {
-            $iframeDocument.off(events.mousemove, onMouseMove);
+            $iframeDocument.off('mousemove touchmove pointermove', onMouseMove);
             $iframeDocument.off('selectstart', cancelIFrameSelection);
         };
 
-        dragHandle.on(events.mousedown, onMouseDown);
-        $iframeDocument.on(events.mouseup, onMouseUp);
+        dragHandle.on('mousedown touchstart', onMouseDown);
+        $iframeDocument.on('mouseup touchend pointerup', onMouseUp);
     };
 
     var browserPrefixes = ["webkit", "moz", "ms", "o", ""];
@@ -282,19 +274,6 @@ var UIUtils = function($) { // jshint ignore:line
         el.style.msTransform = transform;
         el.style.oTransform = transform;
         el.style.transform = transform;
-    };
-
-    /**
-     * Get touch event strings for touch devices
-     * @param {Boolean}
-     * @return {Object}
-     */
-    var getEvents = function(isTouch) {
-        return {
-            mousedown: isTouch ? 'touchstart' : 'mousedown',
-            mousemove: isTouch ? 'touchmove' : 'mousemove',
-            mouseup: isTouch ? 'touchend' : 'mouseup'
-        };
     };
 
     /**
@@ -404,17 +383,10 @@ var UIValidationUtils = function(settings) { // jshint ignore:line
             document.getElementsByTagName('body').length;
     };
 
-    var isTouchDevice = function() {
-        return (('ontouchstart' in window) ||
-            (navigator.MaxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0));
-    };
-
     return {
         checkVisibleAreaSize: checkVisibleAreaSize,
         validateBrowser: validateBrowser,
         validatePage: validatePage,
-        getViewPort: getViewPort,
-        isTouchDevice: isTouchDevice
+        getViewPort: getViewPort
     };
 };

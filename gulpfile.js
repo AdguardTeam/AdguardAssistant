@@ -43,6 +43,15 @@ gulp.task('locales', () => {
     runSequence('download-localization', 'append-locales', 'update-meta-locales');
 });
 
+gulp.task('testsToGhPages', () => {
+    return gulp.src([
+        'test/**',
+        'node_modules/mocha/mocha.*',
+        'node_modules/chai/chai.js'
+    ], {base:"."})
+        .pipe(gulp.dest(options.outputPath));
+});
+
 
 gulp.task('compile', require('./tasks/compile'));
 gulp.task('restore-meta', require('./tasks/restore-meta'));

@@ -46,9 +46,8 @@ gulp.task('locales', () => {
 gulp.task('testsToGhPages', () => {
     return gulp.src([
         'test/**',
-        './node_modules/mocha/mocha.css',
-        './node_modules/mocha/mocha.js',
-        './node_modules/chai/chai.js'
+        'node_modules/mocha/mocha.*',
+        'node_modules/chai/chai.js'
     ], {base:"."})
         .pipe(gulp.dest(options.outputPath));
 });

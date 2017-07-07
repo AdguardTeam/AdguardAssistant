@@ -43,6 +43,11 @@ gulp.task('locales', () => {
     runSequence('download-localization', 'append-locales', 'update-meta-locales');
 });
 
+gulp.task('testsToGhPages', () => {
+    return gulp.src('test/**', {base:"."})
+        .pipe(gulp.dest(options.outputPath));
+});
+
 
 gulp.task('compile', require('./tasks/compile'));
 gulp.task('restore-meta', require('./tasks/restore-meta'));

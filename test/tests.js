@@ -5,6 +5,11 @@ function triggerEvent(node, eventType) {
 }
 
 describe("#DOM Tests", function() {
+    beforeEach(function(done) {
+        this.timeout(1000);
+        setTimeout(done, 500);
+    });
+
     it("Adguard is in the DOM", function() {
         var adguardEl = document.getElementsByClassName('adguard-alert')[0];
         expect(adguardEl).to.not.equal(null);

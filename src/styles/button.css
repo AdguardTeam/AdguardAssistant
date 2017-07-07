@@ -16,6 +16,8 @@
     padding: 0 !important;
     will-change: transform;
     opacity: 0.7;
+    touch-action: none;
+    -ms-touch-action: none;
 }
 
 .adguard-hide {

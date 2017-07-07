@@ -7,7 +7,7 @@ Adguard Assistant userscript
 Built automatically on every new commit:
 https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 
-Unit test page for dev build [here](https://AdguardTeam.github.io/AdguardAssistant/test/test.html)
+Unit test page for dev build [here](https://AdguardTeam.github.io/AdguardAssistant/test/)
 
 ## How to build
 

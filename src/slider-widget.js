@@ -81,47 +81,47 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         var $sliderArea = $(sliderArea);
 
         $(document).on('mouseup', function () {
-            $placeholder.off('mousemove');
-            $handle.off('mousemove');
-        });
-
-        //While the ui-slider-handle is being held down reference it parent.
-        $handle.on('mousedown', function (e) {
-            e.preventDefault();
-            return $(this.parentNode).trigger('mousedown');
+            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
         });
 
         var rect = placeholder.getBoundingClientRect();
         var sliderWidth = rect.width;
         var offsetLeft = rect.left + document.body.scrollLeft;
 
-        var getSliderValue = function (pageX) {
+        var getSliderValue = function(pageX) {
             return Math.round((max - min) / sliderWidth * (pageX - offsetLeft) + min);
         };
 
-        //This will prevent the slider from moving if the mouse is taken out of the
-        //slider area before the mouse down has been released.
-        $placeholder.on('mouseenter', function () {
-            $placeholder.on('click', function (e) {
-                //calculate the correct position of the slider set the value
-                var value = getSliderValue(e.pageX);
-                setValue(value);
-            });
-            $placeholder.on('mousedown', function () {
-                $sliderArea.on('mousemove', function (e) {
-                    //calculate the correct position of the slider set the value
-                    var value = getSliderValue(e.pageX);
-                    setValue(value);
-                });
-            });
-            $sliderArea.on('mouseup', function () {
-                $(this).off('mousemove');
-            });
+        var onClick = function(e) {
+            //calculate the correct position of the slider set the value
+            var value = getSliderValue(e.pageX);
+            setValue(value);
+        };
+
+        var onMouseMove = function(e) {
+            //calculate the correct position of the slider set the value
+            var value = getSliderValue(e.pageX);
+            setValue(value);
+        };
+
+        var onMouseDown = function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.cancelBubble = true;
+            e.returnValue = false;
+
+            $sliderArea.on('mousemove touchmove pointermove', onMouseMove);
+        };
+
+        $placeholder.on('click', onClick);
+        $placeholder.on('mousedown touchstart', onMouseDown);
+
+        $sliderArea.on('mouseup touchend pointerup', function() {
+            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
         });
 
-        $sliderArea.on('mouseleave', function () {
-            $(this).off('mousemove');
-            $placeholder.off('click');
+        $sliderArea.on('mouseleave', function() {
+            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
         });
     };
 

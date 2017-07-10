@@ -80,7 +80,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         var $handle = $(handle);
         var $sliderArea = $(sliderArea);
 
-        $(document).on('mouseup', function () {
+        $(document).on('mouseup touchend pointerup', function () {
             $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
         });
 

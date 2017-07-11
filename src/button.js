@@ -83,6 +83,12 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         uiUtils.moveElementTo(button[0], position.x, position.y);
 
+        // validate that button is in the viewport
+        // with timeout for deferred execution
+        setTimeout(function () {
+            uiUtils.checkElementPosition(button[0], position);
+        });
+
         return true;
     };
 

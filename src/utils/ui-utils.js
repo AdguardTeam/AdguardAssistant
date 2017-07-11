@@ -5,6 +5,8 @@
  * @constructor
  */
 var UIUtils = function($) { // jshint ignore:line
+    var elWidth, elHeight, windowWidth, windowHeight;
+
     /**
      * Make element draggable
      * @param element
@@ -12,25 +14,7 @@ var UIUtils = function($) { // jshint ignore:line
      * @param onClick
      */
     var makeElementDraggable = function(element, onDragEnd, onClick) {
-        var windowWidth, windowHeight, coords, shiftX, shiftY;
-
-        var elWidth = element.clientWidth;
-        var elHeight = element.clientWidth;
-
-        var outsidePosition = {
-            top: function(pos) {
-                return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
-            },
-            bottom: function(pos) {
-                return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
-            },
-            left: function(pos) {
-                return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
-            },
-            right: function(pos) {
-                return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
-            }
-        };
+        var coords, shiftX, shiftY;
 
         var moveAt = function(e) {
             var position = {
@@ -89,9 +73,8 @@ var UIUtils = function($) { // jshint ignore:line
             elWidth = element.clientWidth;
             elHeight = element.clientWidth;
 
-            // getting screen width and height without scroll bars
-            windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
-            windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+            windowWidth = getWindowSize().width;
+            windowHeight = getWindowSize().height;
 
             coords = getCoords(element);
 
@@ -171,6 +154,21 @@ var UIUtils = function($) { // jshint ignore:line
         $(element).on('click', function(e) {
             onClick();
         });
+    };
+
+    var outsidePosition = {
+        top: function(pos) {
+            return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
+        },
+        bottom: function(pos) {
+            return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
+        },
+        left: function(pos) {
+            return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
+        },
+        right: function(pos) {
+            return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
+        }
     };
 
     /**
@@ -317,6 +315,29 @@ var UIUtils = function($) { // jshint ignore:line
         }
     };
 
+    // getting screen width and height without scroll bars
+    var getWindowSize = function() {
+        return {
+            width: Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width),
+            height: Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height)
+        };
+    };
+
+    var checkElementPosition = function(element, pos) {
+        windowWidth = getWindowSize().width;
+        windowHeight = getWindowSize().height;
+
+        elWidth = element.clientWidth;
+        elHeight = element.clientHeight;
+
+        if(outsidePosition.top(pos)) pos.y = windowHeight - 60;
+        if(outsidePosition.bottom(pos)) pos.y = - windowHeight + 60;
+        if(outsidePosition.left(pos)) pos.x = windowWidth - 60;
+        if(outsidePosition.right(pos)) pos.x = - windowWidth + 60;
+
+        moveElementTo(element, pos.x, pos.y);
+    };
+
     var storedAnchor = {
         top: false,
         left: false
@@ -327,7 +348,8 @@ var UIUtils = function($) { // jshint ignore:line
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
         moveElementTo: moveElementTo,
-        setAnchorPosition: setAnchorPosition
+        setAnchorPosition: setAnchorPosition,
+        checkElementPosition: checkElementPosition
     };
 };
 

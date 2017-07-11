@@ -83,6 +83,10 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         uiUtils.moveElementTo(button[0], position.x, position.y);
 
+        setTimeout(function () {
+            uiUtils.checkElementPosition(button[0], position);
+        });
+
         return true;
     };
 

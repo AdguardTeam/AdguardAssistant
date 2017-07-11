@@ -78,14 +78,18 @@ var UIUtils = function($) { // jshint ignore:line
             e.cancelBubble = true;
             e.returnValue = false;
 
-            // prevent browser scroll
-            document.onwheel = function() {return false;}; // modern standard
-            document.onmousewheel = function() {return false;}; // older browsers, IE
             return false;
+        };
+
+        var preventedEvent = function(e) {
+            e.preventDefault();
         };
 
         var mouseDown = function(e) {
             pauseEvent(e);
+
+            // prevent browser scroll
+            $(document).on('wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -125,8 +129,8 @@ var UIUtils = function($) { // jshint ignore:line
             e.stopPropagation();
 
             // make scroll availalbe
-            document.onwheel = null;
-            document.onmousewheel = null;
+            $(document).off('wheel mousewheel', preventedEvent);
+
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
             // of the screen it belongs.

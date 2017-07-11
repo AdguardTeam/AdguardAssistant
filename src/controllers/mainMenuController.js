@@ -56,6 +56,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
         showHideBlockAdButton(isFilter);
         setFilteringStateToStore(isFilter);
         gmApi.ADG_changeFilteringState(isFilter);
+        CommonUtils.reloadPageBypassCache();
     };
 
     var setInitFilteringState = function() {

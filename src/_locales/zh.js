@@ -1,4 +1,4 @@
-var zh-cn = {
+var zh = {
     "menu_filtration_status": {
         "message": "\u5bf9\u6b64\u7f51\u7ad9\u8fdb\u884c\u8fc7\u6ee4"
     },

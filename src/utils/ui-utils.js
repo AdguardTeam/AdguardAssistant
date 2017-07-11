@@ -77,11 +77,19 @@ var UIUtils = function($) { // jshint ignore:line
             e.preventDefault();
             e.cancelBubble = true;
             e.returnValue = false;
+
             return false;
+        };
+
+        var preventedEvent = function(e) {
+            e.preventDefault();
         };
 
         var mouseDown = function(e) {
             pauseEvent(e);
+
+            // prevent browser scroll
+            $(document).on('wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -119,6 +127,10 @@ var UIUtils = function($) { // jshint ignore:line
 
         var onMouseUp = function(e) {
             e.stopPropagation();
+
+            // make scroll availalbe
+            $(document).off('wheel mousewheel', preventedEvent);
+
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
             // of the screen it belongs.

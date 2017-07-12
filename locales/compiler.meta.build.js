@@ -24,9 +24,9 @@
 // @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
 // @description:es Permite fácilmente gestionar los filtros desde el navegador
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
-// @version 4.1.0
-// @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.1.0/assistant.user.js
-// @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.1.0/assistant.meta.js
+// @version 4.0.10
+// @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0.10/assistant.user.js
+// @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0.10/assistant.meta.js
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *://feedly.com/*

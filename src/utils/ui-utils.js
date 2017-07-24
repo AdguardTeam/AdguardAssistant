@@ -29,7 +29,7 @@ var UIUtils = function($) { // jshint ignore:line
                 outsidePosition.right(position);
 
             if (out) {
-                onMouseUp(e);
+                onMouseUp(e, true);
             } else {
                 moveElementTo(element, position.x, position.y);
             }
@@ -108,7 +108,12 @@ var UIUtils = function($) { // jshint ignore:line
             $(document).on('mousemove touchmove pointermove', onMouseMove);
         };
 
-        var onMouseUp = function(e) {
+        /**
+         * On mouse up event
+         * @param {Object} e  event object
+         * @param {Boolean|undefined} doNotOpenIframe  do not open the iframe if true. This is necessary when the cursor is out of bounds
+         */
+        var onMouseUp = function(e, doNotOpenIframe) {
             e.stopPropagation();
 
             // make scroll availalbe
@@ -150,9 +155,8 @@ var UIUtils = function($) { // jshint ignore:line
                     onDragEnd(store);
                 }
             } else {
-                if (onClick) {
+                if (onClick && !doNotOpenIframe) {
                     onClick(e);
-                    e.stopPropagation();
                 }
             }
 

@@ -203,18 +203,8 @@ var UIUtils = function($) { // jshint ignore:line
          * @param y
          */
         var drag = function(x, y) {
-            var newPositionX = x;
-            var newPositionY = y;
-            // Don't drag it off the top or left of the screen?
-            if (newPositionX < 0) {
-                newPositionX = 0;
-            }
-            if (newPositionY < 0) {
-                newPositionY = 0;
-            }
-
-            iframeJ.css('left', newPositionX + 'px');
-            iframeJ.css('top', newPositionY + 'px');
+            iframeJ.css('left', x + 'px');
+            iframeJ.css('top', y + 'px');
         };
 
         var cancelIFrameSelection = function(e) {

@@ -120,3 +120,11 @@
 .adguard-assistant-button-bottom.adguard-assistant-button-respect-fb {
     transform: translate3d(-5px, -40px, 0);
 }
+
+@media print {
+    .adguard-alert, #adguard-assistant-dialog {
+        display: none!important;
+        opacity: 0!important;
+        visibility: hidden!important;
+    }
+}

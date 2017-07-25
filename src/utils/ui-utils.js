@@ -234,6 +234,9 @@ var UIUtils = function($) { // jshint ignore:line
             $iframeDocument.off('selectstart', cancelIFrameSelection);
         };
 
+        // prevent iframe dragging while browser tabs is switching
+        document.addEventListener('visibilitychange', onMouseUp);
+
         dragHandle.on('mousedown touchstart', onMouseDown);
         $iframeDocument.on('mouseup touchend pointerup', onMouseUp);
     };

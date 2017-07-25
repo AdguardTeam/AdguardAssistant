@@ -11,7 +11,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         BUTTON_POSITION_ITEM_NAME: '__adbpos',
         IFRAME_ID: 'adguard-assistant-dialog',
-        REPORT_URL: 'https://reports.adguard.com/'
+        REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
     var MenuItemsNames = {
         DetailedMenu: 'mainMenu.html',

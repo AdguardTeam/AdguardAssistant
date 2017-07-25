@@ -245,11 +245,7 @@ var UIUtils = function($) { // jshint ignore:line
         };
 
         // prevent iframe dragging while browser tabs is switching
-        // modern browsers
         document.addEventListener('visibilitychange', onMouseUp);
-        // old browsers
-        window.addEventListener('focus', onMouseUp);
-        window.addEventListener('blur', onMouseUp);
 
         dragHandle.on('mousedown touchstart', onMouseDown);
         $iframeDocument.on('mouseup touchend pointerup', onMouseUp);

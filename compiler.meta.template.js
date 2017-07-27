@@ -4,7 +4,7 @@
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
-// @version 4.0.10
+// @version 4.0.11
 // @downloadURL [DOWNLOAD_URL]
 // @updateURL [UPDATE_URL]
 // @include *

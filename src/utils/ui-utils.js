@@ -243,6 +243,10 @@ var UIUtils = function($) { // jshint ignore:line
 
         dragHandle.on('mousedown touchstart', onMouseDown);
         $iframeDocument.on('mouseup touchend pointerup', onMouseUp);
+        $iframeDocument.on('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
     };
 
     var browserPrefixes = ["webkit", "moz", "ms", "o", ""];

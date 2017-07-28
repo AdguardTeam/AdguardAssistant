@@ -11,8 +11,8 @@ const options = global.options = {
     downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
     outputPath: 'build',
-    locales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-cn', 'he', 'it', 'fa'],
-    metaLocales: ['ru', 'uk', 'pl', 'de', 'zh-cn', 'he', 'it', 'fa', 'sr', 'es', 'id'],
+    locales: ['en', 'ru', 'uk', 'pl', 'de', 'zh', 'he', 'it', 'fa'],
+    metaLocales: ['ru', 'uk', 'pl', 'de', 'zh', 'he', 'it', 'fa', 'sr', 'es', 'id'],
     localesDir: 'locales',
     sourceFile: 'en.json',
     sourceFileMeta: 'en.meta.json',
@@ -48,8 +48,7 @@ gulp.task('testsToGhPages', () => {
         'test/**',
         'node_modules/mocha/mocha.*',
         'node_modules/chai/chai.js'
-    ], {base:"."})
-        .pipe(gulp.dest(options.outputPath));
+    ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
 

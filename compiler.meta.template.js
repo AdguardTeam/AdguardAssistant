@@ -4,7 +4,7 @@
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
-// @version 4.0.8
+// @version 4.0.11
 // @downloadURL [DOWNLOAD_URL]
 // @updateURL [UPDATE_URL]
 // @include *
@@ -36,6 +36,13 @@
 // @require src\wot.js
 // @require src\_locales\ru.js
 // @require src\_locales\en.js
+// @require src\_locales\fa.js
+// @require src\_locales\he.js
+// @require src\_locales\it.js
+// @require src\_locales\pl.js
+// @require src\_locales\uk.js
+// @require src\_locales\zh.js
+// @require src\_locales\de.js
 // @require src\localization.js
 // @require src\controllers\mainMenuController.js
 // @require src\controllers\selectorMenuController.js

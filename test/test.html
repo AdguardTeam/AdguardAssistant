@@ -2,12 +2,12 @@
     <head>
         <title> Tests </title>
         <meta charset="utf-8" />
-        <link rel="stylesheet" href="mocha.css" />
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
     </head>
     <body>
         <div id="mocha"></div>
-        <script src="./mocha.js"></script>
-        <script src="./chai.js"></script>
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
         <script>
             mocha.setup({
               ui: 'bdd'
@@ -29,6 +29,6 @@
             window.GM_getResourceText = function() {return false;};
             window.GM_addStyle = function() {return false;};
         </script>
-        <script src="../assistant.user.js"></script>
+        <script src="../build/assistant.user.js"></script>
     </body>
 </html>

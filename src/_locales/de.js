@@ -111,7 +111,7 @@ var de = {
         "message": "Oben links"
     },
     "settings_right_top": {
-        "message": "Oben rects"
+        "message": "Oben rechts"
     },
     "settings_left_bottom": {
         "message": "Unten links"

@@ -2,7 +2,7 @@
  * Slider widget
  * @type {Function}
  */
-var SliderWidget = (function (api, $) { // jshint ignore:line
+var SliderWidget = (function(api, $) { // jshint ignore:line
     var PLACEHOLDER_CLASS = "adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all";
     var HANDLE_CLASS = "ui-slider-handle";
     var HANDLE_FULL_CLASS = "ui-slider-handle ui-state-default ui-corner-all";
@@ -21,7 +21,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
     var onValueChanged = null;
 
 
-    var refresh = function () {
+    var refresh = function() {
         var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
         $(handle).css('left', (value - 1) * 100 / (max - min) + "%");
 
@@ -35,7 +35,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         }
     };
 
-    var render = function () {
+    var render = function() {
         $(placeholder).addClass(PLACEHOLDER_CLASS);
 
         var handle = document.createElement('a');
@@ -44,7 +44,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         placeholder.appendChild(handle);
 
         var count = max - min;
-        var prepare = function (i) {
+        var prepare = function(i) {
             var tick = document.createElement('div');
             tick.setAttribute('class', TICK_FULL_CLASS);
             tick.style.left = (100 / count * i) + '%';
@@ -60,7 +60,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         refresh();
     };
 
-    var setValue = function (v) {
+    var setValue = function(v) {
         if (v < min) {
             value = min;
         } else if (v > max) {
@@ -74,15 +74,13 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
         onValueChanged(value);
     };
 
-    var bindEvents = function () {
+    var bindEvents = function() {
         var $placeholder = $(placeholder);
         var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
         var $handle = $(handle);
         var $sliderArea = $(sliderArea);
 
-        $(document).on('mouseup', function () {
-            $placeholder.off('mousemove');
-            $handle.off('mousemove');
+        $(document).on('mouseup touchend pointerup', function() {
             $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
         });
 
@@ -132,7 +130,7 @@ var SliderWidget = (function (api, $) { // jshint ignore:line
      * @param placeholderElement
      * @param options
      */
-    api.init = function (placeholderElement, options) {
+    api.init = function(placeholderElement, options) {
         placeholder = placeholderElement;
 
         min = options.min;

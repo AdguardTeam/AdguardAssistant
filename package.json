@@ -1,11 +1,11 @@
 {
   "name": "assistant-compiler",
-  "version": "4.0.8",
+  "version": "4.0.11",
   "description": "Compile source files to userscript form",
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {
-    "test": "mocha-phantomjs test/index.html"
+    "test": "mocha-phantomjs test/test.html"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",

@@ -5,6 +5,8 @@
  * @constructor
  */
 var UIUtils = function($) { // jshint ignore:line
+    var elWidth, elHeight, windowWidth, windowHeight;
+
     /**
      * Make element draggable
      * @param element
@@ -12,25 +14,7 @@ var UIUtils = function($) { // jshint ignore:line
      * @param onClick
      */
     var makeElementDraggable = function(element, onDragEnd, onClick) {
-        var windowWidth, windowHeight, coords, shiftX, shiftY;
-
-        var elWidth = element.clientWidth;
-        var elHeight = element.clientWidth;
-
-        var outsidePosition = {
-            top: function(pos) {
-                return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
-            },
-            bottom: function(pos) {
-                return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
-            },
-            left: function(pos) {
-                return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
-            },
-            right: function(pos) {
-                return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
-            }
-        };
+        var coords, shiftX, shiftY;
 
         var moveAt = function(e) {
             var position = {
@@ -45,7 +29,7 @@ var UIUtils = function($) { // jshint ignore:line
                 outsidePosition.right(position);
 
             if (out) {
-                onMouseUp(e);
+                onMouseUp(e, true);
             } else {
                 moveElementTo(element, position.x, position.y);
             }
@@ -77,11 +61,19 @@ var UIUtils = function($) { // jshint ignore:line
             e.preventDefault();
             e.cancelBubble = true;
             e.returnValue = false;
+
             return false;
+        };
+
+        var preventedEvent = function(e) {
+            e.preventDefault();
         };
 
         var mouseDown = function(e) {
             pauseEvent(e);
+
+            // prevent browser scroll
+            $(document).on('wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -89,9 +81,8 @@ var UIUtils = function($) { // jshint ignore:line
             elWidth = element.clientWidth;
             elHeight = element.clientWidth;
 
-            // getting screen width and height without scroll bars
-            windowWidth = Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width);
-            windowHeight = Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height);
+            windowWidth = getWindowSize().width;
+            windowHeight = getWindowSize().height;
 
             coords = getCoords(element);
 
@@ -117,8 +108,17 @@ var UIUtils = function($) { // jshint ignore:line
             $(document).on('mousemove touchmove pointermove', onMouseMove);
         };
 
-        var onMouseUp = function(e) {
+        /**
+         * On mouse up event
+         * @param {Object} e  event object
+         * @param {Boolean|undefined} doNotOpenIframe  do not open the iframe if true. This is necessary when the cursor is out of bounds
+         */
+        var onMouseUp = function(e, doNotOpenIframe) {
             e.stopPropagation();
+
+            // make scroll availalbe
+            $(document).off('wheel mousewheel', preventedEvent);
+
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
             // of the screen it belongs.
@@ -155,9 +155,8 @@ var UIUtils = function($) { // jshint ignore:line
                     onDragEnd(store);
                 }
             } else {
-                if (onClick) {
+                if (onClick && !doNotOpenIframe) {
                     onClick(e);
-                    e.stopPropagation();
                 }
             }
 
@@ -171,6 +170,21 @@ var UIUtils = function($) { // jshint ignore:line
         $(element).on('click', function(e) {
             onClick();
         });
+    };
+
+    var outsidePosition = {
+        top: function(pos) {
+            return storedAnchor.top && (pos.y + elHeight > windowHeight || pos.y < 0);
+        },
+        bottom: function(pos) {
+            return !storedAnchor.top && (Math.abs(pos.y) + elHeight > windowHeight || pos.y > 0);
+        },
+        left: function(pos) {
+            return storedAnchor.left && (pos.x + elWidth > windowWidth || pos.x < 0);
+        },
+        right: function(pos) {
+            return !storedAnchor.left && (Math.abs(pos.x) + elWidth > windowWidth || pos.x > 0);
+        }
     };
 
     /**
@@ -193,18 +207,8 @@ var UIUtils = function($) { // jshint ignore:line
          * @param y
          */
         var drag = function(x, y) {
-            var newPositionX = x;
-            var newPositionY = y;
-            // Don't drag it off the top or left of the screen?
-            if (newPositionX < 0) {
-                newPositionX = 0;
-            }
-            if (newPositionY < 0) {
-                newPositionY = 0;
-            }
-
-            iframeJ.css('left', newPositionX + 'px');
-            iframeJ.css('top', newPositionY + 'px');
+            iframeJ.css('left', x + 'px');
+            iframeJ.css('top', y + 'px');
         };
 
         var cancelIFrameSelection = function(e) {
@@ -234,8 +238,15 @@ var UIUtils = function($) { // jshint ignore:line
             $iframeDocument.off('selectstart', cancelIFrameSelection);
         };
 
+        // prevent iframe dragging while browser tabs is switching
+        document.addEventListener('visibilitychange', onMouseUp);
+
         dragHandle.on('mousedown touchstart', onMouseDown);
         $iframeDocument.on('mouseup touchend pointerup', onMouseUp);
+        $iframeDocument.on('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
     };
 
     var browserPrefixes = ["webkit", "moz", "ms", "o", ""];
@@ -317,6 +328,29 @@ var UIUtils = function($) { // jshint ignore:line
         }
     };
 
+    // getting screen width and height without scroll bars
+    var getWindowSize = function() {
+        return {
+            width: Math.min(document.documentElement.clientWidth, window.innerWidth || screen.width),
+            height: Math.min(document.documentElement.clientHeight, window.innerHeight || screen.height)
+        };
+    };
+
+    var checkElementPosition = function(element, pos) {
+        windowWidth = getWindowSize().width;
+        windowHeight = getWindowSize().height;
+
+        elWidth = element.clientWidth;
+        elHeight = element.clientHeight;
+
+        if(outsidePosition.top(pos)) pos.y = windowHeight - 60;
+        if(outsidePosition.bottom(pos)) pos.y = - windowHeight + 60;
+        if(outsidePosition.left(pos)) pos.x = windowWidth - 60;
+        if(outsidePosition.right(pos)) pos.x = - windowWidth + 60;
+
+        moveElementTo(element, pos.x, pos.y);
+    };
+
     var storedAnchor = {
         top: false,
         left: false
@@ -327,7 +361,8 @@ var UIUtils = function($) { // jshint ignore:line
         makeIframeDraggable: makeIframeDraggable,
         tryFullScreenPrefix: tryFullScreenPrefix,
         moveElementTo: moveElementTo,
-        setAnchorPosition: setAnchorPosition
+        setAnchorPosition: setAnchorPosition,
+        checkElementPosition: checkElementPosition
     };
 };
 

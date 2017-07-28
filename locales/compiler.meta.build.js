@@ -4,7 +4,7 @@
 // @name:uk Помічник Adguard
 // @name:pl Asystent Adguarda
 // @name:de Adguard-Assistent
-// @name:zh-cn 使用 Adguard 助手
+// @name:zh 使用 Adguard 助手
 // @name:he העוזר האישי של אדגארד
 // @name:it Assistente Adguard
 // @name:fa دستیار اَدگارد
@@ -17,14 +17,14 @@
 // @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
 // @description:pl Zapewnia łatwy i wygodny sposób na zarządzanie filtrowaniem bezpośrednio z przeglądarki
 // @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
-// @description:zh-cn 提供简单方便的方法来管理浏览器筛选
+// @description:zh 提供简单方便的方法来管理浏览器筛选
 // @description:he מספק דרך קלה ונוחה לנהל סינון תקין ישירות מהדפדפן
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
 // @description:fa روش راحت و آسان برای مدیریت فیلترینگ مستیق از داخل مرورگر.
 // @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
 // @description:es Permite fácilmente gestionar los filtros desde el navegador
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
-// @version 4.0.8
+// @version 4.0.11
 // @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
 // @include *
@@ -56,6 +56,13 @@
 // @require src\wot.js
 // @require src\_locales\ru.js
 // @require src\_locales\en.js
+// @require src\_locales\fa.js
+// @require src\_locales\he.js
+// @require src\_locales\it.js
+// @require src\_locales\pl.js
+// @require src\_locales\uk.js
+// @require src\_locales\zh.js
+// @require src\_locales\de.js
 // @require src\localization.js
 // @require src\controllers\mainMenuController.js
 // @require src\controllers\selectorMenuController.js

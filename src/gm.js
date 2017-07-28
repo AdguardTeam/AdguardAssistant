@@ -13,27 +13,27 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
     if (!ADG_addRule) {
         ADG_addRule = function (rule, callback) {
             alert('GM_api is not supported. ' + rule + ' rule added');
-            callback();
+            if(callback) callback();
         };
     }
 
     if (!ADG_sendAbuse) {
         ADG_sendAbuse = function (url, callback) {
             alert('GM_api is not supported. ' + url + 'abused');
-            callback();
+            if(callback) callback();
         };
     }
 
     if (!ADG_temporaryDontBlock) {
         ADG_temporaryDontBlock = function (timeout, callback) {
             alert('GM_api is not supported. ' + 'Do not block for ' + timeout + ' seconds');
-            callback();
+            if(callback) callback();
         };
     }
 
     if (!ADG_isFiltered) {
         ADG_isFiltered = function (callback) {
-            callback();
+            if(callback) callback();
             return true;
         };
     }
@@ -41,7 +41,7 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
     if (!ADG_changeFilteringState) {
         ADG_changeFilteringState = function (callback) {
             alert('GM_api is not supported. ' + 'State changed');
-            callback();
+            if(callback) callback();
         };
     }
 

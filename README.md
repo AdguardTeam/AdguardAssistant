@@ -1,4 +1,4 @@
-# Adguard Assistant [![Build Status](https://travis-ci.org/4-life/AdguardAssistant.svg?branch=iss60)](https://travis-ci.org/4-life/AdguardAssistant)
+# Adguard Assistant [![Build Status](https://travis-ci.org/AdguardTeam/AdguardAssistant.svg?branch=master)](https://travis-ci.org/AdguardTeam/AdguardAssistant)
 
 Adguard Assistant userscript
 
@@ -7,7 +7,7 @@ Adguard Assistant userscript
 Built automatically on every new commit:
 https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 
-Unit test page for dev build [here](https://AdguardTeam.github.io/AdguardAssistant/test/index.html)
+Unit test page for dev build [here](https://AdguardTeam.github.io/AdguardAssistant/test/)
 
 ## How to build
 

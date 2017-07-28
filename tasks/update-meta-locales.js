@@ -13,6 +13,7 @@ module.exports = () => {
     const options = global.options || {};
 
     let compilerMeta = fs.readFileSync('compiler.meta.template.js').toString();
+    let compilerMetaMobile = fs.readFileSync('compiler.meta.template.js').toString();
     let compilerMetaBeta = compilerMeta;
     let compilerMetaDev = compilerMeta;
     let compilerMetaNames = [];
@@ -34,6 +35,13 @@ module.exports = () => {
             compilerMetaDescriptions.push('// @description:' + language + ' ' + localesMetaJSON.extension.assistant.description);
         }
     });
+
+    compilerMetaMobile = compilerMetaMobile
+        .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaNames.join(endOfLine))
+        .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
+        .replace('@name Adguard Assistant', '@name Adguard Assistant Mobile')
+        .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlBuild + 'assistant.user.js')
+        .replace('[UPDATE_URL]', options.downloadUpdateUrlBuild + 'assistant.meta.js');
 
     compilerMeta = compilerMeta
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaNames.join(endOfLine))
@@ -58,10 +66,12 @@ module.exports = () => {
     let metaBuildPath = path.join(options.localesDir, options.metaBuild);
     let metaBetaPath = path.join(options.localesDir, options.metaBeta);
     let metaDevPath = path.join(options.localesDir, options.metaDev);
+    let metaDevPathMobile = path.join(options.localesDir, options.metaDevMobile);
 
     return gulp.src(options.localesDir)
         .pipe(file(metaBuildPath, compilerMeta))
         .pipe(file(metaBetaPath, compilerMetaBeta))
         .pipe(file(metaDevPath, compilerMetaDev))
+        .pipe(file(metaDevPathMobile, compilerMetaMobile))
         .pipe(gulp.dest(process.cwd()));
 };

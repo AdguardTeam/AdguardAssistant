@@ -98,13 +98,14 @@
     }
     &_more--mobile{
         display: none;
-        @media (max-width: @mobile){
+        @media (max-width: @mobile) {
             display: block;
-            background: url(../i/menu-settings.svg) no-repeat 0 0 / cover;
+            background: url(../i/menu-settings.svg) bottom right no-repeat;
+            background-size: 18px 18px;
             width: 18px;
             height: 18px;
-            margin-left: 13px;
-            margin-top: 10.5px;
+            padding: 10px 0 0 10px;
+            box-sizing: content-box;
         }
     }
 }

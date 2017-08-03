@@ -1,9 +1,11 @@
-/* global Ioc, Log, Resources, Settings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButtonMobile */
+/* global Ioc, Log, Resources, Settings, UIValidationUtils, balalaika, UIUtils, Localization, IframeControllerMobile, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButtonMobile */
 
 (function () {
     Ioc.register('log', new Log());
 
-    Ioc.register('gmApi', new GM());
+    var addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
+
+    Ioc.register('gmApi', new GM(addRule));
 
     Ioc.register('resources', new Resources());
     var settings = Ioc.get(Settings);
@@ -14,7 +16,7 @@
     Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
-    Ioc.register('iframeController', Ioc.get(IframeController));
+    Ioc.register('iframeController', Ioc.get(IframeControllerMobile));
     Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     settings.loadSettings();

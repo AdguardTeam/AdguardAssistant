@@ -50,7 +50,7 @@
 // @require src\selector\dom.patched.js
 // @require src\selector\adguard-selector.js
 // @require src\adguard-rules-constructor.js
-// @require src\iframe.js
+// @require src\iframe.mobile.js
 // @require src\gm.js
 // @require src\slider-widget.js
 // @require src\wot.js
@@ -66,7 +66,7 @@
 // @require src\localization.js
 // @require src\controllers\mainMenuController.js
 // @require src\controllers\selectorMenuController.js
-// @require src\controllers\sliderMenuController.js
+// @require src\controllers\SliderMenuControllerMobile.js
 // @require src\controllers\blockPreviewController.js
 // @require src\controllers\settingsMenuController.js
 // @require src\button.mobile.js
@@ -79,6 +79,7 @@
 // @resource selectorMenu.html src\templates\selectorMenu.html
 // @resource sliderMenu.html src\templates\sliderMenu.html
 // @resource blockPreview.html src\templates\blockPreview.html
+// @resource settingsMenu.html src\templates\settingsMenu.html
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

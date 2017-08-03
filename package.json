@@ -5,7 +5,8 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {
-    "test": "mocha-phantomjs test/test.html"
+    "test": "mocha-phantomjs test/test.html",
+    "test-mobile": "mocha-phantomjs test/mobile.html"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",

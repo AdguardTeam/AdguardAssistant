@@ -1,4 +1,3 @@
-// ==UserScript==
 // @name Adguard Assistant
 // [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]
 // @namespace Adguard
@@ -57,8 +56,3 @@
 // @resource sliderMenu.html src\templates\sliderMenu.html
 // @resource blockPreview.html src\templates\blockPreview.html
 // @resource settingsMenu.html src\templates\settingsMenu.html
-// @grant   GM_getValue
-// @grant   GM_setValue
-// @grant   GM_getResourceText
-// @grant   GM_addStyle
-// ==/UserScript==

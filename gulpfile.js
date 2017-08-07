@@ -38,7 +38,7 @@ gulp.task('mobile', () => {
     options.debug = true;
     options.metaPath = options.metaDevMobile;
     options.scriptName = 'script';
-    runSequence('css', 'compile-mobile', 'preprocess', 'uglify');
+    runSequence('css', 'compile-mobile', 'preprocess');
 });
 
 gulp.task('build', () => {

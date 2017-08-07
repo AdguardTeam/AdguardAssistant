@@ -51,10 +51,12 @@ This will compile `assistant.user.js` file with minification and uglify.
 
 ## Mobile build
 
-Mobile build is [here](https://AdguardTeam.github.io/AdguardAssistant/mobile/assistant.user.js)
+Mobile build is [here](https://AdguardTeam.github.io/AdguardAssistant/mobile/script.js)
 
-In the mobile assistant, the rules are specified via a function ADG_addRule:
+In the mobile assistant, the rules are specified via a function:
 
 ```
-ADG_addRule('rule', callback());
+adguardAssistant.start(function(ruleText) {
+
+});
 ```

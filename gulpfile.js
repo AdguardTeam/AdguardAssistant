@@ -58,6 +58,10 @@ gulp.task('testsToGhPages', () => {
     ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
+gulp.task('mobileToGhPages', () => {
+    return gulp.src('build/**').pipe(gulp.dest(options.outputPath + '/mobile/'));
+});
+
 
 gulp.task('compile', require('./tasks/compile'));
 gulp.task('compile-mobile', require('./tasks/compile.mobile'));

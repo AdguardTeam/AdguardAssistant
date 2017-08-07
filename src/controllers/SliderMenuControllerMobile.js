@@ -48,9 +48,6 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, 
     var plus = function() {
         (nodeNumber + 1) > nodeParentsCount ? nodeNumber = nodeNumber : nodeNumber++;
 
-        console.log(nodeNumber);
-        console.log(parents);
-
         if (nodeNumber >= 0) {
             if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
         } else {
@@ -60,11 +57,6 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, 
 
     var minus = function() {
         nodeNumber <= -nodeChildsCount ? nodeNumber = nodeNumber : nodeNumber--;
-
-        console.log(nodeNumber);
-        console.log(-nodeChildsCount);
-        console.log(parents);
-        console.log(children);
 
         if (nodeNumber >= 0) {
             if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);

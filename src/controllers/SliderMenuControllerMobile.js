@@ -89,7 +89,6 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, 
     var blockElement = function () {
         addRule(getFilterRuleInputText());
         iframeCtrl.removeIframe();
-        CommonUtils.reloadPageBypassCache();
     };
 
     var expandAdvanced = function () {

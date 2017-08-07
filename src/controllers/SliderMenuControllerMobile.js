@@ -6,12 +6,12 @@
  * @param settings
  * @param adguardRulesConstructor
  * @param localization
- * @param gmApi
+ * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
 /* global Ioc, CommonUtils */
-var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, gmApi) { // jshint ignore:line
+var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, addRule) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
     var iframeCtrl = Ioc.get('iframeController');
@@ -87,10 +87,9 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, 
     };
 
     var blockElement = function () {
-        gmApi.ADG_addRule(getFilterRuleInputText(), function () {
-            iframeCtrl.removeIframe();
-            CommonUtils.reloadPageBypassCache();
-        });
+        addRule(getFilterRuleInputText());
+        iframeCtrl.removeIframe();
+        CommonUtils.reloadPageBypassCache();
     };
 
     var expandAdvanced = function () {

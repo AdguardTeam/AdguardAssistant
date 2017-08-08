@@ -1,3 +1,4 @@
+// Requiring necessary scripts for mobile implementation
 // @require src\utils\css.escape.js
 // @require src\ioc.js
 // @require src\log.js

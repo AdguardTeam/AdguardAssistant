@@ -11,3 +11,4 @@ replace.py
 .keys*
 
 src/styles/style.css
+.DS_Store

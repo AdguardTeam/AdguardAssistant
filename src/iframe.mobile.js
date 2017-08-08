@@ -3,7 +3,6 @@
  * @param $
  * @param settings
  * @param uiUtils
- * @param gmApi
  * @param log
  * @param selector
  * @param uiValidationUtils
@@ -12,8 +11,8 @@
  * @returns {{showDetailedMenu: showDetailedMenu, showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, showSettingsMenu: showSettingsMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
  * @constructor
  */
-/* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
-var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
+/* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
+var IframeControllerMobile = function ($, settings, uiUtils, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
     var iframe = null;
     var currentItem = null;
     var iframeMaxWidth = 418;
@@ -204,7 +203,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var showSliderMenu = function (element) {
-        var controller = Ioc.get(SliderMenuController);
+        var controller = Ioc.get(SliderMenuControllerMobile);
         var options = {element: element, dragElement: 'head'};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, sliderMenuHeight.normal, options);
         setCloseEventIfNotHitIframe(false);

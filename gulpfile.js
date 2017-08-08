@@ -7,6 +7,7 @@ const options = global.options = {
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
     metaDev: 'compiler.meta.dev.js',
+    metaDevMobile: 'compiler.meta.template.mobile.js',
     downloadUpdateUrlBuild: 'https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/',
     downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
@@ -33,6 +34,13 @@ gulp.task('dev', () => {
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
+gulp.task('mobile', () => {
+    options.debug = true;
+    options.metaPath = options.metaDevMobile;
+    options.scriptName = 'script';
+    runSequence('css', 'compile-mobile', 'preprocess');
+});
+
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
@@ -51,8 +59,13 @@ gulp.task('testsToGhPages', () => {
     ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
+gulp.task('mobileToGhPages', () => {
+    return gulp.src('build/**').pipe(gulp.dest(options.outputPath + '/mobile/'));
+});
+
 
 gulp.task('compile', require('./tasks/compile'));
+gulp.task('compile-mobile', require('./tasks/compile.mobile'));
 gulp.task('restore-meta', require('./tasks/restore-meta'));
 gulp.task('clean', require('./tasks/clean'));
 gulp.task('preprocess', require('./tasks/preprocess'));

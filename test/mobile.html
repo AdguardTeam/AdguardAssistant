@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <script src="../node_modules/mocha/mocha.js"></script>
+        <script src="../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.setup({
+              ui: 'bdd'
+            });
+            mocha.globals(['diff_match_patch', 'DIFF_DELETE', 'DIFF_INSERT', 'DIFF_EQUAL', 'adguardAssistant']);
+            var expect = chai.expect;
+        </script>
+
+        <script src="./tests.js"></script>
+
+        <script>
+            mocha.checkLeaks();
+            mocha.run();
+        </script>
+
+        <script src="../build/script.js"></script>
+
+        <script>
+            adguardAssistant.start(console.log('check'));
+        </script>
+    </body>
+</html>

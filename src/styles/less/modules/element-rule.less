@@ -4,12 +4,24 @@
 
 .element-rule{
     padding: @base-offset;
+     &--slider{
+        @media (max-width: @mobile){
+            padding: 0;
+        }
+    }
     &_text{
-
+        &--slider{
+            @media (max-width: @mobile){
+                display: none;
+            }
+        }
     }
     &_slider{
         margin: 5px 0 7px;
         user-select: none;
+        @media (max-width: @mobile){
+            display: none;
+        }
     }
     &_expand-link{
         font-size: 12px;
@@ -53,11 +65,15 @@
     &_form{
         height: 0;
         margin: 0 -@base-offset;
-        transition: .2s;
+        transition: .2s height, .2s margin-bottom;
         overflow: hidden;
         &.open{
             height: auto;
             margin-bottom: -@base-offset;
+            @media (max-width: @mobile){
+                padding: 20px;
+                padding-top: 0;
+            }
         }
     }
     &_form-cont{
@@ -65,6 +81,9 @@
         padding: @base-offset;
         border-top: 1px solid #e0dfdb;
         background: #f4f4ef;
+        @media (max-width: @mobile){
+            margin-top: 0;
+        }
     }
     &_fieldset{
         margin: 10px 0 0;
@@ -72,8 +91,24 @@
             margin: 0;
         }
     }
+    &_more{
+        @media (max-width: @mobile){
+            display: none;
+        }
+    }
+    &_more--mobile{
+        display: none;
+        @media (max-width: @mobile) {
+            display: block;
+            background: url(../i/menu-settings.svg) bottom right no-repeat;
+            background-size: 18px 18px;
+            width: 18px;
+            height: 18px;
+            padding: 10px 0 0 10px;
+            box-sizing: content-box;
+        }
+    }
 }
-
 
 
 // slider
@@ -102,6 +137,44 @@
     text-align: right;
 }
 
+.adg-slide-btns{
+    display: none;
+    @media (max-width: @mobile){
+        display: flex;
+        padding-right: 25px;
+    }
+}
+
+.adg-slide-btn{
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border: 2px solid #e2e2e2;
+    border-radius: 2px;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 15.3px;
+        width: 18px;
+        height: 2px;
+        background-color: #4e4e4e;
+        border-radius: 2px;
+    }
+    &--plus{
+        margin-left: 9px;
+        &:before{
+            content: "";
+            position: absolute;
+            left: 16px;
+            top: 8px;
+            height: 17px;
+            width: 2px;
+            background-color: #4e4e4e;
+            border-radius: 2px;
+        }
+    }
+}
 
 .ui-slider-handle {
     position: absolute;

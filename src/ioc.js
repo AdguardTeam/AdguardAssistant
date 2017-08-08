@@ -57,5 +57,3 @@ var Ioc = (function () { // jshint ignore:line
     };
 
 })();
-
-

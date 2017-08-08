@@ -7,7 +7,7 @@ const options = global.options = {
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
     metaDev: 'compiler.meta.dev.js',
-    metaDevMobile: 'compiler.meta.dev.mobile.js',
+    metaDevMobile: 'compiler.meta.template.mobile.js',
     downloadUpdateUrlBuild: 'https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/',
     downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',

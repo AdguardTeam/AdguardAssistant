@@ -4,14 +4,13 @@
  * @param settings User settings
  * @param uiValidationUtils Validation utils
  * @param $ balalaika
- * @param gmApi Gm API impl
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
  * @param resources Resources that generates in compiler
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButtonMobile = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
+var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
     var isFullScreenEventsRegistered = false;
 
@@ -28,8 +27,18 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, gmApi, uiUtil
         }
         log.debug("Requirements checked, all ok");
         button = $(resources.getResource('button.html'));
-        gmApi.GM_addStyle(resources.getResource('button.css'));
-        gmApi.GM_addStyle(resources.getResource('selector.css'));
+
+        var css = document.createElement('style');
+        var styles = resources.getResource('button.css') + resources.getResource('selector.css');
+
+        if (css.styleSheet) {
+            css.styleSheet.cssText = styles;
+        }else {
+            css.appendChild(document.createTextNode(styles));
+        }
+
+        document.getElementsByTagName("head")[0].appendChild(css);
+
         setPositionSettingsToButton(button);
         var body = $('body')[0];
         if (!body) {

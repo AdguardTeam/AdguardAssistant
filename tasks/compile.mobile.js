@@ -29,7 +29,7 @@ module.exports = () => {
         return null;
     };
 
-    let metaPath = path.join(options.localesDir, options.metaPath);
+    let metaPath = path.join('./', options.metaPath);
     let metaContent;
 
     try {

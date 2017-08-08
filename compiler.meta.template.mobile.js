@@ -1,24 +1,8 @@
-// @name Adguard Assistant
-// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]
-// @namespace Adguard
-// @description Provides easy and convenient way to manage filtering right from the browser
-// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
-// @version 4.0.11
-// @downloadURL [DOWNLOAD_URL]
-// @updateURL [UPDATE_URL]
-// @include *
-// @exclude *://mil.ru/*
-// @exclude *://feedly.com/*
-// @exclude *wikipedia.org*
-// @exclude *icloud.com*
-// @exclude *hangouts.google.com*
-// @exclude *www.facebook.com/plugins/сomments*
-// @exclude *disqus.com/embed/comments*
-// @exclude *vk.com/widget_comments*
-// @exclude *www.youtube.com/embed/*
 // @require src\utils\css.escape.js
+// @require src\ioc.js
 // @require src\log.js
 // @require src\balalaika.patched.js
+// @require src\settings.mobile.js
 // @require src\utils\ui-utils.js
 // @require src\utils\common-utils.js
 // @require src\utils\punycode.js
@@ -28,7 +12,6 @@
 // @require src\selector\adguard-selector.js
 // @require src\adguard-rules-constructor.js
 // @require src\iframe.mobile.js
-// @require src\gm.js
 // @require src\slider-widget.js
 // @require src\wot.js
 // @require src\_locales\ru.js
@@ -47,7 +30,7 @@
 // @require src\controllers\blockPreviewController.js
 // @require src\controllers\settingsMenuController.js
 // @require src\button.mobile.js
-// @require src\mobile.js
+// @require src\main.mobile.js
 // @resource button.css src\styles\button.css
 // @resource selector.css src\styles\selector.css
 // @resource button.html    src\templates\button.html

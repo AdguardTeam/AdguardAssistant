@@ -3,7 +3,6 @@
  * @param $
  * @param settings
  * @param uiUtils
- * @param gmApi
  * @param log
  * @param selector
  * @param uiValidationUtils
@@ -13,7 +12,7 @@
  * @constructor
  */
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
-var IframeControllerMobile = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
+var IframeControllerMobile = function ($, settings, uiUtils, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
     var iframe = null;
     var currentItem = null;
     var iframeMaxWidth = 418;

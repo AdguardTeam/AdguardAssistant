@@ -1,11 +1,16 @@
 /* global Ioc, Log, Resources, Settings, UIValidationUtils, balalaika, UIUtils, Localization, IframeControllerMobile, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButtonMobile */
 
-var adguardAssistant = (function() {
+// var GM_getValue = function() {return false;};
+// var GM_setValue = function() {return false;};
+// var GM_getResourceText = function() {return false;};
+// var GM_addStyle = function() {return false;};
+
+
+this.adguardAssistant = (function() {
     return {
         start: function(callback) {
             Ioc.register('log', new Log());
-
-            var addRule = callback;
+            Ioc.register('addRule', function(){callback();});
 
             Ioc.register('resources', new Resources());
             var settings = Ioc.get(Settings);

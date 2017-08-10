@@ -4,7 +4,7 @@ this.adguardAssistant = (function() {
     return {
         start: function(callback) {
             Ioc.register('log', new Log());
-            Ioc.register('addRule', function(){callback();});
+            Ioc.register('addRule', callback.bind(this));
 
             Ioc.register('resources', new Resources());
             var settings = Ioc.get(Settings);

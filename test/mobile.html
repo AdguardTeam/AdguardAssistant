@@ -12,7 +12,7 @@
             mocha.setup({
               ui: 'bdd'
             });
-            mocha.globals(['diff_match_patch', 'DIFF_DELETE', 'DIFF_INSERT', 'DIFF_EQUAL', 'adguardAssistant']);
+            mocha.globals(['CSS','diff_match_patch', 'DIFF_DELETE', 'DIFF_INSERT', 'DIFF_EQUAL', 'adguardAssistant']);
             var expect = chai.expect;
         </script>
 
@@ -26,7 +26,9 @@
         <script src="../build/script.js"></script>
 
         <script>
-            adguardAssistant.start(console.log('check'));
+            adguardAssistant.start(function(rules){
+                console.log(rules);
+            });
         </script>
     </body>
 </html>

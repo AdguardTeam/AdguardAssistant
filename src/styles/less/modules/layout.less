@@ -17,6 +17,7 @@
             @media (max-width: @mobile){
                 display: flex;
                 justify-content: space-between;
+                cursor: default;
             }
         }
     }
@@ -26,8 +27,7 @@
         color: #343434;
         &--slider{
             @media (max-width: @mobile){
-                margin-top: 9px;
-                font-size: 14px;
+                display: none;
             }
         }
     }
@@ -63,22 +63,16 @@
     &:extend(.cf-mix all);
     padding: @base-offset;
     border-top: 1px solid @border-color;
+    @media (max-width: @mobile){
+        display: none;
+    }
     &_action{
         float: right;
         &_btn{
             font-size: 0;
             .btn + .btn{
                 margin-left: 10px;
-                @media (max-width: @mobile){
-                    margin-left: 3px;
-                }
             }
         }
     }
-    &--slider{
-        @media (max-width: @mobile){
-            padding: 12px 20px;
-        }
-    }
 }
-

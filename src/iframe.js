@@ -164,6 +164,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var frameElement = iframe[0];
             frameElement.width = width;
             frameElement.height = height;
+            frameElement.style.setProperty('width', width + 'px', 'important');
+            frameElement.style.setProperty('height', height + 'px', 'important');
             var view = $(resources.getResource(viewName))[0];
             appendContent(view);
             localize();

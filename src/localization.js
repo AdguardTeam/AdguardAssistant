@@ -7,7 +7,7 @@
 
 var Localization = function () { // jshint ignore:line
     var currentLocale = null;
-    var SupportedLocales = {'en': en, 'ru': ru, 'uk': uk, 'pl': pl, 'de': de, 'zh': zh, 'he': he, 'it': it, 'fa': fa};
+    var SupportedLocales = {'en': en, 'ru': ru, 'uk': uk, 'pl': pl, 'de': de, 'zh': zh, 'he': he, 'it': it, 'fa': fa, tr: 'tr'};
 
     if (typeof AdguardSettings !== 'undefined') {
         var locale = AdguardSettings.locale;

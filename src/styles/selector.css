@@ -2,6 +2,7 @@
     display: block !important;
     overflow: hidden !important;
     z-index: 2147483647 !important;
+    visibility: visible !important;
 }
 
 .sg_selected {

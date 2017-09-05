@@ -85,11 +85,19 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     };
 
     var removeUserPositionForButton = function () {
-        localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
+        try {
+            localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
+        } catch (ex) {
+            log.error(ex);
+        }
     };
 
     var setUserPositionForButton = function (coords) {
-        localStorage.setItem(Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
+        try {
+            localStorage.setItem(Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
+        } catch (ex) {
+            log.error(ex);
+        }
     };
 
     var getUserPositionForButton = function () {

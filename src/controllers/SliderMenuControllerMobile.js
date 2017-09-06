@@ -3,6 +3,7 @@
  * @param $
  * @param selector
  * @param sliderWidget
+ * @param settings
  * @param adguardRulesConstructor
  * @param localization
  * @param addRule
@@ -10,7 +11,7 @@
  * @constructor
  */
 /* global Ioc, CommonUtils */
-var SliderMenuControllerMobile = function ($, selector, sliderWidget, adguardRulesConstructor, localization, addRule) { // jshint ignore:line
+var SliderMenuControllerMobile = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, addRule) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
     var iframeCtrl = Ioc.get('iframeController');
@@ -64,6 +65,10 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, adguardRul
         }
     };
 
+    var openSettings = function() {
+        iframeCtrl.showSettingsMenu();
+    };
+
     var bindEvents = function () {
         var menuEvents = {
             '.close': close,
@@ -73,7 +78,8 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, adguardRul
             '#adg-preview': showPreview,
             '#adg-accept': blockElement,
             '.adg-slide-btn--plus': plus,
-            '.adg-slide-btn--minus': minus
+            '.adg-slide-btn--minus': minus,
+            '.element-rule_more--mobile': openSettings
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);

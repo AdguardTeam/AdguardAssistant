@@ -209,21 +209,21 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         var controller = Ioc.get(SliderMenuController);
         var options = {element: element, dragElement: 'head'};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, sliderMenuHeight.normal, options);
-        setCloseEventIfNotHitIframe(false);
+        setCloseEventIfNotHitIframe(true);
     };
 
     var showBlockPreview = function (element, path) {
         var controller = Ioc.get(BlockPreviewController);
         var options = {element: element, path: path, dragElement: 'head'};
         showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 213, options);
-        setCloseEventIfNotHitIframe(false);
+        setCloseEventIfNotHitIframe(true);
     };
 
     var showSettingsMenu = function () {
         var controller = Ioc.get(SettingsMenuController);
         var options = {dragElement: 'head'};
         showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, settingsMaxWidth, 414, options);
-        setCloseEventIfNotHitIframe(false);
+        setCloseEventIfNotHitIframe(true);
     };
 
     var localize = function () {
@@ -260,10 +260,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         body.appendChild(view);
     };
 
-    var setCloseEventIfNotHitIframe = function () {
-        window.setTimeout(function () {
-            $(document).on('click', removeIframe);
-        }, 150);
+    var setCloseEventIfNotHitIframe = function (setEvent) {
+        $(document).off('click', removeIframe);
+
+        if(setEvent) {
+            window.setTimeout(function () {
+                $(document).on('click', removeIframe);
+            }, 150);
+        }
     };
 
     var removeIframe = function () {

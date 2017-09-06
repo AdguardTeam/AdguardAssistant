@@ -3,7 +3,6 @@
 // @require src\ioc.js
 // @require src\log.js
 // @require src\balalaika.patched.js
-// @require src\settings.mobile.js
 // @require src\utils\ui-utils.js
 // @require src\utils\common-utils.js
 // @require src\utils\punycode.js
@@ -29,7 +28,6 @@
 // @require src\controllers\selectorMenuController.js
 // @require src\controllers\SliderMenuControllerMobile.js
 // @require src\controllers\blockPreviewController.js
-// @require src\controllers\settingsMenuController.js
 // @require src\button.mobile.js
 // @require src\main.mobile.js
 // @resource button.css src\styles\button.css

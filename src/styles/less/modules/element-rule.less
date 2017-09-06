@@ -6,7 +6,14 @@
     padding: @base-offset;
      &--slider{
         @media (max-width: @mobile){
-            display: none;
+            padding: 0;
+        }
+    }
+    &_text{
+        &--slider{
+            @media (max-width: @mobile){
+                display: none;
+            }
         }
     }
     &_slider{
@@ -84,19 +91,21 @@
             margin: 0;
         }
     }
-    &_more--mobile {
+    &_more{
+        @media (max-width: @mobile){
+            display: none;
+        }
+    }
+    &_more--mobile{
+        display: none;
         @media (max-width: @mobile) {
-            .element-rule_expand-link {
-                display: none;
-            }
-            #adg-cancel {
-                width: 106px;
-                padding: 10px 7px;
-            }
-
-            #adg-accept {
-                padding: 10px 6px;
-            }
+            display: block;
+            background: url(../i/menu-settings.svg) bottom right no-repeat;
+            background-size: 18px 18px;
+            width: 18px;
+            height: 18px;
+            padding: 10px 0 0 10px;
+            box-sizing: content-box;
         }
     }
 }

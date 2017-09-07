@@ -62,8 +62,10 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
     };
 
     var blockElement = function () {
-        gmApi.ADG_addRule(selectedPath);
-        iframeCtrl.removeIframe();
+        gmApi.ADG_addRule(selectedPath, function() {
+            iframeCtrl.removeIframe();
+            CommonUtils.reloadPageBypassCache();
+        });
     };
 
     var showDetailedMenu = function () {

@@ -265,12 +265,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
         if(setEvent) {
             window.setTimeout(function () {
-                $(document).on('click', removeIframe);
+                $(document).on('click', removeIframe.bind(this));
             }, 150);
         }
     };
 
-    var removeIframe = function () {
+    var removeIframe = function(e) {
+        if (e && e.isTrusted === false) return false;
+
         $(document).off('click', removeIframe);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;

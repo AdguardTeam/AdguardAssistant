@@ -422,6 +422,7 @@ var AdguardSelectorLib = (function (api, $) {
     };
 
     var sgMousedownHandler = function (e) {
+        if (e && e.isTrusted === false) return false;
         if ($(e.target).hasClass(IGNORED_CLASS)) return false;
         e.preventDefault();
         e.stopImmediatePropagation();

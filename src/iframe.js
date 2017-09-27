@@ -270,6 +270,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         }
     };
 
+    // e.isTrusted checking for prevent programmatically events
+    // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
 

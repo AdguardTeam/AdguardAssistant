@@ -421,7 +421,10 @@ var AdguardSelectorLib = (function (api, $) {
         return false;
     };
 
+    // e.isTrusted checking for prevent programmatically events
+    // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     var sgMousedownHandler = function (e) {
+        if (e && e.isTrusted === false) return false;
         if ($(e.target).hasClass(IGNORED_CLASS)) return false;
         e.preventDefault();
         e.stopImmediatePropagation();

@@ -369,10 +369,11 @@ var UIUtils = function($) { // jshint ignore:line
 /**
  * Utils that checks environment for compatibility with assistant
  * @param settings
+ * @param log
  * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage}}
  * @constructor
  */
-var UIValidationUtils = function(settings) { // jshint ignore:line
+var UIValidationUtils = function(settings, log) { // jshint ignore:line
     var document = window.document;
     /**
      * Check if visible area are enough to show menu.
@@ -380,7 +381,13 @@ var UIValidationUtils = function(settings) { // jshint ignore:line
      */
     var checkVisibleAreaSize = function() {
         var viewPort = getViewPort();
-        return viewPort.height > settings.Constants.MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON;
+        var visibleAreaSize = viewPort.height > settings.Constants.MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON;
+
+        if (!visibleAreaSize) {
+            log.error('Viewport height is too small: ' + viewPort.height);
+        }
+
+        return visibleAreaSize;
     };
 
     var getViewPort = function() {
@@ -401,7 +408,13 @@ var UIValidationUtils = function(settings) { // jshint ignore:line
      * @returns boolean. True if browser valid
      */
     var validateBrowser = function() {
-        return !document.documentMode || (document.documentMode > settings.Constants.MINIMUM_IE_SUPPORTED_VERSION);
+        var valid = !document.documentMode || (document.documentMode > settings.Constants.MINIMUM_IE_SUPPORTED_VERSION);
+
+        if (!valid) {
+            log.error('IE version is ' + document.documentMode);
+        }
+
+        return valid;
     };
 
     /**
@@ -410,12 +423,23 @@ var UIValidationUtils = function(settings) { // jshint ignore:line
     var validatePage = function() {
         // Assistant do not work in iframes
         if (window.window !== window.top) {
+            log.error('Page is iframe');
             return false;
         }
 
+        var head = !!document.getElementsByTagName('head').length;
+        var body = !!document.getElementsByTagName('body').length;
+
+        if (!head) {
+            log.error('body is missing');
+        }
+
+        if (!body) {
+            log.error('head is missing');
+        }
+
         // Check for necessary html elements existence
-        return document.getElementsByTagName('head').length &&
-            document.getElementsByTagName('body').length;
+        return head && body;
     };
 
     return {

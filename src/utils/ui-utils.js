@@ -427,6 +427,7 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
             return false;
         }
 
+        // Check for necessary html elements existence
         var head = !!document.getElementsByTagName('head').length;
         var body = !!document.getElementsByTagName('body').length;
 
@@ -438,7 +439,6 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
             log.error('head is missing');
         }
 
-        // Check for necessary html elements existence
         return head && body;
     };
 

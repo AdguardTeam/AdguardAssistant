@@ -63,10 +63,10 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     };
 
     var isButtonAlreadyInDOM = function() {
-        var allready =  $('.adguard-alert').length > 0;
+        var already =  $('.adguard-alert').length > 0;
 
-        if (allready) {
-            log.error('Assistant button is allready in DOM');
+        if (already) {
+            log.error('Assistant button is already in DOM');
             return true;
         }
     };

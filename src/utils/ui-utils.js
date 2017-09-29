@@ -423,7 +423,7 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
     var validatePage = function() {
         // Assistant do not work in iframes
         if (window.window !== window.top) {
-            log.error('Page is iframe');
+            log.error('Page is iframe: ' + window.location.href);
             return false;
         }
 

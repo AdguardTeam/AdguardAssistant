@@ -432,11 +432,11 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
         var body = !!document.getElementsByTagName('body').length;
 
         if (!head) {
-            log.error('body is missing');
+            log.error('head is missing');
         }
 
         if (!body) {
-            log.error('head is missing');
+            log.error('body is missing');
         }
 
         return head && body;

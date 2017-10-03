@@ -45,29 +45,30 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      */
     var checkRequirements = function() {
         if (!uiValidationUtils.validateBrowser()) {
-            log.error('Browser is unsupported');
             return false;
         }
 
         if (!uiValidationUtils.validatePage()) {
-            log.error('Page is iframe or there is no body');
             return false;
         }
 
         if (!uiValidationUtils.checkVisibleAreaSize()) {
-            log.error('Page is too small for button');
             return false;
         }
 
         if (isButtonAlreadyInDOM()) {
-            log.error('Button is allready in DOM');
             return false;
         }
         return true;
     };
 
     var isButtonAlreadyInDOM = function() {
-        return $('.adguard-alert').length > 0;
+        var already =  $('.adguard-alert').length > 0;
+
+        if (already) {
+            log.error('Assistant button is already in DOM');
+            return true;
+        }
     };
 
     var setUserPositionIfExists = function(button) {

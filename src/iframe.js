@@ -39,7 +39,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             position: 'fixed',
             left: iframePosition.left + 'px',
             top: iframePosition.top + 'px',
-            clip: 'auto'
+            clip: 'auto',
+            display: 'none'
         };
         var attributes = {
             id: settings.Constants.IFRAME_ID,
@@ -142,6 +143,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             doc.write(StringUtils.format("<html><head>{0}</head></html>",
                 StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), resources.getResource('style.css'))));
             doc.close();
+            iframe[0].style.setProperty('display', 'block', 'important');
         } catch (ex) {
             log.error(ex);
         }

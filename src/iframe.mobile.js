@@ -24,10 +24,11 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             position: 'fixed',
             left: 0,
             top: 'auto',
-            bottom: 0,
+            bottom: '20px',
             clip: 'auto',
             width: '100%',
-            height: '85px'
+            height: '10vh',
+            'z-index': 999999999999999
         };
         var attributes = {
             'class': selector.ignoreClassName(),
@@ -74,8 +75,13 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             log.info('Iframe loaded writing styles');
             var doc = iframe[0].contentDocument;
             doc.open();
-            doc.write(StringUtils.format("<html><head>{0}</head></html>",
-                StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), resources.getResource('style.css'))));
+            doc.write(
+                StringUtils.format("<html><head>{0}</head></html>",
+                StringUtils.format('<style {0} type="text/css">{1}{2}</style>',
+                getStyleNonce(),
+                resources.getResource('style.css'),
+                resources.getResource('mobile-style.css')))
+            );
             doc.close();
         } catch (ex) {
             log.error(ex);
@@ -116,18 +122,21 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var controller = Ioc.get(SelectorMenuController);
         var options = {dragElement: 'head'};
         showMenuItem('selectorMenu.html', controller, 'auto', 'auto', options);
+        iframe.css('height', '10vh');
     };
 
     var showSliderMenu = function (element) {
         var controller = Ioc.get(SliderMenuControllerMobile);
         var options = {element: element, dragElement: 'head'};
         showMenuItem('sliderMenu.html', controller, 'auto', 'auto', options);
+        iframe.css('height', window.innerWidth < 400 ? '10vh' : '30vh');
     };
 
     var showBlockPreview = function (element, path) {
         var controller = Ioc.get(BlockPreviewController);
         var options = {element: element, path: path, dragElement: 'head'};
         showMenuItem('blockPreview.html', controller, 'auto', 'auto', options);
+        iframe.css('height', '10vh');
     };
 
     var localize = function () {

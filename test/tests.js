@@ -38,18 +38,6 @@ describe("Adguard iframe", function() {
         expect(adguardEl).to.not.equal(undefined);
         expect(adguardEl.parentElement).to.equal(document.body);
     });
-
-    it("Close adguard iframe on document click", function(done) {
-        setTimeout(function() {
-            triggerEvent(document, 'click');
-            var adguardEl = document.getElementById('adguard-assistant-dialog');
-            var button = document.getElementsByClassName('adguard-alert')[0];
-            expect(adguardEl).to.equal(null);
-            expect(button).to.not.equal(undefined);
-            expect(button.parentElement).to.equal(document.body);
-            done();
-        }, 150);
-    });
 });
 
 

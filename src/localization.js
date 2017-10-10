@@ -3,10 +3,10 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, AdguardSettings */
+/* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, es_419, pt_BR, AdguardSettings */
 
 var Localization = function() { // jshint ignore:line
-        var currentLocale = null;
+        var currentLocale = null, locale;
         var SupportedLocales = {
             'en': en,
             'ru': ru,
@@ -20,22 +20,19 @@ var Localization = function() { // jshint ignore:line
             'tr': tr,
             'ja': ja,
             'ar': ar,
-            'es-ES': es_419,
+            'es': es_419,
             'pt': pt_BR
         };
 
         if (typeof AdguardSettings !== 'undefined') {
-            var locale = AdguardSettings.locale;
-            if (SupportedLocales[locale]) {
-                currentLocale = locale;
-            }
+            locale = AdguardSettings.locale;
+        } else {
+            locale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
         }
 
-        if (!currentLocale) {
-            currentLocale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
-        }
-
-        if (!currentLocale) {
+        if (SupportedLocales[locale]) {
+            currentLocale = locale;
+        } else {
             currentLocale = 'en';
         }
 

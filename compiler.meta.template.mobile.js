@@ -23,6 +23,12 @@
 // @require src\_locales\uk.js
 // @require src\_locales\zh.js
 // @require src\_locales\de.js
+// @require src\_locales\tr.js
+// @require src\_locales\ja.js
+// @require src\_locales\ar.js
+// @require src\_locales\es-419.js
+// @require src\_locales\pt-BR.js
+// @require src\_locales\ko.js
 // @require src\localization.js
 // @require src\controllers\mainMenuController.js
 // @require src\controllers\selectorMenuController.js

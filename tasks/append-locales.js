@@ -16,7 +16,7 @@ module.exports = () => {
     return options.locales.forEach((language) => {
         let localePath = path.join(options.localesDir, language + '.json');
         let localesJSON = fs.readFileSync(localePath).toString();
-        let string = 'var ' + language + ' = ' + localesJSON;
+        let string = 'var ' + language.replace('-','_') + ' = ' + localesJSON;
         let filename = language + '.js';
 
         file(filename, string)

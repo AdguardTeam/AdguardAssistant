@@ -15,10 +15,10 @@ var es_419 = {
         "message": "Reporte de seguridad sobre la p\u00e1gina"
     },
     "menu_settings": {
-        "message": "Assistant settings"
+        "message": "Configuraci\u00f3n del Asistente"
     },
     "assistant_select_element": {
-        "message": "Element blocking"
+        "message": "Bloqueo de Elementos"
     },
     "assistant_select_element_ext": {
         "message": "Seleccione un elemento de la p\u00e1gina para bloquear"
@@ -27,13 +27,13 @@ var es_419 = {
         "message": "Cancelar"
     },
     "assistant_block_element": {
-        "message": "Element blocking"
+        "message": "Bloqueo de Elementos"
     },
     "assistant_block_element_explain": {
-        "message": "Adjust element blocking rule"
+        "message": "Ajustar regla del bloqueo de elementos"
     },
     "assistant_slider_explain": {
-        "message": "Move the slider to change the size of the frame the new rule will work for:"
+        "message": "Mueva el deslizador para cambiar el tama\u00f1o del marco para el que trabajar\u00e1 la nueva regla:"
     },
     "assistant_slider_min": {
         "message": "MIN"
@@ -63,10 +63,10 @@ var es_419 = {
         "message": "Bloquear"
     },
     "assistant_settings": {
-        "message": "Assistant settings"
+        "message": "Configuraci\u00f3n del asistente"
     },
     "assistant_preview_header": {
-        "message": "Element blocking - preview"
+        "message": "Bloqueo de elementos - vista previa"
     },
     "assistant_preview_header_info": {
         "message": "Aseg\u00farese de que el elemento est\u00e1 bloqueado como se pretende"

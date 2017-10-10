@@ -6,36 +6,36 @@
 /* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, es_419, pt_BR, AdguardSettings */
 
 var Localization = function() { // jshint ignore:line
-        var currentLocale = null, locale;
-        var SupportedLocales = {
-            'en': en,
-            'ru': ru,
-            'uk': uk,
-            'pl': pl,
-            'de': de,
-            'zh': zh,
-            'he': he,
-            'it': it,
-            'fa': fa,
-            'tr': tr,
-            'ja': ja,
-            'ar': ar,
-            'es': es_419,
-            'pt': pt_BR
-        };
+    var currentLocale = null, locale;
+    var SupportedLocales = {
+        'en': en,
+        'ru': ru,
+        'uk': uk,
+        'pl': pl,
+        'de': de,
+        'zh': zh,
+        'he': he,
+        'it': it,
+        'fa': fa,
+        'tr': tr,
+        'ja': ja,
+        'ar': ar,
+        'es': es_419,
+        'pt': pt_BR,
+        'ko': ko
+    };
 
-        if (typeof AdguardSettings !== 'undefined') {
-            locale = AdguardSettings.locale;
-        } else {
-            locale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
-        }
+    if (typeof AdguardSettings !== 'undefined') {
+        locale = AdguardSettings.locale;
+    } else {
+        locale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
+    }
 
-        if (SupportedLocales[locale]) {
-            currentLocale = locale;
-        } else {
-            currentLocale = 'en';
-        }
-
+    if (SupportedLocales[locale]) {
+        currentLocale = locale;
+    } else {
+        currentLocale = 'en';
+    }
 
     var getMessage = function (messageId) {
         var message = SupportedLocales[currentLocale][messageId];

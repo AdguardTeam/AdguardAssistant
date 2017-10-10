@@ -63,7 +63,7 @@ var pt_BR = {
         "message": "Bloquear"
     },
     "assistant_settings": {
-        "message": "Configura\u00e7\u00f5es do Assistente"
+        "message": "Configura\u00e7\u00f5es do assistente"
     },
     "assistant_preview_header": {
         "message": "Bloquear elemento - Pr\u00e9via"
@@ -93,7 +93,7 @@ var pt_BR = {
         "message": "Este site tem uma excelente reputa\u00e7\u00e3o\n\nde acordo com "
     },
     "settings_choose_size_and_position": {
-        "message": "Ajuste o tamanho e posi\u00e7\u00e3o do Assistente do AdGuard"
+        "message": "Ajuste o tamanho e posi\u00e7\u00e3o do AdGuard Assistente"
     },
     "settings_icon_size": {
         "message": "Tamanho do \u00edcone:"

@@ -32,6 +32,10 @@ var Localization = function() { // jshint ignore:line
         }
 
         if (!currentLocale) {
+            currentLocale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
+        }
+
+        if (!currentLocale) {
             currentLocale = 'en';
         }
 

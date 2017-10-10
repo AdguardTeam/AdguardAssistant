@@ -3,7 +3,7 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, es_419, pt_BR, AdguardSettings */
+/* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, es_419, pt_BR, ko, AdguardSettings */
 
 var Localization = function() { // jshint ignore:line
     var currentLocale = null, locale;

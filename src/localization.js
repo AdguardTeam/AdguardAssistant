@@ -3,21 +3,37 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global en, ru, AdguardSettings */
+/* global en, ru, uk, pl, de, zh, he, it, fa, tr, ja, ar, AdguardSettings */
 
-var Localization = function () { // jshint ignore:line
-    var currentLocale = null;
-    var SupportedLocales = {'en': en, 'ru': ru, 'uk': uk, 'pl': pl, 'de': de, 'zh': zh, 'he': he, 'it': it, 'fa': fa, tr: 'tr'};
+var Localization = function() { // jshint ignore:line
+        var currentLocale = null;
+        var SupportedLocales = {
+            'en': en,
+            'ru': ru,
+            'uk': uk,
+            'pl': pl,
+            'de': de,
+            'zh': zh,
+            'he': he,
+            'it': it,
+            'fa': fa,
+            'tr': tr,
+            'ja': ja,
+            'ar': ar,
+            'es-ES': es_419,
+            'pt': pt_BR
+        };
 
-    if (typeof AdguardSettings !== 'undefined') {
-        var locale = AdguardSettings.locale;
-        if (SupportedLocales[locale]) {
-            currentLocale = locale;
+        if (typeof AdguardSettings !== 'undefined') {
+            var locale = AdguardSettings.locale;
+            if (SupportedLocales[locale]) {
+                currentLocale = locale;
+            }
         }
-    }
-    if (!currentLocale) {
-        currentLocale = 'en';
-    }
+
+        if (!currentLocale) {
+            currentLocale = 'en';
+        }
 
 
     var getMessage = function (messageId) {

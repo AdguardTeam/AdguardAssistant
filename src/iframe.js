@@ -263,11 +263,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var setCloseEventIfNotHitIframe = function (setEvent) {
-        $(document).off('click', removeIframe);
+        document.removeEventListener('click', removeIframe);
 
         if(setEvent) {
             window.setTimeout(function () {
-                $(document).on('click', removeIframe.bind(this));
+                document.addEventListener('click', removeIframe);
             }, 150);
         }
     };
@@ -277,7 +277,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
 
-        $(document).off('click', removeIframe);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

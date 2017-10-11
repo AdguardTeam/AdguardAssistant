@@ -31,12 +31,12 @@ var Localization = function() { // jshint ignore:line
         locale = navigator.languages[0];
     } else if (navigator.language) {
         locale = navigator.language.split('-')[0];
-    } else {
-        locale = 'en';
     }
 
     if (SupportedLocales[locale]) {
         currentLocale = locale;
+    } else {
+        currentLocale = 'en';
     }
 
     var getMessage = function (messageId) {

@@ -31,6 +31,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             'z-index': 999999999999999
         };
         var attributes = {
+            'id': 'adguard-assistant-dialog',
             'class': selector.ignoreClassName(),
             frameBorder: 0,
             allowTransparency: 'true'
@@ -123,6 +124,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {dragElement: 'head'};
         showMenuItem('selectorMenu.html', controller, 'auto', 'auto', options);
         iframe.css('height', '10vh');
+        setCloseEventIfNotHitIframe(false);
     };
 
     var showSliderMenu = function (element) {
@@ -130,6 +132,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {element: element, dragElement: 'head'};
         showMenuItem('sliderMenu.html', controller, 'auto', 'auto', options);
         iframe.css('height', window.innerWidth < 400 ? '10vh' : '30vh');
+        setCloseEventIfNotHitIframe(true);
     };
 
     var showBlockPreview = function (element, path) {
@@ -137,6 +140,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {element: element, path: path, dragElement: 'head'};
         showMenuItem('blockPreview.html', controller, 'auto', 'auto', options);
         iframe.css('height', '10vh');
+        setCloseEventIfNotHitIframe(true);
     };
 
     var localize = function () {
@@ -144,6 +148,16 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         for (var i = 0; i < elements.length; i++) {
             var message = localization.getMessage(elements[i].getAttribute("i18n"));
             localization.translateElement(elements[i], message);
+        }
+    };
+
+    var setCloseEventIfNotHitIframe = function (setEvent) {
+        document.removeEventListener('click', removeIframe);
+
+        if(setEvent) {
+            window.setTimeout(function () {
+                document.addEventListener('click', removeIframe);
+            }, 150);
         }
     };
 
@@ -163,8 +177,11 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         body.appendChild(view);
     };
 
-    var removeIframe = function () {
-        $(document).off('click', removeIframe);
+    // e.isTrusted checking for prevent programmatically events
+    // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
+    var removeIframe = function (e) {
+        if (e && e.isTrusted === false) return false;
+        document.removeEventListener('click', removeIframe);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

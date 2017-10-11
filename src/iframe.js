@@ -276,7 +276,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
-
+        document.removeEventListener('click', removeIframe);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

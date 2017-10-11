@@ -27,14 +27,16 @@ var Localization = function() { // jshint ignore:line
 
     if (typeof AdguardSettings !== 'undefined') {
         locale = AdguardSettings.locale;
+    } else if (navigator.languages) {
+        locale = navigator.languages[0];
+    } else if (navigator.language) {
+        locale = navigator.language.split('-')[0];
     } else {
-        locale = navigator.languages ? navigator.languages[0] : navigator.language.split('-')[0];
+        locale = 'en';
     }
 
     if (SupportedLocales[locale]) {
         currentLocale = locale;
-    } else {
-        currentLocale = 'en';
     }
 
     var getMessage = function (messageId) {

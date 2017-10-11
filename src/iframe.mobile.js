@@ -5,7 +5,7 @@
  * @param selector
  * @param localization
  * @param resources
- * @returns {{showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
+ * @returns {{showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
  * @constructor
  */
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
@@ -132,15 +132,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {element: element, dragElement: 'head'};
         showMenuItem('sliderMenu.html', controller, 'auto', 'auto', options);
         iframe.css('height', window.innerWidth < 400 ? '10vh' : '30vh');
-        setCloseEventIfNotHitIframe(true);
-    };
-
-    var showBlockPreview = function (element, path) {
-        var controller = Ioc.get(BlockPreviewController);
-        var options = {element: element, path: path, dragElement: 'head'};
-        showMenuItem('blockPreview.html', controller, 'auto', 'auto', options);
-        iframe.css('height', '10vh');
-        setCloseEventIfNotHitIframe(true);
+        setCloseEventIfNotHitIframe(false);
     };
 
     var localize = function () {
@@ -192,7 +184,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     return {
         showSelectorMenu: showSelectorMenu,
         showSliderMenu: showSliderMenu,
-        showBlockPreview: showBlockPreview,
         onCloseMenu: onCloseMenu,
         onShowMenuItem: onShowMenuItem,
         removeIframe: removeIframe,

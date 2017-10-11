@@ -10,3 +10,9 @@
         display: none;
     }
 }
+
+.element-rule_more .btn {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

@@ -96,7 +96,7 @@ var tr = {
         "message": "Adguard Assistant'\u0131n boyut ve konumunu ayarla"
     },
     "settings_icon_size": {
-        "message": "\u0130kon boyutu:"
+        "message": "Simge boyutu:"
     },
     "settings_small": {
         "message": "K\u00fc\u00e7\u00fck"

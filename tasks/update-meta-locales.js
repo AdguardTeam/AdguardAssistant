@@ -25,8 +25,14 @@ module.exports = () => {
 
         let localesMetaJSON = fs.readFileSync(path.join(options.localesDir, language + '.meta.json')).toString();
 
-        if(localesMetaJSON.length) {
+        if (localesMetaJSON.length) {
             localesMetaJSON = JSON.parse(localesMetaJSON);
+
+            if (language === 'es-419') {
+                language = 'es';
+            } else if (language === 'pt-BR') {
+                language = 'pt';
+            }
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);
             compilerMetaBetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name + ' Beta');

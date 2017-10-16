@@ -32,17 +32,21 @@
 
 
 .menu-filter{
+    width: 100%;
+    display: table;
     &:extend(.cf-mix all);
     padding: @base-offset;
     border-top: 1px solid @border-color;
     &_lbl{
-        float: left;
+        display: table-cell;
+        vertical-align: middle;
         font-size: 14px;
         font-weight: 500;
         color: #8f9b92;
     }
     &_val{
-        float: right;
+        display: table-cell;
+        vertical-align: middle;
     }
     &_label{
         position: relative;
@@ -151,6 +155,7 @@
     color: #8f9b92;
     border-top: 1px solid @border-color;
     &_i{
+        display: table;
         padding: 8px @base-offset;
         cursor: pointer;
         &:hover{
@@ -170,15 +175,15 @@
         }
     }
     &_ico{
-        display: inline-block;
-        vertical-align: top;
+        display: table-cell;
+        vertical-align: middle;
         &_h{
             display: none;
         }
     }
     &_name{
-        display: inline-block;
+        display: table-cell;
         vertical-align: middle;
-        margin: 2px 0 0 6px;
+        padding: 0 0 0 10px;
     }
 }

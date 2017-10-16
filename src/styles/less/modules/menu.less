@@ -151,6 +151,7 @@
     color: #8f9b92;
     border-top: 1px solid @border-color;
     &_i{
+        display: table;
         padding: 8px @base-offset;
         cursor: pointer;
         &:hover{
@@ -170,15 +171,15 @@
         }
     }
     &_ico{
-        display: inline-block;
-        vertical-align: top;
+        display: table-cell;
+        vertical-align: middle;
         &_h{
             display: none;
         }
     }
     &_name{
-        display: inline-block;
+        display: table-cell;
         vertical-align: middle;
-        margin: 2px 0 0 6px;
+        padding: 0 0 0 10px;
     }
 }

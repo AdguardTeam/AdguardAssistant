@@ -2,7 +2,7 @@
  * Adguard selector library
  * @type {Function}
  */
-var AdguardSelectorLib = (function (api, $) {
+var AdguardSelectorLib = (function(api, $) {
 
     // PRIVATE FIELDS
 
@@ -12,10 +12,10 @@ var AdguardSelectorLib = (function (api, $) {
     var restrictedElements = null;
     var predictionHelper = null;
 
-    var SUGGESTED_CLASS = "sg_suggested";
-    var SELECTED_CLASS = "sg_selected";
-    var REJECTED_CLASS = "sg_rejected";
-    var IGNORED_CLASS = "sg_ignore";
+    var SUGGESTED_CLASS = 'sg_suggested';
+    var SELECTED_CLASS = 'sg_selected';
+    var REJECTED_CLASS = 'sg_rejected';
+    var IGNORED_CLASS = 'sg_ignore';
 
     var selectedElements = [];
     var rejectedElements = [];
@@ -24,7 +24,6 @@ var AdguardSelectorLib = (function (api, $) {
     var unbound = true;
     var onElementSelectedHandler = null;
 
-    var isTouchEventsSupported = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
     var ignoreTouchEvent = 0;
 
     var selectionRenderer;
@@ -32,23 +31,24 @@ var AdguardSelectorLib = (function (api, $) {
 
     // PRIVATE METHODS
 
-    var removeClassName = function (className) {
+    var removeClassName = function(className) {
         $('.' + className).removeClass(className);
     };
 
-    var suggestPredicted = function (prediction) {
+    var suggestPredicted = function(prediction) {
         if (prediction) {
-            $(prediction).each(function () {
-                if (!$(this).hasClass(SELECTED_CLASS)
-                    && !$(this).hasClass(IGNORED_CLASS)
-                    && !$(this).hasClass(REJECTED_CLASS)) {
+            $(prediction).each(function() {
+                if (!$(this).hasClass(SELECTED_CLASS) &&
+                    !$(this).hasClass(IGNORED_CLASS) &&
+                    !$(this).hasClass(REJECTED_CLASS)
+                ) {
                     $(this).addClass(SUGGESTED_CLASS);
                 }
             });
         }
     };
 
-    var makePredictionPath = function (elem) {
+    var makePredictionPath = function(elem) {
         var w_elem = $(elem);
 
         if (w_elem.hasClass(SELECTED_CLASS)) {
@@ -80,7 +80,7 @@ var AdguardSelectorLib = (function (api, $) {
         return prediction;
     };
 
-    var firstSelectedOrSuggestedParent = function (element) {
+    var firstSelectedOrSuggestedParent = function(element) {
         if ($(element).hasClass(SUGGESTED_CLASS) || $(element).hasClass(SELECTED_CLASS)) {
             return element;
         }
@@ -96,11 +96,11 @@ var AdguardSelectorLib = (function (api, $) {
         return null;
     };
 
-    var px = function (p) {
+    var px = function(p) {
         return p + 'px';
     };
 
-    var getTagPath = function (element) {
+    var getTagPath = function(element) {
         if (element.parentNode) {
             return element.parentNode.tagName.toLowerCase() + ' ' + element.tagName.toLowerCase();
         } else {
@@ -108,7 +108,7 @@ var AdguardSelectorLib = (function (api, $) {
         }
     };
 
-    var clearSelected = function () {
+    var clearSelected = function() {
         selectedElements = [];
         rejectedElements = [];
 
@@ -125,7 +125,7 @@ var AdguardSelectorLib = (function (api, $) {
      * @param elem
      * @returns {{top: number, left: number, outerWidth: number, outerHeight: number}}
      */
-    var getOffsetExtended = function (elem) {
+    var getOffsetExtended = function(elem) {
         var bodyRect = document.body.getBoundingClientRect();
         var elemRect = elem.getBoundingClientRect();
 
@@ -149,17 +149,17 @@ var AdguardSelectorLib = (function (api, $) {
      * @param element
      * @private
      */
-    var BorderSelectionRenderer = (function (api) {
+    var BorderSelectionRenderer = (function(api) {
         var BORDER_WIDTH = 5;
         var BORDER_PADDING = 2;
-        var BORDER_CLASS = "sg_border";
+        var BORDER_CLASS = 'sg_border';
 
         var borderTop = null;
         var borderLeft = null;
         var borderRight = null;
         var borderBottom = null;
 
-        var showBorders = function () {
+        var showBorders = function() {
             if (borderTop && borderBottom && borderLeft && borderRight) {
                 borderTop.show();
                 borderBottom.show();
@@ -168,14 +168,14 @@ var AdguardSelectorLib = (function (api, $) {
             }
         };
 
-        var addBorderToDom = function () {
+        var addBorderToDom = function() {
             document.body.appendChild(borderTop.get(0));
             document.body.appendChild(borderBottom.get(0));
             document.body.appendChild(borderLeft.get(0));
             document.body.appendChild(borderRight.get(0));
         };
 
-        var removeBorderFromDom = function () {
+        var removeBorderFromDom = function() {
             if (borderTop && borderTop.get(0)) {
                 var parent = borderTop.get(0).parentNode;
 
@@ -193,19 +193,19 @@ var AdguardSelectorLib = (function (api, $) {
         /**
          * Preparing renderer.
          */
-        api.init = function () {
+        api.init = function() {
             if (!borderTop) {
                 var width = px(BORDER_WIDTH);
 
                 borderTop = $('<div/>').addClass(BORDER_CLASS).css('height', width).hide()
-                    .on("click", sgMousedownHandler);
+                    .on('click', sgMousedownHandler);
                 borderBottom = $('<div/>').addClass(BORDER_CLASS).addClass('sg_bottom_border')
                     .css('height', px(BORDER_WIDTH + 6)).hide()
-                    .on("click", sgMousedownHandler);
+                    .on('click', sgMousedownHandler);
                 borderLeft = $('<div/>').addClass(BORDER_CLASS).css('width', width).hide()
-                    .on("click", sgMousedownHandler);
+                    .on('click', sgMousedownHandler);
                 borderRight = $('<div/>').addClass(BORDER_CLASS).css('width', width).hide()
-                    .on("click", sgMousedownHandler);
+                    .on('click', sgMousedownHandler);
 
                 addBorderToDom();
             }
@@ -214,7 +214,7 @@ var AdguardSelectorLib = (function (api, $) {
         /**
          * Clearing DOM and so on.
          */
-        api.finalize = function () {
+        api.finalize = function() {
             removeBorderFromDom();
         };
 
@@ -223,7 +223,7 @@ var AdguardSelectorLib = (function (api, $) {
          *
          * @param element
          */
-        api.add = function (element) {
+        api.add = function(element) {
             api.remove();
 
             if (!element) {
@@ -238,17 +238,17 @@ var AdguardSelectorLib = (function (api, $) {
             var height = p.outerHeight;
 
             borderTop.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH * 2)).
-                css('top', px(top - BORDER_WIDTH - BORDER_PADDING)).
-                css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+            css('top', px(top - BORDER_WIDTH - BORDER_PADDING)).
+            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
             borderBottom.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH)).
-                css('top', px(top + height + BORDER_PADDING)).
-                css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+            css('top', px(top + height + BORDER_PADDING)).
+            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
             borderLeft.css('height', px(height + BORDER_PADDING * 2)).
-                css('top', px(top - BORDER_PADDING)).
-                css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+            css('top', px(top - BORDER_PADDING)).
+            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
             borderRight.css('height', px(height + BORDER_PADDING * 2)).
-                css('top', px(top - BORDER_PADDING)).
-                css('left', px(left + width + BORDER_PADDING));
+            css('top', px(top - BORDER_PADDING)).
+            css('left', px(left + width + BORDER_PADDING));
 
             borderBottom.get(0).textContent = getTagPath(element);
             borderRight.get(0).target_elem = borderLeft.get(0).target_elem = borderTop.get(0).target_elem = borderBottom.get(0).target_elem = element;
@@ -259,7 +259,7 @@ var AdguardSelectorLib = (function (api, $) {
         /**
          * Removes borders
          */
-        api.remove = function () {
+        api.remove = function() {
             if (borderTop && borderBottom && borderLeft && borderRight) {
                 borderTop.hide();
                 borderBottom.hide();
@@ -279,16 +279,16 @@ var AdguardSelectorLib = (function (api, $) {
     })(BorderSelectionRenderer || {});
 
     var linkHelper = document.createElement('a');
-    var getHost = function (url) {
+    var getHost = function(url) {
         if (!url) {
-            return "";
+            return '';
         }
 
         linkHelper.href = url;
         return linkHelper.hostname;
     };
 
-    var makePlaceholderImage = function (element) {
+    var makePlaceholderImage = function(element) {
         var placeHolder = document.createElement('div');
         var style = window.getComputedStyle(element);
         placeHolder.style.height = style.height;
@@ -298,14 +298,14 @@ var AdguardSelectorLib = (function (api, $) {
         placeHolder.style.bottom = style.bottom;
         placeHolder.style.left = style.left;
         placeHolder.style.right = style.right;
-        placeHolder.className += PLACEHOLDER_PREFIX + " " + IGNORED_CLASS;
+        placeHolder.className += PLACEHOLDER_PREFIX + ' ' + IGNORED_CLASS;
 
         var icon = document.createElement('div');
-        icon.className += PLACEHOLDER_PREFIX + "-icon " + IGNORED_CLASS;
+        icon.className += PLACEHOLDER_PREFIX + '-icon ' + IGNORED_CLASS;
 
         var domain = document.createElement('div');
         domain.textContent = getHost(element.src);
-        domain.className += PLACEHOLDER_PREFIX + "-domain " + IGNORED_CLASS;
+        domain.className += PLACEHOLDER_PREFIX + '-domain ' + IGNORED_CLASS;
 
         icon.appendChild(domain);
         placeHolder.appendChild(icon);
@@ -313,7 +313,7 @@ var AdguardSelectorLib = (function (api, $) {
         return placeHolder;
     };
 
-    var removePlaceholders = function () {
+    var removePlaceholders = function() {
         if (!placeholdedElements) {
             return;
         }
@@ -334,16 +334,16 @@ var AdguardSelectorLib = (function (api, $) {
         placeholdedElements = null;
     };
 
-    var placeholderClick = function (element) {
+    var placeholderClick = function(element) {
         selectionRenderer.remove();
         removePlaceholders();
 
         onElementSelectedHandler(element);
     };
 
-    var makeIFrameAndEmbeddedSelector = function () {
-        placeholdedElements = $('iframe:not(.' + IGNORED_CLASS + '),embed,object').filter(function (elem) {
-            var isVisible = elem.style["display"] != "none";
+    var makeIFrameAndEmbeddedSelector = function() {
+        placeholdedElements = $('iframe:not(.' + IGNORED_CLASS + '),embed,object').filter(function(elem) {
+            var isVisible = elem.style.display != 'none';
             var isHaveSize = elem.offsetWidth != 0 && elem.offsetHeight != 0;
             return isVisible && isHaveSize;
         });
@@ -351,34 +351,33 @@ var AdguardSelectorLib = (function (api, $) {
         var elements = placeholdedElements;
         for (var i = 0; i < elements.length; i++) {
             var current = elements[i];
-            (function (current) {
+            (function(current) {
                 var placeHolder = makePlaceholderImage(current);
                 var id = PLACEHOLDER_PREFIX + i;
 
-                placeHolder.setAttribute("id", id);
+                placeHolder.setAttribute('id', id);
 
                 var parent = current.parentNode;
                 if (parent) {
                     parent.replaceChild(placeHolder, current);
-                    if (isTouchEventsSupported) {
-                        $(placeHolder).on("gestureend", gestureEndHandler);
-                        $(placeHolder).on("touchmove", touchMoveHandler);
-                        $(placeHolder).on("touchend", function (e) {
-                            e.preventDefault();
 
-                            if (needIgnoreTouchEvent()) {
-                                return true;
-                            }
+                    $(placeHolder).on('gestureend', gestureEndHandler);
+                    $(placeHolder).on('touchmove', touchMoveHandler);
+                    $(placeHolder).on('touchend', function(e) {
+                        e.preventDefault();
 
-                            placeholderClick(current);
-                        });
-                    } else {
-                        $('#' + id).on('click', function (e) {
-                            e.preventDefault();
+                        if (needIgnoreTouchEvent()) {
+                            return true;
+                        }
 
-                            placeholderClick(current);
-                        });
-                    }
+                        placeholderClick(current);
+                    });
+
+                    $('#' + id).on('click', function(e) {
+                        e.preventDefault();
+
+                        placeholderClick(current);
+                    });
 
                 }
 
@@ -387,7 +386,7 @@ var AdguardSelectorLib = (function (api, $) {
     };
 
     /********** Events ***************/
-    var sgMouseoverHandler = function (e) {
+    var sgMouseoverHandler = function(e) {
         e.stopPropagation();
 
         if (unbound) {
@@ -408,7 +407,7 @@ var AdguardSelectorLib = (function (api, $) {
         return false;
     };
 
-    var sgMouseoutHandler = function () {
+    var sgMouseoutHandler = function() {
         if (unbound) {
             return true;
         }
@@ -423,7 +422,7 @@ var AdguardSelectorLib = (function (api, $) {
 
     // e.isTrusted checking for prevent programmatically events
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
-    var sgMousedownHandler = function (e) {
+    var sgMousedownHandler = function(e) {
         if (e && e.isTrusted === false) return false;
         if ($(e.target).hasClass(IGNORED_CLASS)) return false;
         e.preventDefault();
@@ -452,7 +451,7 @@ var AdguardSelectorLib = (function (api, $) {
     };
 
     /********** Touch event handlers ***************/
-    var touchElementSelectHandler = function (e) {
+    var touchElementSelectHandler = function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -460,7 +459,7 @@ var AdguardSelectorLib = (function (api, $) {
         sgMousedownHandler.call(this, e);
     };
 
-    var needIgnoreTouchEvent = function () {
+    var needIgnoreTouchEvent = function() {
 
         if (ignoreTouchEvent > 0) {
 
@@ -471,7 +470,7 @@ var AdguardSelectorLib = (function (api, $) {
         return false;
     };
 
-    var elementTouchendHandler = function (e) {
+    var elementTouchendHandler = function(e) {
         e.stopPropagation();
 
         if (needIgnoreTouchEvent()) {
@@ -482,62 +481,51 @@ var AdguardSelectorLib = (function (api, $) {
         return false;
     };
 
-    var emptyEventHandler = function (e) {
+    var emptyEventHandler = function(e) {
         e.stopPropagation();
 
         return false;
     };
 
-    var gestureEndHandler = function () {
+    var gestureEndHandler = function() {
         ignoreTouchEvent = 2;
         return true;
     };
 
-    var touchMoveHandler = function () {
+    var touchMoveHandler = function() {
         ignoreTouchEvent = 1;
         return true;
     };
 
 
-    var setupEventHandlers = function () {
+    var setupEventHandlers = function() {
         makeIFrameAndEmbeddedSelector();
-        var elements = $("body *:not(." + IGNORED_CLASS + ")");
+        var elements = $('body *:not(.' + IGNORED_CLASS + ')');
 
-        if (isTouchEventsSupported) {
-            elements.forEach(function (el) {
-                el.addEventListener("gestureend", gestureEndHandler);
-                el.addEventListener("touchmove", touchMoveHandler);
-                el.addEventListener("touchend", elementTouchendHandler, true);
-                el.addEventListener("touchstart", emptyEventHandler);
-            });
-        } else {
-            elements.forEach(function (el) {
-                el.addEventListener("mouseover", sgMouseoverHandler);
-                el.addEventListener("mouseout", sgMouseoutHandler);
-                el.addEventListener("click", sgMousedownHandler, true);
-            });
-        }
-
+        elements.forEach(function(el) {
+            el.addEventListener('gestureend', gestureEndHandler);
+            el.addEventListener('touchmove', touchMoveHandler);
+            el.addEventListener('touchend', elementTouchendHandler, true);
+            el.addEventListener('touchstart', emptyEventHandler);
+            el.addEventListener('mouseover', sgMouseoverHandler);
+            el.addEventListener('mouseout', sgMouseoutHandler);
+            el.addEventListener('click', sgMousedownHandler, true);
+        });
     };
 
-    var deleteEventHandlers = function () {
+    var deleteEventHandlers = function() {
         removePlaceholders();
 
-        var elements = $("body *");
-        if (isTouchEventsSupported) {
-            elements.forEach(function (el) {
-                el.removeEventListener("gestureend", gestureEndHandler);
-                el.removeEventListener("touchmove", touchMoveHandler);
-                el.removeEventListener("touchend", elementTouchendHandler, true);
-                el.removeEventListener("touchstart", emptyEventHandler);
-            });
-        } else {
-            elements.forEach(function (el) {
-                el.removeEventListener("mouseover", sgMouseoverHandler);
-                el.removeEventListener("mouseout", sgMouseoutHandler);
-                el.removeEventListener("click", sgMousedownHandler, true);
-            });
-        }
+        var elements = $('body *');
+        elements.forEach(function(el) {
+            el.removeEventListener('gestureend', gestureEndHandler);
+            el.removeEventListener('touchmove', touchMoveHandler);
+            el.removeEventListener('touchend', elementTouchendHandler, true);
+            el.removeEventListener('touchstart', emptyEventHandler);
+            el.removeEventListener('mouseover', sgMouseoverHandler);
+            el.removeEventListener('mouseout', sgMouseoutHandler);
+            el.removeEventListener('click', sgMousedownHandler, true);
+        });
     };
 
     //Define default implementation of selection renderer.
@@ -551,14 +539,14 @@ var AdguardSelectorLib = (function (api, $) {
      * @param onElementSelected callback function
      * @param selectionRenderImpl optional object contains selection presentation implementation
      */
-    api.init = function (onElementSelected, selectionRenderImpl) {
+    api.init = function(onElementSelected, selectionRenderImpl) {
 
         onElementSelectedHandler = onElementSelected;
-        if (selectionRenderImpl && typeof selectionRenderImpl === "object") {
+        if (selectionRenderImpl && typeof selectionRenderImpl === 'object') {
             selectionRenderer = selectionRenderImpl;
         }
 
-        restrictedElements = ['html', 'body', 'head', 'base'].map(function (selector) {
+        restrictedElements = ['html', 'body', 'head', 'base'].map(function(selector) {
             return $(selector).get(0);
         });
         predictionHelper = new DomPredictionHelper($, String);
@@ -572,7 +560,7 @@ var AdguardSelectorLib = (function (api, $) {
      * Resets state of selector.
      * Clears current selection.
      */
-    api.reset = function () {
+    api.reset = function() {
         clearSelected();
     };
 
@@ -580,7 +568,7 @@ var AdguardSelectorLib = (function (api, $) {
      * Destroys selector module.
      * Removes all selector elements and unbinds event handlers.
      */
-    api.close = function () {
+    api.close = function() {
         unbound = true;
 
         selectionRenderer.finalize();
@@ -593,7 +581,7 @@ var AdguardSelectorLib = (function (api, $) {
      *
      * @param element
      */
-    api.selectElement = function (element) {
+    api.selectElement = function(element) {
         deleteEventHandlers();
         selectionRenderer.add(element);
 
@@ -604,7 +592,7 @@ var AdguardSelectorLib = (function (api, $) {
      Returns css class name.
      If this class assigns to HTML element, then Adguard Selector ignores it.
      */
-    api.ignoreClassName = function () {
+    api.ignoreClassName = function() {
         return IGNORED_CLASS;
     };
 

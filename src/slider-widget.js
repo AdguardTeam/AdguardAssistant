@@ -38,8 +38,7 @@ var SliderWidget = (function(api, $) { // jshint ignore:line
     var render = function() {
         $(placeholder).addClass(PLACEHOLDER_CLASS);
 
-        var handle = document.createElement('a');
-        handle.setAttribute('href', '#');
+        var handle = document.createElement('span');
         handle.setAttribute('class', HANDLE_FULL_CLASS);
         placeholder.appendChild(handle);
 

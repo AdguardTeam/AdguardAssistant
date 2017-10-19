@@ -12,40 +12,15 @@
 .head{
     padding: @base-offset - 2 @base-offset ;
     cursor: move;
-    &_in{
-        &--slider{
-            @media (max-width: @mobile){
-                display: flex;
-                justify-content: space-between;
-                cursor: default;
-            }
-        }
-    }
     &_title{
         font-size: 16px;
         font-weight: 700;
         color: #343434;
-        &--slider{
-            @media (max-width: @mobile){
-                display: none;
-            }
-        }
     }
     &_text{
         margin: 4px 0 0;
         font-size: 12px;
         color: #343434;
-        &--mobile-h{
-            @media (max-width: @mobile){
-                display: none;
-            }
-        }
-    }
-    &--slider{
-        @media (max-width: @mobile){
-            display: flex;
-            justify-content: space-between;
-        }
     }
 }
 
@@ -59,9 +34,6 @@
     &:extend(.cf-mix all);
     padding: @base-offset;
     border-top: 1px solid @border-color;
-    @media (max-width: @mobile){
-        display: none;
-    }
     &_action{
         float: right;
         &_btn{

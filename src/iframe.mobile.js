@@ -123,7 +123,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var controller = Ioc.get(SelectorMenuController);
         var options = {dragElement: 'head'};
         showMenuItem('selectorMenu.html', controller, 'auto', 'auto', options);
-        iframe.css('height', '10vh');
         setCloseEventIfNotHitIframe(false);
     };
 
@@ -131,7 +130,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var controller = Ioc.get(SliderMenuControllerMobile);
         var options = {element: element, dragElement: 'head'};
         showMenuItem('sliderMenu.html', controller, 'auto', 'auto', options);
-        iframe.css('height', window.innerWidth < 400 ? '10vh' : '30vh');
         setCloseEventIfNotHitIframe(false);
     };
 

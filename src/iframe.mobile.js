@@ -24,10 +24,10 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             position: 'fixed',
             left: 0,
             top: 'auto',
-            bottom: '20px',
+            bottom: '1px',
             clip: 'auto',
             width: '100%',
-            height: '10vh',
+            height: '70px',
             'z-index': 999999999999999
         };
         var attributes = {
@@ -52,11 +52,19 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             appendDefaultStyle();
             onIframeLoadCallback();
         });
+
         var body = $('body')[0];
+
         if (!body) {
             log.error("Body not found");
             return;
         }
+
+        if (document.getElementById('adguard-assistant-dialog')) {
+            log.error("Iframe already added");
+            return;
+        }
+
         body.appendChild(iframe[0]);
 
         var selectorCSS = document.createElement('style');
@@ -64,7 +72,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
         if (selectorCSS.styleSheet) {
             selectorCSS.styleSheet.cssText = styles;
-        }else {
+        } else {
             selectorCSS.appendChild(document.createTextNode(styles));
         }
 
@@ -172,6 +180,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     var removeIframe = function (e) {
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
+        window.removeEventListener('resize', showSelectorMenu);
         $('body')[0].removeChild(iframe[0]);
         iframe = null;
         currentItem = null;

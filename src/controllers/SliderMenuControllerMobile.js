@@ -79,7 +79,7 @@ var SliderMenuControllerMobile = function ($, selector, sliderWidget, adguardRul
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
 
-        window.onresize = iframeCtrl.showSelectorMenu;
+        window.addEventListener('resize', iframeCtrl.showSelectorMenu);
     };
 
     var blockElement = function () {

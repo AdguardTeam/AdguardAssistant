@@ -6,7 +6,7 @@
     height: 100%;
 }
 
-.element-rule_more, #adg-preview {
+#adg-preview {
     display: block;
 }
 
@@ -61,12 +61,20 @@
 }
 
 .head {
-    padding: 18px 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     cursor: default;
 }
 
 .head_text {
+    display: none;
+}
+
+.element-rule_more {
+    display: flex;
+}
+
+.content {
     display: none;
 }

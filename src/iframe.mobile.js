@@ -132,8 +132,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {dragElement: 'head'};
         showMenuItem('selectorMenu.html', controller, 'auto', 'auto', options);
         setCloseEventIfNotHitIframe(false);
-        iframe[0].style.opacity = 0.5;
-        iframe[0].style['pointer-events'] = 'none';
     };
 
     var showSliderMenu = function (element) {
@@ -141,8 +139,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var options = {element: element, dragElement: 'head'};
         showMenuItem('sliderMenu.html', controller, 'auto', 'auto', options);
         setCloseEventIfNotHitIframe(false);
-        iframe[0].style.opacity = 1;
-        iframe[0].style['pointer-events'] = 'all';
     };
 
     var localize = function () {

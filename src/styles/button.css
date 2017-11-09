@@ -19,6 +19,10 @@
     touch-action: none;
     -ms-touch-action: none;
     visibility: visible !important;
+    min-height: auto !important;
+    max-height: auto !important;
+    min-width: auto !important;
+    max-width: auto !important;
 }
 
 .adguard-hide {

@@ -46,9 +46,13 @@
 // @exclude *icloud.com*
 // @exclude *hangouts.google.com*
 // @exclude *www.facebook.com/plugins/сomments*
+// @exclude *www.facebook.com/v2.9/plugins*
 // @exclude *disqus.com/embed/comments*
-// @exclude *vk.com/widget_comments*
+// @exclude *vk.com/widget*
+// @exclude *twitter.com/intent/*
 // @exclude *www.youtube.com/embed/*
+// @exclude *player.vimeo.com*
+// @exclude *coub.com/embed*
 // @require src\utils\css.escape.js
 // @require src\ioc.js
 // @require src\log.js

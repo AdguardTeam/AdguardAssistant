@@ -46,7 +46,7 @@
 // @exclude *icloud.com*
 // @exclude *hangouts.google.com*
 // @exclude *www.facebook.com/plugins/сomments*
-// @exclude *www.facebook.com/v2.9/plugins*
+// @exclude *www.facebook.com/v*/plugins*
 // @exclude *disqus.com/embed/comments*
 // @exclude *vk.com/widget*
 // @exclude *twitter.com/intent/*

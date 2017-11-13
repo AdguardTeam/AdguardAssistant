@@ -1,7 +1,7 @@
 {
     "extension": {
         "assistant": {
-            "name": "Assistente Adguard",
+            "name": "Assistente AdGuard",
             "description": "Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser"
         }
     }

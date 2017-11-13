@@ -15,7 +15,7 @@ var ko = {
         "message": "\uc6f9\uc0ac\uc774\ud2b8 \ubcf4\uc548 \ubcf4\uace0"
     },
     "menu_settings": {
-        "message": "Adguard \uc124\uc815"
+        "message": "AdGuard \uc124\uc815"
     },
     "assistant_select_element": {
         "message": "\uc120\ud0dd \ubaa8\ub4dc"

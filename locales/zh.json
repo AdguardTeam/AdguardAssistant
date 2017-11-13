@@ -63,7 +63,7 @@
         "message": "\u62e6\u622a"
     },
     "assistant_settings": {
-        "message": "Adguard \u52a9\u624b\u8bbe\u7f6e"
+        "message": "AdGuard \u52a9\u624b\u8bbe\u7f6e"
     },
     "assistant_preview_header": {
         "message": "\u5143\u7d20\u62e6\u622a - \u9884\u89c8"
@@ -93,7 +93,7 @@
         "message": "\u6b64\u7f51\u7ad9\u5728\u4ee5\u4e0b\u6570\u636e\u5e93\u4e2d\u58f0\u671b\u6781\u4f73 "
     },
     "settings_choose_size_and_position": {
-        "message": "\u8c03\u6574 Adguard \u52a9\u624b\u7684\u5927\u5c0f\u4e0e\u4f4d\u7f6e"
+        "message": "\u8c03\u6574 AdGuard \u52a9\u624b\u7684\u5927\u5c0f\u4e0e\u4f4d\u7f6e"
     },
     "settings_icon_size": {
         "message": "\u56fe\u6807\u5927\u5c0f\uff1a"

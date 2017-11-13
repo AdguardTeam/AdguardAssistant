@@ -93,7 +93,7 @@ var tr = {
         "message": "Bu web sitesi m\u00fckemmel bir itibara sahip "
     },
     "settings_choose_size_and_position": {
-        "message": "Adguard Assistant'\u0131n boyut ve konumunu ayarla"
+        "message": "AdGuard Assistant'\u0131n boyut ve konumunu ayarla"
     },
     "settings_icon_size": {
         "message": "Simge boyutu:"

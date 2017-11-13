@@ -84,7 +84,7 @@ var de = {
         "message": "Diese Webseite hat einen schlechten Ruf laut "
     },
     "wot_unsatisfactory_description": {
-        "message": "Diese Website hat einen schlechten Ruf laut "
+        "message": "Diese Webseite hat einen schlechten Ruf laut "
     },
     "wot_good_description": {
         "message": "Diese Webseite hat einen guten Ruf laut "
@@ -93,7 +93,7 @@ var de = {
         "message": "Diese Webseite hat einen exzellenten Ruf laut "
     },
     "settings_choose_size_and_position": {
-        "message": "Anpassen der Gr\u00f6\u00dfe und Position des Adguard-Assistenten"
+        "message": "Anpassen der Gr\u00f6\u00dfe und Position des AdGuard-Assistenten"
     },
     "settings_icon_size": {
         "message": "Symbol-Gr\u00f6\u00dfe:"

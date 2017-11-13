@@ -1,6 +1,6 @@
 var pt_BR = {
     "menu_filtration_status": {
-        "message": "Filtrando neste site"
+        "message": "Filtragem neste site"
     },
     "menu_do_not_filter_30_sec": {
         "message": "N\u00e3o filtrar durante 30 segundos"

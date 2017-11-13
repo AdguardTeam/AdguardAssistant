@@ -53,6 +53,11 @@
 // @exclude *www.youtube.com/embed/*
 // @exclude *player.vimeo.com*
 // @exclude *coub.com/embed*
+// @exclude *staticxx.facebook.com/connect/xd_arbiter/*
+// @exclude *vk.com/q_frame*
+// @exclude *tpc.googlesyndication.com*
+// @exclude *syndication.twitter.com*
+// @exclude *platform.twitter.com*
 // @require src\utils\css.escape.js
 // @require src\ioc.js
 // @require src\log.js

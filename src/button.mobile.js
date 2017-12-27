@@ -12,6 +12,7 @@
  */
 var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
+    var body = null;
     var isFullScreenEventsRegistered = false;
 
     /**
@@ -43,6 +44,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         var body = $('body')[0];
         if (!body) {
             log.error('Cant find body');
+            body = document.documentElement;
         }
         body.appendChild(button[0]);
         registerEvents(button);
@@ -175,7 +177,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         if (!button) {
             return;
         }
-        $('body')[0].removeChild(button[0]);
+        body.removeChild(button[0]);
         button = null;
     };
 

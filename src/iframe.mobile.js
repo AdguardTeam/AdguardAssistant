@@ -11,6 +11,7 @@
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
 var IframeControllerMobile = function ($, log, selector, localization, resources) { // jshint ignore:line
     var iframe = null;
+    var body = null;
     var currentItem = null;
     var iframePositionOffset = 5;
 
@@ -57,7 +58,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
         if (!body) {
             log.error("Body not found");
-            return;
+            body = document.documentElement;
         }
 
         if (document.getElementById('adguard-assistant-dialog')) {
@@ -181,7 +182,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('resize', showSelectorMenu);
-        $('body')[0].removeChild(iframe[0]);
+        body.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();

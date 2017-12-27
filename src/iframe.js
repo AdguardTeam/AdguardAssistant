@@ -15,6 +15,7 @@
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
 var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
     var iframe = null;
+    var body = null;
     var currentItem = null;
     var iframeMaxWidth = 418;
     var iframeMaxHeight = 407;
@@ -64,10 +65,10 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             appendDefaultStyle();
             onIframeLoadCallback();
         });
-        var body = $('body')[0];
+        body = $('body')[0];
         if (!body) {
             log.error("Body not found");
-            return;
+            body = document.documentElement;
         }
         body.appendChild(iframe[0]);
     };
@@ -277,7 +278,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
-        $('body')[0].removeChild(iframe[0]);
+        body.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();

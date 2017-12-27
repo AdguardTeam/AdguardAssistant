@@ -13,6 +13,7 @@
  */
 var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
+    var body = null;
     var isFullScreenEventsRegistered = false;
 
     /**
@@ -31,9 +32,10 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
-        var body = $('body')[0];
+        body = $('body')[0];
         if (!body) {
             log.error('Cant find body');
+            body = document.documentElement;
         }
         body.appendChild(button[0]);
         registerEvents(button);
@@ -167,7 +169,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         if (!button) {
             return;
         }
-        $('body')[0].removeChild(button[0]);
+        body.removeChild(button[0]);
         button = null;
     };
 

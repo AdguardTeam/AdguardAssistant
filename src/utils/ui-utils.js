@@ -370,7 +370,7 @@ var UIUtils = function($) { // jshint ignore:line
  * Utils that checks environment for compatibility with assistant
  * @param settings
  * @param log
- * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage}}
+ * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage, getViewPort: getViewPort, checkShadowDomSupport: checkShadowDomSupport}}
  * @constructor
  */
 var UIValidationUtils = function(settings, log) { // jshint ignore:line
@@ -442,10 +442,18 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
         return head && body;
     };
 
+    /**
+     * Check browser shadow dom support
+     */
+    var checkShadowDomSupport = function() {
+        return document.documentElement.createShadowRoot || document.documentElement.attachShadow;
+    };
+
     return {
         checkVisibleAreaSize: checkVisibleAreaSize,
         validateBrowser: validateBrowser,
         validatePage: validatePage,
-        getViewPort: getViewPort
+        getViewPort: getViewPort,
+        checkShadowDomSupport: checkShadowDomSupport
     };
 };

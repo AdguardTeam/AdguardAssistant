@@ -35,7 +35,15 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         if (!body) {
             log.error('Cant find body');
         }
-        body.appendChild(button[0]);
+
+        var div = document.createElement('div');
+
+        body.appendChild(div);
+
+        div.attachShadow({mode: 'open'});
+
+        div.appendChild(button[0]);
+
         registerEvents(button);
     };
 

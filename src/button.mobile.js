@@ -12,7 +12,6 @@
  */
 var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
-    var body = document.body || document.documentElement;
     var isFullScreenEventsRegistered = false;
 
     /**
@@ -41,11 +40,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         document.getElementsByTagName("head")[0].appendChild(css);
 
         setPositionSettingsToButton(button);
-        if (!body) {
-            log.error('Cant find body');
-            return;
-        }
-        body.appendChild(button[0]);
+        document.documentElement.appendChild(button[0]);
         registerEvents(button);
     };
 
@@ -176,7 +171,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         if (!button) {
             return;
         }
-        body.removeChild(button[0]);
+        document.documentElement.removeChild(button[0]);
         button = null;
     };
 

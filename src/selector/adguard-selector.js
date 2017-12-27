@@ -28,8 +28,6 @@ var AdguardSelectorLib = (function(api, $) {
 
     var selectionRenderer;
 
-    var bodyElement = document.body || document.documentElement;
-
     // PRIVATE METHODS
 
     var removeClassName = function(className) {
@@ -127,7 +125,7 @@ var AdguardSelectorLib = (function(api, $) {
      * @returns {{top: number, left: number, outerWidth: number, outerHeight: number}}
      */
     var getOffsetExtended = function(elem) {
-        var bodyRect = bodyElement.getBoundingClientRect();
+        var bodyRect = document.documentElement.getBoundingClientRect();
         var elemRect = elem.getBoundingClientRect();
 
         var rectTop = elemRect.top - bodyRect.top;
@@ -170,10 +168,10 @@ var AdguardSelectorLib = (function(api, $) {
         };
 
         var addBorderToDom = function() {
-            bodyElement.appendChild(borderTop.get(0));
-            bodyElement.appendChild(borderBottom.get(0));
-            bodyElement.appendChild(borderLeft.get(0));
-            bodyElement.appendChild(borderRight.get(0));
+            document.documentElement.appendChild(borderTop.get(0));
+            document.documentElement.appendChild(borderBottom.get(0));
+            document.documentElement.appendChild(borderLeft.get(0));
+            document.documentElement.appendChild(borderRight.get(0));
         };
 
         var removeBorderFromDom = function() {
@@ -394,7 +392,7 @@ var AdguardSelectorLib = (function(api, $) {
             return true;
         }
 
-        if (this == bodyElement || this == bodyElement.parentNode) {
+        if (this == document.documentElement || this == document.documentElement.parentNode) {
             return false;
         }
 
@@ -413,7 +411,7 @@ var AdguardSelectorLib = (function(api, $) {
             return true;
         }
 
-        if (this == bodyElement || this == bodyElement.parentNode) {
+        if (this == document.documentElement || this == document.documentElement.parentNode) {
             return false;
         }
 
@@ -438,7 +436,7 @@ var AdguardSelectorLib = (function(api, $) {
             elem = elem.target_elem || elem;
         }
 
-        if (elem == bodyElement || elem == bodyElement.parentNode) {
+        if (elem == document.documentElement || elem == document.documentElement.parentNode) {
             return;
         }
 

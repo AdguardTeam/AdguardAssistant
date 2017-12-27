@@ -11,7 +11,6 @@
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
 var IframeControllerMobile = function ($, log, selector, localization, resources) { // jshint ignore:line
     var iframe = null;
-    var body = document.body || document.documentElement;
     var currentItem = null;
     var iframePositionOffset = 5;
 
@@ -54,17 +53,12 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             onIframeLoadCallback();
         });
 
-        if (!body) {
-            log.error("Body not found");
-            return;
-        }
-
         if (document.getElementById('adguard-assistant-dialog')) {
             log.error("Iframe already added");
             return;
         }
 
-        body.appendChild(iframe[0]);
+        document.documentElement.appendChild(iframe[0]);
 
         var selectorCSS = document.createElement('style');
         var styles = resources.getResource('selector.css');
@@ -180,7 +174,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('resize', showSelectorMenu);
-        body.removeChild(iframe[0]);
+        document.documentElement.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();

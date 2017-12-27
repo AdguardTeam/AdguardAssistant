@@ -11,7 +11,7 @@
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile, BlockPreviewController, SettingsMenuController */
 var IframeControllerMobile = function ($, log, selector, localization, resources) { // jshint ignore:line
     var iframe = null;
-    var body = null;
+    var body = document.body || document.documentElement;
     var currentItem = null;
     var iframePositionOffset = 5;
 
@@ -54,11 +54,9 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             onIframeLoadCallback();
         });
 
-        var body = $('body')[0];
-
         if (!body) {
             log.error("Body not found");
-            body = document.documentElement;
+            return;
         }
 
         if (document.getElementById('adguard-assistant-dialog')) {

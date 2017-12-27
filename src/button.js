@@ -13,7 +13,7 @@
  */
 var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
     var button = null;
-    var body = null;
+    var body = document.body || document.documentElement;
     var isFullScreenEventsRegistered = false;
 
     /**
@@ -32,10 +32,9 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
-        body = $('body')[0];
         if (!body) {
             log.error('Cant find body');
-            body = document.documentElement;
+            return;
         }
         body.appendChild(button[0]);
         registerEvents(button);

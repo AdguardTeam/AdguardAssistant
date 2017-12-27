@@ -30,9 +30,6 @@ var AdguardSelectorLib = (function(api, $) {
 
     var bodyElement = document.body || document.documentElement;
 
-    console.log(bodyElement);
-
-
     // PRIVATE METHODS
 
     var removeClassName = function(className) {

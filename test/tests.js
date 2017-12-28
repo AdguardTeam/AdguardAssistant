@@ -20,7 +20,7 @@ describe("#DOM Tests", function() {
         var adguardEl = document.getElementsByClassName('adguard-alert')[0];
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
-        expect(adguardEl.parentElement).to.equal(document.body);
+        expect(adguardEl.parentElement).to.equal(document.documentElement);
     });
 });
 
@@ -36,7 +36,7 @@ describe("Adguard iframe", function() {
         var adguardEl = document.getElementById('adguard-assistant-dialog');
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
-        expect(adguardEl.parentElement).to.equal(document.body);
+        expect(adguardEl.parentElement).to.equal(document.documentElement);
     });
 });
 
@@ -56,7 +56,7 @@ describe("Adguard touches events", function() {
             var adguardEl = document.getElementById('adguard-assistant-dialog');
             expect(adguardEl).to.not.equal(null);
             expect(adguardEl).to.not.equal(undefined);
-            expect(adguardEl.parentElement).to.equal(document.body);
+            expect(adguardEl.parentElement).to.equal(document.documentElement);
             done();
         }, 150);
     });

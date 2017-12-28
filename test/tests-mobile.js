@@ -20,6 +20,6 @@ describe("#DOM Tests", function() {
         var adguardEl = document.getElementById('adguard-assistant-dialog');
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
-        expect(adguardEl.parentElement).to.equal(document.body);
+        expect(adguardEl.parentElement).to.equal(document.documentElement);
     });
 });

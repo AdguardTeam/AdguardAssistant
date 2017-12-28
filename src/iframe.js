@@ -64,12 +64,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             appendDefaultStyle();
             onIframeLoadCallback();
         });
-        var body = $('body')[0];
-        if (!body) {
-            log.error("Body not found");
-            return;
-        }
-        body.appendChild(iframe[0]);
+        document.documentElement.appendChild(iframe[0]);
     };
 
     var getIframePosition = function () {
@@ -277,7 +272,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
-        $('body')[0].removeChild(iframe[0]);
+        document.documentElement.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();

@@ -28,7 +28,6 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
         log.debug("Requirements checked, all ok");
         button = $(resources.getResource('button.html'));
-        gmApi.GM_addStyle(resources.getResource('button.css'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
         setPositionSettingsToButton(button);
         var body = $('body')[0];
@@ -37,11 +36,13 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
 
         if(uiValidationUtils.checkShadowDomSupport()) {
-            var div = document.createElement('div');
-            body.appendChild(div);
-            div.attachShadow({mode: 'open'});
-            div.appendChild(button[0]);
+            var buttonElement = document.createElement('div');
+            body.appendChild(buttonElement);
+            buttonElement.createShadowRoot();
+            buttonElement.shadowRoot.innerHTML = '<style>' + resources.getResource('button.css') + '</style>';
+            buttonElement.shadowRoot.appendChild(button[0]);
         } else {
+            gmApi.GM_addStyle(resources.getResource('button.css'));
             body.appendChild(button[0]);
         }
 

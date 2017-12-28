@@ -53,19 +53,12 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             onIframeLoadCallback();
         });
 
-        var body = $('body')[0];
-
-        if (!body) {
-            log.error("Body not found");
-            return;
-        }
-
         if (document.getElementById('adguard-assistant-dialog')) {
             log.error("Iframe already added");
             return;
         }
 
-        body.appendChild(iframe[0]);
+        document.documentElement.appendChild(iframe[0]);
 
         var selectorCSS = document.createElement('style');
         var styles = resources.getResource('selector.css');
@@ -181,7 +174,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('resize', showSelectorMenu);
-        $('body')[0].removeChild(iframe[0]);
+        document.documentElement.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();

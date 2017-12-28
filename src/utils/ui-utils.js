@@ -98,7 +98,7 @@ var UIUtils = function($) { // jshint ignore:line
                 shiftX = windowWidth - (coords.right - getOriginalEvent(e).pageX);
             }
 
-            document.body.appendChild(element);
+            document.documentElement.appendChild(element);
 
             /**
              * binding both mouse and touch/pointer events simultaneously
@@ -425,21 +425,9 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
         if (window.window !== window.top) {
             log.error('Page is iframe: ' + window.location.href);
             return false;
+        } else {
+            return true;
         }
-
-        // Check for necessary html elements existence
-        var head = !!document.getElementsByTagName('head').length;
-        var body = !!document.getElementsByTagName('body').length;
-
-        if (!head) {
-            log.error('head is missing');
-        }
-
-        if (!body) {
-            log.error('body is missing');
-        }
-
-        return head && body;
     };
 
     /**

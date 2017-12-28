@@ -40,11 +40,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         document.getElementsByTagName("head")[0].appendChild(css);
 
         setPositionSettingsToButton(button);
-        var body = $('body')[0];
-        if (!body) {
-            log.error('Cant find body');
-        }
-        body.appendChild(button[0]);
+        document.documentElement.appendChild(button[0]);
         registerEvents(button);
     };
 
@@ -175,7 +171,7 @@ var UIButtonMobile = function(log, settings, uiValidationUtils, $, uiUtils, ifra
         if (!button) {
             return;
         }
-        $('body')[0].removeChild(button[0]);
+        document.documentElement.removeChild(button[0]);
         button = null;
     };
 

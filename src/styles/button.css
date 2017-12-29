@@ -1,3 +1,9 @@
+:host {
+    display: block!important;
+    z-index: 9999999999!important;
+    position: relative!important;
+}
+
 .adguard-alert {
     cursor: pointer;
     left: 0;

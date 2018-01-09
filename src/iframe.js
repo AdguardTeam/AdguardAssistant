@@ -70,7 +70,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             iframeElement = document.createElement('div');
             document.documentElement.appendChild(iframeElement);
             var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
-            shadowiframeElement.innerHTML = '<style>:host {display: block;z-index: 9999999999;position:relative;}</style>';
+            var style = ':host {display:block;z-index:9999999999;position:relative;width:0;height:0;margin:0;padding:0;overflow:hidden;}';
+            style = style.replace(/;/g, '!important;');
+            shadowiframeElement.innerHTML = '<style>'+style+'</style>';
             shadowiframeElement.appendChild(iframe[0]);
         } else {
             iframeElement = iframe[0];

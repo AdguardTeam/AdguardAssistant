@@ -27,9 +27,9 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return;
         }
         log.debug("Requirements checked, all ok");
-        button = $(resources.getResource('button.html'));
-        gmApi.GM_addStyle(resources.getResource('button.css'));
-        gmApi.GM_addStyle(resources.getResource('selector.css'));
+        button = RESOURCE_TEMPLATE;
+        gmApi.GM_addStyle(RESOURCE_BUTTON_CSS);
+        gmApi.GM_addStyle(RESOURCE_SELECTOR_CSS);
         setPositionSettingsToButton(button);
         document.documentElement.appendChild(button[0]);
         registerEvents(button);

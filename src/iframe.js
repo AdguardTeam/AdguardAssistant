@@ -24,6 +24,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var sliderMenuHeight = {advanced: 503, normal: 403};
     var buttonPosition = null;
 
+    var views = {};
+
+    views[settings.MenuItemsNames.DetailedMenu] = RESOURCE_TEMPLATE_DETAILEDMENU;
+    views[settings.MenuItemsNames.SelectorMenu] = RESOURCE_TEMPLATE_SELECTORMENU;
+    views[settings.MenuItemsNames.SliderMenu] = RESOURCE_TEMPLATE_SLIDERMENU;
+    views[settings.MenuItemsNames.BlockPreview] = RESOURCE_TEMPLATE_BLOCKPREVIEW;
+    views[settings.MenuItemsNames.SettingsMenu] = RESOURCE_TEMPLATE_SETTINGSMENU;
+
     if(window.innerWidth < iframeMaxWidth) iframeMaxWidth = window.innerWidth;
     if(window.innerWidth < menuMaxWidth) menuMaxWidth = window.innerWidth;
     if(window.innerWidth < settingsMaxWidth) settingsMaxWidth = window.innerWidth;

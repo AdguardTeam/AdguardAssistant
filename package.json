@@ -23,6 +23,7 @@
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
+    "inline-resource-literal": "git+https://github.com/seanl-adg/InlineResourceLiteral.git",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-inline-urls": "^1.2.0",
     "mocha": "^3.4.2",

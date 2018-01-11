@@ -7,7 +7,9 @@ const clean = require('gulp-clean');
 const gutil = require('gulp-util');
 const fs = require('fs');
 const file = require('gulp-file');
-const path = require('path')
+const path = require('path');
+
+const InlineResource = require("inline-resource-literal");
 
 module.exports = () => {
     gutil.log('Compiling userscript');
@@ -66,7 +68,16 @@ module.exports = () => {
     });
 
     var prepareResources = function (resources, content) {
-        content.push('var _resources = {');
+        // content.push('var _resources = {');
+        console.log(resources);
+        const file = fs.readFileSync('./src/button.js').toString();
+        const inlined = (new InlineResource({
+            "TEMPLATE": './src/templates/button.html',
+            "BUTTON_CSS": './src/styles/button.css',
+            "SELECTOR_CSS": './src/styles/selector.css'
+        })).inline(file);
+        fs.writeFileSync('./compile/button.js', inlined);
+        return false;
         resources.forEach(function (element, idx, array) {
             var resource = element.value.split(' ').filter(String);
             var resourceName = '"' + resource[0] + '"';

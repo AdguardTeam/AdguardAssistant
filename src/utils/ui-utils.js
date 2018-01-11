@@ -50,8 +50,6 @@ var UIUtils = function($) { // jshint ignore:line
             };
         };
 
-        coords = getCoords(element);
-
         /**
          * Prevent text selection
          * With cursor drag

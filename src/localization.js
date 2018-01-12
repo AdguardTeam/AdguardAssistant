@@ -42,7 +42,7 @@ var Localization = function() { // jshint ignore:line
     var getMessage = function (messageId) {
         var message = SupportedLocales[currentLocale][messageId];
         if (!message) {
-            throw messageId + ' not localized';
+            return messageId;
         }
         return SupportedLocales[currentLocale][messageId].message;
     };

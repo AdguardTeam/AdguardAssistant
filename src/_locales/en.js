@@ -23,8 +23,14 @@ var en = {
     "assistant_select_element_ext": {
         "message": "Choose an element on the page to block"
     },
+    "assistant_select_element_start": {
+        "message": "Start"
+    },
     "assistant_select_element_cancel": {
         "message": "Cancel"
+    },
+    "assistant_select_element_text": {
+        "message": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode."
     },
     "assistant_block_element": {
         "message": "Element blocking"

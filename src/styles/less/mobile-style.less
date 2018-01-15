@@ -5,8 +5,214 @@
 @import "base/base-common";
 
 .main {
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 2px;
     padding: 10px;
     background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+    &-popup {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__logo {
+            background-image: url(../src/img/logo.svg);
+            width: 35px;
+            height: 37px;
+            background-repeat: no-repeat;
+        }
+
+        &__title {
+            font-size: 16px;
+        }
+
+        &__content {
+            font-size: 13px;
+            padding: 0 25px;
+            margin-bottom: 25px;
+        }
+
+        &__btn {
+            font-size: 14px;
+            padding: 10px;
+            min-width: 110px;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+
+            &:hover {
+                background-color: #f6f6f6;
+            }
+
+            &--green {
+                color: #ffffff;
+                border: 1px solid #66B574;
+                background-color: #66B574;
+                box-shadow: none;
+
+                &:hover {
+                    background-color: #5ea76b;
+                    color: #fff;
+                }
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    &-menu {
+        margin-top: 49px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+
+        &__btn {
+            font-size: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: relative;
+
+            &:hover {
+                background-color: #d0f0d6;
+            }
+
+            &:active {
+                background-color: #66B574;
+                box-shadow: inset 2px 2px 3px 0 rgba(92, 92, 92, 0.5);
+            }
+
+            &--accept {
+                background-image: url(../src/img/check.svg);
+                border: 1px solid #66B574;
+                background-color: #66B574;
+
+                &:hover {
+                    background-color: #519E5E;
+                }
+            }
+
+            &--preview {
+                background-image: url(../src/img/eye-color.svg);
+
+                &:after {
+                    visibility: hidden;
+                    opacity: 0;
+                    content: 'Preview';
+                    position: absolute;
+                    top: -55px;
+                    left: -20px;
+                    font-size: 14px;
+                    padding: 10px 15px;
+                    background-color: #fff;
+                    box-shadow: 0 2px 21px 0 rgba(0, 0, 0, 0.5);
+                    color: #0C0C0C;
+                }
+
+                &:before {
+                    visibility: hidden;
+                    opacity: 0;
+                    content: '';
+                    position: absolute;
+                    left: 12px;
+                    top: -18px;
+                    width: 0;
+                    height: 0;
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-top: 6px solid #ffffff;
+                    z-index: 1;
+
+                }
+
+                &:hover {
+                    &:after {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+
+                    &:before {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+
+                &:active {
+                    background-image: url(../src/img/eye.svg);
+                }
+            }
+
+            &--plus {
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: 16px;
+                    top: 19px;
+                    left: 12px;
+                    background-color: #555555;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 2px;
+                    height: 16px;
+                    left: 19px;
+                    top: 12px;
+                    background-color: #555555;
+                }
+
+                &:active {
+                    &:after {
+                        background-color: #fff;
+                    }
+
+                    &:before {
+                        background-color: #fff;
+                    }
+                }
+            }
+
+            &--minus {
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: 16px;
+                    top: 19px;
+                    left: 12px;
+                    background-color: #555555;
+                }
+
+                &:active {
+                    &:after {
+                        background-color: #fff;
+                    }
+
+                    &:before {
+                        background-color: #fff;
+                    }
+                }
+            }
+
+            &--close {
+                background-image: url(../src/img/cross-color.svg);
+
+                &:active {
+                    background-image: url(../src/img/cross.svg);
+                }
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
 }

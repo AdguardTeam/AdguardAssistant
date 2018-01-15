@@ -25,7 +25,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     var defaultAttributes = {
         'class': selector.ignoreClassName(),
         frameBorder: 0,
-        width: 300,
+        width: 320,
         height: 'auto',
         allowTransparency: 'true'
     };
@@ -132,7 +132,9 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             top: 0,
             right: 0,
             bottom: 0,
-            margin: 'auto'
+            margin: 'auto',
+            'border-radius': '2px',
+            'box-shadow': '0 0px 30px 0 rgba(0,0,0,.2)'
         };
 
         showMenuItem('mobilePopup.html', null, null, styles);
@@ -177,10 +179,16 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     };
 
     var localize = function () {
-        var elements = iframe[0].contentDocument.querySelectorAll("[i18n]");
+        var elements = iframe[0].contentDocument.querySelectorAll('[i18n]');
         for (var i = 0; i < elements.length; i++) {
-            var message = localization.getMessage(elements[i].getAttribute("i18n"));
+            var message = localization.getMessage(elements[i].getAttribute('i18n'));
             localization.translateElement(elements[i], message);
+        }
+
+        var elementsWithTitle = iframe[0].contentDocument.querySelectorAll('[i18n-title]');
+        for (var j = 0; j < elementsWithTitle.length; j++) {
+            var title = localization.getMessage(elementsWithTitle[j].getAttribute('i18n-title'));
+            elementsWithTitle[j].setAttribute('title', title);
         }
     };
 

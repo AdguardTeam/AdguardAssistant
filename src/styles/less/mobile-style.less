@@ -5,10 +5,12 @@
 @import "base/base-common";
 
 .main {
-    border-radius: 2px;
-    padding: 10px;
+    padding: 30px 10px;
     background: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+    .footer {
+        letter-spacing: 5px;
+    }
 
     &-popup {
         text-align: center;
@@ -17,7 +19,7 @@
         align-items: center;
 
         &__logo {
-            background-image: url(../src/img/logo.svg);
+            background-image: url(../i/logo-new.svg);
             width: 35px;
             height: 37px;
             background-repeat: no-repeat;
@@ -36,9 +38,10 @@
         &__btn {
             font-size: 14px;
             padding: 10px;
-            min-width: 110px;
+            width: 110px;
             border: 1px solid #dedede;
             border-radius: 3px;
+            background: #fff;
 
             &:hover {
                 background-color: #f6f6f6;
@@ -63,10 +66,12 @@
     }
 
     &-menu {
-        margin-top: 49px;
+        margin: 20px;
         padding: 15px;
         display: flex;
         justify-content: space-between;
+        border-radius: 2px;
+        box-shadow: 0 0px 30px 0 rgba(0,0,0,.2);
 
         &__btn {
             font-size: 0;
@@ -77,6 +82,7 @@
             background-repeat: no-repeat;
             background-position: 50%;
             position: relative;
+            background-color: #fff;
 
             &:hover {
                 background-color: #d0f0d6;
@@ -88,7 +94,7 @@
             }
 
             &--accept {
-                background-image: url(../src/img/check.svg);
+                background-image: url(../i/check.svg);
                 border: 1px solid #66B574;
                 background-color: #66B574;
 
@@ -98,52 +104,10 @@
             }
 
             &--preview {
-                background-image: url(../src/img/eye-color.svg);
-
-                &:after {
-                    visibility: hidden;
-                    opacity: 0;
-                    content: 'Preview';
-                    position: absolute;
-                    top: -55px;
-                    left: -20px;
-                    font-size: 14px;
-                    padding: 10px 15px;
-                    background-color: #fff;
-                    box-shadow: 0 2px 21px 0 rgba(0, 0, 0, 0.5);
-                    color: #0C0C0C;
-                }
-
-                &:before {
-                    visibility: hidden;
-                    opacity: 0;
-                    content: '';
-                    position: absolute;
-                    left: 12px;
-                    top: -18px;
-                    width: 0;
-                    height: 0;
-                    border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;
-                    border-top: 6px solid #ffffff;
-                    z-index: 1;
-
-                }
-
-                &:hover {
-                    &:after {
-                        visibility: visible;
-                        opacity: 1;
-                    }
-
-                    &:before {
-                        visibility: visible;
-                        opacity: 1;
-                    }
-                }
+                background-image: url(../i/eye-color.svg);
 
                 &:active {
-                    background-image: url(../src/img/eye.svg);
+                    background-image: url(../i/eye.svg);
                 }
             }
 
@@ -203,15 +167,11 @@
             }
 
             &--close {
-                background-image: url(../src/img/cross-color.svg);
+                background-image: url(../i/cross-color.svg);
 
                 &:active {
-                    background-image: url(../src/img/cross.svg);
+                    background-image: url(../i/cross.svg);
                 }
-            }
-
-            &:focus {
-                box-shadow: none;
             }
         }
     }

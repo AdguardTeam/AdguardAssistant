@@ -12,7 +12,6 @@
 var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor, localization, addRule) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
-    var rule = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     var nodeParentsCount = 0;
@@ -27,7 +26,6 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         selectedElement = options.element;
         contentDocument = iframe.contentDocument;
         bindEvents();
-        onScopeChange();
         selector.selectElement(selectedElement);
 
         children = CommonUtils.getAllChildren(selectedElement);
@@ -79,29 +77,29 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
     };
 
     var blockElement = function () {
+        addRule(getFilterText());
         iframeCtrl.removeIframe();
     };
 
     var showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, rule);
+        iframeCtrl.showBlockPreview(selectedElement, getFilterText());
     };
 
     var onSliderMove = function (element) {
         selectedElement = element;
         selector.selectElement(element);
-        onScopeChange();
     };
 
-    var onScopeChange = function () {
+    var getFilterText = function () {
         var options = {
             urlMask: getUrlBlockAttribute(selectedElement),
             cssSelectorType: "STRICT_FULL",
-            isBlockOneDomain: true,
+            isBlockOneDomain: false,
             url: document.location,
             ruleType: "CSS"
         };
 
-        rule = adguardRulesConstructor.constructRuleText(selectedElement, options);
+        return adguardRulesConstructor.constructRuleText(selectedElement, options);
     };
 
     var getUrlBlockAttribute = function (element) {

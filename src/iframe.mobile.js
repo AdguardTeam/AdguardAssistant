@@ -19,7 +19,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
     var defaultCSS = {
         clip: 'auto',
-        'z-index': 999999999999999
+        'z-index': 999999999
     };
 
     var defaultAttributes = {
@@ -64,6 +64,9 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         // set iframe size
         iframe[0].setAttribute('width', attributes.width);
         iframe[0].setAttribute('height', attributes.height === 'auto' ? iframe[0].contentWindow.document.body.scrollHeight : attributes.height);
+
+        iframe.css('width', attributes.width + 'px');
+        iframe.css('height', iframe[0].contentWindow.document.body.scrollHeight + 'px');
     };
 
     var appendSelectorStyles = function() {
@@ -127,7 +130,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
     var showSelectorMenu = function () {
         var styles = {
-            position: 'absolute',
+            position: 'fixed',
             left: 0,
             top: 0,
             right: 0,

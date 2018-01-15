@@ -55,7 +55,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
         $(iframe).on('load', function () {
             iframeAlreadyLoaded = true;
-            appendDefaultStyle();
+            appendDefaultStyleInIframe();
             onIframeLoadCallback();
         });
 
@@ -84,7 +84,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         document.getElementsByTagName("head")[0].appendChild(selectorStyleTag);
     };
 
-    var appendDefaultStyle = function () {
+    var appendDefaultStyleInIframe = function () {
         try {
             log.info('Iframe loaded writing styles');
             var doc = iframe[0].contentDocument;
@@ -140,24 +140,21 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         var startSelectMode = iframe[0].contentDocument.querySelector('.start-select-mode');
         var cancelSelectMode = iframe[0].contentDocument.querySelector('.cancel-select-mode');
 
-        startSelectMode.addEventListener('click', function() {
-            startSelect();
-        });
-        cancelSelectMode.addEventListener('click', function() {
-            removeIframe();
-        });
+        startSelectMode.addEventListener('click', startSelect);
+        cancelSelectMode.addEventListener('click', removeIframe);
     };
 
     var startSelect = function() {
-        var controller = Ioc.get(SelectorMenuController);
-        appendSelectorStyles();
         removeIframe();
+        var controller = Ioc.get(SelectorMenuController);
         controller.startSelector();
     };
 
-    var showSliderMenu = function (element) {
+    var showSliderMenu = function(element) {
         var controller = Ioc.get(SliderMenuControllerMobile);
-        var options = {element: element};
+        var options = {
+            element: element
+        };
         var styles = {
             position: 'fixed',
             bottom: 0,
@@ -169,10 +166,13 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     };
 
     var showBlockPreview = function (element, path) {
+        selector.reset();
         element.classList.add('sg_hide_element');
+        removeIframe();
 
         document.addEventListener('click', function() {
             element.classList.remove('sg_hide_element');
+            startSelect();
         });
     };
 
@@ -196,14 +196,17 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     var removeIframe = function (e) {
         if (e && e.isTrusted === false) return false;
+        if (!iframe) return false;
         document.removeEventListener('click', removeIframe);
-        window.removeEventListener('resize', showSelectorMenu);
+        window.removeEventListener('resize', startSelect);
         document.documentElement.removeChild(iframe[0]);
         iframe = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();
     };
+
+    appendSelectorStyles();
 
     return {
         showSelectorMenu: showSelectorMenu,

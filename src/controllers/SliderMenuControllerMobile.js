@@ -27,7 +27,6 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         selectedElement = options.element;
         contentDocument = iframe.contentDocument;
         bindEvents();
-        createSlider();
         onScopeChange();
         selector.selectElement(selectedElement);
 
@@ -87,37 +86,6 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         iframeCtrl.showBlockPreview(selectedElement, rule);
     };
 
-    var createSlider = function () {
-        var parents = CommonUtils.getParentsLevel(selectedElement);
-        var children = CommonUtils.getAllChildren(selectedElement);
-        var value = Math.abs(parents.length + 1);
-        var max = parents.length + children.length + 1;
-        var min = 1;
-        var options = {value: value, min: min, max: max};
-        var slider = contentDocument.getElementById('slider');
-        var sliderArea = contentDocument.getElementById('slider-area');
-        if (min === max) {
-            //hide slider text
-            $(slider).hide();
-            $(contentDocument.getElementsByClassName('element-rule_text')).hide();
-            expandAdvanced();
-        }
-
-        options.onSliderMove = function (delta) {
-            var elem;
-            if (delta > 0) {
-                elem = parents[delta - 1];
-            }
-            if (delta === 0) {
-                elem = selectedElement;
-            }
-            if (delta < 0) {
-                elem = children[Math.abs(delta + 1)];
-            }
-            onSliderMove(elem);
-        };
-    };
-
     var onSliderMove = function (element) {
         selectedElement = element;
         selector.selectElement(element);
@@ -136,11 +104,6 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         rule = adguardRulesConstructor.constructRuleText(selectedElement, options);
     };
 
-    var haveUrlBlockParameter = function (element) {
-        var value = getUrlBlockAttribute(element);
-        return value && value !== '';
-    };
-
     var getUrlBlockAttribute = function (element) {
         var urlBlockAttributes = ["src", "data"];
         for (var i = 0; i < urlBlockAttributes.length; i++) {
@@ -151,11 +114,6 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
             }
         }
         return null;
-    };
-
-    var haveClassAttribute = function (element) {
-        var className = element.getAttribute("class");
-        return className && className.trim() !== '';
     };
 
     return {

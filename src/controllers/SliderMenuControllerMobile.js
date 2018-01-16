@@ -63,7 +63,7 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
 
     var bindEvents = function () {
         var menuEvents = {
-            '.adg-close': iframeCtrl.startSelect,
+            '.adg-close': iframeCtrl.showSelectorMenu,
             '.adg-preview': showPreview,
             '.adg-accept': blockElement,
             '.adg-plus': plus,
@@ -73,7 +73,7 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
         });
 
-        window.addEventListener('resize', iframeCtrl.startSelect);
+        window.addEventListener('orientationchange', iframeCtrl.showSelectorMenu);
     };
 
     var blockElement = function () {
@@ -82,7 +82,22 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
     };
 
     var showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, getFilterText());
+        selector.reset();
+
+        if (this.classList.contains('active')) {
+            selectedElement.classList.remove('sg_hide_element');
+            this.classList.remove('active');
+            selector.selectElement(selectedElement);
+            contentDocument.querySelector('.adg-plus').removeAttribute('disabled');
+            contentDocument.querySelector('.adg-minus').removeAttribute('disabled');
+            contentDocument.querySelector('.adg-close').removeAttribute('disabled');
+        } else {
+            selectedElement.classList.add('sg_hide_element');
+            this.classList.add('active');
+            contentDocument.querySelector('.adg-plus').setAttribute('disabled','disabled');
+            contentDocument.querySelector('.adg-minus').setAttribute('disabled','disabled');
+            contentDocument.querySelector('.adg-close').setAttribute('disabled','disabled');
+        }
     };
 
     var onSliderMove = function (element) {

@@ -81,6 +81,25 @@ var CommonUtils = { // jshint ignore:line
         };
 
         xhr.send();
+    },
+
+    objectAssign: function() {
+        var from;
+        var to = {};
+
+        for (var s = 0; s < arguments.length; s++) {
+            from = Object(arguments[s]);
+
+            if (from != null) {
+                for (var key in from) {
+                    if (hasOwnProperty.call(from, key)) {
+                        to[key] = from[key];
+                    }
+                }
+            }
+        }
+
+        return to;
     }
 };
 

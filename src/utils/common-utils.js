@@ -83,6 +83,11 @@ var CommonUtils = { // jshint ignore:line
         xhr.send();
     },
 
+    /*
+     * Function as like Object.assign()
+     * @param {Object}
+     * @return {Object}
+     */
     objectAssign: function() {
         var from;
         var to = {};

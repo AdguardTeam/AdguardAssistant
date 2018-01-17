@@ -27,45 +27,58 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         frameBorder: 0,
         width: 320,
         height: 'auto',
-        allowTransparency: 'true'
+        allowTransparency: 'true',
+        id: 'iframe-af74fhj8dja9sl9m3'
     };
 
     var createIframe = function (onIframeLoadCallback, styles, attrs) {
         log.debug('Creating iframe');
 
-        if (document.querySelector('.sg_ignore')) {
+        if (document.querySelector('#' + defaultAttributes.id)) {
             log.error("Iframe already added");
             return;
         }
 
         iframe = $('<iframe/>');
 
-        var css = CommonUtils.objectAssign(defaultCSS, styles);
-        var attributes = CommonUtils.objectAssign(defaultAttributes, attrs);
+        $(iframe).on('load', function () {
+            // styles inside iframe
+            appendDefaultStyleInIframe();
+            onIframeLoadCallback();
 
-        Object.keys(css).forEach(function (item) {
-            iframe.css(item, css[item]);
+            updateIframeAttrs(attrs);
+            updateIframeStyles(styles);
         });
+
+        document.documentElement.appendChild(iframe[0]);
+    };
+
+    var updateIframeAttrs = function(attrs) {
+        var frame = iframe[0];
+
+        var attributes = CommonUtils.objectAssign(defaultAttributes, attrs);
 
         Object.keys(attributes).forEach(function (item) {
             iframe.attr(item, attributes[item]);
         });
 
-        var iframeAlreadyLoaded = false;
+        frame.setAttribute('width', attributes.width);
+        frame.setAttribute('height', attributes.height === 'auto' ? frame.contentDocument.body.scrollHeight : attributes.height);
+    };
 
-        $(iframe).on('load', function () {
-            iframeAlreadyLoaded = true;
-            appendDefaultStyleInIframe();
-            onIframeLoadCallback();
+    var updateIframeStyles = function (styles) {
+        var frame = iframe[0];
+
+        frame.removeAttribute('style');
+        frame.removeAttribute('height');
+
+        var css = CommonUtils.objectAssign(defaultCSS, styles);
+
+        Object.keys(css).forEach(function (item) {
+            iframe.css(item, css[item]);
         });
 
-        document.documentElement.appendChild(iframe[0]);
-
-        // set iframe size
-        iframe[0].setAttribute('width', attributes.width);
-        iframe[0].setAttribute('height', attributes.height === 'auto' ? iframe[0].contentDocument.body.scrollHeight : attributes.height);
-        iframe[0].style.width = attributes.width + 'px';
-        iframe[0].style.height = iframe[0].contentDocument.body.scrollHeight + 'px';
+        frame.style.height = frame.contentDocument.body.scrollHeight + 'px';
     };
 
     var appendSelectorStyles = function() {
@@ -102,6 +115,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         if (currentItem === viewName) {
             return;
         }
+
         var onIframeLoad = function () {
             var frameElement = iframe[0];
             var view = $(resources.getResource(viewName))[0];
@@ -115,19 +129,36 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             if (controller) {
                 controller.init(frameElement, options);
             }
+            updateIframeAttrs(attrs);
+            updateIframeStyles(styles);
 
             currentItem = viewName;
             onShowMenuItem.notify();
+            showIframe();
         };
+
         if (!iframe) {
             createIframe(onIframeLoad, styles, attrs);
             return;
         }
+
         onIframeLoad();
     };
 
+    var hideIframe = function() {
+        if (iframe && iframe[0]) {
+            iframe[0].style.display = 'none';
+        }
+    };
+
+    var showIframe = function() {
+        if (iframe && iframe[0]) {
+            iframe[0].style.display = 'block';
+        }
+    };
+
     var showSelectorMenu = function () {
-        removeIframe();
+        hideIframe();
         selector.close();
         var styles = {
             position: 'fixed',
@@ -151,7 +182,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     };
 
     var startSelect = function() {
-        removeIframe();
+        hideIframe();
         var controller = Ioc.get(SelectorMenuController);
         controller.startSelector();
     };
@@ -201,7 +232,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('orientationchange', showSelectorMenu);
         document.documentElement.removeChild(iframe[0]);
-        iframe = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

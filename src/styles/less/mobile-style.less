@@ -101,12 +101,6 @@ body {
 
             &--accept {
                 background-image: url(../i/check.svg);
-                border: 1px solid #66B574;
-                background-color: #66B574;
-
-                &:hover {
-                    background-color: #519E5E;
-                }
             }
 
             &--preview {
@@ -124,8 +118,8 @@ body {
                     position: absolute;
                     height: 2px;
                     width: 16px;
-                    top: 19px;
-                    left: 12px;
+                    top: 18px;
+                    left: 11px;
                     background-color: #555555;
                 }
 
@@ -134,8 +128,8 @@ body {
                     position: absolute;
                     width: 2px;
                     height: 16px;
-                    left: 19px;
-                    top: 12px;
+                    left: 18px;
+                    top: 11px;
                     background-color: #555555;
                 }
 
@@ -156,8 +150,8 @@ body {
                     position: absolute;
                     height: 2px;
                     width: 16px;
-                    top: 19px;
-                    left: 12px;
+                    top: 18px;
+                    left: 11px;
                     background-color: #555555;
                 }
 
@@ -181,8 +175,11 @@ body {
             }
 
             &:disabled {
-                opacity: .9;
-                background-color: rgba(92, 92, 92, 0.5);
+                background-color: #efefef;
+
+                &:after, &:before {
+                    opacity: .7;
+                }
             }
         }
     }

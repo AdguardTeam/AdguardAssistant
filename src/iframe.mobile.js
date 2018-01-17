@@ -138,7 +138,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             margin: 'auto',
             'max-height': '280px',
             'border-radius': '2px',
-            'box-shadow': '0 0px 30px 0 rgba(0,0,0,.2)'
+            'background': 'transparent'
         };
 
         showMenuItem('mobilePopup.html', null, null, styles);

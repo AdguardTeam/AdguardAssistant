@@ -32,10 +32,8 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         if (uiValidationUtils.checkShadowDomSupport()) {
             var buttonElement = document.createElement('div');
+            createShadowButtonElement(buttonElement).appendChild(button[0]);
             document.documentElement.appendChild(buttonElement);
-            var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowbuttonElement.innerHTML = '<style>' + resources.getResource('button.css') + '</style>';
-            shadowbuttonElement.appendChild(button[0]);
         } else {
             gmApi.GM_addStyle(resources.getResource('button.css'));
             document.documentElement.appendChild(button[0]);
@@ -43,6 +41,13 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         setPositionSettingsToButton(button);
         registerEvents(button);
+    };
+
+    var createShadowButtonElement = function(buttonElement) {
+        var shadowButtonElement = buttonElement.attachShadow({mode: 'closed'});
+        shadowButtonElement.innerHTML = '<style>' + resources.getResource('button.css') + '</style>';
+
+        return shadowButtonElement;
     };
 
     /**

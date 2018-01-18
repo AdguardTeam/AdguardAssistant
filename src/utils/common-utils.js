@@ -105,6 +105,13 @@ var CommonUtils = { // jshint ignore:line
         }
 
         return to;
+    },
+
+    /**
+     * Check browser shadow dom support
+     */
+    checkShadowDomSupport: function() {
+        return typeof(document.documentElement.attachShadow) !== 'undefined';
     }
 };
 

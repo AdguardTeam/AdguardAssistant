@@ -11,6 +11,7 @@
 /* global CommonUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile */
 var IframeControllerMobile = function ($, log, selector, localization, resources) { // jshint ignore:line
     var iframe = null;
+    var iframeElement = null;
     var currentItem = null;
     var iframePositionOffset = 5;
 
@@ -28,7 +29,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         width: 320,
         height: 'auto',
         allowTransparency: 'true',
-        id: 'iframe-af74fhj8dja9sl9m3'
+        id: 'iframe-x2eRYVVQRsG9'
     };
 
     var createIframe = function (onIframeLoadCallback, styles, attrs) {
@@ -50,7 +51,40 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             updateIframeStyles(styles);
         });
 
-        document.documentElement.appendChild(iframe[0]);
+        if (CommonUtils.checkShadowDomSupport()) {
+            iframeElement = document.createElement('div');
+            createShadowRootElement(iframeElement).appendChild(iframe[0]);
+        } else {
+            iframeElement = iframe[0];
+        }
+
+        document.documentElement.appendChild(iframeElement);
+    };
+
+    var createShadowRootElement = function(iframeElement) {
+        var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
+
+        var shadowRootDefaultStyle = {
+            display: 'block',
+            position: 'relative',
+            width: 0,
+            height: 0,
+            margin: 0,
+            padding: 0,
+            overflow: 'hidden',
+            'z-index': 9999999999
+        };
+
+        var style = [];
+
+        Object.keys(shadowRootDefaultStyle).forEach(function(key) {
+            style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
+        });
+
+        style = ':host {' + style.join() + '}';
+        shadowiframeElement.innerHTML = '<style>' + style + '</style>';
+
+        return shadowiframeElement;
     };
 
     var updateIframeAttrs = function(attrs) {

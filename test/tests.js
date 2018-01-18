@@ -29,7 +29,8 @@ describe("Adguard iframe", function() {
         var button = document.getElementsByClassName('adguard-alert')[0];
         expect(button).to.not.equal(null);
         expect(button).to.not.equal(undefined);
-        triggerEvent(button, 'click');
+        triggerEvent(button, 'mousedown');
+        triggerEvent(button, 'mouseup');
     });
 
     it("Click on button - opening adguard iframe", function() {

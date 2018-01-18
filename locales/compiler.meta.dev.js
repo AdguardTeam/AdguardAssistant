@@ -36,7 +36,7 @@
 // @description:pt Fornece uma maneira fácil e conveniente de gerenciar a filtragem diretamente do seu navegador
 // @description:ar يوفر طريقه سهله ومريحه لأداره التصفية الحقيقة من المتصفح
 // @description:ko 브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다.
-// @version 4.0.16
+// @version 4.0.17
 // @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
 // @include *

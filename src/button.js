@@ -7,11 +7,10 @@
  * @param gmApi Gm API impl
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
- * @param resources Resources that generates in compiler
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, resources) { // jshint ignore:line
+var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController) { // jshint ignore:line
     var button = null;
     var isFullScreenEventsRegistered = false;
 
@@ -27,11 +26,11 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return;
         }
         log.debug("Requirements checked, all ok");
-        button = RESOURCE_TEMPLATE;
-        gmApi.GM_addStyle(RESOURCE_BUTTON_CSS);
-        gmApi.GM_addStyle(RESOURCE_SELECTOR_CSS);
+        button = RESOURCE_TEMPLATE_BUTTON;
+        document.documentElement.appendChild(button);
+        gmApi.GM_addStyle(RESOURCE_CSS_BUTTON);
+        gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
         setPositionSettingsToButton(button);
-        document.documentElement.appendChild(button[0]);
         registerEvents(button);
     };
 

@@ -8,12 +8,11 @@
  * @param selector
  * @param uiValidationUtils
  * @param localization
- * @param resources
  * @returns {{showDetailedMenu: showDetailedMenu, showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, showBlockPreview: showBlockPreview, showSettingsMenu: showSettingsMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe, resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced, resizeSliderMenuToNormal: resizeSliderMenuToNormal}}
  * @constructor
  */
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
-var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, resources) { // jshint ignore:line
+var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization) { // jshint ignore:line
     var iframe = null;
     var currentItem = null;
     var iframeMaxWidth = 418;
@@ -144,7 +143,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var doc = iframe[0].contentDocument;
             doc.open();
             doc.write(StringUtils.format("<html><head>{0}</head></html>",
-                StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), resources.getResource('style.css'))));
+                StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), RESOURCE_CSS_IFRAME)));
             doc.close();
             iframe[0].style.setProperty('display', 'block', 'important');
         } catch (ex) {
@@ -171,7 +170,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             frameElement.height = height;
             frameElement.style.setProperty('width', width + 'px', 'important');
             frameElement.style.setProperty('height', height + 'px', 'important');
-            var view = $(resources.getResource(viewName))[0];
+            var view = $(views[viewName])[0];
             appendContent(view);
             localize();
             specifyIframePosition();

@@ -14,6 +14,7 @@
 /* global StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
 var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization) { // jshint ignore:line
     var iframe = null;
+    var iframeElement = null;
     var currentItem = null;
     var iframeMaxWidth = 418;
     var iframeMaxHeight = 407;
@@ -71,7 +72,19 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             appendDefaultStyle();
             onIframeLoadCallback();
         });
-        document.documentElement.appendChild(iframe[0]);
+
+        if (uiValidationUtils.checkShadowDomSupport()) {
+            iframeElement = document.createElement('div');
+            document.documentElement.appendChild(iframeElement);
+            var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
+            var style = ':host {display:block;z-index:9999999999;position:relative;width:0;height:0;margin:0;padding:0;overflow:hidden;}';
+            style = style.replace(/;/g, '!important;');
+            shadowiframeElement.innerHTML = '<style>'+style+'</style>';
+            shadowiframeElement.appendChild(iframe[0]);
+        } else {
+            iframeElement = iframe[0];
+            document.documentElement.appendChild(iframeElement);
+        }
     };
 
     var getIframePosition = function () {
@@ -279,8 +292,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var removeIframe = function(e) {
         if (e && e.isTrusted === false) return false;
         document.removeEventListener('click', removeIframe);
-        document.documentElement.removeChild(iframe[0]);
+        document.documentElement.removeChild(iframeElement);
         iframe = null;
+        iframeElement = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

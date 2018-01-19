@@ -26,10 +26,20 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return;
         }
         log.debug("Requirements checked, all ok");
-        button = RESOURCE_TEMPLATE_BUTTON;
-        document.documentElement.appendChild(button);
-        gmApi.GM_addStyle(RESOURCE_CSS_BUTTON);
+        button = $(resources.getResource('button.html'));
         gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
+
+        if (uiValidationUtils.checkShadowDomSupport()) {
+            var buttonElement = document.createElement('div');
+            document.documentElement.appendChild(buttonElement);
+            var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
+            shadowbuttonElement.innerHTML = '<style>' + RESOURCE_CSS_BUTTON + '</style>' + button;
+            // shadowbuttonElement.appendChild(button[0]);
+        } else {
+            gmApi.GM_addStyle(RESOURCE_CSS_BUTTON);
+            document.documentElement.appendChild(button[0]);
+        }
+
         setPositionSettingsToButton(button);
         registerEvents(button);
     };

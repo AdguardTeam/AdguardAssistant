@@ -96,8 +96,6 @@ var UIUtils = function($) { // jshint ignore:line
                 shiftX = windowWidth - (coords.right - getOriginalEvent(e).pageX);
             }
 
-            document.documentElement.appendChild(element);
-
             /**
              * binding both mouse and touch/pointer events simultaneously
              * see: http://www.html5rocks.com/en/mobile/touchandmouse/
@@ -142,8 +140,8 @@ var UIUtils = function($) { // jshint ignore:line
 
             moveElementTo(element, lastX, lastY);
 
-            // Open the frame if the button has been shifted by no more than 20 pixels
-            if (Math.abs(coords.left - lastCoords.left) > 20 || Math.abs(coords.top - lastCoords.top) > 20) {
+            // Open the frame if the button has been shifted by no more than 5 pixels
+            if (Math.abs(coords.left - lastCoords.left) > 5 || Math.abs(coords.top - lastCoords.top) > 5) {
                 if (onDragEnd) {
                     var store = {
                         "x": lastX,
@@ -165,9 +163,6 @@ var UIUtils = function($) { // jshint ignore:line
 
         $(element).on('mousedown touchstart', mouseDown.bind(this));
         $(element).on('dragstart', function() {return;});
-        $(element).on('click', function(e) {
-            onClick();
-        });
     };
 
     var outsidePosition = {
@@ -368,7 +363,7 @@ var UIUtils = function($) { // jshint ignore:line
  * Utils that checks environment for compatibility with assistant
  * @param settings
  * @param log
- * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage}}
+ * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage, getViewPort: getViewPort, checkShadowDomSupport: checkShadowDomSupport}}
  * @constructor
  */
 var UIValidationUtils = function(settings, log) { // jshint ignore:line
@@ -428,10 +423,18 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
         }
     };
 
+    /**
+     * Check browser shadow dom support
+     */
+    var checkShadowDomSupport = function() {
+        return typeof(document.documentElement.attachShadow) !== 'undefined';
+    };
+
     return {
         checkVisibleAreaSize: checkVisibleAreaSize,
         validateBrowser: validateBrowser,
         validatePage: validatePage,
-        getViewPort: getViewPort
+        getViewPort: getViewPort,
+        checkShadowDomSupport: checkShadowDomSupport
     };
 };

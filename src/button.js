@@ -30,7 +30,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         button = $(resources.getResource('button.html'));
         gmApi.GM_addStyle(resources.getResource('selector.css'));
 
-        if (uiValidationUtils.checkShadowDomSupport()) {
+        if (CommonUtils.checkShadowDomSupport()) {
             var buttonElement = document.createElement('div');
             createShadowButtonElement(buttonElement).appendChild(button[0]);
             document.documentElement.appendChild(buttonElement);

@@ -103,7 +103,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
         });
 
-        style = ':host {' + style.join() + '}';
+        style = ':host {' + style.join('') + '}';
         shadowiframeElement.innerHTML = '<style>' + style + '</style>';
 
         return shadowiframeElement;

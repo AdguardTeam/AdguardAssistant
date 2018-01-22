@@ -18,7 +18,7 @@ module.exports = () => {
 
     const autoprefix = new lessAutoprefix({ browsers: ['last 3 versions', '>1%'] });
 
-    return gulp.src(options.src + '/styles/less/style.less')
+    return gulp.src(options.src + '/styles/less/mobile-style.less')
       .pipe(less({
         plugins: [autoprefix, inlineImages]
       }))

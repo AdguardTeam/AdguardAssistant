@@ -38,7 +38,7 @@ gulp.task('mobile', () => {
     options.debug = true;
     options.metaPath = options.metaDevMobile;
     options.scriptName = 'script';
-    runSequence('css', 'compile-mobile', 'preprocess');
+    runSequence('css-mobile', 'compile-mobile', 'preprocess');
 });
 
 gulp.task('build', () => {
@@ -71,7 +71,9 @@ gulp.task('clean', require('./tasks/clean'));
 gulp.task('preprocess', require('./tasks/preprocess'));
 gulp.task('uglify', require('./tasks/uglify'));
 gulp.task('watch', require('./tasks/watch'));
+gulp.task('watch-mobile', require('./tasks/watch-mobile'));
 gulp.task('download-localization', require('./tasks/download-localization'));
 gulp.task('append-locales', require('./tasks/append-locales'));
 gulp.task('update-meta-locales', require('./tasks/update-meta-locales'));
 gulp.task('css', require('./tasks/css'));
+gulp.task('css-mobile', require('./tasks/css-mobile'));

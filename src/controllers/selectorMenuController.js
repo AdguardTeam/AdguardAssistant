@@ -44,6 +44,7 @@ var SelectorMenuController = function ($, selector) { // jshint ignore:line
     iframeCtrl.onCloseMenu.attach(selector.close);
 
     return {
-        init: init
+        init: init,
+        startSelector: startSelector
     };
 };

@@ -11,4 +11,5 @@ replace.py
 .keys*
 
 src/styles/style.css
+src/styles/mobile-style.css
 .DS_Store

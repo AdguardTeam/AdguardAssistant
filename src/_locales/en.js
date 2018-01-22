@@ -1,4 +1,6 @@
 var en = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "Filtering on this website"
     },

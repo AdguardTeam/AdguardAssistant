@@ -1,4 +1,6 @@
 var fa = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "\u0641\u06cc\u0644\u062a\u0631\u06cc\u0646\u06af \u062f\u0631 \u0627\u06cc\u0646 \u0648\u0628\u0633\u0627\u06cc\u062a"
     },

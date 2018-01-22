@@ -12,8 +12,6 @@
 // @require src\selector\adguard-selector.js
 // @require src\adguard-rules-constructor.js
 // @require src\iframe.mobile.js
-// @require src\slider-widget.js
-// @require src\wot.js
 // @require src\_locales\ru.js
 // @require src\_locales\en.js
 // @require src\_locales\fa.js
@@ -30,18 +28,10 @@
 // @require src\_locales\pt-BR.js
 // @require src\_locales\ko.js
 // @require src\localization.js
-// @require src\controllers\mainMenuController.js
 // @require src\controllers\selectorMenuController.js
 // @require src\controllers\SliderMenuControllerMobile.js
-// @require src\controllers\blockPreviewController.js
-// @require src\button.mobile.js
 // @require src\main.mobile.js
-// @resource button.css src\styles\button.css
 // @resource selector.css src\styles\selector.css
 // @resource mobile-style.css src\styles\mobile-style.css
-// @resource button.html    src\templates\button.html
-// @resource style.css  src\styles\style.css
-// @resource selectorMenu.html src\templates\selectorMenu.html
-// @resource sliderMenu.html src\templates\sliderMenu.html
-// @resource blockPreview.html src\templates\blockPreview.html
-// @resource settingsMenu.html src\templates\settingsMenu.html
+// @resource mobilePopup.html src\templates\mobilePopup.html
+// @resource mobileMenu.html src\templates\mobileMenu.html

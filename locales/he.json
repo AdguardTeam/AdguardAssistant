@@ -1,4 +1,6 @@
 {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "\u05e1\u05d9\u05e0\u05d5\u05df \u05d1\u05d0\u05ea\u05e8 \u05d6\u05d4"
     },

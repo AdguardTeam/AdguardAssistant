@@ -13,7 +13,6 @@ this.adguardAssistant = (function() {
             Ioc.register('localization', Ioc.get(Localization));
             var iframeController = Ioc.get(IframeControllerMobile);
             Ioc.register('iframeController', iframeController);
-            Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
             Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
 
             iframeController.showSelectorMenu();

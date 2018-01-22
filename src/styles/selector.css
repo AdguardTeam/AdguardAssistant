@@ -4,7 +4,8 @@
     visibility: visible !important;
 }
 
-.sg_selected {
+.sg_hide_element {
+    display: none!important;
 }
 
 .sg_suggested {

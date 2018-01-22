@@ -1,4 +1,6 @@
 var ko = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "\uc774 \uc6f9\uc0ac\uc774\ud2b8\uc5d0\uc11c\uc758 \ubcf4\ud638"
     },

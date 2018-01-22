@@ -81,6 +81,37 @@ var CommonUtils = { // jshint ignore:line
         };
 
         xhr.send();
+    },
+
+    /*
+     * Function as like Object.assign()
+     * @param {Object}
+     * @return {Object}
+     */
+    objectAssign: function() {
+        var from;
+        var to = {};
+
+        for (var s = 0; s < arguments.length; s++) {
+            from = Object(arguments[s]);
+
+            if (from != null) {
+                for (var key in from) {
+                    if (hasOwnProperty.call(from, key)) {
+                        to[key] = from[key];
+                    }
+                }
+            }
+        }
+
+        return to;
+    },
+
+    /**
+     * Check browser shadow dom support
+     */
+    checkShadowDomSupport: function() {
+        return typeof(document.documentElement.attachShadow) !== 'undefined';
     }
 };
 

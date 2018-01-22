@@ -423,18 +423,10 @@ var UIValidationUtils = function(settings, log) { // jshint ignore:line
         }
     };
 
-    /**
-     * Check browser shadow dom support
-     */
-    var checkShadowDomSupport = function() {
-        return typeof(document.documentElement.attachShadow) !== 'undefined';
-    };
-
     return {
         checkVisibleAreaSize: checkVisibleAreaSize,
         validateBrowser: validateBrowser,
         validatePage: validatePage,
-        getViewPort: getViewPort,
-        checkShadowDomSupport: checkShadowDomSupport
+        getViewPort: getViewPort
     };
 };

@@ -28,8 +28,8 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
         log.debug("Requirements checked, all ok");
 
-        buttonTemplate = RESOURCE_TEMPLATE_BUTTON;
-        buttonCSS = RESOURCE_CSS_BUTTON;
+        var buttonTemplate = RESOURCE_TEMPLATE_BUTTON;
+        var buttonCSS = RESOURCE_CSS_BUTTON;
 
         buttonElement = document.createElement('div');
         buttonElement.innerHTML = buttonTemplate;
@@ -37,7 +37,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
 
-        if (!uiValidationUtils.checkShadowDomSupport()) {
+        if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
             shadowbuttonElement.innerHTML = '<style>' + buttonCSS + '</style>';
             shadowbuttonElement.appendChild(button);
@@ -166,14 +166,14 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         if (!button) {
             return;
         }
-        $(button).addClass('adguard-hide');
+        $(button).addClass('sg_hide_element');
     };
 
     var showButton = function() {
         if (!button) {
             return;
         }
-        $(button).removeClass('adguard-hide');
+        $(button).removeClass('sg_hide_element');
     };
 
     var removeButton = function() {

@@ -73,18 +73,40 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             onIframeLoadCallback();
         });
 
-        if (!uiValidationUtils.checkShadowDomSupport()) {
+        if (CommonUtils.checkShadowDomSupport()) {
             iframeElement = document.createElement('div');
-            document.documentElement.appendChild(iframeElement);
-            var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
-            var style = ':host {display:block;z-index:9999999999;position:relative;width:0;height:0;margin:0;padding:0;overflow:hidden;}';
-            style = style.replace(/;/g, '!important;');
-            shadowiframeElement.innerHTML = '<style>'+style+'</style>';
-            shadowiframeElement.appendChild(iframe[0]);
+            createShadowRootElement(iframeElement).appendChild(iframe[0]);
         } else {
             iframeElement = iframe[0];
-            document.documentElement.appendChild(iframeElement);
         }
+
+        document.documentElement.appendChild(iframeElement);
+    };
+
+    var createShadowRootElement = function(iframeElement) {
+        var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
+
+        var shadowRootDefaultStyle = {
+            display: 'block',
+            position: 'relative',
+            width: 0,
+            height: 0,
+            margin: 0,
+            padding: 0,
+            overflow: 'hidden',
+            'z-index': 9999999999
+        };
+
+        var style = [];
+
+        Object.keys(shadowRootDefaultStyle).forEach(function(key) {
+            style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
+        });
+
+        style = ':host {' + style.join() + '}';
+        shadowiframeElement.innerHTML = '<style>' + style + '</style>';
+
+        return shadowiframeElement;
     };
 
     var getIframePosition = function () {

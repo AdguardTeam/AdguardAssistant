@@ -61,9 +61,9 @@ module.exports = () => {
         .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlDev + 'assistant.user.js')
         .replace('[UPDATE_URL]', options.downloadUpdateUrlDev + 'assistant.meta.js');
 
-    let metaBuildPath = path.join(options.localesDir, options.metaBuild);
-    let metaBetaPath = path.join(options.localesDir, options.metaBeta);
-    let metaDevPath = path.join(options.localesDir, options.metaDev);
+    let metaBuildPath = path.join(options.src, '_locales', options.metaBuild);
+    let metaBetaPath = path.join(options.src, '_locales', options.metaBeta);
+    let metaDevPath = path.join(options.src, '_locales', options.metaDev);
 
     return gulp.src(options.localesDir)
         .pipe(file(metaBuildPath, compilerMeta))

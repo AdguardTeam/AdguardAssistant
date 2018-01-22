@@ -11,13 +11,13 @@ describe("#DOM Tests", function() {
     });
 
     it("Adguard is in the DOM", function() {
-        var adguardEl = document.getElementById('adguard-assistant-dialog');
+        var adguardEl = document.querySelector('.sg_ignore');
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
     });
 
     it("Adguard is a child of the body", function() {
-        var adguardEl = document.getElementById('adguard-assistant-dialog');
+        var adguardEl = document.querySelector('.sg_ignore');
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
         expect(adguardEl.parentElement).to.equal(document.documentElement);

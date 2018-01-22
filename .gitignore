@@ -1,6 +1,7 @@
 .idea/
 build
 compile
+locales
 beta
 dev
 node_modules
@@ -12,4 +13,5 @@ replace.py
 .keys*
 
 src/styles/style.css
+src/styles/mobile-style.css
 .DS_Store

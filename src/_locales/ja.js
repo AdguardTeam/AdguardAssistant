@@ -1,4 +1,6 @@
 var ja = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "\u3053\u306e\u30a6\u30a7\u30d6\u30b5\u30a4\u30c8\u3092\u30d5\u30a3\u30eb\u30bf\u30ea\u30f3\u30b0"
     },

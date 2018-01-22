@@ -12,7 +12,7 @@ module.exports = () => {
         .pipe(preprocess({
             context: {
                 DEBUG: options.debug,
-                VERSION: 123
+                VERSION: options.version
             }
         }))
         .pipe(gulp.dest(options.outputPath));

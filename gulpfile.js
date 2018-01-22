@@ -1,3 +1,4 @@
+const fs = require('fs');
 const gulp = require('gulp');
 const runSequence = require('run-sequence').use(gulp);
 
@@ -25,6 +26,8 @@ options.languagesFiles = options.locales.reduce(function(p,c) {
     p.push('src/_locales/' + c + '.js');
     return p;
 }, []);
+
+options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
 gulp.task('beta', () => {
     options.debug = true;

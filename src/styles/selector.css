@@ -4,7 +4,8 @@
     visibility: visible !important;
 }
 
-.sg_selected {
+.adguard-hide {
+    display: none !important;
 }
 
 .sg_suggested {

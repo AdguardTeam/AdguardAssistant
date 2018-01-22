@@ -73,7 +73,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             onIframeLoadCallback();
         });
 
-        if (uiValidationUtils.checkShadowDomSupport()) {
+        if (!uiValidationUtils.checkShadowDomSupport()) {
             iframeElement = document.createElement('div');
             document.documentElement.appendChild(iframeElement);
             var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});

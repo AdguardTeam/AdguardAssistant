@@ -86,4 +86,3 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
         init: init
     };
 };
-

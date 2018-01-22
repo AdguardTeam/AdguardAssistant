@@ -22,7 +22,7 @@ module.exports = () => {
         'src/settings.js',
         'src/utils/ui-utils.js',
         'src/utils/common-utils.js',
-        'src/utils/punycode.js',
+        // 'src/utils/punycode.js',
         'src/event.js',
         'src/selector/diff_match_patch.js',
         'src/selector/dom.patched.js',

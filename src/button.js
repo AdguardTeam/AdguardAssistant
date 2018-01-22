@@ -12,6 +12,7 @@
  */
 var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController) { // jshint ignore:line
     var button = null;
+    var buttonElement = null;
     var isFullScreenEventsRegistered = false;
 
     /**
@@ -26,18 +27,25 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return;
         }
         log.debug("Requirements checked, all ok");
-        button = $(resources.getResource('button.html'));
+
+        buttonTemplate = RESOURCE_TEMPLATE_BUTTON;
+        buttonCSS = RESOURCE_CSS_BUTTON;
+
+        buttonElement = document.createElement('div');
+        buttonElement.innerHTML = buttonTemplate;
+        button = buttonElement.querySelector('div');
+
         gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
 
-        if (uiValidationUtils.checkShadowDomSupport()) {
-            var buttonElement = document.createElement('div');
-            document.documentElement.appendChild(buttonElement);
+        if (!uiValidationUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowbuttonElement.innerHTML = '<style>' + RESOURCE_CSS_BUTTON + '</style>' + button;
-            // shadowbuttonElement.appendChild(button[0]);
+            shadowbuttonElement.innerHTML = '<style>' + buttonCSS + '</style>';
+            shadowbuttonElement.appendChild(button);
+            document.documentElement.appendChild(buttonElement);
         } else {
-            gmApi.GM_addStyle(RESOURCE_CSS_BUTTON);
-            document.documentElement.appendChild(button[0]);
+            gmApi.GM_addStyle(buttonCSS);
+            document.documentElement.appendChild(button);
+            buttonElement = button;
         }
 
         setPositionSettingsToButton(button);
@@ -84,15 +92,15 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             return false;
         }
 
-        uiUtils.setAnchorPosition.positionY(button[0], position.storedAnchor.top);
-        uiUtils.setAnchorPosition.positionX(button[0], position.storedAnchor.left);
+        uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
+        uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
 
-        uiUtils.moveElementTo(button[0], position.x, position.y);
+        uiUtils.moveElementTo(button, position.x, position.y);
 
         // validate that button is in the viewport
         // with timeout for deferred execution
         setTimeout(function () {
-            uiUtils.checkElementPosition(button[0], position);
+            uiUtils.checkElementPosition(button, position);
         });
 
         return true;
@@ -101,16 +109,16 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     var setPositionSettingsToButton = function(button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
-            $(button[0].getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
+            $(button.getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
         }
         if (setUserPositionIfExists(button)) {
             return;
         }
 
-        uiUtils.setAnchorPosition.positionY(button[0], config.buttonPositionTop);
-        uiUtils.setAnchorPosition.positionX(button[0], config.buttonPositionLeft);
+        uiUtils.setAnchorPosition.positionY(button, config.buttonPositionTop);
+        uiUtils.setAnchorPosition.positionX(button, config.buttonPositionLeft);
 
-        respectPageElements(button[0]);
+        respectPageElements(button);
     };
 
     var registerEvents = function(button) {
@@ -119,11 +127,11 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         };
 
         var openMenu = function() {
-            iframeController.setButtonPosition(getButtonPosition());
+            iframeController.setButtonPosition(getButtonPosition(button));
             iframeController.showDetailedMenu();
         };
 
-        uiUtils.makeElementDraggable(button[0], onDragEnd, openMenu);
+        uiUtils.makeElementDraggable(button, onDragEnd, openMenu);
         hideRestoreOnFullScreen();
     };
 
@@ -132,11 +140,11 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      * @returns {{left: *, top: *}}
      * @private
      */
-    var getButtonPosition = function() {
-        var box = button[0].getBoundingClientRect();
+    var getButtonPosition = function(button) {
+        var box = button.getBoundingClientRect();
         return {
-            top: box.top + button[0].offsetHeight / 2,
-            left: box.left + button[0].offsetWidth / 2
+            top: box.top + button.offsetHeight / 2,
+            left: box.left + button.offsetWidth / 2
         };
     };
 
@@ -158,21 +166,21 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         if (!button) {
             return;
         }
-        button.addClass('adguard-hide');
+        $(button).addClass('adguard-hide');
     };
 
     var showButton = function() {
         if (!button) {
             return;
         }
-        button.removeClass('adguard-hide');
+        $(button).removeClass('adguard-hide');
     };
 
     var removeButton = function() {
         if (!button) {
             return;
         }
-        document.documentElement.removeChild(button[0]);
+        document.documentElement.removeChild(buttonElement);
         button = null;
     };
 

@@ -1,4 +1,6 @@
 var pt_BR = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "Filtragem neste site"
     },
@@ -27,7 +29,7 @@ var pt_BR = {
         "message": "Cancelar"
     },
     "assistant_block_element": {
-        "message": "Bloqueio de elementos"
+        "message": "Bloqueio de elemento"
     },
     "assistant_block_element_explain": {
         "message": "Ajustar a regra de bloqueio de elemento"
@@ -48,7 +50,7 @@ var pt_BR = {
         "message": "Aplicar a regra para todos os sites"
     },
     "assistant_block_by_reference": {
-        "message": "Bloquear por link de refer\u00eancia"
+        "message": "Bloquear pelo link de refer\u00eancia"
     },
     "assistant_block_similar": {
         "message": "Bloquear semelhante"
@@ -75,7 +77,7 @@ var pt_BR = {
         "message": "Sair da pr\u00e9via"
     },
     "wot_unknown_description": {
-        "message": "Nenhuma reputa\u00e7\u00e3o definida"
+        "message": "Reputa\u00e7\u00e3o n\u00e3o definida"
     },
     "wot_bad_description": {
         "message": "Este site tem uma reputa\u00e7\u00e3o muito ruim\nde acordo com "

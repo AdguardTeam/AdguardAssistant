@@ -1,4 +1,6 @@
 var en = {
+    "assistant_select_element_start": "Start",
+    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
         "message": "Filtering on this website"
     },
@@ -23,14 +25,8 @@ var en = {
     "assistant_select_element_ext": {
         "message": "Choose an element on the page to block"
     },
-    "assistant_select_element_start": {
-        "message": "Start"
-    },
     "assistant_select_element_cancel": {
         "message": "Cancel"
-    },
-    "assistant_select_element_text": {
-        "message": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode."
     },
     "assistant_block_element": {
         "message": "Element blocking"

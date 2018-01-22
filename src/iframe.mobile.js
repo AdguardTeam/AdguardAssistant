@@ -90,6 +90,9 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
     var updateIframeAttrs = function(attrs) {
         var frame = iframe[0];
 
+        frame.removeAttribute('style');
+        frame.removeAttribute('height');
+
         var attributes = CommonUtils.objectAssign(defaultAttributes, attrs);
 
         Object.keys(attributes).forEach(function (item) {
@@ -102,9 +105,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
     var updateIframeStyles = function (styles) {
         var frame = iframe[0];
-
-        frame.removeAttribute('style');
-        frame.removeAttribute('height');
 
         var css = CommonUtils.objectAssign(defaultCSS, styles);
 
@@ -201,7 +201,6 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
             right: 0,
             bottom: 0,
             margin: 'auto',
-            'max-height': '280px',
             'border-radius': '2px',
             'background': 'transparent'
         };
@@ -265,7 +264,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         if (!iframe) return false;
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('orientationchange', showSelectorMenu);
-        document.documentElement.removeChild(iframe[0]);
+        document.documentElement.removeChild(iframeElement);
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

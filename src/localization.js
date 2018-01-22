@@ -44,7 +44,7 @@ var Localization = function() { // jshint ignore:line
         if (!message) {
             return messageId;
         }
-        return SupportedLocales[currentLocale][messageId].message;
+        return SupportedLocales[currentLocale][messageId].message || SupportedLocales[currentLocale][messageId];
     };
 
     var translateElement = function (element, message) {

@@ -66,7 +66,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             onIframeLoadCallback();
         });
 
-        if (uiValidationUtils.checkShadowDomSupport()) {
+        if (CommonUtils.checkShadowDomSupport()) {
             iframeElement = document.createElement('div');
             createShadowRootElement(iframeElement).appendChild(iframe[0]);
         } else {

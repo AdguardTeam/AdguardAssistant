@@ -35,6 +35,13 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var createIframe = function (onIframeLoadCallback) {
         log.debug('Creating iframe');
         iframe = $('<iframe/>');
+
+        // IE hack for prevent access denied error
+        // see: https://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
+        if (navigator.userAgent.match(/msie/i)) {
+            iframe[0].src= "javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\\"" + document.domain + "\\\";<\\\\/script>\\');document.close();};<\/script>'";
+        }
+
         var iframePosition = getIframePosition();
         var css = {
             position: 'fixed',

@@ -47,6 +47,13 @@ gulp.task('build', () => {
     runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta');
 });
 
+gulp.task('mobile-build', () => {
+    options.debug = true;
+    options.metaPath = options.metaDevMobile;
+    options.scriptName = 'script';
+    runSequence('css-mobile', 'compile-mobile', 'preprocess', 'uglify');
+});
+
 gulp.task('locales', () => {
     runSequence('download-localization', 'append-locales', 'update-meta-locales');
 });

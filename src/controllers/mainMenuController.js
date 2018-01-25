@@ -7,7 +7,7 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, StringUtils, punycode */
+/* global Ioc, StringUtils */
 var DetailedMenuController = function($, wot, localization, gmApi, settings, log) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = null;
@@ -27,7 +27,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
     };
 
     var setDomain = function() {
-        domain = punycode.toUnicode(location.hostname);
+        domain = decodeURIComponent(location.hostname);
         contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain;
     };
 

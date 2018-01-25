@@ -1,4 +1,4 @@
-/* global Ioc, Log, GM, Resources, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
+/* global Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
 
 /* global ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState */
 
@@ -13,7 +13,6 @@
     var adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
     Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState));
-    Ioc.register('resources', new Resources());
     var wot = new Wot();
     wot.registerWotEventHandler();
     Ioc.register('wot', wot);

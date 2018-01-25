@@ -4,12 +4,11 @@
  * @param log
  * @param selector
  * @param localization
- * @param resources
  * @returns {{showSelectorMenu: showSelectorMenu, showSliderMenu: showSliderMenu, setButtonPosition: setButtonPosition, onCloseMenu: CustomEvent, onShowMenuItem: CustomEvent, removeIframe: removeIframe}}
  * @constructor
  */
 /* global CommonUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuControllerMobile */
-var IframeControllerMobile = function ($, log, selector, localization, resources) { // jshint ignore:line
+var IframeControllerMobile = function ($, log, selector, localization) { // jshint ignore:line
     var iframe = null;
     var iframeElement = null;
     var currentItem = null;
@@ -17,6 +16,11 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
     var onCloseMenu = new CustomEvent();
     var onShowMenuItem = new CustomEvent();
+
+    var views = {};
+
+    views['mobilePopup.html'] = RESOURCE_TEMPLATE_POPUP;
+    views['mobileMenu.html'] = RESOURCE_TEMPLATE_MENU;
 
     var defaultCSS = {
         clip: 'auto',
@@ -121,7 +125,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         }
 
         var selectorStyleTag = document.createElement('style');
-        var selectorStyles = resources.getResource('selector.css');
+        var selectorStyles = RESOURCE_CSS_SELECTOR;
         selectorStyleTag.classList.add('adg-styles');
 
         if (selectorStyleTag.styleSheet) {
@@ -133,12 +137,12 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
         document.getElementsByTagName("head")[0].appendChild(selectorStyleTag);
     };
 
-    var appendDefaultStyleInIframe = function () {
+    var appendDefaultStyleInIframe = function() {
         try {
             log.info('Iframe loaded writing styles');
             var doc = iframe[0].contentDocument;
             doc.open();
-            doc.write('<html><head><style type="text/css">'+resources.getResource('mobile-style.css')+'</style></head></html>');
+            doc.write('<html><head><style type="text/css">' + RESOURCE_CSS_MOBILE + '</style></head></html>');
             doc.close();
         } catch (ex) {
             log.error(ex);
@@ -152,7 +156,7 @@ var IframeControllerMobile = function ($, log, selector, localization, resources
 
         var onIframeLoad = function () {
             var frameElement = iframe[0];
-            var view = $(resources.getResource(viewName))[0];
+            var view = $(views[viewName])[0];
             appendContent(view);
             localize();
 

@@ -1,22 +1,22 @@
 // ==UserScript==
-// @name Adguard Assistant Dev
-// @name:ru Помощник AdGuard Dev
-// @name:uk Помічник AdGuard Dev
-// @name:pl Asystent AdGuarda Dev
-// @name:de AdGuard-Assistent Dev
-// @name:zh 使用 AdGuard 助手 Dev
-// @name:he העוזר האישי של אדגארד Dev
-// @name:it Assistente AdGuard Dev
-// @name:fa دستیار AdGuard Dev
-// @name:sr Koristi Adguard-ovog pomoćnika Dev
-// @name:es Asistente de Adguard Dev
-// @name:id Asisten Aguard Dev
-// @name:tr AdGuard Assistant Dev
-// @name:ja AdGuardアシスタント Dev
-// @name:es AdGuard Assistant Dev
-// @name:pt AdGuard Assistente Dev
-// @name:ar AdGuardمساعد Dev
-// @name:ko AdGuard 도우미 Dev
+// @name Adguard Assistant
+// @name:ru Помощник AdGuard
+// @name:uk Помічник AdGuard
+// @name:pl Asystent AdGuarda
+// @name:de AdGuard-Assistent
+// @name:zh 使用 AdGuard 助手
+// @name:he העוזר האישי של אדגארד
+// @name:it Assistente AdGuard
+// @name:fa دستیار AdGuard
+// @name:sr Koristi Adguard-ovog pomoćnika
+// @name:es Asistente de Adguard
+// @name:id Asisten Aguard
+// @name:tr AdGuard Assistant
+// @name:ja AdGuardアシスタント
+// @name:es AdGuard Assistant
+// @name:pt AdGuard Assistente
+// @name:ar AdGuardمساعد
+// @name:ko AdGuard 도우미
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
@@ -36,9 +36,9 @@
 // @description:pt Fornece uma maneira fácil e conveniente de gerenciar a filtragem diretamente do seu navegador
 // @description:ar يوفر طريقه سهله ومريحه لأداره التصفية الحقيقة من المتصفح
 // @description:ko 브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다.
-// @version 4.0.17
-// @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
-// @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
+// @version 4.0.18
+// @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
+// @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *://feedly.com/*
@@ -58,55 +58,6 @@
 // @exclude *tpc.googlesyndication.com*
 // @exclude *syndication.twitter.com*
 // @exclude *platform.twitter.com*
-// @require src\utils\css.escape.js
-// @require src\ioc.js
-// @require src\log.js
-// @require src\balalaika.patched.js
-// @require src\settings.js
-// @require src\utils\ui-utils.js
-// @require src\utils\common-utils.js
-// @require src\utils\punycode.js
-// @require src\event.js
-// @require src\selector\diff_match_patch.js
-// @require src\selector\dom.patched.js
-// @require src\selector\adguard-selector.js
-// @require src\adguard-rules-constructor.js
-// @require src\iframe.js
-// @require src\gm.js
-// @require src\slider-widget.js
-// @require src\wot.js
-// @require src\_locales\ru.js
-// @require src\_locales\en.js
-// @require src\_locales\fa.js
-// @require src\_locales\he.js
-// @require src\_locales\it.js
-// @require src\_locales\pl.js
-// @require src\_locales\uk.js
-// @require src\_locales\zh.js
-// @require src\_locales\de.js
-// @require src\_locales\tr.js
-// @require src\_locales\ja.js
-// @require src\_locales\ar.js
-// @require src\_locales\es-419.js
-// @require src\_locales\pt-BR.js
-// @require src\_locales\ko.js
-// @require src\localization.js
-// @require src\controllers\mainMenuController.js
-// @require src\controllers\selectorMenuController.js
-// @require src\controllers\sliderMenuController.js
-// @require src\controllers\blockPreviewController.js
-// @require src\controllers\settingsMenuController.js
-// @require src\button.js
-// @require src\main.js
-// @resource button.css src\styles\button.css
-// @resource selector.css src\styles\selector.css
-// @resource button.html    src\templates\button.html
-// @resource style.css  src\styles\style.css
-// @resource mainMenu.html src\templates\mainMenu.html
-// @resource selectorMenu.html src\templates\selectorMenu.html
-// @resource sliderMenu.html src\templates\sliderMenu.html
-// @resource blockPreview.html src\templates\blockPreview.html
-// @resource settingsMenu.html src\templates\settingsMenu.html
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

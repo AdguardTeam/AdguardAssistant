@@ -7,102 +7,71 @@ const clean = require('gulp-clean');
 const gutil = require('gulp-util');
 const fs = require('fs');
 const file = require('gulp-file');
-const path = require('path')
+const path = require('path');
+const InlineResource = require("inline-resource-literal");
 
 module.exports = () => {
-    gutil.log('Compiling userscript');
-
-    const REQUIRE_DIRECTIVE = '// @require';
-    const RESOURCE_DIRECTIVE = '// @resource';
-    const SUPPORTED_DIRECTIVES = [REQUIRE_DIRECTIVE, RESOURCE_DIRECTIVE];
+    gutil.log('Compiling script...');
 
     const options = global.options || {};
 
-    var parseDirectives = function (line, directives) {
-        for (var i = 0; i < directives.length; i++) {
-            var directive = directives[i];
-            var directiveIdx = line.indexOf(directive);
-            if (directiveIdx > -1) {
-                return {directive: directive, value: line.substring(directive.length).trim()};
-            }
-        }
-        return null;
+    let finalContent = [];
+
+    let resources = [
+        'src/utils/css.escape.js',
+        'src/ioc.js',
+        'src/log.js',
+        'src/balalaika.patched.js',
+        'src/settings.js',
+        'src/utils/ui-utils.js',
+        'src/utils/common-utils.js',
+        'src/event.js',
+        'src/selector/diff_match_patch.js',
+        'src/selector/dom.patched.js',
+        'src/selector/adguard-selector.js',
+        'src/adguard-rules-constructor.js',
+        'compile/script.js',
+        'src/localization.js',
+        'src/controllers/selectorMenuController.js',
+        'src/controllers/SliderMenuControllerMobile.js',
+        'src/main.mobile.js'
+    ];
+
+    resources = options.languagesFiles.concat(resources);
+
+    const mobileInlineResources = {
+        "CSS_SELECTOR": './src/styles/selector.css',
+        "CSS_MOBILE": './src/styles/mobile-style.css',
+        "TEMPLATE_POPUP": './src/templates/mobilePopup.html',
+        "TEMPLATE_MENU": './src/templates/mobileMenu.html',
     };
 
-    let metaPath = path.join('./', options.metaPath);
-    let metaContent;
+    var prepareResources = function() {
+        const mobileMenu = fs.readFileSync('./src/iframe.mobile.js').toString();
 
-    try {
-        metaContent = fs.readFileSync(metaPath).toString();
-    } catch (err) {
-        throw new gutil.PluginError({
-          plugin: 'compile',
-          message: gutil.colors.green('Make sure you have already uploaded localizations with `gulp locales` command!')
-        });
-    }
+        const mobileMenuResources = (new InlineResource(mobileInlineResources)).inline(mobileMenu);
 
-    var metaLines = metaContent.split('\n');
-    var finalContent = [];
-    var newMeta = [];
-    var directivesToHandle = [];
-    metaLines.forEach(function (currentLine) {
-        currentLine = currentLine.trim();
-        if (currentLine.length === 0) {
-            return;
+        if (!fs.existsSync('compile')) {
+            fs.mkdirSync('compile');
         }
-        var directive = parseDirectives(currentLine, SUPPORTED_DIRECTIVES);
-        if (directive === null) {
-            newMeta.push(currentLine);
-            return;
-        }
-        directivesToHandle.push(directive);
-    });
 
-    var requires = directivesToHandle.filter(function (value) {
-        return value.directive === REQUIRE_DIRECTIVE;
-    });
-    var resources = directivesToHandle.filter(function (value) {
-        return value.directive === RESOURCE_DIRECTIVE;
-    });
-
-    var prepareResources = function (resources, content) {
-        content.push('var _resources = {');
-        resources.forEach(function (element, idx, array) {
-            var resource = element.value.split(' ').filter(String);
-            var resourceName = '"' + resource[0] + '"';
-            var resourcePath = path.join(...resource[1].split('\\'));
-            var resourceContent = '"' + new Buffer(fs.readFileSync(resourcePath)).toString('base64') + '"';
-            var isLast = idx == array.length - 1;
-            content.push(resourceName + ': ' + resourceContent + (isLast ? '\n' : ',\n'));
-        });
-        content.push("};");
-
-        var addConstructorAndMethods = function (content) {
-            content.unshift('var Resources = function () {');
-            var getResource = function (name) {
-                return Base64.decode(_resources[name]);
-            };
-            content.push('var _getResource = ' + getResource.toString());
-            content.push('return {getResource: _getResource};');
-            content.push('};');
-        };
-        addConstructorAndMethods(content);
+        fs.writeFileSync('./compile/script.js', mobileMenuResources);
     };
 
-    var prepareRequires = function (requires, content) {
-        requires.forEach(function (element) {
-            var require = fs.readFileSync(path.join(...element.value.split('\\')));
-            content.push(require);
+    var prepareRequires = function() {
+        resources.forEach(function(element) {
+            var require = fs.readFileSync(path.join(...element.split('/')));
+            finalContent.push(require);
         });
     };
 
-    var wrapScript = function (content) {
+    var wrapScript = function(content) {
         content.unshift('(function() {');
         content.push('})();');
     };
 
-    prepareResources(resources, finalContent);
-    prepareRequires(requires, finalContent);
+    prepareResources();
+    prepareRequires();
     wrapScript(finalContent);
 
     var userJsFileName = options.scriptName + '.js';

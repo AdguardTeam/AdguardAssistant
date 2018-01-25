@@ -36,10 +36,6 @@
     max-width: auto !important;
 }
 
-.adguard-hide {
-    display: none !important;
-}
-
 .adguard-assistant-button-right {
     left: auto;
     right: 0;

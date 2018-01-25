@@ -1,3 +1,4 @@
+const fs = require('fs');
 const gulp = require('gulp');
 const runSequence = require('run-sequence').use(gulp);
 
@@ -21,6 +22,12 @@ const options = global.options = {
     metaPath: null
 };
 
+options.languagesFiles = options.locales.reduce(function(p,c) {
+    p.push('src/_locales/' + c + '.js');
+    return p;
+}, []);
+
+options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
 gulp.task('beta', () => {
     options.debug = true;
@@ -38,7 +45,7 @@ gulp.task('mobile', () => {
     options.debug = true;
     options.metaPath = options.metaDevMobile;
     options.scriptName = 'script';
-    runSequence('css-mobile', 'compile-mobile', 'preprocess');
+    runSequence('clean', 'css-mobile', 'compile-mobile', 'preprocess');
 });
 
 gulp.task('build', () => {

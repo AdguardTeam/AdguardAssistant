@@ -4,7 +4,8 @@
 // @name:uk Помічник AdGuard
 // @name:pl Asystent AdGuarda
 // @name:de AdGuard-Assistent
-// @name:zh 使用 AdGuard 助手
+// @name:zh-CN 使用 AdGuard 助手
+// @name:zh-TW AdGuard 助理
 // @name:he העוזר האישי של אדגארד
 // @name:it Assistente AdGuard
 // @name:fa دستیار AdGuard
@@ -15,6 +16,7 @@
 // @name:ja AdGuardアシスタント
 // @name:es AdGuard Assistant
 // @name:pt AdGuard Assistente
+// @name:pt-PT Assistente do AdGuard
 // @name:ar AdGuardمساعد
 // @name:ko AdGuard 도우미
 // @namespace Adguard
@@ -23,7 +25,8 @@
 // @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
 // @description:pl Zapewnia łatwy i wygodny sposób na zarządzanie filtrowaniem bezpośrednio z przeglądarki
 // @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
-// @description:zh 提供简单方便的方法来管理浏览器筛选
+// @description:zh-CN 提供简单方便的方法来管理浏览器筛选
+// @description:zh-TW 提供簡單的且方便的方法以直接地從該瀏覽器管理過濾
 // @description:he מספק דרך קלה ונוחה לנהל סינון תקין ישירות מהדפדפן
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
 // @description:fa روش راحت و آسان برای مدیریت فیلترینگ مستیق از داخل مرورگر.
@@ -34,6 +37,7 @@
 // @description:ja ブラウザから簡単にフィルタリングを管理する便利な機能を提供します。
 // @description:es Proporciona una forma fácil y cómoda de manejar el filtrado desde el navegador
 // @description:pt Fornece uma maneira fácil e conveniente de gerenciar a filtragem diretamente do seu navegador
+// @description:pt-PT Fornece uma forma fácil e conveniente de gerir a filtragem a partir do seu navegador
 // @description:ar يوفر طريقه سهله ومريحه لأداره التصفية الحقيقة من المتصفح
 // @description:ko 브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다.
 // @version 4.0.18

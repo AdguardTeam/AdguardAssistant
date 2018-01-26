@@ -44,7 +44,7 @@ module.exports = () => {
 
     resources = options.languagesFiles.concat(resources);
 
-    let metaPath = path.join(options.src, options.metaPath);
+    let metaPath = path.join(options.src, '_compiled', options.metaPath);
     let metaContent;
     let finalContent = [];
 

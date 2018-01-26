@@ -66,9 +66,9 @@ module.exports = () => {
         .replace('[UPDATE_URL]', options.downloadUpdateUrlDev + 'assistant.meta.js')
         .replace('[ASSISTANT_VERSION]', options.version);
 
-    return gulp.src(path.join(options.src, '_locales'))
+    return gulp.src(path.join(options.src, '_compiled'))
         .pipe(file(options.metaBuild, compilerMeta))
         .pipe(file(options.metaBeta, compilerMetaBeta))
         .pipe(file(options.metaDev, compilerMetaDev))
-        .pipe(gulp.dest(options.src));
+        .pipe(gulp.dest(path.join(options.src, '_compiled')));
 };

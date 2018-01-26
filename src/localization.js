@@ -31,7 +31,7 @@ var Localization = function() { // jshint ignore:line
         'fr': fr,
         'id': id,
         'sv': sv,
-        'sr': sr
+        'sr': sr_Latn
     };
 
     if (typeof AdguardSettings !== 'undefined') {

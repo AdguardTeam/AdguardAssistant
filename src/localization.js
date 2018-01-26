@@ -24,7 +24,14 @@ var Localization = function() { // jshint ignore:line
         'es': es_419,
         'pt-BR': pt_BR,
         'pt': pt_PT,
-        'ko': ko
+        'ko': ko,
+        'sk': sk,
+        'no': no,
+        'da': da,
+        'fr': fr,
+        'id': id,
+        'sv': sv,
+        'sr': sr
     };
 
     if (typeof AdguardSettings !== 'undefined') {

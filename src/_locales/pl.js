@@ -1,6 +1,6 @@
 var pl = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "Rozpocznij",
+    "assistant_select_element_text": "Wybierz element na stronie do zablokowania. Od\u015bwie\u017c stron\u0119, aby anulowa\u0107 tryb blokowania elementu.",
     "menu_filtration_status": {
         "message": "Filtrowanie na tej stronie internetowej"
     },

@@ -1,6 +1,6 @@
 var he = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "\u05d4\u05ea\u05d7\u05dc",
+    "assistant_select_element_text": ".\u05d1\u05d7\u05e8 \u05d0\u05dc\u05de\u05e0\u05d8 \u05d1\u05d3\u05e3 \u05dc\u05d7\u05e1\u05d9\u05de\u05d4 .\u05e8\u05e2\u05e0\u05df \u05d0\u05ea \u05d4\u05d3\u05e3 \u05db\u05d3\u05d9 \u05dc\u05d1\u05d8\u05dc \u05d0\u05ea \u05de\u05e6\u05d1 \u05d7\u05e1\u05d9\u05de\u05ea \u05d4\u05d0\u05dc\u05de\u05e0\u05d8\u05d9\u05dd",
     "menu_filtration_status": {
         "message": "\u05e1\u05d9\u05e0\u05d5\u05df \u05d1\u05d0\u05ea\u05e8 \u05d6\u05d4"
     },

@@ -9,9 +9,6 @@
 // @name:he העוזר האישי של אדגארד Dev
 // @name:it Assistente AdGuard Dev
 // @name:fa دستیار AdGuard Dev
-// @name:sr Koristi Adguard-ovog pomoćnika Dev
-// @name:es Asistente de Adguard Dev
-// @name:id Asisten Aguard Dev
 // @name:tr AdGuard Assistant Dev
 // @name:ja AdGuardアシスタント Dev
 // @name:es AdGuard Assistant Dev
@@ -19,6 +16,13 @@
 // @name:pt Assistente do AdGuard Dev
 // @name:ar AdGuardمساعد Dev
 // @name:ko AdGuard 도우미 Dev
+// @name:sk AdGuard asistant Dev
+// @name:no AdGuard-assistent Dev
+// @name:da AdGuard Assistent Dev
+// @name:fr Assistant AdGuard  Dev
+// @name:id Asisten Aguard Dev
+// @name:sv AdGuard-assistent Dev
+// @name:sr Koristi Adguard-ovog pomoćnika Dev
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
@@ -30,9 +34,6 @@
 // @description:he מספק דרך קלה ונוחה לנהל סינון תקין ישירות מהדפדפן
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
 // @description:fa روش راحت و آسان برای مدیریت فیلترینگ مستیق از داخل مرورگر.
-// @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
-// @description:es Permite fácilmente gestionar los filtros desde el navegador
-// @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:tr Filtrelemeyi, tarayıcıdan doğrudan kolayca yönetmenizi sağlar.
 // @description:ja ブラウザから簡単にフィルタリングを管理する便利な機能を提供します。
 // @description:es Proporciona una forma fácil y cómoda de manejar el filtrado desde el navegador
@@ -40,6 +41,13 @@
 // @description:pt Fornece uma forma fácil e conveniente de gerir a filtragem a partir do seu navegador
 // @description:ar يوفر طريقه سهله ومريحه لأداره التصفية الحقيقة من المتصفح
 // @description:ko 브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다.
+// @description:sk Poskytuje jednoduchý a pohodlný spôsob manažmentu filtrov priamo z prehliadača
+// @description:no Tilbyr en enkel og praktisk måte å administrere filtrering rett fra nettleseren
+// @description:da Sørger for en nem og behagelig måde til at administrere filtrering lige fra browseren
+// @description:fr Fournit un moyen facile et pratique pour gérer le filtrage des droit à partir du navigateur
+// @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
+// @description:sv Erbjuder ett enkelt och bekvämt sätt att hantera filtrering direkt i webbläsaren
+// @description:sr Pruža lak i zgodan način za upravljanje filtriranjem direktno iz pregledača.
 // @version 4.0.18
 // @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js

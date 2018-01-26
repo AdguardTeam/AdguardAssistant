@@ -1,0 +1,130 @@
+var zh_TW = {
+    "assistant_select_element_start": "\u958b\u59cb",
+    "assistant_select_element_text": "\u9078\u64c7\u65bc\u6b64\u9801\u9762\u4e0a\u4e4b\u5143\u4ef6\u4f86\u5c01\u9396\u3002\u91cd\u65b0\u6574\u7406\u8a72\u9801\u9762\u4ee5\u53d6\u6d88\u5143\u4ef6\u5c01\u9396\u6a21\u5f0f\u3002",
+    "menu_filtration_status": {
+        "message": "\u65bc\u6b64\u7db2\u7ad9\u4e0a\u4e4b\u904e\u6ffe"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "\u572830\u79d2\u5167\u4e0d\u8981\u904e\u6ffe"
+    },
+    "menu_block_ad_on_site": {
+        "message": "\u5c01\u9396\u65bc\u6b64\u7db2\u7ad9\u4e0a\u4e4b\u5ee3\u544a"
+    },
+    "menu_report_abuse": {
+        "message": "\u5831\u544a\u8a72\u7db2\u7ad9"
+    },
+    "menu_site_report": {
+        "message": "\u7db2\u7ad9\u5b89\u5168\u5831\u544a"
+    },
+    "menu_settings": {
+        "message": "\u52a9\u7406\u8a2d\u5b9a"
+    },
+    "assistant_select_element": {
+        "message": "\u5143\u4ef6\u5c01\u9396"
+    },
+    "assistant_select_element_ext": {
+        "message": "\u9078\u64c7\u65bc\u6b64\u9801\u9762\u4e0a\u4e4b\u5143\u4ef6\u4f86\u5c01\u9396"
+    },
+    "assistant_select_element_cancel": {
+        "message": "\u53d6\u6d88"
+    },
+    "assistant_block_element": {
+        "message": "\u5143\u4ef6\u5c01\u9396"
+    },
+    "assistant_block_element_explain": {
+        "message": "\u8abf\u6574\u5143\u4ef6\u5c01\u9396\u898f\u5247"
+    },
+    "assistant_slider_explain": {
+        "message": "\u79fb\u52d5\u6ed1\u6a19\u4ee5\u66f4\u6539\u6846\u67b6\u7684\u5c3a\u5bf8\u3002\u65b0\u7684\u898f\u5247\u5c07\u4f5c\u7528\u65bc\uff1a"
+    },
+    "assistant_slider_min": {
+        "message": "\u6700\u5c0f"
+    },
+    "assistant_slider_max": {
+        "message": "\u6700\u5927"
+    },
+    "assistant_extended_settings": {
+        "message": "\u9032\u968e\u8a2d\u5b9a"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "\u5957\u7528\u6b64\u5c0d\u6240\u6709\u7684\u7db2\u7ad9\u4e4b\u898f\u5247"
+    },
+    "assistant_block_by_reference": {
+        "message": "\u6309\u7167\u53c3\u8003\u9023\u7d50\u5c01\u9396"
+    },
+    "assistant_block_similar": {
+        "message": "\u5c01\u9396\u76f8\u4f3c\u4e4b\u7269"
+    },
+    "assistant_another_element": {
+        "message": "\u9078\u64c7\u53e6\u4e00\u500b\u5143\u4ef6"
+    },
+    "assistant_preview": {
+        "message": "\u9810\u89bd"
+    },
+    "assistant_block": {
+        "message": "\u5c01\u9396"
+    },
+    "assistant_settings": {
+        "message": "\u52a9\u7406\u8a2d\u5b9a"
+    },
+    "assistant_preview_header": {
+        "message": "\u5143\u4ef6\u5c01\u9396 - \u9810\u89bd"
+    },
+    "assistant_preview_header_info": {
+        "message": "\u78ba\u5b9a\u5143\u4ef6\u5982\u9810\u671f\u7684\u88ab\u5c01\u9396"
+    },
+    "assistant_preview_end": {
+        "message": "\u96e2\u958b\u9810\u89bd"
+    },
+    "wot_unknown_description": {
+        "message": "\u4fe1\u8b7d\u672a\u88ab\u754c\u5b9a"
+    },
+    "wot_bad_description": {
+        "message": "\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+    },
+    "wot_poor_description": {
+        "message": "\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+    },
+    "wot_good_description": {
+        "message": "\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+    },
+    "wot_excellent_description": {
+        "message": "\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+    },
+    "settings_choose_size_and_position": {
+        "message": "\u8abf\u6574 AdGuard \u52a9\u7406 \u5c3a\u5bf8\u548c\u4f4d\u7f6e"
+    },
+    "settings_icon_size": {
+        "message": "\u5716\u793a\u5c3a\u5bf8\uff1a"
+    },
+    "settings_small": {
+        "message": "\u5c0f\u7684"
+    },
+    "settings_big": {
+        "message": "\u5927\u7684"
+    },
+    "settings_position": {
+        "message": "\u4f4d\u7f6e\uff1a"
+    },
+    "settings_left_top": {
+        "message": "\u5de6\u4e0a\u89d2"
+    },
+    "settings_right_top": {
+        "message": "\u53f3\u4e0a\u89d2"
+    },
+    "settings_left_bottom": {
+        "message": "\u5de6\u4e0b\u89d2"
+    },
+    "settings_right_bottom": {
+        "message": "\u53f3\u4e0b\u89d2"
+    },
+    "settings_cancel": {
+        "message": "\u53d6\u6d88"
+    },
+    "settings_save": {
+        "message": "\u5132\u5b58\u66f4\u6539"
+    }
+}

@@ -1,6 +1,6 @@
 var ar = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "\u0628\u062f\u0621",
+    "assistant_select_element_text": "\u0627\u062e\u062a\u0631 \u0639\u0646\u0635\u0631\u0627 \u0641\u064a \u0627\u0644\u0635\u0641\u062d\u0629 \u0644\u0644\u062d\u0638\u0631\u0642\u0645 \u0628\u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0635\u0641\u062d\u0629 \u0644\u0627\u0644\u063a\u0627\u0621 \u0648\u0636\u0639 \u062d\u0638\u0631 \u0627\u0644\u0639\u0646\u0635\u0631.",
     "menu_filtration_status": {
         "message": "\u062a\u0641\u0639\u064a\u0644 \u0627\u0644\u0641\u0644\u062a\u0631\u0629\u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639"
     },

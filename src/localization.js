@@ -13,7 +13,7 @@ var Localization = function() { // jshint ignore:line
         'uk': uk,
         'pl': pl,
         'de': de,
-        'zh-CN': zh_CN,
+        'zh': zh_CN,
         'zh-TW': zh_TW,
         'he': he,
         'it': it,
@@ -23,7 +23,7 @@ var Localization = function() { // jshint ignore:line
         'ar': ar,
         'es': es_419,
         'pt-BR': pt_BR,
-        'pt-PT': pt_PT,
+        'pt': pt_PT,
         'ko': ko
     };
 

@@ -4,7 +4,7 @@
 // @name:uk Помічник AdGuard Dev
 // @name:pl Asystent AdGuarda Dev
 // @name:de AdGuard-Assistent Dev
-// @name:zh-CN 使用 AdGuard 助手 Dev
+// @name:zh 使用 AdGuard 助手 Dev
 // @name:zh-TW AdGuard 助理 Dev
 // @name:he העוזר האישי של אדגארד Dev
 // @name:it Assistente AdGuard Dev
@@ -15,8 +15,8 @@
 // @name:tr AdGuard Assistant Dev
 // @name:ja AdGuardアシスタント Dev
 // @name:es AdGuard Assistant Dev
-// @name:pt AdGuard Assistente Dev
-// @name:pt-PT Assistente do AdGuard Dev
+// @name:pt-BR AdGuard Assistente Dev
+// @name:pt Assistente do AdGuard Dev
 // @name:ar AdGuardمساعد Dev
 // @name:ko AdGuard 도우미 Dev
 // @namespace Adguard
@@ -25,7 +25,7 @@
 // @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
 // @description:pl Zapewnia łatwy i wygodny sposób na zarządzanie filtrowaniem bezpośrednio z przeglądarki
 // @description:de Bietet einen einfachen und nützlichen Weg die Filterung direkt im Browser zu verwalten
-// @description:zh-CN 提供简单方便的方法来管理浏览器筛选
+// @description:zh 提供简单方便的方法来管理浏览器筛选
 // @description:zh-TW 提供簡單的且方便的方法以直接地從該瀏覽器管理過濾
 // @description:he מספק דרך קלה ונוחה לנהל סינון תקין ישירות מהדפדפן
 // @description:it Fornisce un modo facile e comodo per gestire il filtraggio direttamente dal browser
@@ -36,8 +36,8 @@
 // @description:tr Filtrelemeyi, tarayıcıdan doğrudan kolayca yönetmenizi sağlar.
 // @description:ja ブラウザから簡単にフィルタリングを管理する便利な機能を提供します。
 // @description:es Proporciona una forma fácil y cómoda de manejar el filtrado desde el navegador
-// @description:pt Fornece uma maneira fácil e conveniente de gerenciar a filtragem diretamente do seu navegador
-// @description:pt-PT Fornece uma forma fácil e conveniente de gerir a filtragem a partir do seu navegador
+// @description:pt-BR Fornece uma maneira fácil e conveniente de gerenciar a filtragem diretamente do seu navegador
+// @description:pt Fornece uma forma fácil e conveniente de gerir a filtragem a partir do seu navegador
 // @description:ar يوفر طريقه سهله ومريحه لأداره التصفية الحقيقة من المتصفح
 // @description:ko 브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다.
 // @version 4.0.18

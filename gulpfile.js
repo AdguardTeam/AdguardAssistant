@@ -8,7 +8,6 @@ const options = global.options = {
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
     metaDev: 'compiler.meta.dev.js',
-    metaDevMobile: 'compiler.meta.template.mobile.js',
     downloadUpdateUrlBuild: 'https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/',
     downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
@@ -43,7 +42,6 @@ gulp.task('dev', () => {
 
 gulp.task('mobile', () => {
     options.debug = true;
-    options.metaPath = options.metaDevMobile;
     options.scriptName = 'script';
     runSequence('clean', 'css-mobile', 'compile-mobile', 'preprocess');
 });
@@ -56,7 +54,6 @@ gulp.task('build', () => {
 
 gulp.task('mobile-build', () => {
     options.debug = true;
-    options.metaPath = options.metaDevMobile;
     options.scriptName = 'script';
     runSequence('css-mobile', 'compile-mobile', 'preprocess', 'uglify');
 });

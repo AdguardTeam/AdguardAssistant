@@ -30,8 +30,10 @@ module.exports = () => {
 
             if (language === 'es-419') {
                 language = 'es';
-            } else if (language === 'pt-BR') {
+            } else if (language === 'pt-PT') {
                 language = 'pt';
+            } else if (language === 'zh-CN') {
+                language = 'zh';
             }
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);
@@ -64,13 +66,9 @@ module.exports = () => {
         .replace('[UPDATE_URL]', options.downloadUpdateUrlDev + 'assistant.meta.js')
         .replace('[ASSISTANT_VERSION]', options.version);
 
-    let metaBuildPath = path.join(options.src, '_locales', options.metaBuild);
-    let metaBetaPath = path.join(options.src, '_locales', options.metaBeta);
-    let metaDevPath = path.join(options.src, '_locales', options.metaDev);
-
-    return gulp.src(options.localesDir)
-        .pipe(file(metaBuildPath, compilerMeta))
-        .pipe(file(metaBetaPath, compilerMetaBeta))
-        .pipe(file(metaDevPath, compilerMetaDev))
-        .pipe(gulp.dest(process.cwd()));
+    return gulp.src(path.join(options.src, '_locales'))
+        .pipe(file(options.metaBuild, compilerMeta))
+        .pipe(file(options.metaBeta, compilerMetaBeta))
+        .pipe(file(options.metaDev, compilerMetaDev))
+        .pipe(gulp.dest(options.src));
 };

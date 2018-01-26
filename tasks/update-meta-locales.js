@@ -34,6 +34,8 @@ module.exports = () => {
                 language = 'pt';
             } else if (language === 'zh-CN') {
                 language = 'zh';
+            } else if (language === 'sr-Latn') {
+                language = 'sr';
             }
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);

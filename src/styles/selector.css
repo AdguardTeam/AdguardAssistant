@@ -8,11 +8,6 @@
     display: none!important;
 }
 
-.sg_suggested {
-    background-color: #FF5 !important;
-    background-image: none !important;
-}
-
 .sg_border {
     position: absolute !important;
     z-index: 2147483646 !important;
@@ -57,10 +52,6 @@
 
 img.sg_rejected {
     border: 5px solid #F00 !important;
-}
-
-img.sg_suggested {
-    border: 5px solid #FF5 !important;
 }
 
 img.sg_selected {

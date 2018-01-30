@@ -46,14 +46,14 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
         if (!selectedElement) {
             return;
         }
-        $(selectedElement).addClass('adguard-hide');
+        $(selectedElement).addClass('sg_hide_element');
     };
 
     var showElement = function () {
         if (!selectedElement) {
             return;
         }
-        $(selectedElement).removeClass('adguard-hide');
+        $(selectedElement).removeClass('sg_hide_element');
     };
 
     var selectAnotherElement = function () {

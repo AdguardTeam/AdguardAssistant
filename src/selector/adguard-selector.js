@@ -10,9 +10,7 @@ var AdguardSelectorLib = (function(api, $) {
     var placeholdedElements = null;
 
     var restrictedElements = null;
-    var predictionHelper = null;
 
-    var SUGGESTED_CLASS = 'sg_suggested';
     var SELECTED_CLASS = 'sg_selected';
     var REJECTED_CLASS = 'sg_rejected';
     var IGNORED_CLASS = 'sg_ignore';
@@ -34,59 +32,14 @@ var AdguardSelectorLib = (function(api, $) {
         $('.' + className).removeClass(className);
     };
 
-    var suggestPredicted = function(prediction) {
-        if (prediction) {
-            $(prediction).each(function() {
-                if (!$(this).hasClass(SELECTED_CLASS) &&
-                    !$(this).hasClass(IGNORED_CLASS) &&
-                    !$(this).hasClass(REJECTED_CLASS)
-                ) {
-                    $(this).addClass(SUGGESTED_CLASS);
-                }
-            });
-        }
-    };
-
-    var makePredictionPath = function(elem) {
-        var w_elem = $(elem);
-
-        if (w_elem.hasClass(SELECTED_CLASS)) {
-            w_elem.removeClass(SELECTED_CLASS);
-            selectedElements.splice($.inArray(elem, selectedElements), 1);
-        } else if (w_elem.hasClass(REJECTED_CLASS)) {
-            w_elem.removeClass(REJECTED_CLASS);
-            rejectedElements.splice($.inArray(elem, rejectedElements), 1);
-        } else if (w_elem.hasClass(SUGGESTED_CLASS)) {
-            w_elem.addClass(REJECTED_CLASS);
-            rejectedElements.push(elem);
-        } else {
-            if (selectMode == 'exact' && selectedElements.length > 0) {
-                removeClassName(SELECTED_CLASS);
-                selectedElements = [];
-            }
-            //w_elem.addClass('sg_selected');
-            selectedElements.push(elem);
-        }
-
-        var prediction = predictionHelper.predictCss(selectedElements,
-            rejectedElements.concat(restrictedElements));
-
-        if (selectMode == 'similar') {
-            removeClassName(SUGGESTED_CLASS);
-            suggestPredicted(prediction);
-        }
-
-        return prediction;
-    };
-
     var firstSelectedOrSuggestedParent = function(element) {
-        if ($(element).hasClass(SUGGESTED_CLASS) || $(element).hasClass(SELECTED_CLASS)) {
+        if ($(element).hasClass(SELECTED_CLASS)) {
             return element;
         }
 
         while (element.parentNode && (element = element.parentNode)) {
             if (restrictedElements.indexOf(element) == -1) {
-                if ($(element).hasClass(SUGGESTED_CLASS) || $(element).hasClass(SELECTED_CLASS)) {
+                if ($(element).hasClass(SELECTED_CLASS)) {
                     return element;
                 }
             }
@@ -115,7 +68,6 @@ var AdguardSelectorLib = (function(api, $) {
         removeClassName(REJECTED_CLASS);
 
         selectionRenderer.remove();
-        removeClassName(SUGGESTED_CLASS);
     };
 
     /**
@@ -440,8 +392,6 @@ var AdguardSelectorLib = (function(api, $) {
             return;
         }
 
-        makePredictionPath(elem);
-
         selectionRenderer.remove();
 
         onElementSelectedHandler(elem);
@@ -550,7 +500,6 @@ var AdguardSelectorLib = (function(api, $) {
         restrictedElements = ['html', 'body', 'head', 'base'].map(function(selector) {
             return $(selector).get(0);
         });
-        predictionHelper = new DomPredictionHelper($, String);
 
         selectionRenderer.init();
         setupEventHandlers();

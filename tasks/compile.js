@@ -24,8 +24,6 @@ module.exports = () => {
         'src/utils/ui-utils.js',
         'src/utils/common-utils.js',
         'src/event.js',
-        'src/selector/diff_match_patch.js',
-        'src/selector/dom.patched.js',
         'src/selector/adguard-selector.js',
         'src/adguard-rules-constructor.js',
         'compile/iframe.js',

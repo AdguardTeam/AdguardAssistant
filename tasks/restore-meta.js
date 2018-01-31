@@ -13,7 +13,7 @@ module.exports = () => {
 
     const options = global.options || {};
 
-    var userJsFileName = options.scriptName + '.user.js';
+    var userJsFileName = options.scriptName + options.ext;
     var metaString = fs.readFileSync(path.join(options.outputPath, 'assistant.meta.js')).toString();
     var scriptContent = fs.readFileSync(path.join(options.outputPath, userJsFileName)).toString();
     var finalString = metaString + '\n\r' + scriptContent;

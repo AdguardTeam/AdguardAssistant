@@ -2,15 +2,18 @@
  * Uglify js.
  */
 
+const path = require('path');
 const gulp = require('gulp');
-const uglify = require('gulp-uglify');
+const minify = require('gulp-minify');
 
 module.exports = () => {
-    const options = global.options || {};
+    var userJsFileName = options.scriptName + '.user.js';
 
-    return gulp.src(options.outputPath + '/*.js')
-        .pipe(uglify({
-            mangle: false
+    return gulp.src(path.join(options.outputPath, userJsFileName))
+        .pipe(minify({
+            ext: {
+                min: '.min.js'
+            }
         }))
-        .pipe(gulp.dest(options.outputPath));
+        .pipe(gulp.dest('build'))
 };

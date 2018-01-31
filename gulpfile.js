@@ -17,8 +17,9 @@ const options = global.options = {
     localesDir: 'locales',
     sourceFile: 'en.json',
     sourceFileMeta: 'en.meta.json',
-    debug: false,
-    metaPath: null
+    debug: true,
+    metaPath: null,
+    ext: '.user.js'
 };
 
 options.languagesFiles = options.locales.reduce(function(p,c) {
@@ -29,13 +30,11 @@ options.languagesFiles = options.locales.reduce(function(p,c) {
 options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
 gulp.task('beta', () => {
-    options.debug = true;
     options.metaPath = options.metaBeta;
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
 gulp.task('dev', () => {
-    options.debug = true;
     options.metaPath = options.metaDev;
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
@@ -43,7 +42,12 @@ gulp.task('dev', () => {
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
-    runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta');
+    runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
+});
+
+gulp.task('restore-meta-min', () => {
+    options.ext = '.user.min.js';
+    runSequence('restore-meta');
 });
 
 gulp.task('locales', () => {

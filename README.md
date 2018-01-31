@@ -64,15 +64,3 @@ For production build run:
     $ gulp build
 
 This will compile the `assistant.user.js` file with minification and uglify.
-
-### Mobile build
-
-Mobile build is available [here](https://AdguardTeam.github.io/AdguardAssistant/mobile/script.js).
-
-In the mobile Assistant, the rules are specified via this function:
-
-```
-adguardAssistant.start(function(ruleText) {
-
-});
-```

@@ -1,0 +1,169 @@
+// menu
+
+:host {
+    display: block;
+    position: relative;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    z-index: 9999999999;
+}
+
+#adguard-assistant-dialog {
+    position: fixed;
+    clip: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 10px 3px rgba(162, 161, 161, .3);
+}
+
+.menu-head {
+    padding: @base-offset - 2 @base-offset;
+    cursor: move;
+    touch-action: none;
+    -ms-touch-action: none;
+
+    &_title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #343434;
+    }
+
+    &_name {
+        display: inline-block;
+        vertical-align: top;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 230px;
+        line-height: 26px;
+    }
+
+    &_text {
+        margin: 4px 10px 0 0;
+        font-size: 12px;
+        color: #343434;
+    }
+}
+
+.menu-filter {
+    width: 100%;
+    display: table;
+    &:extend(.cf-mix all);
+    padding: @base-offset;
+    border-top: 1px solid @border-color;
+
+    &_lbl {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &_val {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    &_label {
+        position: relative;
+        width: 30px;
+        height: 12px;
+        border-radius: 25px;
+        background-color: @assist-red37light;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:after {
+            content: "";
+            cursor: pointer;
+            border-radius: 100%;
+            position: absolute;
+            left: -3px;
+            top: -4px;
+            box-shadow: 0 0 10px 3px @assist-grey-shadow;
+            width: 20px;
+            height: 20px;
+            background-color: @assist-red37;
+            transition: all 0.3s ease;
+        }
+    }
+
+    &_handle {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 1px;
+        left: 1px;
+        border-radius: 4px;
+        background: #fff;
+    }
+
+    &_input {
+        &:extend(.form-ui-control);
+
+        &:checked {
+            & + .menu-filter_label {
+                background-color: @assist-greenc1;
+
+                &:after {
+                    left: 12px;
+                    background-color: @assist-green72;
+                }
+            }
+        }
+    }
+}
+
+.menu {
+    border-top: 1px solid @border-color;
+
+    &__btn {
+        position: relative;
+        cursor: pointer;
+        line-height: 40px;
+        height: 40px;
+        background-repeat: no-repeat;
+        background-position: 20px 50%;
+        transition: 0.3s ease;
+        padding: 0 20px 0 60px;
+        .ellipsis;
+
+        &:hover {
+            background-color: @assist-green02;
+        }
+
+        &--clock {
+            background-image: url("img/clock.svg");
+            background-size: 16px 19px;
+        }
+
+        &--landscape {
+            background-image: url("img/landscape.svg");
+            background-size: 19px 17px;
+        }
+
+        &--report {
+            background-image: url("img/report.svg");
+            background-size: 16px 17px;
+        }
+
+        &--security {
+            background-image: url("img/security.svg");
+            background-size: 15px 16px;
+        }
+
+        &--extensions {
+            background-image: url("img/extensions.svg");
+            background-size: 18px;
+        }
+
+        &--settings {
+            background-image: url("img/settings.svg");
+            background-size: 19px;
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+}

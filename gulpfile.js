@@ -40,22 +40,10 @@ gulp.task('dev', () => {
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
-gulp.task('mobile', () => {
-    options.debug = true;
-    options.scriptName = 'script';
-    runSequence('clean', 'css-mobile', 'compile-mobile', 'preprocess');
-});
-
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
     runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta');
-});
-
-gulp.task('mobile-build', () => {
-    options.debug = true;
-    options.scriptName = 'script';
-    runSequence('css-mobile', 'compile-mobile', 'preprocess', 'uglify');
 });
 
 gulp.task('locales', () => {
@@ -70,21 +58,14 @@ gulp.task('testsToGhPages', () => {
     ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
-gulp.task('mobileToGhPages', () => {
-    return gulp.src('build/**').pipe(gulp.dest(options.outputPath + '/mobile/'));
-});
-
 
 gulp.task('compile', require('./tasks/compile'));
-gulp.task('compile-mobile', require('./tasks/compile.mobile'));
 gulp.task('restore-meta', require('./tasks/restore-meta'));
 gulp.task('clean', require('./tasks/clean'));
 gulp.task('preprocess', require('./tasks/preprocess'));
 gulp.task('uglify', require('./tasks/uglify'));
 gulp.task('watch', require('./tasks/watch'));
-gulp.task('watch-mobile', require('./tasks/watch-mobile'));
 gulp.task('download-localization', require('./tasks/download-localization'));
 gulp.task('append-locales', require('./tasks/append-locales'));
 gulp.task('update-meta-locales', require('./tasks/update-meta-locales'));
 gulp.task('css', require('./tasks/css'));
-gulp.task('css-mobile', require('./tasks/css-mobile'));

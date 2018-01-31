@@ -34,9 +34,11 @@ module.exports = () => {
         'src/controllers/mainMenuController.js',
         'src/controllers/selectorMenuController.js',
         'src/controllers/sliderMenuController.js',
+        'src/controllers/SliderMenuControllerMobile.js',
         'src/controllers/blockPreviewController.js',
         'src/controllers/settingsMenuController.js',
         'compile/button.js',
+        'compile/mobile.js',
         'src/main.js'
     ];
 
@@ -48,8 +50,8 @@ module.exports = () => {
 
     const buttonInlineResources = {
         "TEMPLATE_BUTTON": './src/templates/button.html',
-        "CSS_BUTTON": './src/styles/button.css',
-        "CSS_SELECTOR": './src/styles/selector.css'
+        "CSS_BUTTON": './compile/button.css',
+        "CSS_SELECTOR": './compile/selector.css'
     };
 
     const mainMenuInlineResources = {
@@ -58,7 +60,14 @@ module.exports = () => {
         "TEMPLATE_SETTINGSMENU": './src/templates/settingsMenu.html',
         "TEMPLATE_SLIDERMENU": './src/templates/sliderMenu.html',
         "TEMPLATE_BLOCKPREVIEW": './src/templates/blockPreview.html',
-        "CSS_IFRAME": './src/styles/style.css'
+        "CSS_IFRAME": './compile/menu.css'
+    };
+
+    const mobileInlineResources = {
+        "CSS_SELECTOR": './compile/selector.css',
+        "CSS_MOBILE": './compile/mobile-style.css',
+        "TEMPLATE_POPUP": './src/templates/mobilePopup.html',
+        "TEMPLATE_MENU": './src/templates/mobileMenu.html',
     };
 
     try {
@@ -73,9 +82,11 @@ module.exports = () => {
     var prepareResources = function() {
         const button = fs.readFileSync('./src/button.js').toString();
         const iframe = fs.readFileSync('./src/iframe.js').toString();
+        const mobileMenu = fs.readFileSync('./src/iframe.mobile.js').toString();
 
         const buttonResources = (new InlineResource(buttonInlineResources)).inline(button);
         const iframeResources = (new InlineResource(mainMenuInlineResources)).inline(iframe);
+        const mobileMenuResources = (new InlineResource(mobileInlineResources)).inline(mobileMenu);
 
         if (!fs.existsSync('compile')) {
             fs.mkdirSync('compile');
@@ -83,6 +94,7 @@ module.exports = () => {
 
         fs.writeFileSync('./compile/button.js', buttonResources);
         fs.writeFileSync('./compile/iframe.js', iframeResources);
+        fs.writeFileSync('./compile/mobile.js', mobileMenuResources);
     };
 
     var prepareRequires = function() {

@@ -1,0 +1,194 @@
+@import "base/variables";
+@import "mixins/mixins";
+@import "base/fonts";
+@import "base/base-common";
+
+body {
+    padding: 1px;
+}
+
+.main {
+    position: relative;
+    padding: 30px 10px;
+    background: #fff;
+
+    .footer {
+        letter-spacing: 5px;
+    }
+
+    &-version {
+        position: absolute;
+        bottom: 0;
+        right: 7px;
+        color: #eee;
+        font-size: 12px;
+    }
+
+    &-popup {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px;
+        box-shadow: 0 0px 20px 0 rgba(0,0,0,.2);
+
+        &__logo {
+            background-image: url(img/logo-new.svg);
+            width: 35px;
+            height: 37px;
+            background-repeat: no-repeat;
+        }
+
+        &__title {
+            font-size: 16px;
+        }
+
+        &__content {
+            font-size: 13px;
+            padding: 0 25px;
+            margin-bottom: 25px;
+        }
+
+        &__btn {
+            font-size: 14px;
+            padding: 10px;
+            width: 110px;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            background: #fff;
+
+            &:hover {
+                background-color: #f6f6f6;
+            }
+
+            &--green {
+                color: #ffffff;
+                border: 1px solid #66B574;
+                background-color: #66B574;
+                box-shadow: none;
+
+                &:hover {
+                    background-color: #5ea76b;
+                    color: #fff;
+                }
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+
+    &-menu {
+        margin: 20px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 2px;
+        box-shadow: 0 0 20px -2px rgba(0,0,0,.3);
+
+        &__btn {
+            font-size: 0;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dedede;
+            border-radius: 3px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: relative;
+            background-color: #fff;
+
+            &:hover {
+                background-color: #d0f0d6;
+            }
+
+            &:active, &.active {
+                background-color: #66B574;
+                box-shadow: inset 2px 2px 3px 0 rgba(92, 92, 92, 0.5);
+            }
+
+            &--accept {
+                background-image: url(img/check.svg);
+            }
+
+            &--preview {
+                background-image: url(img/eye-color.svg);
+
+                &:active, &.active {
+                    background-image: url(img/eye.svg);
+                }
+            }
+
+            &--plus {
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: 16px;
+                    top: 18px;
+                    left: 11px;
+                    background-color: #555555;
+                }
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    width: 2px;
+                    height: 16px;
+                    left: 18px;
+                    top: 11px;
+                    background-color: #555555;
+                }
+
+                &:active {
+                    &:after {
+                        background-color: #fff;
+                    }
+
+                    &:before {
+                        background-color: #fff;
+                    }
+                }
+            }
+
+            &--minus {
+                &:after {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: 16px;
+                    top: 18px;
+                    left: 11px;
+                    background-color: #555555;
+                }
+
+                &:active {
+                    &:after {
+                        background-color: #fff;
+                    }
+
+                    &:before {
+                        background-color: #fff;
+                    }
+                }
+            }
+
+            &--close {
+                background-image: url(img/cross-color.svg);
+
+                &:active {
+                    background-image: url(img/cross.svg);
+                }
+            }
+
+            &:disabled {
+                background-color: #efefef;
+
+                &:after, &:before {
+                    opacity: .7;
+                }
+            }
+        }
+    }
+}

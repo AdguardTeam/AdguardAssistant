@@ -22,6 +22,7 @@ You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam
 
 Built automatically on every new commit:
 [Unminified version to be used in the browser extensions](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)
+
 [Minified version to be used in AdGuard for iOS](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js)
 
 Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssistant/test/).

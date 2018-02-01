@@ -17,35 +17,11 @@
 
             &__pos {
                 margin-top: 21px;
-                @media (max-width: @mobile) {
-                    margin-top: 0;
-                }
-            }
-            @media (max-width: @mobile) {
-                width: auto;
             }
         }
 
         &_val {
             margin: 0 0 0 126px;
-            @media (max-width: @mobile) {
-                margin: 0;
-            }
-        }
-        @media (max-width: @mobile) {
-            display: flex;
-            flex-direction: column;
-            padding: @mobile-base-offset;
-            border-top: 0;
-        }
-    }
-
-    &__horizontal {
-        @media (max-width: @mobile) {
-            display: flex;
-            justify-content: space-between;
-            padding-left: 15px;
-            padding-right: 15px;
         }
     }
 }
@@ -55,16 +31,10 @@
     font-size: 14px;
 
     &_field {
-        margin: 8px 0 0;
-        @media (max-width: @mobile) {
-            margin: 0;
-        }
+        margin: 10px 0 0;
 
         &:first-child {
             margin: 0;
-            @media (max-width: @mobile) {
-                margin-right: 14px;
-            }
         }
     }
 
@@ -72,18 +42,25 @@
         display: none;
         position: absolute;
         top: 0;
-        right: 0;
+        right: 10px;
+        width: 60px;
+        height: 60px;
+        background-image: url("img/logo.svg");
+        background-size: 30px;
+        background-position: 50% 17px;
+        background-repeat: no-repeat;
+        background-color: #fff;
+        border: none ;
+        box-shadow: 0 0 10px 3px rgba(162, 161, 161, .3) ;
+        border-radius: 100% ;
 
-        .a-logo {
-            margin: 6px 0 0;
-
-            &__small {
-                margin: 14px 8px 0 0;
-            }
-        }
-        @media (max-width: @mobile) {
-            top: 30px;
-            right: calc(50% - 20px);
+        &.logo__small {
+            top: 15px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background-position: 50% 8px;
+            background-size: 16px;
         }
     }
 
@@ -92,12 +69,6 @@
             & ~ .choice-size_logo {
                 display: block;
             }
-        }
-    }
-
-    &_group {
-        @media (max-width: @mobile) {
-            display: flex;
         }
     }
 }
@@ -188,10 +159,5 @@
         left: 82px;
         font-size: 12px;
         white-space: nowrap;
-        @media (max-width: @mobile) {
-            top: 74px;
-            left: 0;
-        }
     }
 }
-// /change-position

@@ -109,7 +109,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     var setPositionSettingsToButton = function(button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
-            $(button.getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
+            $(button).addClass('logo-small');
         }
         if (setUserPositionIfExists(button)) {
             return;

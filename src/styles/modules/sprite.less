@@ -1,8 +1,6 @@
 // sprite
 
-
-
-.close{
+.close {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -11,42 +9,38 @@
     width: 1em;
     font-size: 12px;
     line-height: 1;
-    background: url(img/close.svg) no-repeat 0 0 / cover;
-    opacity: .2;
+    background: url("img/close.svg") no-repeat 0 0 / cover;
+    opacity: 0.2;
     cursor: pointer;
-    &:before{
+
+    &:before {
         content: "\00a0";
     }
-    &:hover{
-        opacity: .5;
+
+    &:hover {
+        opacity: 0.5;
     }
-    @media (max-width: @mobile){
+    @media (max-width: @mobile) {
         font-size: 15px;
         top: 18px;
         right: 14px;
     }
 }
 
-
-
-
-.logo{
+.logo {
     display: inline-block;
     vertical-align: top;
     width: 1em;
     line-height: 1;
-  background: url(img/logo.svg) no-repeat 0px 0px;
-  background-size: 100%;
-  &:before{
+    background: url("img/logo.svg") no-repeat 0 0;
+    background-size: 100%;
+
+    &:before {
         content: "\00a0";
-    }
-    &__white{
-        background-image: url(img/logo-white.svg);
     }
 }
 
-
-.a-logo{
+.a-logo {
     display: inline-block;
     vertical-align: top;
     width: 40px;
@@ -57,7 +51,8 @@
     border: 1px solid #cdcdcd;
     border-radius: 50%;
     background: #fff;
-    &__small{
+
+    &__small {
         width: 24px;
         height: 24px;
         font-size: 12px;

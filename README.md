@@ -18,10 +18,11 @@ To see the 'big picture', to watch current progress and to get an idea of approx
 
 You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam/AdguardBrowserExtension/releases
 
-### Development build
+### Latest build
 
 Built automatically on every new commit:
-https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
+[Unminified version to be used in the browser extensions](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)
+[Minified version to be used in AdGuard for iOS](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js)
 
 Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssistant/test/).
 
@@ -58,9 +59,3 @@ To download and append localizations run:
     $ gulp locales
 
 Localization list is in options in `gulpfile.js`.
-
-For production build run:
-
-    $ gulp build
-
-This will compile the `assistant.user.js` file with minification and uglify.

@@ -28,6 +28,12 @@ Version to be used in the browser extension:
 
 [minified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js)
 
+Run as:
+
+    $ adguardAssistant.start(callback);
+
+Сallback returns a rule string.
+
 Version to be used as userscript:
 
 [unminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)

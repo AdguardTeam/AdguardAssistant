@@ -1,9 +1,9 @@
-/* global Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
+/* embedded script for extensions */
 
-/* global ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState */
+/* global Ioc, Log, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib */
 
 /*
- * adguardAssistantExtended main function is for desktop browsers, running by onload event
+ * adguardAssistantExtended main function is for desktop browsers
  */
 var adguardAssistantExtended = (function () {
     return {
@@ -39,12 +39,7 @@ var adguardAssistantExtended = (function () {
 })();
 
 /*
- * adguardAssistantMini function is for mobile browsers and stored in global variable `adguardAssistant`
- * execute with callback:
- *
- * adguardAssistant.start(function(rules){
-        // apply rules
-    });
+ * adguardAssistantMini function is for mobile browsers
  */
 var adguardAssistantMini = (function() {
     return {

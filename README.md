@@ -22,23 +22,23 @@ You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam
 
 Built automatically on every new commit:
 
+Version to be used as userscript:
+
+[assistant.user.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js) -- AdGuard Assistant userscript
+
+[assistant.user.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js) -- Minified version of AdGuard Assistant userscript
+
 Version to be used in the browser extension:
 
-[unminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js)
+[assistant.embed.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js) -- Embedded version of AdGuard Assistant. We use it to provide Assistant's features in browser extensions.
 
-[minified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js)
+[assistant.embed.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js) -- Minified version of AdGuard Assistant.
 
-Run as:
+Embedded version run as:
 
     adguardAssistant.start(callback);
 
 Сallback returns a rule string.
-
-Version to be used as userscript:
-
-[unminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)
-
-[minified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js)
 
 Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssistant/test/).
 

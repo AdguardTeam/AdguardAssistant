@@ -35,8 +35,6 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         buttonElement.innerHTML = buttonTemplate;
         button = buttonElement.querySelector('div');
 
-        gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
-
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
             shadowbuttonElement.innerHTML = '<style>' + buttonCSS + '</style>';

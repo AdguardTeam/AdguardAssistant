@@ -15,6 +15,9 @@ module.exports = () => {
 
     const options = global.options || {};
 
+    let userJsFileName = options.scriptName + '.user.js';
+    let userMetaFileName = options.scriptName + '.meta.js';
+
     let resources = [
         'src/utils/css.escape.js',
         'src/ioc.js',
@@ -44,14 +47,18 @@ module.exports = () => {
 
     resources = options.languagesFiles.concat(resources);
 
+    if (options.embedded) {
+        resources[resources.indexOf('src/main.js')] = 'src/embedded.js';
+        userJsFileName = options.scriptName + '.embedded.js';
+    }
+
     let metaPath = path.join(options.src, '_compiled', options.metaPath);
     let metaContent;
     let finalContent = [];
 
     const buttonInlineResources = {
         "TEMPLATE_BUTTON": './src/templates/button.html',
-        "CSS_BUTTON": './compile/button.css',
-        "CSS_SELECTOR": './compile/selector.css'
+        "CSS_BUTTON": './compile/button.css'
     };
 
     const mainMenuInlineResources = {
@@ -60,7 +67,8 @@ module.exports = () => {
         "TEMPLATE_SETTINGSMENU": './src/templates/settingsMenu.html',
         "TEMPLATE_SLIDERMENU": './src/templates/sliderMenu.html',
         "TEMPLATE_BLOCKPREVIEW": './src/templates/blockPreview.html',
-        "CSS_IFRAME": './compile/menu.css'
+        "CSS_IFRAME": './compile/menu.css',
+        "CSS_SELECTOR": './compile/selector.css'
     };
 
     const mobileInlineResources = {
@@ -112,9 +120,6 @@ module.exports = () => {
     prepareResources();
     prepareRequires();
     wrapScript(finalContent);
-
-    var userJsFileName = options.scriptName + '.user.js';
-    var userMetaFileName = options.scriptName + '.meta.js';
 
     return gulp.src(userJsFileName)
         .pipe(file(userJsFileName, finalContent.join('\n')))

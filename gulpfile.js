@@ -39,10 +39,16 @@ gulp.task('dev', () => {
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 
+gulp.task('embedded', () => {
+    options.metaPath = options.metaDev;
+    options.embedded = true;
+    runSequence('css', 'compile', 'preprocess');
+});
+
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
-    runSequence('clean', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
+    runSequence('css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
 });
 
 gulp.task('restore-meta-min', () => {

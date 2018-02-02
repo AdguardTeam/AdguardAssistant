@@ -30,7 +30,7 @@ Version to be used in the browser extension:
 
 Run as:
 
-    $ adguardAssistant.start(callback);
+    adguardAssistant.start(callback);
 
 Сallback returns a rule string.
 

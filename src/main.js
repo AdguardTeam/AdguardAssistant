@@ -8,6 +8,10 @@
 var adguardAssistantExtended = function () {
     Ioc.register('log', new Log());
 
+    Ioc.register('addRule', function() {
+        return false;
+    });
+
     var addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
     var dontBlock = typeof (ADG_temporaryDontBlock) === 'undefined' ? null : ADG_temporaryDontBlock;
     var sendAbuse = typeof (ADG_sendAbuse) === 'undefined' ? null : ADG_sendAbuse;

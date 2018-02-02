@@ -48,8 +48,9 @@ module.exports = () => {
     resources = options.languagesFiles.concat(resources);
 
     if (options.embedded) {
+        // replacing init file from userscript main.js file to embedded.js
         resources[resources.indexOf('src/main.js')] = 'src/embedded.js';
-        userJsFileName = options.scriptName + '.embedded.js';
+        userJsFileName = options.fileName;
     }
 
     let metaPath = path.join(options.src, '_compiled', options.metaPath);

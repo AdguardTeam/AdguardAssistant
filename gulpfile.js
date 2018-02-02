@@ -42,12 +42,14 @@ gulp.task('dev', () => {
 gulp.task('embedded', () => {
     options.metaPath = options.metaDev;
     options.embedded = true;
-    runSequence('css', 'compile', 'preprocess');
+    options.fileName = options.scriptName + '.embedded.js';
+    runSequence('css', 'compile', 'preprocess', 'uglify');
 });
 
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
+    options.fileName = options.scriptName + '.user.js';
     runSequence('css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
 });
 

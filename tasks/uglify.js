@@ -7,7 +7,7 @@ const gulp = require('gulp');
 const minify = require('gulp-minify');
 
 module.exports = () => {
-    var userJsFileName = options.scriptName + '.user.js';
+    var userJsFileName = options.fileName;
 
     return gulp.src(path.join(options.outputPath, userJsFileName))
         .pipe(minify({

@@ -24,13 +24,13 @@ Built automatically on every new commit:
 
 Version to be used in the browser extension:
 
-[nminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js)
+[unminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js)
 
 [minified](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js)
 
 Version to be used as userscript:
 
-[unified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)
+[unminified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js)
 
 [minified](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js)
 

@@ -35,8 +35,6 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         buttonElement.innerHTML = buttonTemplate;
         button = buttonElement.querySelector('div');
 
-        gmApi.GM_addStyle(RESOURCE_CSS_SELECTOR);
-
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
             shadowbuttonElement.innerHTML = '<style>' + buttonCSS + '</style>';
@@ -109,7 +107,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     var setPositionSettingsToButton = function(button) {
         var config = settings.getSettings();
         if (!config.largeIcon) {
-            $(button.getElementsByClassName('adguard-a-logo')[0]).addClass('adguard-a-logo__small');
+            $(button).addClass('logo-small');
         }
         if (setUserPositionIfExists(button)) {
             return;

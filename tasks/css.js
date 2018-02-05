@@ -16,13 +16,20 @@ module.exports = () => {
 
     gutil.log('Building css...');
 
+    const styles = [
+        options.src + '/styles/menu.less',
+        options.src + '/styles/button.less',
+        options.src + '/styles/selector.less',
+        options.src + '/styles/mobile-style.less'
+    ];
+
     const autoprefix = new lessAutoprefix({ browsers: ['last 3 versions', '>1%'] });
 
-    return gulp.src(options.src + '/styles/less/style.less')
+    return gulp.src(styles)
       .pipe(less({
         plugins: [autoprefix, inlineImages]
       }))
       .pipe(inlineAssets())
       .pipe(cleanCSS())
-      .pipe(gulp.dest(options.src + '/styles/'));
+      .pipe(gulp.dest('compile'));
 };

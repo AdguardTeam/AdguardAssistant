@@ -1,6 +1,6 @@
 var es_419 = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "Iniciar",
+    "assistant_select_element_text": "Seleccione un elemento de la p\u00e1gina para bloquear. Recargue la p\u00e1gina para cancelar el modo de bloqueo de elementos.",
     "menu_filtration_status": {
         "message": "Filtrando en esta p\u00e1gina"
     },

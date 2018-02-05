@@ -4,9 +4,9 @@ node_js:
 install:
   - npm install
 script:
-  - gulp mobile
-  - gulp mobileToGhPages
-  - gulp dev
+  - gulp clean
+  - gulp embedded
+  - gulp build
   - gulp testsToGhPages
   - npm test
 deploy:

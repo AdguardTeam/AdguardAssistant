@@ -1,12 +1,12 @@
 {
   "name": "assistant-compiler",
-  "version": "4.0.18",
+  "version": "4.1.0",
   "description": "Compile source files to userscript form",
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {
     "test": "mocha-phantomjs test/test.html",
-    "test-mobile": "mocha-phantomjs test/mobile.html"
+    "test-embedded": "mocha-phantomjs test/embedded.html"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",
@@ -19,8 +19,8 @@
     "gulp-hash-creator": "^0.2.0",
     "gulp-inline-assets": "^0.1.1",
     "gulp-less": "^3.3.0",
+    "gulp-minify": "^2.1.0",
     "gulp-preprocess": "^2.0.0",
-    "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",
     "inline-resource-literal": "git+https://github.com/seanl-adg/InlineResourceLiteral.git",

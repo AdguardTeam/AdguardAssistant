@@ -28,7 +28,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
 
     var setDomain = function() {
         domain = decodeURIComponent(location.hostname);
-        contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain;
+        contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain || 'unknown';
     };
 
     var bindEvents = function() {
@@ -241,6 +241,8 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
         } else {
             $(contentDocument.getElementById('block-ad')).addClass('hidden');
         }
+
+        iframeCtrl.resizeIframe();
     };
 
     return {

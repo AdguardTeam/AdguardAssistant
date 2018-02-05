@@ -1,0 +1,70 @@
+//
+// Scaffolding
+// --------------------------------------------------
+// Reset the box-sizing
+//
+// Heads up! This reset may cause conflicts with some third-party widgets.
+// For recommendations on resolving such conflicts, see
+// http://getbootstrap.com/getting-started/#third-box-sizing
+
+* {
+    box-sizing: border-box;
+}
+
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+// Body reset
+html {
+    font-size: 10px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+    position: relative;
+    background: #fff;
+    font-size: 1.3rem;
+    line-height: 1.428571429;
+    color: #282828;
+    background-color: #e6e6e6;
+    .weight-regular;
+    overflow-y: hidden;
+}
+
+// Reset fonts for relevant elements
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    outline: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+// Links
+a {
+    color: @link-color;
+    text-decoration: underline;
+    outline: 0;
+
+    &:hover {
+        color: @link-hover-color;
+        text-decoration: underline;
+    }
+}
+// Figures
+//
+// We reset this here because previously Normalize had no `figure` margins. This
+// ensures we don't break anyone's use of the element.
+
+figure {
+    margin: 0;
+}
+// Images
+img {
+    vertical-align: middle;
+    max-width: 100%;
+}

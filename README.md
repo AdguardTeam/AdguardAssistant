@@ -21,7 +21,24 @@ You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam
 ### Development build
 
 Built automatically on every new commit:
-https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
+
+Version to be used as userscript:
+
+[assistant.user.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js) -- AdGuard Assistant userscript
+
+[assistant.user.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js) -- Minified version of AdGuard Assistant userscript
+
+Version to be used in the browser extension:
+
+[assistant.embed.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js) -- Embedded version of AdGuard Assistant. We use it to provide Assistant's features in browser extensions.
+
+[assistant.embed.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js) -- Minified version of AdGuard Assistant.
+
+Embedded version run as:
+
+    adguardAssistant.start(callback);
+
+Сallback returns a rule string.
 
 Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssistant/test/).
 
@@ -58,21 +75,3 @@ To download and append localizations run:
     $ gulp locales
 
 Localization list is in options in `gulpfile.js`.
-
-For production build run:
-
-    $ gulp build
-
-This will compile the `assistant.user.js` file with minification and uglify.
-
-### Mobile build
-
-Mobile build is available [here](https://AdguardTeam.github.io/AdguardAssistant/mobile/script.js).
-
-In the mobile Assistant, the rules are specified via this function:
-
-```
-adguardAssistant.start(function(ruleText) {
-
-});
-```

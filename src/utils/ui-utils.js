@@ -363,7 +363,7 @@ var UIUtils = function($) { // jshint ignore:line
  * Utils that checks environment for compatibility with assistant
  * @param settings
  * @param log
- * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage, getViewPort: getViewPort, checkShadowDomSupport: checkShadowDomSupport}}
+ * @returns {{checkVisibleAreaSize: checkVisibleAreaSize, validateBrowser: validateBrowser, validatePage: validatePage, getViewPort: getViewPort}}
  * @constructor
  */
 var UIValidationUtils = function(settings, log) { // jshint ignore:line

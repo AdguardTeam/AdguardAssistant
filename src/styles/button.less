@@ -1,0 +1,104 @@
+@import "base/variables";
+@import "mixins/mixins";
+@import "base/fonts";
+@import "modules/host";
+
+.adguard-alert {
+    cursor: pointer;
+    left: 0;
+    top: 0;
+    position: fixed !important;
+    z-index: 2147483646 !important;
+    width: 40px !important;
+    height: 40px !important;
+    zoom: 1 !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    border: 0 !important;
+    padding: 0 !important;
+    will-change: transform;
+    opacity: 1;
+    touch-action: none;
+    -ms-touch-action: none;
+    visibility: visible !important;
+    min-height: auto !important;
+    max-height: auto !important;
+    min-width: auto !important;
+    max-width: auto !important;
+    background-image: url("img/logo.svg")!important;
+    background-size: 21px!important;
+    background-position: 50% 11px!important;
+    background-repeat: no-repeat!important;
+    background-color: #fff!important;
+    border: none !important;
+    box-shadow: 0 0 10px 3px rgba(162, 161, 161, .3) !important;
+    border-radius: 100% !important;
+    transition: background .3s ease;
+
+    &.sg_hide_element {
+        display: none!important;
+    }
+
+    &.logo-small {
+        width: 30px !important;
+        height: 30px !important;
+        background-position: 50% 8px!important;
+        background-size: 16px!important;
+    }
+
+    &:hover {
+        background-color: @base-color-hover!important;
+    }
+}
+
+.adguard-assistant-button-right {
+    left: auto;
+    right: 0;
+}
+
+.adguard-assistant-button-left {
+    left: 0;
+    right: auto;
+}
+
+.adguard-assistant-button-top {
+    top: 0;
+    bottom: auto;
+}
+
+.adguard-assistant-button-bottom {
+    top: auto;
+    bottom: 0;
+}
+
+.adguard-assistant-button-top.adguard-assistant-button-left {
+    left: 0;
+    right: auto;
+    transform: translate3d(10px, 10px, 0);
+}
+
+.adguard-assistant-button-top.adguard-assistant-button-right {
+    left: auto;
+    right: 0;
+    transform: translate3d(-10px, 10px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-left {
+    left: 0;
+    right: auto;
+    transform: translate3d(10px, -10px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-right {
+    left: auto;
+    right: 0;
+    transform: translate3d(-10px, -10px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-respect-vk {
+    transform: translate3d(-70px, -5px, 0);
+}
+
+.adguard-assistant-button-bottom.adguard-assistant-button-respect-fb {
+    transform: translate3d(-5px, -40px, 0);
+}

@@ -1,6 +1,6 @@
 var zh_CN = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "\u5f00\u59cb",
+    "assistant_select_element_text": "\u9009\u62e9\u8981\u62e6\u622a\u7684\u7f51\u9875\u5143\u7d20\u3002\u8981\u53d6\u6d88\u5143\u7d20\u62e6\u622a\u6a21\u5f0f\uff0c\u8bf7\u5237\u65b0\u7f51\u9875\u3002",
     "menu_filtration_status": {
         "message": "\u5bf9\u6b64\u7f51\u7ad9\u8fdb\u884c\u8fc7\u6ee4"
     },

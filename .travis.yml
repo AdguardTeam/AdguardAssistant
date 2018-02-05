@@ -6,7 +6,7 @@ install:
 script:
   - gulp clean
   - gulp embedded
-  - gulp build
+  - gulp dev
   - gulp testsToGhPages
   - npm test
 deploy:

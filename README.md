@@ -26,8 +26,6 @@ Version to be used as userscript:
 
 [assistant.user.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js) -- AdGuard Assistant userscript
 
-[assistant.user.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.min.js) -- Minified version of AdGuard Assistant userscript
-
 Version to be used in the browser extension:
 
 [assistant.embed.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js) -- Embedded version of AdGuard Assistant. We use it to provide Assistant's features in browser extensions.

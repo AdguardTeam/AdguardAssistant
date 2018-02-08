@@ -53,7 +53,6 @@
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
 // @include *
 // @exclude *://mil.ru/*
-// @exclude *://feedly.com/*
 // @exclude *wikipedia.org*
 // @exclude *icloud.com*
 // @exclude *hangouts.google.com*

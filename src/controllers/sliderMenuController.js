@@ -15,6 +15,7 @@
 var SliderMenuController = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, gmApi, addRule) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
+    var startElement = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
@@ -22,6 +23,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
      */
     var init = function (iframe, options) {
         selectedElement = options.element;
+        startElement = selectedElement;
         contentDocument = iframe.contentDocument;
         bindEvents();
         createSlider();
@@ -73,18 +75,20 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     };
 
     var showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText());
+        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement);
     };
 
     var createSlider = function () {
         var parents = CommonUtils.getParentsLevel(selectedElement);
         var children = CommonUtils.getAllChildren(selectedElement);
+
         var value = Math.abs(parents.length + 1);
         var max = parents.length + children.length + 1;
         var min = 1;
         var options = {value: value, min: min, max: max};
         var slider = contentDocument.getElementById('slider');
         var sliderArea = contentDocument.getElementById('slider-area');
+
         if (min === max) {
             //hide slider text
             $(slider).hide();
@@ -98,11 +102,12 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
                 elem = parents[delta - 1];
             }
             if (delta === 0) {
-                elem = selectedElement;
+                elem = startElement;
             }
             if (delta < 0) {
                 elem = children[Math.abs(delta + 1)];
             }
+
             onSliderMove(elem);
         };
 

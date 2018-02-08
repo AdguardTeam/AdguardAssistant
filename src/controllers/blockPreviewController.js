@@ -19,6 +19,7 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
     var init = function (iframe, options) {
         selectedElement = options.element;
         selectedPath = options.path;
+        currentElement = options.currentElement;
         contentDocument = iframe.contentDocument;
         selector.reset();
         bindEvents();
@@ -70,7 +71,7 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
 
     var showDetailedMenu = function () {
         showElement();
-        iframeCtrl.showSliderMenu(selectedElement);
+        iframeCtrl.showSliderMenu(currentElement);
     };
 
     return {

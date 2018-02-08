@@ -38,13 +38,13 @@ var SliderWidget = (function(api, $) { // jshint ignore:line
     var render = function() {
         $(placeholder).addClass(PLACEHOLDER_CLASS);
 
-        var handle = document.createElement('span');
+        var handle = CommonUtils.createElement('span');
         handle.setAttribute('class', HANDLE_FULL_CLASS);
         placeholder.appendChild(handle);
 
         var count = max - min;
         var prepare = function(i) {
-            var tick = document.createElement('div');
+            var tick = CommonUtils.createElement('div');
             tick.setAttribute('class', TICK_FULL_CLASS);
             tick.style.left = (100 / count * i) + '%';
             tick.style.width = (100 / count) + '%';

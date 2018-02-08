@@ -52,7 +52,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             return;
         }
 
-        iframe = $('<iframe/>');
+        iframe = CommonUtils.createElement('iframe');
 
         $(iframe).on('load', function () {
             // styles inside iframe
@@ -63,12 +63,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             updateIframeStyles(styles);
         });
 
-        if (CommonUtils.checkShadowDomSupport()) {
-            iframeElement = document.createElement('div');
-            createShadowRootElement(iframeElement).appendChild(iframe[0]);
-        } else {
-            iframeElement = iframe[0];
-        }
+        iframeElement = iframe;
 
         document.documentElement.appendChild(iframeElement);
     };
@@ -100,31 +95,27 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     };
 
     var updateIframeAttrs = function(attrs) {
-        var frame = iframe[0];
-
-        frame.removeAttribute('style');
-        frame.removeAttribute('height');
+        iframe.removeAttribute('style');
+        iframe.removeAttribute('height');
 
         var attributes = CommonUtils.objectAssign(defaultAttributes, attrs);
 
         Object.keys(attributes).forEach(function (item) {
-            iframe.attr(item, attributes[item]);
+            iframe.setAttribute(item, attributes[item]);
         });
 
-        frame.setAttribute('width', attributes.width);
-        frame.setAttribute('height', attributes.height === 'auto' ? frame.contentDocument.body.scrollHeight : attributes.height);
+        iframe.setAttribute('width', attributes.width);
+        iframe.setAttribute('height', attributes.height === 'auto' ? iframe.contentDocument.body.scrollHeight : attributes.height);
     };
 
     var updateIframeStyles = function (styles) {
-        var frame = iframe[0];
-
         var css = CommonUtils.objectAssign(defaultCSS, styles);
 
         Object.keys(css).forEach(function (item) {
-            iframe.css(item, css[item]);
+            iframe.style[item] = css[item];
         });
 
-        frame.style.height = frame.contentDocument.body.scrollHeight + 'px';
+        iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px';
     };
 
     var appendSelectorStyles = function() {
@@ -132,7 +123,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             return false;
         }
 
-        var selectorStyleTag = document.createElement('style');
+        var selectorStyleTag = CommonUtils.createElement('style');
         var selectorStyles = RESOURCE_CSS_SELECTOR;
         selectorStyleTag.classList.add('adg-styles');
 
@@ -148,7 +139,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     var appendDefaultStyleInIframe = function() {
         try {
             log.info('Iframe loaded writing styles');
-            var doc = iframe[0].contentDocument;
+            var doc = iframe.contentDocument;
             doc.open();
             doc.write('<html><head><style type="text/css">' + RESOURCE_CSS_MOBILE + '</style></head></html>');
             doc.close();
@@ -163,8 +154,8 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         }
 
         var onIframeLoad = function () {
-            var frameElement = iframe[0];
-            var view = $(views[viewName])[0];
+            var frameElement = iframe;
+            var view = CommonUtils.createElement(views[viewName]);
             appendContent(view);
             localize();
 
@@ -192,14 +183,14 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     };
 
     var hideIframe = function() {
-        if (iframe && iframe[0]) {
-            iframe[0].style.display = 'none';
+        if (iframe && iframe) {
+            iframe.style.display = 'none';
         }
     };
 
     var showIframe = function() {
-        if (iframe && iframe[0]) {
-            iframe[0].style.display = 'block';
+        if (iframe && iframe) {
+            iframe.style.display = 'block';
         }
     };
 
@@ -219,8 +210,8 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
 
         showMenuItem('mobilePopup.html', null, null, styles);
 
-        var startSelectMode = iframe[0].contentDocument.querySelector('.start-select-mode');
-        var cancelSelectMode = iframe[0].contentDocument.querySelector('.cancel-select-mode');
+        var startSelectMode = iframe.contentDocument.querySelector('.start-select-mode');
+        var cancelSelectMode = iframe.contentDocument.querySelector('.cancel-select-mode');
 
         startSelectMode.addEventListener('click', startSelect);
         cancelSelectMode.addEventListener('click', removeIframe);
@@ -248,13 +239,13 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     };
 
     var localize = function () {
-        var elements = iframe[0].contentDocument.querySelectorAll('[i18n]');
+        var elements = iframe.contentDocument.querySelectorAll('[i18n]');
         for (var i = 0; i < elements.length; i++) {
             var message = localization.getMessage(elements[i].getAttribute('i18n'));
             localization.translateElement(elements[i], message);
         }
 
-        var elementsWithTitle = iframe[0].contentDocument.querySelectorAll('[i18n-title]');
+        var elementsWithTitle = iframe.contentDocument.querySelectorAll('[i18n-title]');
         for (var j = 0; j < elementsWithTitle.length; j++) {
             var title = localization.getMessage(elementsWithTitle[j].getAttribute('i18n-title'));
             elementsWithTitle[j].setAttribute('title', title);
@@ -262,7 +253,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     };
 
     var appendContent = function (view) {
-        var body = iframe[0].contentDocument.body;
+        var body = iframe.contentDocument.body;
         for (var i = 0; i < body.children.length; i++) {
             body.removeChild(body.children[i]);
         }

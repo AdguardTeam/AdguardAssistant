@@ -104,6 +104,35 @@ var AdguardSelectorLib = (function(api, $) {
         var BORDER_WIDTH = 5;
         var BORDER_PADDING = 2;
         var BORDER_CLASS = 'sg_border';
+        var BORDER_CSS = {
+            'position': 'absolute',
+            'background': 'white',
+            'margin': '0px',
+            'padding': '0px',
+            'display': 'block',
+            'float': 'none',
+            'border': '0',
+            'outline': '0',
+            'background-color': '#13a35e',
+            'font-style': 'normal',
+            'vertical-align': 'baseline',
+            'text-align': 'left',
+            'line-height': '12px',
+            'box-sizing': 'content-box',
+            'min-height': 'auto',
+            'max-height': 'auto',
+            'min-width': 'auto',
+            'max-width': 'auto',
+            'z-index': 2147483646
+        };
+
+        var BORDER_BOTTOM_CSS = {
+            'font-size': '10px',
+            'font-weight': 'bold',
+            'color': 'white',
+            'padding': '2px 0px 2px 5px',
+            'overflow': 'hidden',
+        };
 
         var borderTop = null;
         var borderLeft = null;
@@ -124,6 +153,19 @@ var AdguardSelectorLib = (function(api, $) {
             document.documentElement.appendChild(borderBottom.get(0));
             document.documentElement.appendChild(borderLeft.get(0));
             document.documentElement.appendChild(borderRight.get(0));
+        };
+
+        var addBorderCSS = function() {
+            Object.keys(BORDER_CSS).forEach(function (item) {
+                borderTop[0].style[item] = BORDER_CSS[item];
+                borderBottom[0].style[item] = BORDER_CSS[item];
+                borderLeft[0].style[item] = BORDER_CSS[item];
+                borderRight[0].style[item] = BORDER_CSS[item];
+            });
+
+            Object.keys(BORDER_BOTTOM_CSS).forEach(function (item) {
+                borderBottom[0].style[item] = BORDER_BOTTOM_CSS[item];
+            });
         };
 
         var removeBorderFromDom = function() {
@@ -147,17 +189,19 @@ var AdguardSelectorLib = (function(api, $) {
         api.init = function() {
             if (!borderTop) {
                 var width = px(BORDER_WIDTH);
+                var bottomHeight = px(BORDER_WIDTH + 6);
 
-                borderTop = $('<div/>').addClass(BORDER_CLASS).css('height', width).hide()
-                    .on('click', sgMousedownHandler);
-                borderBottom = $('<div/>').addClass(BORDER_CLASS).addClass('sg_bottom_border')
-                    .css('height', px(BORDER_WIDTH + 6)).hide()
-                    .on('click', sgMousedownHandler);
-                borderLeft = $('<div/>').addClass(BORDER_CLASS).css('width', width).hide()
-                    .on('click', sgMousedownHandler);
-                borderRight = $('<div/>').addClass(BORDER_CLASS).css('width', width).hide()
-                    .on('click', sgMousedownHandler);
+                borderTop = $(CommonUtils.createElement('div')).css('height', width).hide().on('click', sgMousedownHandler);
+                borderBottom = $(CommonUtils.createElement('div')).css('height', bottomHeight).hide().on('click', sgMousedownHandler);
+                borderLeft = $(CommonUtils.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
+                borderRight = $(CommonUtils.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
 
+                api.borderTop = borderTop[0];
+                api.borderBottom = borderBottom[0];
+                api.borderLeft = borderLeft[0];
+                api.borderRight = borderRight[0];
+
+                addBorderCSS();
                 addBorderToDom();
             }
         };
@@ -229,7 +273,7 @@ var AdguardSelectorLib = (function(api, $) {
         return api;
     })(BorderSelectionRenderer || {});
 
-    var linkHelper = document.createElement('a');
+    var linkHelper = CommonUtils.createElement('a');
     var getHost = function(url) {
         if (!url) {
             return '';
@@ -240,7 +284,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var makePlaceholderImage = function(element) {
-        var placeHolder = document.createElement('div');
+        var placeHolder = CommonUtils.createElement('div');
         var style = window.getComputedStyle(element);
         placeHolder.style.height = style.height;
         placeHolder.style.width = style.width;
@@ -251,10 +295,10 @@ var AdguardSelectorLib = (function(api, $) {
         placeHolder.style.right = style.right;
         placeHolder.className += PLACEHOLDER_PREFIX + ' ' + IGNORED_CLASS;
 
-        var icon = document.createElement('div');
+        var icon = CommonUtils.createElement('div');
         icon.className += PLACEHOLDER_PREFIX + '-icon ' + IGNORED_CLASS;
 
-        var domain = document.createElement('div');
+        var domain = CommonUtils.createElement('div');
         domain.textContent = getHost(element.src);
         domain.className += PLACEHOLDER_PREFIX + '-domain ' + IGNORED_CLASS;
 
@@ -383,7 +427,14 @@ var AdguardSelectorLib = (function(api, $) {
         }
 
         var elem = e.target;
-        if ($(elem).hasClass(selectionRenderer.BORDER_CLASS)) {
+
+        var borders =
+            elem == selectionRenderer.borderTop[0] ||
+            elem == selectionRenderer.borderLeft[0] ||
+            elem == selectionRenderer.borderRight[0] ||
+            elem == selectionRenderer.borderBottom[0];
+
+        if (borders) {
             //Clicked on one of our floating borders, target the element that we are bordering.
             elem = elem.target_elem || elem;
         }

@@ -112,5 +112,22 @@ var CommonUtils = { // jshint ignore:line
      */
     checkShadowDomSupport: function() {
         return typeof(document.documentElement.attachShadow) !== 'undefined';
+    },
+
+    /**
+     * Creating element instead `document.createElement`
+     * to prevented a custom `document.createElement`
+     * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
+     */
+    createElement: function(markup) {
+        var doc = document.implementation.createHTMLDocument('');
+
+        if (markup && markup[0] !== '<') {
+            markup = '<' + markup + '></' + markup + '>';
+        }
+
+        doc.body.innerHTML = markup;
+
+        return doc.body.firstChild;
     }
 };

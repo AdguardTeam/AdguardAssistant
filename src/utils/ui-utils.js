@@ -187,9 +187,9 @@ var UIUtils = function($) { // jshint ignore:line
      * @param handleElement
      */
     var makeIframeDraggable = function(iframe, handleElement) {
-        var iframeJ = iframe;
-        var dragHandle = handleElement;
-        var $iframeDocument = $(iframe[0].contentDocument);
+        var iframeJ = $(iframe);
+        var dragHandle = $(handleElement);
+        var $iframeDocument = $(iframe.contentDocument);
 
         var offset = Object.create(null);
 

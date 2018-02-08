@@ -135,7 +135,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
 
             contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
             wotIndication.addClass(wotReputationSettings.class);
-            var wotLogo = CommonUtils.createElement('<a id="WotLogo" href="https://www.mywot.com/"><span class="wot-logo"></span></a>');
+            var wotLogo = CommonUtils.createElement('<span id="WotLogo"><span class="wot-logo"></span></span>');
             wotDescriptionText.textContent = wotReputationSettings.text;
             wotDescriptionText.appendChild(wotLogo);
 

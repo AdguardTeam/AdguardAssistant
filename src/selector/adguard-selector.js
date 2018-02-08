@@ -3,7 +3,6 @@
  * @type {Function}
  */
 var AdguardSelectorLib = (function(api, $) {
-
     // PRIVATE FIELDS
 
     var PLACEHOLDER_PREFIX = 'adguard-placeholder';

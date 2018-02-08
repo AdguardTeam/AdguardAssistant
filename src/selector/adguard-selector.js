@@ -11,9 +11,9 @@ var AdguardSelectorLib = (function(api, $) {
 
     var restrictedElements = null;
 
-    var SELECTED_CLASS = 'sg_selected';
-    var REJECTED_CLASS = 'sg_rejected';
-    var IGNORED_CLASS = 'sg_ignore';
+    var SELECTED_CLASS = 'adguard_sg_selected';
+    var REJECTED_CLASS = 'adguard_sg_rejected';
+    var IGNORED_CLASS = 'adguard_sg_ignore';
 
     var selectedElements = [];
     var rejectedElements = [];
@@ -103,7 +103,7 @@ var AdguardSelectorLib = (function(api, $) {
     var BorderSelectionRenderer = (function(api) {
         var BORDER_WIDTH = 5;
         var BORDER_PADDING = 2;
-        var BORDER_CLASS = 'sg_border';
+
         var BORDER_CSS = {
             'position': 'absolute',
             'background': 'white',
@@ -262,13 +262,6 @@ var AdguardSelectorLib = (function(api, $) {
                 borderRight.hide();
             }
         };
-
-        /**
-         * Border class
-         *
-         * @type {string}
-         */
-        api.BORDER_CLASS = BORDER_CLASS;
 
         return api;
     })(BorderSelectionRenderer || {});

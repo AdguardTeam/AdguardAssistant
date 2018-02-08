@@ -14,7 +14,7 @@ var Localization = function() { // jshint ignore:line
         'pl': pl,
         'de': de,
         'zh': zh_CN,
-        'zh-TW': zh_TW,
+        'zh-tw': zh_TW,
         'he': he,
         'it': it,
         'fa': fa,
@@ -22,7 +22,7 @@ var Localization = function() { // jshint ignore:line
         'ja': ja,
         'ar': ar,
         'es': es_419,
-        'pt-BR': pt_BR,
+        'pt-br': pt_BR,
         'pt': pt_PT,
         'ko': ko,
         'sk': sk,
@@ -35,7 +35,7 @@ var Localization = function() { // jshint ignore:line
     };
 
     if (typeof AdguardSettings !== 'undefined') {
-        locale = AdguardSettings.locale;
+        locale = AdguardSettings.locale.toLocaleLowerCase();
     } else if (navigator.languages) {
         locale = navigator.languages[0];
     } else if (navigator.language) {

@@ -36,7 +36,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
             '.close': iframeCtrl.removeIframe,
             '#block-ad': startAdSelector,
             '#assistant-settings': iframeCtrl.showSettingsMenu,
-            '#WotDescriptionText': goToWotUrl,
+            '#WotLogo': goToWotUrl,
             '#do-not-block-30-sec': doNotBlock,
             '#report-abuse': reportAbuse,
             '#site-report': goToSiteReport,

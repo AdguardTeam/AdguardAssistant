@@ -99,7 +99,7 @@ var Localization = function() { // jshint ignore:line
 
     var createElement = function (tagName, attributes) {
 
-        var el = document.createElement(tagName);
+        var el = CommonUtils.createElement(tagName);
         if (!attributes) {
             return el;
         }

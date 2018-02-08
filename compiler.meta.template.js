@@ -9,7 +9,6 @@
 // @updateURL [UPDATE_URL]
 // @include *
 // @exclude *://mil.ru/*
-// @exclude *://feedly.com/*
 // @exclude *wikipedia.org*
 // @exclude *icloud.com*
 // @exclude *hangouts.google.com*

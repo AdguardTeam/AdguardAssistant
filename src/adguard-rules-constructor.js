@@ -9,7 +9,7 @@ var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
 
     var URLBLOCK_ATTRIBUTES = ["src", "data"];
 
-    var linkHelper = document.createElement('a');
+    var linkHelper = CommonUtils.createElement('a');
 
     /**
      * Constructs css selector for element using tag name, id and classed, like: tagName#id.class1.class2

@@ -31,9 +31,9 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         var buttonTemplate = RESOURCE_TEMPLATE_BUTTON;
         var buttonCSS = RESOURCE_CSS_BUTTON;
 
-        buttonElement = document.createElement('div');
+        buttonElement = CommonUtils.createElement('div');
         buttonElement.innerHTML = buttonTemplate;
-        button = buttonElement.querySelector('div');
+        button = buttonElement.firstChild;
 
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});

@@ -5,7 +5,7 @@ var zh_TW = {
         "message": "\u65bc\u6b64\u7db2\u7ad9\u4e0a\u4e4b\u904e\u6ffe"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "\u572830\u79d2\u5167\u4e0d\u8981\u904e\u6ffe"
+        "message": "\u65bc30\u79d2\u5167\u4e0d\u8981\u904e\u6ffe"
     },
     "menu_block_ad_on_site": {
         "message": "\u5c01\u9396\u65bc\u6b64\u7db2\u7ad9\u4e0a\u4e4b\u5ee3\u544a"

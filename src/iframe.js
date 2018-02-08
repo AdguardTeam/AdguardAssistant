@@ -44,7 +44,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             return false;
         }
 
-        var selectorStyleTag = document.createElement('style');
+        var selectorStyleTag = CommonUtils.createElement('style');
         selectorStyleTag.classList.add('adg-styles');
 
         if (selectorStyleTag.styleSheet) {
@@ -72,12 +72,12 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createIframe = function (onIframeLoadCallback) {
         log.debug('Creating iframe');
-        iframe = $('<iframe/>');
+        iframe = CommonUtils.createElement('iframe');
 
         // IE hack for prevent access denied error
         // see: https://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
         if (navigator.userAgent.match(/msie/i)) {
-            iframe[0].src= "javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\\"" + document.domain + "\\\";<\\\\/script>\\');document.close();};<\/script>'";
+            iframe.src= "javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\\"" + document.domain + "\\\";<\\\\/script>\\');document.close();};<\/script>'";
         }
 
         var iframePosition = getIframePosition();
@@ -92,10 +92,10 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             allowTransparency: 'true'
         };
         Object.keys(css).forEach(function (item) {
-            iframe.css(item, css[item]);
+            iframe.style[item] = css[item];
         });
         Object.keys(attributes).forEach(function (item) {
-            iframe.attr(item, attributes[item]);
+            iframe.setAttribute(item, attributes[item]);
         });
         var iframeAlreadyLoaded = false;
         $(iframe).on('load', function () {
@@ -109,10 +109,10 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         });
 
         if (CommonUtils.checkShadowDomSupport()) {
-            iframeElement = document.createElement('div');
-            createShadowRootElement(iframeElement).appendChild(iframe[0]);
+            iframeElement = CommonUtils.createElement('div');
+            createShadowRootElement(iframeElement).appendChild(iframe);
         } else {
-            iframeElement = iframe[0];
+            iframeElement = iframe;
         }
 
         document.documentElement.appendChild(iframeElement);
@@ -180,7 +180,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var specifyIframePosition = function () {
         var viewPort = uiValidationUtils.getViewPort();
-        var frameElement = iframe[0];
+        var frameElement = iframe;
         if ((frameElement.offsetLeft + frameElement.offsetWidth) > viewPort.width) {
             frameElement.style.left = Math.max(0, (viewPort.width - frameElement.offsetWidth - iframePositionOffset)) + 'px';
         }
@@ -199,12 +199,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var appendDefaultStyle = function () {
         try {
             log.info('Iframe loaded writing styles');
-            var doc = iframe[0].contentDocument;
+            var doc = iframe.contentDocument;
             doc.open();
-            doc.write(StringUtils.format("<html><head>{0}</head></html>",
-                StringUtils.format('<style {0} type="text/css">{1}</style>', getStyleNonce(), IFRAME_CSS)));
+            doc.write('<html><head><style type="text/css">' + getStyleNonce() + IFRAME_CSS + '</style></head></html>');
             doc.close();
-            iframe[0].style.setProperty('display', 'block', 'important');
+            iframe.style.setProperty('display', 'block', 'important');
         } catch (ex) {
             log.error(ex);
         }
@@ -224,9 +223,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             return;
         }
         var onIframeLoad = function () {
-            var frameElement = iframe[0];
+            var frameElement = iframe;
 
-            var view = $(views[viewName])[0];
+            var view = CommonUtils.createElement(views[viewName]);
             appendContent(view);
             localize();
             specifyIframePosition();
@@ -237,7 +236,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             currentItem = viewName;
             onShowMenuItem.notify();
             if (options.dragElement) {
-                uiUtils.makeIframeDraggable(iframe, $(frameElement.contentDocument.getElementsByClassName(options.dragElement)));
+                uiUtils.makeIframeDraggable(iframe, iframe.contentDocument.querySelector(options.dragElement));
             }
 
             resizeIframe(width, height);
@@ -256,41 +255,41 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var showDetailedMenu = function () {
         var controller = Ioc.get(DetailedMenuController);
-        var options = {dragElement: 'menu-head'};
+        var options = {dragElement: '.menu-head'};
         showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, iframeMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
     var showSelectorMenu = function () {
         var controller = Ioc.get(SelectorMenuController);
-        var options = {dragElement: 'head'};
+        var options = {dragElement: '.head'};
         showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 160, options);
         setCloseEventIfNotHitIframe(false);
     };
 
     var showSliderMenu = function (element) {
         var controller = Ioc.get(SliderMenuController);
-        var options = {element: element, dragElement: 'head'};
+        var options = {element: element, dragElement: '.head'};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
-    var showBlockPreview = function (element, path) {
+    var showBlockPreview = function (element, path, currentElement) {
         var controller = Ioc.get(BlockPreviewController);
-        var options = {element: element, path: path, dragElement: 'head'};
+        var options = {element: element, path: path, dragElement: '.head', currentElement: currentElement};
         showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
     var showSettingsMenu = function () {
         var controller = Ioc.get(SettingsMenuController);
-        var options = {dragElement: 'head'};
+        var options = {dragElement: '.head'};
         showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 400, 360, options);
         setCloseEventIfNotHitIframe(true);
     };
 
     var localize = function () {
-        var elements = iframe[0].contentDocument.querySelectorAll("[i18n]");
+        var elements = iframe.contentDocument.querySelectorAll("[i18n]");
         for (var i = 0; i < elements.length; i++) {
             var message = localization.getMessage(elements[i].getAttribute("i18n"));
             localization.translateElement(elements[i], message);
@@ -298,7 +297,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var resizeIframe = function(width, height) {
-        var frame = iframe[0];
+        var frame = iframe;
 
         // setting iframe height dynamically based on inner content
         if (height === 'auto' || !height) {
@@ -325,7 +324,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var appendContent = function (view) {
-        var body = iframe[0].contentDocument.body;
+        var body = iframe.contentDocument.body;
         for (var i = 0; i < body.children.length; i++) {
             body.removeChild(body.children[i]);
         }

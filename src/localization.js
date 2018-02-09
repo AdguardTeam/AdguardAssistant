@@ -45,7 +45,13 @@ var Localization = function() { // jshint ignore:line
     if (SupportedLocales[locale]) {
         currentLocale = locale;
     } else {
-        currentLocale = 'en';
+
+        var langSplit = locale.split('-')[0];
+        if (SupportedLocales[langSplit]) {
+            currentLocale = langSplit;
+        } else {
+            currentLocale = 'en';
+        }
     }
 
     var getMessage = function (messageId) {

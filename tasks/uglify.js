@@ -11,6 +11,7 @@ module.exports = () => {
 
     return gulp.src(path.join(options.outputPath, userJsFileName))
         .pipe(minify({
+            mangle: false,
             ext: {
                 min: '.min.js'
             }

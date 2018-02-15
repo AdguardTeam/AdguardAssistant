@@ -223,7 +223,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
             var iframePosition = getIframePosition();
             iframe.style.left = iframePosition.left + 'px';
-            iframe.style.right = iframePosition.top + 'px';
+            iframe.style.top = iframePosition.top + 'px';
 
             // fixing iframe position after resize, to avoid iframe outside of the viewport
             specifyIframePosition();

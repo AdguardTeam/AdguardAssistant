@@ -28,20 +28,17 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
         log.debug("Requirements checked, all ok");
 
-        var buttonTemplate = RESOURCE_TEMPLATE_BUTTON;
-        var buttonCSS = RESOURCE_CSS_BUTTON;
-
         buttonElement = CommonUtils.createElement('div');
-        buttonElement.innerHTML = buttonTemplate;
+        buttonElement.innerHTML = HTML.button;
         button = buttonElement.firstChild;
 
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowbuttonElement.innerHTML = '<style>' + buttonCSS + '</style>';
+            shadowbuttonElement.innerHTML = '<style>' + CSS.common + CSS.button + '</style>';
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {
-            gmApi.GM_addStyle(buttonCSS);
+            gmApi.GM_addStyle(CSS.button);
             document.documentElement.appendChild(button);
             buttonElement = button;
         }

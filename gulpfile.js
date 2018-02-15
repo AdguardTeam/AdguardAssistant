@@ -36,6 +36,7 @@ gulp.task('beta', () => {
 
 gulp.task('dev', () => {
     options.metaPath = options.metaDev;
+    options.fileName = options.scriptName + '.user.js';
     runSequence('css', 'compile', 'preprocess', 'restore-meta');
 });
 

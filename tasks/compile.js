@@ -8,7 +8,7 @@ const gutil = require('gulp-util');
 const fs = require('fs');
 const file = require('gulp-file');
 const path = require('path');
-const InlineResource = require("inline-resource-literal");
+const InlineResource = require('inline-resource-literal');
 
 module.exports = () => {
     gutil.log('Compiling userscript...');
@@ -29,7 +29,7 @@ module.exports = () => {
         'src/event.js',
         'src/selector/adguard-selector.js',
         'src/adguard-rules-constructor.js',
-        'compile/iframe.js',
+        'src/iframe.js',
         'src/gm.js',
         'src/slider-widget.js',
         'src/wot.js',
@@ -40,8 +40,8 @@ module.exports = () => {
         'src/controllers/SliderMenuControllerMobile.js',
         'src/controllers/blockPreviewController.js',
         'src/controllers/settingsMenuController.js',
-        'compile/button.js',
-        'compile/mobile.js',
+        'src/button.js',
+        'src/iframe.mobile.js',
         'src/main.js'
     ];
 
@@ -57,26 +57,21 @@ module.exports = () => {
     let metaContent;
     let finalContent = [];
 
-    const buttonInlineResources = {
-        "TEMPLATE_BUTTON": './src/templates/button.html',
-        "CSS_BUTTON": './compile/button.css'
-    };
+    const inlineResourcesList = {
+        'CSS_COMMON': './compile/base-common.css',
+        'CSS_BUTTON': './compile/button.css',
+        'CSS_IFRAME': './compile/menu.css',
+        'CSS_SELECTOR': './compile/selector.css',
+        'CSS_MOBILE': './compile/mobile-style.css',
 
-    const mainMenuInlineResources = {
-        "TEMPLATE_DETAILEDMENU": './src/templates/mainMenu.html',
-        "TEMPLATE_SELECTORMENU": './src/templates/selectorMenu.html',
-        "TEMPLATE_SETTINGSMENU": './src/templates/settingsMenu.html',
-        "TEMPLATE_SLIDERMENU": './src/templates/sliderMenu.html',
-        "TEMPLATE_BLOCKPREVIEW": './src/templates/blockPreview.html',
-        "CSS_IFRAME": './compile/menu.css',
-        "CSS_SELECTOR": './compile/selector.css'
-    };
-
-    const mobileInlineResources = {
-        "CSS_SELECTOR": './compile/selector.css',
-        "CSS_MOBILE": './compile/mobile-style.css',
-        "TEMPLATE_POPUP": './src/templates/mobilePopup.html',
-        "TEMPLATE_MENU": './src/templates/mobileMenu.html',
+        'TEMPLATE_DETAILEDMENU': './src/templates/mainMenu.html',
+        'TEMPLATE_SELECTORMENU': './src/templates/selectorMenu.html',
+        'TEMPLATE_SETTINGSMENU': './src/templates/settingsMenu.html',
+        'TEMPLATE_SLIDERMENU': './src/templates/sliderMenu.html',
+        'TEMPLATE_BLOCKPREVIEW': './src/templates/blockPreview.html',
+        'TEMPLATE_BUTTON': './src/templates/button.html',
+        'TEMPLATE_POPUP': './src/templates/mobilePopup.html',
+        'TEMPLATE_MENU': './src/templates/mobileMenu.html'
     };
 
     try {
@@ -89,21 +84,17 @@ module.exports = () => {
     }
 
     var prepareResources = function() {
-        const button = fs.readFileSync('./src/button.js').toString();
-        const iframe = fs.readFileSync('./src/iframe.js').toString();
-        const mobileMenu = fs.readFileSync('./src/iframe.mobile.js').toString();
+        const inlineResourcesInit = fs.readFileSync('./src/inline-resources.js').toString();
 
-        const buttonResources = (new InlineResource(buttonInlineResources)).inline(button);
-        const iframeResources = (new InlineResource(mainMenuInlineResources)).inline(iframe);
-        const mobileMenuResources = (new InlineResource(mobileInlineResources)).inline(mobileMenu);
+        const prepeareResources = (new InlineResource(inlineResourcesList)).inline(inlineResourcesInit);
 
         if (!fs.existsSync('compile')) {
             fs.mkdirSync('compile');
         }
 
-        fs.writeFileSync('./compile/button.js', buttonResources);
-        fs.writeFileSync('./compile/iframe.js', iframeResources);
-        fs.writeFileSync('./compile/mobile.js', mobileMenuResources);
+        fs.writeFileSync('./compile/inline-resources.js', prepeareResources);
+
+        resources.unshift('./compile/inline-resources.js');
     };
 
     var prepareRequires = function() {

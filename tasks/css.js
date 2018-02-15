@@ -17,6 +17,7 @@ module.exports = () => {
     gutil.log('Building css...');
 
     const styles = [
+        options.src + '/styles/base/base-common.less',
         options.src + '/styles/menu.less',
         options.src + '/styles/button.less',
         options.src + '/styles/selector.less',

@@ -181,7 +181,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             log.info('Iframe loaded writing styles');
             var doc = iframe.contentDocument;
             doc.open();
-            doc.write('<html><head><style type="text/css">' + getStyleNonce() + CSS.common + CSS.iframe + '</style></head></html>');
+            doc.write('<html><head><style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style></head></html>');
             doc.close();
             iframe.style.setProperty('display', 'block', 'important');
         } catch (ex) {

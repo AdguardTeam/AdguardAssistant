@@ -45,29 +45,9 @@ input[type="search"] {
     box-sizing: border-box;
 }
 
-// Position radios and checkboxes better
 input[type="radio"],
 input[type="checkbox"] {
-    margin: 4px 0 0;
-    margin-top: 1px \9; // IE8-9
-    line-height: normal;
-}
-
-// Set the height of file controls to match text inputs
-input[type="file"] {
-    display: block;
-}
-
-// Make range inputs behave like textual form controls
-input[type="range"] {
-    display: block;
-    width: 100%;
-}
-
-// Make multiple select elements height not fixed
-select[multiple],
-select[size] {
-    height: auto;
+    display: none;
 }
 
 // Focus for file, radio, and checkbox
@@ -76,24 +56,6 @@ input[type="radio"]:focus,
 input[type="checkbox"]:focus {
     .tab-focus();
 }
-
-// Adjust output element
-/*
-output {
-    display: block;
-    padding-top: (@padding-base-vertical + 1);
-    font-size: @font-size-base;
-    line-height: @line-height-base;
-    color: @input-color;
-}
-*/
-
-// Common form controls
-//
-// Shared size and type resets for form controls. Apply `.form-control` to any
-// of the following form controls:
-//
-
 
 .form-control {
     display: block;

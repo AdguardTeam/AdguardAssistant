@@ -1,6 +1,6 @@
 var sv = {
     "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_text": "V\u00e4lj ett element sidan att blockera. \u00c5terladda sidan f\u00f6r att \u00e5terst\u00e4lla elementblockeringsl\u00e4get.",
     "menu_filtration_status": {
         "message": "Webbplatsens filtrering"
     },

@@ -58,7 +58,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         });
 
         iframeElement = iframe;
-        CommonUtils.createStylesInHead('adg-styles-selector', CSS.selector);
+        CommonUtils.createStylesElement('adg-styles-selector', CSS.selector);
         document.documentElement.appendChild(iframeElement);
     };
 

@@ -136,13 +136,13 @@ var CommonUtils = { // jshint ignore:line
      * @param {String}  className to prevent duplicates
      * @param {String}  styles   styles string
      */
-    createStylesInHead: function(className, styles) {
+    createStylesElement: function(className, styles) {
         if(document.querySelector('.' + className)) {
             return false;
         }
 
         var tagNode = this.createElement('style');
-
+        tagNode.setAttribute('type', 'text/css');
         tagNode.classList.add(className);
 
         if (tagNode.styleSheet) {
@@ -151,6 +151,6 @@ var CommonUtils = { // jshint ignore:line
             tagNode.appendChild(document.createTextNode(styles));
         }
 
-        document.getElementsByTagName("head")[0].appendChild(tagNode);
+        document.documentElement.appendChild(tagNode);
     }
 };

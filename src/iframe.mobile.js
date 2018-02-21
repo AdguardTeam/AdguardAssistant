@@ -58,7 +58,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         });
 
         iframeElement = iframe;
-
+        CommonUtils.createStylesInHead('adg-styles-selector', CSS.selector);
         document.documentElement.appendChild(iframeElement);
     };
 
@@ -110,23 +110,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         });
 
         iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px';
-    };
-
-    var appendSelectorStyles = function() {
-        if(document.querySelector('.adg-styles')) {
-            return false;
-        }
-
-        var selectorStyleTag = CommonUtils.createElement('style');
-        selectorStyleTag.classList.add('adg-styles');
-
-        if (selectorStyleTag.styleSheet) {
-            selectorStyleTag.styleSheet.cssText = CSS.selector;
-        } else {
-            selectorStyleTag.appendChild(document.createTextNode(CSS.selector));
-        }
-
-        document.getElementsByTagName("head")[0].appendChild(selectorStyleTag);
     };
 
     var appendDefaultStyleInIframe = function() {
@@ -265,8 +248,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         selector.close();
         onCloseMenu.notify();
     };
-
-    appendSelectorStyles();
 
     return {
         showSelectorMenu: showSelectorMenu,

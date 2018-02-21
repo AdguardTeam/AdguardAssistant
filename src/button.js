@@ -38,7 +38,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {
-            gmApi.GM_addStyle(CSS.button);
+            CommonUtils.createStylesInHead('adg-styles-button', 'asd {opacity:1}');
             document.documentElement.appendChild(button);
             buttonElement = button;
         }

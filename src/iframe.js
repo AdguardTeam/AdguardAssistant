@@ -30,20 +30,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     if (gmApi.GM_addStyle) {
         gmApi.GM_addStyle(CSS.selector);
     } else {
-        if(document.querySelector('.adg-styles')) {
-            return false;
-        }
-
-        var selectorStyleTag = CommonUtils.createElement('style');
-        selectorStyleTag.classList.add('adg-styles');
-
-        if (selectorStyleTag.styleSheet) {
-            selectorStyleTag.styleSheet.cssText = CSS.selector;
-        } else {
-            selectorStyleTag.appendChild(document.createTextNode(CSS.selector));
-        }
-
-        document.getElementsByTagName("head")[0].appendChild(selectorStyleTag);
+        CommonUtils.createStylesInHead('adg-styles-selector', CSS.selector);
     }
 
     views[settings.MenuItemsNames.DetailedMenu] = HTML.detailed_menu;

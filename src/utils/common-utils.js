@@ -129,5 +129,28 @@ var CommonUtils = { // jshint ignore:line
         doc.body.innerHTML = markup;
 
         return doc.body.firstChild;
+    },
+
+    /**
+     * Creating style element
+     * @param {String}  className to prevent duplicates
+     * @param {String}  styles   styles string
+     */
+    createStylesInHead: function(className, styles) {
+        if(document.querySelector('.' + className)) {
+            return false;
+        }
+
+        var tagNode = this.createElement('style');
+
+        tagNode.classList.add(className);
+
+        if (tagNode.styleSheet) {
+            tagNode.styleSheet.cssText = styles;
+        } else {
+            tagNode.appendChild(document.createTextNode(styles));
+        }
+
+        document.getElementsByTagName("head")[0].appendChild(tagNode);
     }
 };

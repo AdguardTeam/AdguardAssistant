@@ -11,7 +11,7 @@ describe("#DOM Tests", function() {
     });
 
     it("Adguard is in the DOM", function() {
-        var adguardEl = document.querySelector('.sg_border');
+        var adguardEl = document.querySelector('#adguard-assistant-dialog');
         expect(adguardEl).to.not.equal(null);
         expect(adguardEl).to.not.equal(undefined);
     });

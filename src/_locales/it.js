@@ -1,6 +1,6 @@
 var it = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "Inizio",
+    "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per cancellare la modalit\u00e0 che blocca un elemento.",
     "menu_filtration_status": {
         "message": "Filtraggio su questo sito"
     },

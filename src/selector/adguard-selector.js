@@ -122,7 +122,8 @@ var AdguardSelectorLib = (function(api, $) {
             'max-height': 'auto',
             'min-width': 'auto',
             'max-width': 'auto',
-            'z-index': 2147483645
+            'z-index': 2147483645,
+            'border-radius': 0
         };
 
         var BORDER_BOTTOM_CSS = {

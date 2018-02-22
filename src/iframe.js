@@ -27,25 +27,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var views = {};
 
-    if (gmApi.GM_addStyle) {
-        gmApi.GM_addStyle(CSS.selector);
-    } else {
-        if(document.querySelector('.adg-styles')) {
-            return false;
-        }
-
-        var selectorStyleTag = CommonUtils.createElement('style');
-        selectorStyleTag.classList.add('adg-styles');
-
-        if (selectorStyleTag.styleSheet) {
-            selectorStyleTag.styleSheet.cssText = CSS.selector;
-        } else {
-            selectorStyleTag.appendChild(document.createTextNode(CSS.selector));
-        }
-
-        document.getElementsByTagName("head")[0].appendChild(selectorStyleTag);
-    }
-
     views[settings.MenuItemsNames.DetailedMenu] = HTML.detailed_menu;
     views[settings.MenuItemsNames.SelectorMenu] = HTML.selector_menu;
     views[settings.MenuItemsNames.SliderMenu] = HTML.slider_menu;
@@ -57,6 +38,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var onCloseMenu = new CustomEvent();
     var onShowMenuItem = new CustomEvent();
+
+    CommonUtils.createStylesElement('adg-styles-selector', CSS.selector);
 
     var createIframe = function (onIframeLoadCallback) {
         log.debug('Creating iframe');
@@ -83,6 +66,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
                 //IE calls load each time when we use document.close
                 return;
             }
+
             iframeAlreadyLoaded = true;
             appendDefaultStyle();
             onIframeLoadCallback();
@@ -95,6 +79,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             iframeElement = iframe;
         }
 
+        iframeElement.style.setProperty('display', 'none', 'important');
         document.documentElement.appendChild(iframeElement);
     };
 
@@ -183,7 +168,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             doc.open();
             doc.write('<html><head><style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style></head></html>');
             doc.close();
-            iframe.style.setProperty('display', 'block', 'important');
+            iframeElement.style.setProperty('display', 'block', 'important');
         } catch (ex) {
             log.error(ex);
         }

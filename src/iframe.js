@@ -168,7 +168,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             doc.open();
             doc.write('<html><head><style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style></head></html>');
             doc.close();
-            iframe.style.setProperty('display', 'block', 'important');
+            iframeElement.style.setProperty('display', 'block', 'important');
         } catch (ex) {
             log.error(ex);
         }

@@ -133,17 +133,17 @@ var CommonUtils = { // jshint ignore:line
 
     /**
      * Creating style element
-     * @param {String}  className to prevent duplicates
+     * @param {String}  id to prevent duplicates
      * @param {String}  styles   styles string
      */
-    createStylesElement: function(className, styles) {
-        if(document.querySelector('.' + className)) {
+    createStylesElement: function(id, styles) {
+        if(document.querySelector('#' + id)) {
             return false;
         }
 
         var tagNode = this.createElement('style');
         tagNode.setAttribute('type', 'text/css');
-        tagNode.classList.add(className);
+        tagNode.setAttribute('id', id);
 
         if (tagNode.styleSheet) {
             tagNode.styleSheet.cssText = styles;

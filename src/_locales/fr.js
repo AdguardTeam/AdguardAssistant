@@ -1,6 +1,6 @@
 var fr = {
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "assistant_select_element_start": "D\u00e9marrer",
+    "assistant_select_element_text": "Choisissez un \u00e9l\u00e9ment de la page \u00e0 bloquer. Pour afficher l'\u00e9l\u00e9ment de nouveau, rafra\u00eechissez la page.",
     "menu_filtration_status": {
         "message": "Filtrages sur ce site"
     },

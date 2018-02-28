@@ -239,11 +239,19 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     // e.isTrusted checking for prevent programmatically events
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     var removeIframe = function (e) {
-        if (e && e.isTrusted === false) return false;
-        if (!iframe) return false;
+        if (e && e.isTrusted === false) {
+            return false;
+        }
+
+        if (!iframeElement) {
+            return false;
+        }
+
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('orientationchange', showSelectorMenu);
         document.documentElement.removeChild(iframeElement);
+        iframe = null;
+        iframeElement = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

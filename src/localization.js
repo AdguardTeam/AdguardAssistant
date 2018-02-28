@@ -35,17 +35,22 @@ var Localization = function() { // jshint ignore:line
     };
 
     if (typeof AdguardSettings !== 'undefined') {
-        locale = AdguardSettings.locale.toLocaleLowerCase();
+        locale = AdguardSettings.locale;
     } else if (navigator.languages) {
         locale = navigator.languages[0];
     } else if (navigator.language) {
-        locale = navigator.language.split('-')[0];
+        locale = navigator.language;
+    } else if (navigator.browserLanguage) {
+        locale = navigator.browserLanguage;
+    } else {
+        locale = 'en';
     }
+
+    locale = locale.toLocaleLowerCase();
 
     if (SupportedLocales[locale]) {
         currentLocale = locale;
     } else {
-
         var langSplit = locale.split('-')[0];
         if (SupportedLocales[langSplit]) {
             currentLocale = langSplit;

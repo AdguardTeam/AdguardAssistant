@@ -122,6 +122,8 @@ var AdguardSelectorLib = (function(api, $) {
             'max-height': 'auto',
             'min-width': 'auto',
             'max-width': 'auto',
+            'width': 0,
+            'height': 0,
             'z-index': 2147483645,
             'border-radius': 0
         };
@@ -232,18 +234,25 @@ var AdguardSelectorLib = (function(api, $) {
             var width = p.outerWidth;
             var height = p.outerHeight;
 
-            borderTop.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH * 2)).
-            css('top', px(top - BORDER_WIDTH - BORDER_PADDING)).
-            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
-            borderBottom.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH)).
-            css('top', px(top + height + BORDER_PADDING)).
-            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
-            borderLeft.css('height', px(height + BORDER_PADDING * 2)).
-            css('top', px(top - BORDER_PADDING)).
-            css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
-            borderRight.css('height', px(height + BORDER_PADDING * 2)).
-            css('top', px(top - BORDER_PADDING)).
-            css('left', px(left + width + BORDER_PADDING));
+            borderTop.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH * 2))
+                .css('height', px(5))
+                .css('top', px(top - BORDER_WIDTH - BORDER_PADDING))
+                .css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+
+            borderBottom.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH))
+                .css('height', px(12))
+                .css('top', px(top + height + BORDER_PADDING))
+                .css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+
+            borderLeft.css('height', px(height + BORDER_PADDING * 2))
+                .css('width', px(5))
+                .css('top', px(top - BORDER_PADDING))
+                .css('left', px(left - BORDER_PADDING - BORDER_WIDTH));
+
+            borderRight.css('height', px(height + BORDER_PADDING * 2))
+                .css('width', px(5))
+                .css('top', px(top - BORDER_PADDING))
+                .css('left', px(left + width + BORDER_PADDING));
 
             borderBottom.get(0).textContent = getTagPath(element);
             borderRight.get(0).target_elem = borderLeft.get(0).target_elem = borderTop.get(0).target_elem = borderBottom.get(0).target_elem = element;

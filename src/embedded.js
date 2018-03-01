@@ -31,9 +31,14 @@ var adguardAssistantExtended = function () {
     Ioc.register('iframeController', iframe);
 
     return {
-        start: function(callback) {
+        start: function(element, callback) {
             Ioc.register('addRule', callback.bind(this));
-            iframe.showSelectorMenu();
+
+            if (element) {
+                iframe.showSliderMenu(element);
+            } else {
+                iframe.showSelectorMenu();
+            }
         },
         close: function() {
             iframe.removeIframe();

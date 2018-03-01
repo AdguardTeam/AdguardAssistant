@@ -107,6 +107,11 @@ module.exports = () => {
     var wrapScript = function(content) {
         content.unshift('(function() {');
         content.push('})();');
+
+        if (options.embedded) {
+            copyright = fs.readFileSync('./embedded-copyright.txt').toString();
+            content.unshift(copyright);
+        }
     };
 
     prepareResources();

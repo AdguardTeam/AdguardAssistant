@@ -107,6 +107,18 @@ module.exports = () => {
     var wrapScript = function(content) {
         content.unshift('(function() {');
         content.push('})();');
+
+        if (options.embedded) {
+            let currentDate = {
+                year: (new Date()).getFullYear(),
+                month: ('0' + ((new Date()).getMonth()+1)).slice(-2),
+                day: ('0' + (new Date()).getDate()).slice(-2)
+            };
+
+            copyright = `/*! AdGuard Assistant - v${options.version} - ${currentDate.year}-${currentDate.month}-${currentDate.day}\r\n* https://github.com/AdguardTeam/AdguardAssistant\r\n* Copyright (c) ${currentDate.year}; Licensed LGPL 3.0 */\r\n`;
+
+            content.unshift(copyright);
+        }
     };
 
     prepareResources();

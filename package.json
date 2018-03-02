@@ -1,6 +1,6 @@
 {
   "name": "assistant-compiler",
-  "version": "4.1.6",
+  "version": "4.1.7",
   "description": "Compile source files to userscript form",
   "main": "gulpfile.js",
   "dependencies": {},

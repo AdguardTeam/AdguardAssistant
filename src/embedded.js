@@ -35,6 +35,7 @@ var adguardAssistantExtended = function () {
             Ioc.register('addRule', callback.bind(this));
 
             if (element) {
+                iframe.showSelectorMenu();
                 iframe.showSliderMenu(element);
             } else {
                 iframe.showSelectorMenu();
@@ -60,9 +61,15 @@ var adguardAssistantMini = function() {
     Ioc.register('iframeController', iframeController);
 
     return {
-        start: function(callback) {
+        start: function(element, callback) {
             Ioc.register('addRule', callback.bind(this));
-            iframeController.showSelectorMenu();
+
+            if (element) {
+                iframeController.showSelectorMenu();
+                iframeController.showSliderMenu(element);
+            } else {
+                iframeController.showSelectorMenu();
+            }
         },
         close: function() {
             iframeController.removeIframe();

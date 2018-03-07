@@ -56,6 +56,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
                 CommonUtils.reloadPageBypassCache();
             });
         } else {
+            selectedElement.style.display = 'none';
             addRule(getFilterRuleInputText());
             iframeCtrl.removeIframe();
         }
@@ -64,13 +65,13 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     var expandAdvanced = function () {
         var hidden = !$(contentDocument.getElementById('adv-settings')).hasClass("open");
         if (hidden) {
-            iframeCtrl.resizeSliderMenuToAdvanced();
             $(contentDocument.getElementById('adv-settings')).addClass('open');
             $(contentDocument.getElementById('ExtendedSettingsText')).addClass('active');
+            iframeCtrl.resizeSliderMenuToAdvanced();
         } else {
-            iframeCtrl.resizeSliderMenuToNormal();
             $(contentDocument.getElementById('adv-settings')).removeClass('open');
             $(contentDocument.getElementById('ExtendedSettingsText')).removeClass('active');
+            iframeCtrl.resizeSliderMenuToNormal();
         }
     };
 

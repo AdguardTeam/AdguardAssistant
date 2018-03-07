@@ -66,7 +66,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             }
 
             iframeAlreadyLoaded = true;
-            appendDefaultStyle();
+            iframeElement.style.setProperty('display', 'block', 'important');
             onIframeLoadCallback();
         });
 
@@ -159,19 +159,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     };
 
-    var appendDefaultStyle = function () {
-        try {
-            log.info('Iframe loaded writing styles');
-            var doc = iframe.contentDocument;
-            doc.open();
-            doc.write('<html><head><style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style></head></html>');
-            doc.close();
-            iframeElement.style.setProperty('display', 'block', 'important');
-        } catch (ex) {
-            log.error(ex);
-        }
-    };
-
     var getStyleNonce = function () {
         var adgSettings = settings.getAdguardSettings();
         if (adgSettings === null) {
@@ -189,6 +176,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var frameElement = iframe;
 
             var view = CommonUtils.createElement(views[viewName]);
+            var styles = CommonUtils.createElement('<style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style>');
+            view.appendChild(styles);
             appendContent(view);
             localize();
             if (!options) {

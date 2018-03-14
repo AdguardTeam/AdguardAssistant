@@ -83,7 +83,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createShadowRootElement = function(iframeElement) {
         var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
-        shadowiframeElement.innerHTML = '<style>' + CSS.common + CSS.iframe + '</style>';
+        shadowiframeElement.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.iframe));
+
         return shadowiframeElement;
     };
 
@@ -92,8 +93,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
         if (!buttonPosition) {
             return {
-                left: 0,
-                top: 0
+                left: iframe.offsetLeft <= 0 ? window.innerWidth : iframe.offsetLeft,
+                top: parseInt(iframe.style.top) || iframePositionOffset
             };
         }
 
@@ -156,7 +157,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         if (iframe.offsetHeight < 0) {
             iframe.style.top = iframePositionOffset + 'px';
         }
-
     };
 
     var getStyleNonce = function () {
@@ -176,8 +176,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var frameElement = iframe;
 
             var view = CommonUtils.createElement(views[viewName]);
-            var styles = CommonUtils.createElement('<style type="text/css">' + getStyleNonce() + CSS.common + CSS.button + CSS.iframe + '</style>');
-            view.appendChild(styles);
+            var styles = getStyleNonce() + CSS.common + CSS.button + CSS.iframe;
+            view.appendChild(CommonUtils.createStylesElement(styles));
             appendContent(view);
             localize();
             if (!options) {
@@ -202,7 +202,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         };
 
         if (!iframe) {
-            CommonUtils.createStylesElement('adg-styles-selector', CSS.selector);
+            var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+            if (adgStylesSelector) {
+                document.documentElement.appendChild(adgStylesSelector);
+            }
+
             createIframe(onIframeLoad);
             return;
         }

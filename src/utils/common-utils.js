@@ -108,10 +108,14 @@ var CommonUtils = { // jshint ignore:line
     },
 
     /**
-     * Check browser shadow dom support
+     * Check browser shadow dom support.
+     * Safari crashes after adding style tag in attachShadow so exclude it
+     * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
      */
     checkShadowDomSupport: function() {
-        return typeof(document.documentElement.attachShadow) !== 'undefined';
+        var safari = /^((?!chrome|android).)*safari/i;
+
+        return typeof(document.documentElement.attachShadow) !== 'undefined' && !safari.test(navigator.userAgent);
     },
 
     /**
@@ -133,17 +137,21 @@ var CommonUtils = { // jshint ignore:line
 
     /**
      * Creating style element
-     * @param {String}  id to prevent duplicates
-     * @param {String}  styles   styles string
+     * @param {String}  styles css styles in string
+     * @param {String}  id     to prevent duplicates, can be empty
+     * @return {Object|false}  style tag with styles or false if the styles with transferred id is exist
      */
-    createStylesElement: function(id, styles) {
-        if(document.querySelector('#' + id)) {
+    createStylesElement: function(styles, id) {
+        if (id && document.querySelector('#' + id)) {
             return false;
         }
 
         var tagNode = this.createElement('style');
         tagNode.setAttribute('type', 'text/css');
-        tagNode.setAttribute('id', id);
+
+        if (id) {
+            tagNode.setAttribute('id', id);
+        }
 
         if (tagNode.styleSheet) {
             tagNode.styleSheet.cssText = styles;
@@ -151,6 +159,6 @@ var CommonUtils = { // jshint ignore:line
             tagNode.appendChild(document.createTextNode(styles));
         }
 
-        document.documentElement.appendChild(tagNode);
+        return tagNode;
     }
 };

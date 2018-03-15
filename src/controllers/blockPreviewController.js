@@ -3,11 +3,12 @@
  * @param $
  * @param selector
  * @param gmApi
+ * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
 /* global Ioc */
-var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:line
+var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint ignore:line
     var contentDocument = null;
     var selectedElement = null;
     var selectedPath = null;
@@ -63,10 +64,16 @@ var BlockPreviewController = function ($, selector, gmApi) { // jshint ignore:li
     };
 
     var blockElement = function () {
-        gmApi.ADG_addRule(selectedPath, function() {
+        if (gmApi.ADG_addRule) {
+            gmApi.ADG_addRule(selectedPath, function () {
+                iframeCtrl.removeIframe();
+                CommonUtils.reloadPageBypassCache();
+            });
+        } else {
+            selectedElement.style.display = 'none';
+            addRule(selectedPath);
             iframeCtrl.removeIframe();
-            CommonUtils.reloadPageBypassCache();
-        });
+        }
     };
 
     var showDetailedMenu = function () {

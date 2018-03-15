@@ -49,8 +49,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         iframe = CommonUtils.createElement('iframe');
 
         $(iframe).on('load', function () {
-            // styles inside iframe
-            appendDefaultStyleInIframe();
             onIframeLoadCallback();
 
             updateIframeAttrs(attrs);
@@ -58,7 +56,12 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         });
 
         iframeElement = iframe;
-        CommonUtils.createStylesElement('adg-styles-selector', CSS.selector);
+
+        var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+        if (adgStylesSelector) {
+            document.documentElement.appendChild(adgStylesSelector);
+        }
+
         document.documentElement.appendChild(iframeElement);
     };
 
@@ -83,7 +86,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         });
 
         style = ':host {' + style.join('') + '}';
-        shadowiframeElement.innerHTML = '<style>' + style + '</style>';
+        shadowiframeElement.appendChild(CommonUtils.createStylesElement(style));
 
         return shadowiframeElement;
     };
@@ -112,18 +115,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px';
     };
 
-    var appendDefaultStyleInIframe = function() {
-        try {
-            log.info('Iframe loaded writing styles');
-            var doc = iframe.contentDocument;
-            doc.open();
-            doc.write('<html><head><style type="text/css">' + CSS.common + CSS.mobile + '</style></head></html>');
-            doc.close();
-        } catch (ex) {
-            log.error(ex);
-        }
-    };
-
     var showMenuItem = function (viewName, controller, options, styles, attrs) {
         if (currentItem === viewName) {
             return;
@@ -132,6 +123,8 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         var onIframeLoad = function () {
             var frameElement = iframe;
             var view = CommonUtils.createElement(views[viewName]);
+            var iframeStyles = CSS.common + CSS.mobile;
+            view.appendChild(CommonUtils.createStylesElement(iframeStyles));
             appendContent(view);
             localize();
 
@@ -151,6 +144,11 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         };
 
         if (!iframe) {
+            var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+            if (adgStylesSelector) {
+                document.documentElement.appendChild(adgStylesSelector);
+            }
+
             createIframe(onIframeLoad, styles, attrs);
             return;
         }

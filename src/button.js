@@ -34,7 +34,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowiframeElement.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.button));
+            shadowbuttonElement.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.button));
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {

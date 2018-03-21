@@ -231,16 +231,16 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         setCloseEventIfNotHitIframe(false);
     };
 
-    var showSliderMenu = function (element) {
+    var showSliderMenu = function (initElement, currentElement) {
         var controller = Ioc.get(SliderMenuController);
-        var options = {element: element, dragElement: '.head'};
+        var options = {element: initElement, dragElement: '.head', currentElement: currentElement};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
-    var showBlockPreview = function (element, path, currentElement) {
+    var showBlockPreview = function (initElement, path, currentElement) {
         var controller = Ioc.get(BlockPreviewController);
-        var options = {element: element, path: path, dragElement: '.head', currentElement: currentElement};
+        var options = {element: initElement, path: path, dragElement: '.head', currentElement: currentElement};
         showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };

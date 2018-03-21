@@ -16,6 +16,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     var contentDocument = null;
     var selectedElement = null;
     var startElement = null;
+    var currentElement = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
@@ -25,10 +26,16 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         selectedElement = options.element;
         startElement = selectedElement;
         contentDocument = iframe.contentDocument;
+        currentElement = options.currentElement;
         bindEvents();
-        createSlider();
+        createSlider(currentElement);
         onScopeChange();
         selector.selectElement(selectedElement);
+
+        // select current element after returning from preview mode
+        if (currentElement) {
+            onSliderMove(currentElement);
+        }
     };
 
     var close = function () {
@@ -79,12 +86,13 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement);
     };
 
-    var createSlider = function () {
+    var createSlider = function (setElement) {
         var parents = CommonUtils.getParentsLevel(selectedElement);
         var children = CommonUtils.getAllChildren(selectedElement);
 
         var value = Math.abs(parents.length + 1);
         var max = parents.length + children.length + 1;
+
         var min = 1;
         var options = {value: value, min: min, max: max};
         var slider = contentDocument.getElementById('slider');
@@ -112,10 +120,18 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             onSliderMove(elem);
         };
 
+        var currentVal = options.value;
+
+        // set slider position on current element after returning from preview mode
+        if (setElement) {
+            var setElementparents = CommonUtils.getParentsLevel(setElement);
+            currentVal = setElementparents.length + 1;
+        }
+
         sliderWidget.init(slider, {
             min: options.min,
             max: options.max,
-            value: options.value,
+            value: currentVal,
             onValueChanged: function (value) {
                 var delta = options.value - value;
                 options.onSliderMove(delta);

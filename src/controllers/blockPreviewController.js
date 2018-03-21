@@ -78,7 +78,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var showDetailedMenu = function () {
         showElement();
-        iframeCtrl.showSliderMenu(currentElement);
+        iframeCtrl.showSliderMenu(currentElement, selectedElement);
     };
 
     return {

@@ -25,6 +25,7 @@
 // @exclude *tpc.googlesyndication.com*
 // @exclude *syndication.twitter.com*
 // @exclude *platform.twitter.com*
+// @exclude *notifications.google.com*
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

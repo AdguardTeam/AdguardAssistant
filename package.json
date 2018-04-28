@@ -5,6 +5,11 @@
   "main": "gulpfile.js",
   "dependencies": {},
   "scripts": {
+    "start": "gulp build",
+    "dev": "gulp dev",
+    "beta": "gulp beta",
+    "locales": "gulp locales",
+    "watch": "gulp watch",
     "test": "mocha-phantomjs test/test.html",
     "test-embedded": "mocha-phantomjs test/embedded.html"
   },

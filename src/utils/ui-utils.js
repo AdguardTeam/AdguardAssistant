@@ -1,7 +1,7 @@
 /**
  * UI utils
  * @param $
- * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function, tryFullScreenPrefix: Function}}
+ * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function}}
  * @constructor
  */
 var UIUtils = function($) { // jshint ignore:line
@@ -242,30 +242,6 @@ var UIUtils = function($) { // jshint ignore:line
         });
     };
 
-    var browserPrefixes = ["webkit", "moz", "ms", "o", ""];
-
-    /*
-     Checks prefixes for full screen mode.
-     */
-    var tryFullScreenPrefix = function(obj, method) {
-        var i = 0,
-            currentMethod = null,
-            type;
-        while (i < browserPrefixes.length && !obj[currentMethod]) {
-            currentMethod = method;
-            if (browserPrefixes[i] === "") {
-                currentMethod = currentMethod.substr(0, 1).toLowerCase() + currentMethod.substr(1);
-            }
-            currentMethod = browserPrefixes[i] + currentMethod;
-            type = typeof obj[currentMethod];
-            if (type !== "undefined") {
-                browserPrefixes = [browserPrefixes[i]];
-                return (type === "function" ? obj[currentMethod]() : obj[currentMethod]);
-            }
-            i++;
-        }
-    };
-
     /**
      * Set transition css property for drag
      * translate3d is for better rendering performance
@@ -352,7 +328,6 @@ var UIUtils = function($) { // jshint ignore:line
     return {
         makeElementDraggable: makeElementDraggable,
         makeIframeDraggable: makeIframeDraggable,
-        tryFullScreenPrefix: tryFullScreenPrefix,
         moveElementTo: moveElementTo,
         setAnchorPosition: setAnchorPosition,
         checkElementPosition: checkElementPosition

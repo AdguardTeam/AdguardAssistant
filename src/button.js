@@ -151,13 +151,19 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         if (isFullScreenEventsRegistered) {
             return;
         }
+
+        var isFullScreen = false;
+
         $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
-            if (uiUtils.tryFullScreenPrefix(document, "FullScreen") || uiUtils.tryFullScreenPrefix(document, "IsFullScreen")) {
+            if (!isFullScreen) {
                 hideButton();
+                isFullScreen = true;
             } else {
                 showButton();
+                isFullScreen = false;
             }
         });
+
         isFullScreenEventsRegistered = true;
     };
 

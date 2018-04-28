@@ -284,7 +284,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var resizeSliderMenuToNormal = function () {
-        resizeIframe(null, sliderMenuHeight.normal);
+        resizeIframe(null, null);
     };
 
     var appendContent = function (view) {

@@ -68,6 +68,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     var createShadowRootElement = function(iframeElement) {
         var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
 
+        // do not use `overflow: hidden` for host element. See: https://github.com/w3c/webcomponents/issues/672
         var shadowRootDefaultStyle = {
             display: 'block',
             position: 'relative',
@@ -75,7 +76,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             height: 0,
             margin: 0,
             padding: 0,
-            overflow: 'hidden',
             'z-index': 9999999999
         };
 
@@ -85,7 +85,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
         });
 
-        style = ':host {' + style.join('') + '}';
+        style = ':host {' + style.join('') + '}' + ':host::before {display: none!important}' + ':host::after {display: none!important}';
         shadowiframeElement.appendChild(CommonUtils.createStylesElement(style));
 
         return shadowiframeElement;

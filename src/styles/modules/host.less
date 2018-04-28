@@ -1,5 +1,5 @@
 // shadow dom root element styles
-
+// do not use `overflow: hidden` for host element. See: https://github.com/w3c/webcomponents/issues/672
 :host {
     display: block!important;
     position: relative!important;
@@ -7,6 +7,10 @@
     height: 0!important;
     margin: 0!important;
     padding: 0!important;
-    overflow: hidden!important;
     z-index: 9999999999!important;
+
+    ::after,
+    ::before {
+        display: none!important;
+    }
 }

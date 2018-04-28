@@ -68,6 +68,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     var createShadowRootElement = function(iframeElement) {
         var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
 
+        // do not use `overflow: hidden` for host element. See: https://github.com/w3c/webcomponents/issues/672
         var shadowRootDefaultStyle = {
             display: 'block',
             position: 'relative',

@@ -75,7 +75,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             height: 0,
             margin: 0,
             padding: 0,
-            overflow: 'hidden',
             'z-index': 9999999999
         };
 
@@ -85,7 +84,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
         });
 
-        style = ':host {' + style.join('') + '}';
+        style = ':host {' + style.join('') + '}' + ':host::before {display: none!important}' + ':host::after {display: none!important}';
         shadowiframeElement.appendChild(CommonUtils.createStylesElement(style));
 
         return shadowiframeElement;

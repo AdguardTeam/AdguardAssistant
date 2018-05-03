@@ -25,6 +25,8 @@
 // @exclude *tpc.googlesyndication.com*
 // @exclude *syndication.twitter.com*
 // @exclude *platform.twitter.com*
+// @exclude *tutosdeath.blogspot.com.ar*
+// @exclude *notifications.google.com*
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

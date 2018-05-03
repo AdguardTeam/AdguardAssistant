@@ -44,14 +44,14 @@ Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssi
 
 For development build run:
 
-    $ gulp dev
+    $ npm run dev
 
 This will compile `assistant.user.js` file without minification.
 
 
 For development build with watcher on file changes and debugging from local server run:
 
-    $ gulp watch
+    $ npm run watch
 
 This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify the script in the address, e.g. `http://localhost:3000/assistant.user.js`.
 
@@ -70,6 +70,6 @@ For security reasons, this file is ignored by .gitignore settings.
 
 To download and append localizations run:
 
-    $ gulp locales
+    $ npm run locales
 
 Localization list is in options in `gulpfile.js`.

@@ -280,11 +280,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     };
 
     var resizeSliderMenuToAdvanced = function () {
-        resizeIframe(null, sliderMenuHeight.advanced);
+        resizeIframe(null, null);
     };
 
     var resizeSliderMenuToNormal = function () {
-        resizeIframe(null, sliderMenuHeight.normal);
+        resizeIframe(null, null);
     };
 
     var appendContent = function (view) {

@@ -10,6 +10,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         BUTTON_POSITION_ITEM_NAME: '__adbpos',
+        PERSONAL_CONFIG: '__adbconfpersonal',
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
@@ -34,6 +35,8 @@ var Settings = function (log, gmApi) { // jshint ignore:line
 
     var Config = null;
 
+    var SITENAME = window.location.host;
+
     var loadSettings = function () {
         var config;
         log.debug("Trying to get settings");
@@ -55,12 +58,25 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     };
 
     var saveSettings = function (config) {
-        log.debug("Saving settings");
         gmApi.GM_setValue('settings', JSON.stringify(config));
         Config = config;
     };
 
     var getSettings = function () {
+        if (Config.personalConfig) {
+            var personalConfig = Config[Constants.PERSONAL_CONFIG];
+
+            if (!personalConfig) {
+                personalConfig = {};
+            }
+
+            if (!personalConfig[SITENAME]) {
+                personalConfig[SITENAME] = {};
+            }
+
+            Config[Constants.PERSONAL_CONFIG] = personalConfig;
+        }
+
         return Config;
     };
 
@@ -84,6 +100,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         return adguardSettings;
     };
 
+    // function for backward compatibility. TODO: remove it in major update
     var removeUserPositionForButton = function () {
         try {
             localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
@@ -92,27 +109,113 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         }
     };
 
-    var setUserPositionForButton = function (coords) {
-        try {
-            localStorage.setItem(Constants.BUTTON_POSITION_ITEM_NAME, JSON.stringify(coords));
-        } catch (ex) {
-            log.error(ex);
-        }
-    };
-
     var getUserPositionForButton = function () {
+        var config = getSettings();
+        var userPosition;
+
+        // for backward compatibility. TODO: remove it in major update
         try {
-            var userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
-            log.info("Check user position for domain");
+            userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
             if (userPosition) {
-                log.info("User position is set for this domain");
                 return JSON.parse(userPosition);
             }
         } catch (ex) {
             removeUserPositionForButton();
             log.error(ex);
         }
+
+        if (config.personalConfig) {
+            userPosition = config[Constants.PERSONAL_CONFIG];
+
+            if (userPosition) {
+                userPosition = userPosition[SITENAME].position;
+            }
+        } else {
+            userPosition = config.position;
+        }
+
+        if (userPosition) {
+            return userPosition;
+        }
+
         return null;
+    };
+
+    var setUserPositionForButton = function (position) {
+        // function for backward compatibility. TODO: remove it in major update
+        removeUserPositionForButton();
+        var config = getSettings();
+        if (config.personalConfig) {
+            config[Constants.PERSONAL_CONFIG][SITENAME].position = position;
+        } else {
+            config.position = position;
+        }
+
+        saveSettings(config);
+    };
+
+    var setIconSize = function (largeIcon) {
+        var config = getSettings();
+
+        if (config.personalConfig) {
+            config[Constants.PERSONAL_CONFIG][SITENAME].largeIcon = largeIcon;
+        } else {
+            config.largeIcon = largeIcon;
+        }
+
+        saveSettings(config);
+    };
+
+    var getIconSize = function () {
+        var config = getSettings();
+
+        if (config.personalConfig) {
+            return config[Constants.PERSONAL_CONFIG][SITENAME].largeIcon;
+        } else {
+            return config.largeIcon;
+        }
+    };
+
+    var setButtonSide = function (buttonSides) {
+        // function for backward compatibility. TODO: remove it in major update
+        removeUserPositionForButton();
+        var config = getSettings();
+        if (config.personalConfig) {
+            config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionTop = buttonSides.top;
+            config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionLeft = buttonSides.left;
+        } else {
+            config.buttonPositionTop = buttonSides.top;
+            config.buttonPositionLeft = buttonSides.left;
+        }
+
+        saveSettings(config);
+    };
+
+    var setPersonalParam = function (personalConfig) {
+        var config = getSettings();
+        config.personalConfig = personalConfig;
+
+        if (config.personalConfig) {
+            config[Constants.PERSONAL_CONFIG][SITENAME].position = config.position;
+        } else {
+            config.position = config[Constants.PERSONAL_CONFIG][SITENAME].position;
+        }
+        saveSettings(config);
+    };
+
+    var getButtonSide = function () {
+        var config = getSettings();
+        if (config.personalConfig) {
+            return {
+                top: config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionTop,
+                left: config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionLeft
+            };
+        } else {
+            return {
+                top: config.buttonPositionTop,
+                left: config.buttonPositionLeft
+            };
+        }
     };
 
     var validateSettings = function (settings) {
@@ -142,9 +245,13 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         setWotData: setWotData,
         saveSettings: saveSettings,
         getUserPositionForButton: getUserPositionForButton,
-        removeUserPositionForButton: removeUserPositionForButton,
+        getButtonSide: getButtonSide,
+        setIconSize: setIconSize,
         setUserPositionForButton: setUserPositionForButton,
         setAdguardSettings: setAdguardSettings,
-        getAdguardSettings: getAdguardSettings
+        setPersonalParam: setPersonalParam,
+        setButtonSide: setButtonSide,
+        getAdguardSettings: getAdguardSettings,
+        getIconSize: getIconSize
     };
 };

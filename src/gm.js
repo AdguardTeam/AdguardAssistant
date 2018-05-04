@@ -5,10 +5,10 @@
  * @param ADG_sendAbuse
  * @param ADG_isFiltered
  * @param ADG_changeFilteringState
- * @returns {{GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
+ * @returns {{GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle, GM_deleteValue, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
  * @constructor
  */
-/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
+/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle, GM_deleteValue */
 var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) { // jshint ignore:line
     if (!ADG_addRule) {
         ADG_addRule = function (rule, callback) {
@@ -50,6 +50,7 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
         GM_setValue: GM_setValue,
         GM_getResourceText: GM_getResourceText,
         GM_addStyle: GM_addStyle,
+        GM_deleteValue: GM_deleteValue,
         ADG_addRule: ADG_addRule,
         ADG_temporaryDontBlock: ADG_temporaryDontBlock,
         ADG_sendAbuse: ADG_sendAbuse,

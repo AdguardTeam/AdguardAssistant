@@ -106,16 +106,15 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     };
 
     var setPositionSettingsToButton = function(button) {
-        var config = settings.getSettings();
-        if (!config.largeIcon) {
+        if (!settings.getIconSize()) {
             $(button).addClass('logo-small');
         }
         if (setUserPositionIfExists(button)) {
             return;
         }
 
-        uiUtils.setAnchorPosition.positionY(button, config.buttonPositionTop);
-        uiUtils.setAnchorPosition.positionX(button, config.buttonPositionLeft);
+        uiUtils.setAnchorPosition.positionY(button, settings.getButtonSide().top);
+        uiUtils.setAnchorPosition.positionX(button, settings.getButtonSide().left);
 
         respectPageElements(button);
     };

@@ -1,4 +1,7 @@
 var ja = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "\u958b\u59cb",
     "assistant_select_element_text": "\u30d6\u30ed\u30c3\u30af\u3059\u308b\u30da\u30fc\u30b8\u4e0a\u306e\u8981\u7d20\u3092\u9078\u629e\u3057\u3066\u304f\u3060\u3055\u3044\u3002 \u30da\u30fc\u30b8\u3092\u66f4\u65b0\u3057\u8981\u7d20\u306e\u30d6\u30ed\u30c3\u30af\u30e2\u30fc\u30c9\u3092\u89e3\u9664\u3057\u307e\u3059\u3002",
     "menu_filtration_status": {

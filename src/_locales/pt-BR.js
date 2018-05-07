@@ -1,4 +1,7 @@
 var pt_BR = {
+    "settings_position_save": "Sites",
+    "settings_position_save_all": "Todos os sites",
+    "settings_position_save_this": "Neste site",
     "assistant_select_element_start": "Iniciar",
     "assistant_select_element_text": "Escolha um elemento na p\u00e1gina para bloquear. Atualize a p\u00e1gina para cancelar o bloqueio do elemento.",
     "menu_filtration_status": {
@@ -11,7 +14,7 @@ var pt_BR = {
         "message": "Bloquear an\u00fancios neste site"
     },
     "menu_report_abuse": {
-        "message": "Denunciar o site"
+        "message": "Reportar o site"
     },
     "menu_site_report": {
         "message": "Relat\u00f3rio de seguran\u00e7a do site"

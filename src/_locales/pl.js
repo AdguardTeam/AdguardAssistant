@@ -1,4 +1,7 @@
 var pl = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Rozpocznij",
     "assistant_select_element_text": "Wybierz element na stronie do zablokowania. Od\u015bwie\u017c stron\u0119, aby anulowa\u0107 tryb blokowania elementu.",
     "menu_filtration_status": {

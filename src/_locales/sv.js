@@ -1,4 +1,7 @@
 var sv = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "V\u00e4lj ett element sidan att blockera. \u00c5terladda sidan f\u00f6r att \u00e5terst\u00e4lla elementblockeringsl\u00e4get.",
     "menu_filtration_status": {

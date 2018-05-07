@@ -1,4 +1,7 @@
 var id = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {

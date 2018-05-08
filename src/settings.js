@@ -2,7 +2,7 @@
  * Object that manages user settings.
  * @param log
  * @param gmApi
- * @param UpgradeHelper
+ * @param UpgradeHelper // backward compatibility class
  * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
  * @constructor
  */
@@ -67,22 +67,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
     var getSettings = function () {
         return gmApi.getValue('settings').then(function(config) {
-            config = JSON.parse(config);
-            if (config.personalConfig) {
-                var personalConfig = config.personal;
-
-                if (!personalConfig) {
-                    personalConfig = {};
-                }
-
-                if (!personalConfig[SITENAME]) {
-                    personalConfig[SITENAME] = {};
-                }
-
-                config.personal = personalConfig;
-            }
-
-            return config;
+            return JSON.parse(config);
         });
     };
 
@@ -164,6 +149,10 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         }
     };
 
+    /**
+     * Set the parameters to which corner of the browser
+     * window the button position is placed by option (not drag)
+     */
     var setButtonSide = function (buttonSides) {
         // function for backward compatibility. TODO: remove it in major update
         UpgradeHelper.removeUserPositionForButton();
@@ -179,6 +168,9 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         }
     };
 
+    /**
+     * Save a setting that specifies how to save button settings: for all sites or only on this
+     */
     var setPersonalParam = function (personalConfig) {
         Config.personalConfig = personalConfig;
 
@@ -194,6 +186,10 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         }
     };
 
+    /**
+     * Get the option to which corner of the browser window the button position is placed
+     * @return {Object}
+     */
     var getButtonSide = function () {
         var config = Config;
         if (config.personalConfig) {

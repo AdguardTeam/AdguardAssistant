@@ -89,6 +89,8 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
                 $(button).addClass('logo-small');
             }
 
+            // The anchor determines from which side of the browser the positions of `position.x`, `position.y`.
+            // If `position` parameter is not defined, so the position of the button is set in the corners of the browser
             if (position && position.storedAnchor) {
                 uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
                 uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
@@ -97,6 +99,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
                 return false;
             }
 
+            // Getting the corner of the browser where the button is placed
             var side = settings.getButtonSide();
 
             if (side) {

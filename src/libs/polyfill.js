@@ -1,3 +1,8 @@
+/**
+ * Promise Polyfill
+ * https://github.com/taylorhakes/promise-polyfill
+ */
+
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
 	typeof define === 'function' && define.amd ? define(factory) :

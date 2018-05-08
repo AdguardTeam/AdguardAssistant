@@ -1,7 +1,7 @@
 var sk = {
-    "settings_position_save": "Websites",
-    "settings_position_save_all": "All websites",
-    "settings_position_save_this": "This website",
+    "settings_position_save": "Webov\u00e9 str\u00e1nky",
+    "settings_position_save_all": "V\u0161etky str\u00e1nky",
+    "settings_position_save_this": "T\u00e1to str\u00e1nka",
     "assistant_select_element_start": "\u0160tart",
     "assistant_select_element_text": "Vyberte prvok na str\u00e1nke, ktor\u00fd chcete zablokova\u0165. Obnovte str\u00e1nku pre zru\u0161enie re\u017eimu blokovania prvkov.",
     "menu_filtration_status": {

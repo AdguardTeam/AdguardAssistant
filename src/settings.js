@@ -10,7 +10,6 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         BUTTON_POSITION_ITEM_NAME: '__adbpos',
-        PERSONAL_CONFIG: '__adbconfpersonal',
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
@@ -27,57 +26,64 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         buttonPositionLeft: false,
         largeIcon: true,
         assistantFirstStart: true,
-        scriptVersion: 1
+        scriptVersion: 1,
+        personal: {}
     };
 
     var wotData = null;
-    var adguardSettings = null;
 
     var Config = null;
+    var adguardSettings = null;
 
     var SITENAME = window.location.host;
 
     var loadSettings = function () {
-        var config;
-        log.debug("Trying to get settings");
-        // Empty settings
-        var settings = gmApi.GM_getValue('settings');
-        try {
-            config = JSON.parse(settings);
-            validateSettings(config);
-            log.debug('Settings parsed successfully');
-        } catch (ex) {
-            log.error(ex);
-            config = JSON.parse(JSON.stringify(DefaultConfig));
-            if (typeof settings !== 'undefined') {
-                config.assistantFirstStart = false;
+        log.debug('Trying to get settings');
+        var settings;
+
+        gmApi.getValue('settings').then(function(settings) {
+            var config;
+            try {
+                config = JSON.parse(settings);
+                validateSettings(config);
+                log.debug('Settings parsed successfully');
+            } catch (ex) {
+                log.error(ex);
+                config = JSON.parse(JSON.stringify(DefaultConfig));
+                if (typeof settings !== 'undefined') {
+                    config.assistantFirstStart = false;
+                }
+                saveSettings(config);
             }
-            saveSettings(config);
-        }
-        Config = config;
+        });
     };
 
     var saveSettings = function (config) {
-        gmApi.GM_setValue('settings', JSON.stringify(config));
-        Config = config;
+        if (config) {
+            Config = config;
+        }
+        gmApi.setValue('settings', Config);
     };
 
     var getSettings = function () {
-        if (Config.personalConfig) {
-            var personalConfig = Config[Constants.PERSONAL_CONFIG];
+        return gmApi.getValue('settings').then(function(config) {
+            config = JSON.parse(config);
+            if (config.personalConfig) {
+                var personalConfig = config.personal;
 
-            if (!personalConfig) {
-                personalConfig = {};
+                if (!personalConfig) {
+                    personalConfig = {};
+                }
+
+                if (!personalConfig[SITENAME]) {
+                    personalConfig[SITENAME] = {};
+                }
+
+                config.personal = personalConfig;
             }
 
-            if (!personalConfig[SITENAME]) {
-                personalConfig[SITENAME] = {};
-            }
-
-            Config[Constants.PERSONAL_CONFIG] = personalConfig;
-        }
-
-        return Config;
+            return config;
+        });
     };
 
     var getWotData = function () {
@@ -90,7 +96,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
 
     var setAdguardSettings = function (settings) {
         if (!settings) {
-            log.info("No Adguard API Found");
+            log.info('No Adguard API Found');
             return;
         }
         adguardSettings = settings;
@@ -110,67 +116,64 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     };
 
     var getUserPositionForButton = function () {
-        var config = getSettings();
-        var userPosition;
+        return getSettings().then(function(config) {
+            Config = config;
+            var userPosition;
 
-        // for backward compatibility. TODO: remove it in major update
-        try {
-            userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
-            if (userPosition) {
-                return JSON.parse(userPosition);
+            // for backward compatibility. TODO: remove it in major update
+            try {
+                userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
+                if (userPosition) {
+                    return JSON.parse(userPosition);
+                }
+            } catch (ex) {
+                removeUserPositionForButton();
+                log.error(ex);
             }
-        } catch (ex) {
-            removeUserPositionForButton();
-            log.error(ex);
-        }
 
-        if (config.personalConfig) {
-            userPosition = config[Constants.PERSONAL_CONFIG];
+            if (config.personalConfig) {
+                userPosition = config.personal;
+
+                if (userPosition) {
+                    userPosition = userPosition[SITENAME].position;
+                }
+            } else {
+                userPosition = config.position;
+            }
 
             if (userPosition) {
-                userPosition = userPosition[SITENAME].position;
+                return userPosition;
             }
-        } else {
-            userPosition = config.position;
-        }
 
-        if (userPosition) {
-            return userPosition;
-        }
-
-        return null;
+            return null;
+        });
     };
 
     var setUserPositionForButton = function (position) {
         // function for backward compatibility. TODO: remove it in major update
         removeUserPositionForButton();
-        var config = getSettings();
-        if (config.personalConfig) {
-            config[Constants.PERSONAL_CONFIG][SITENAME].position = position;
+        if (Config.personalConfig) {
+            Config.personal[SITENAME].position = position;
         } else {
-            config.position = position;
+            Config.position = position;
         }
 
-        saveSettings(config);
+        saveSettings(Config);
     };
 
     var setIconSize = function (largeIcon) {
-        var config = getSettings();
-
-        if (config.personalConfig) {
-            config[Constants.PERSONAL_CONFIG][SITENAME].largeIcon = largeIcon;
+        if (Config.personalConfig) {
+            Config.personal[SITENAME].largeIcon = largeIcon;
         } else {
-            config.largeIcon = largeIcon;
+            Config.largeIcon = largeIcon;
         }
-
-        saveSettings(config);
     };
 
     var getIconSize = function () {
-        var config = getSettings();
+        var config = Config;
 
         if (config.personalConfig) {
-            return config[Constants.PERSONAL_CONFIG][SITENAME].largeIcon;
+            return config.personal[SITENAME].largeIcon;
         } else {
             return config.largeIcon;
         }
@@ -179,36 +182,39 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     var setButtonSide = function (buttonSides) {
         // function for backward compatibility. TODO: remove it in major update
         removeUserPositionForButton();
-        var config = getSettings();
-        if (config.personalConfig) {
-            config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionTop = buttonSides.top;
-            config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionLeft = buttonSides.left;
-        } else {
-            config.buttonPositionTop = buttonSides.top;
-            config.buttonPositionLeft = buttonSides.left;
-        }
 
-        saveSettings(config);
+        if (Config.personalConfig) {
+            delete Config.personal[SITENAME].position;
+            Config.personal[SITENAME].buttonPositionTop = buttonSides.top;
+            Config.personal[SITENAME].buttonPositionLeft = buttonSides.left;
+        } else {
+            delete Config.position;
+            Config.buttonPositionTop = buttonSides.top;
+            Config.buttonPositionLeft = buttonSides.left;
+        }
     };
 
     var setPersonalParam = function (personalConfig) {
-        var config = getSettings();
-        config.personalConfig = personalConfig;
+        Config.personalConfig = personalConfig;
 
-        if (config.personalConfig) {
-            config[Constants.PERSONAL_CONFIG][SITENAME].position = config.position;
-        } else {
-            config.position = config[Constants.PERSONAL_CONFIG][SITENAME].position;
+        if (Config.personalConfig && !Config.personal) {
+            Config.personal = {};
+            Config.personal[SITENAME] = {};
+            Config.personal[SITENAME].position = Config.position;
         }
-        saveSettings(config);
+
+        if (!Config.personalConfig && Config.personal) {
+            Config.position = Config.personal[SITENAME].position;
+            delete Config.personal;
+        }
     };
 
     var getButtonSide = function () {
-        var config = getSettings();
+        var config = Config;
         if (config.personalConfig) {
             return {
-                top: config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionTop,
-                left: config[Constants.PERSONAL_CONFIG][SITENAME].buttonPositionLeft
+                top: config.personal[SITENAME].buttonPositionTop,
+                left: config.personal[SITENAME].buttonPositionLeft
             };
         } else {
             return {

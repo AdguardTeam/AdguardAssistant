@@ -20,13 +20,13 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      */
     var show = function() {
         if (!checkRequirements()) {
-            log.info("Environment doesn't satisfy requirements, so don't show Adguard");
+            log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
             return;
         }
         if (button) {
             return;
         }
-        log.debug("Requirements checked, all ok");
+        log.debug('Requirements checked, all ok');
 
         buttonElement = CommonUtils.createElement('div');
         buttonElement.innerHTML = HTML.button;
@@ -83,40 +83,28 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
     };
 
-    var setUserPositionIfExists = function(button) {
-        var position = settings.getUserPositionForButton();
-
-        // check if the browser stores old data without a anchor to prevent an error
-        if (!position || !position.storedAnchor) {
-            return false;
-        }
-
-        uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
-        uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
-
-        uiUtils.moveElementTo(button, position.x, position.y);
-
-        // validate that button is in the viewport
-        // with timeout for deferred execution
-        setTimeout(function () {
-            uiUtils.checkElementPosition(button, position);
-        });
-
-        return true;
-    };
-
     var setPositionSettingsToButton = function(button) {
-        if (!settings.getIconSize()) {
-            $(button).addClass('logo-small');
-        }
-        if (setUserPositionIfExists(button)) {
-            return;
-        }
+        settings.getUserPositionForButton().then(function(position) {
+            if (!settings.getIconSize()) {
+                $(button).addClass('logo-small');
+            }
 
-        uiUtils.setAnchorPosition.positionY(button, settings.getButtonSide().top);
-        uiUtils.setAnchorPosition.positionX(button, settings.getButtonSide().left);
+            if (position && position.storedAnchor) {
+                uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
+                uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
+                uiUtils.moveElementTo(button, position.x, position.y);
+                uiUtils.checkElementPosition(button, position);
+                return false;
+            }
 
-        respectPageElements(button);
+            var side = settings.getButtonSide();
+
+            if (side) {
+                uiUtils.setAnchorPosition.positionY(button, side.top);
+                uiUtils.setAnchorPosition.positionX(button, side.left);
+                respectPageElements(button);
+            }
+        });
     };
 
     var registerEvents = function(button) {

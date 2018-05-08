@@ -7,6 +7,7 @@
  */
 var adguardAssistantExtended = function () {
     Ioc.register('log', new Log());
+    Ioc.register('UpgradeHelper', new UpgradeHelper());
 
     Ioc.register('addRule', function() {
         return false;

@@ -23,6 +23,7 @@ module.exports = () => {
         'src/utils/css.escape.js',
         'src/ioc.js',
         'src/log.js',
+        'src/upgradeHelper.js',
         'src/balalaika.patched.js',
         'src/settings.js',
         'src/utils/ui-utils.js',

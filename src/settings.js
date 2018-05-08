@@ -2,14 +2,14 @@
  * Object that manages user settings.
  * @param log
  * @param gmApi
+ * @param UpgradeHelper
  * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
  * @constructor
  */
-var Settings = function (log, gmApi) { // jshint ignore:line
+var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     var Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 9,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
-        BUTTON_POSITION_ITEM_NAME: '__adbpos',
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
@@ -106,29 +106,15 @@ var Settings = function (log, gmApi) { // jshint ignore:line
         return adguardSettings;
     };
 
-    // function for backward compatibility. TODO: remove it in major update
-    var removeUserPositionForButton = function () {
-        try {
-            localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
-        } catch (ex) {
-            log.error(ex);
-        }
-    };
-
     var getUserPositionForButton = function () {
         return getSettings().then(function(config) {
             Config = config;
             var userPosition;
 
-            // for backward compatibility. TODO: remove it in major update
-            try {
-                userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
-                if (userPosition) {
-                    return JSON.parse(userPosition);
-                }
-            } catch (ex) {
-                removeUserPositionForButton();
-                log.error(ex);
+            var oldData = UpgradeHelper.getButtonPositionData();
+
+            if (oldData) {
+                return oldData;
             }
 
             if (config.personalConfig) {
@@ -150,8 +136,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
     };
 
     var setUserPositionForButton = function (position) {
-        // function for backward compatibility. TODO: remove it in major update
-        removeUserPositionForButton();
+        UpgradeHelper.removeUserPositionForButton();
         if (Config.personalConfig) {
             Config.personal[SITENAME].position = position;
         } else {
@@ -181,7 +166,7 @@ var Settings = function (log, gmApi) { // jshint ignore:line
 
     var setButtonSide = function (buttonSides) {
         // function for backward compatibility. TODO: remove it in major update
-        removeUserPositionForButton();
+        UpgradeHelper.removeUserPositionForButton();
 
         if (Config.personalConfig) {
             delete Config.personal[SITENAME].position;

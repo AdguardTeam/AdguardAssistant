@@ -19,6 +19,7 @@ module.exports = () => {
     let userMetaFileName = options.scriptName + '.meta.js';
 
     let resources = [
+        'src/utils/polyfill.min.js',
         'src/utils/css.escape.js',
         'src/ioc.js',
         'src/log.js',

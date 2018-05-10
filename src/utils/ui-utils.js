@@ -71,7 +71,7 @@ var UIUtils = function($) { // jshint ignore:line
             pauseEvent(e);
 
             // prevent browser scroll
-            $(document).on('wheel mousewheel', preventedEvent);
+            $(document.documentElement).on('wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -100,8 +100,8 @@ var UIUtils = function($) { // jshint ignore:line
              * binding both mouse and touch/pointer events simultaneously
              * see: http://www.html5rocks.com/en/mobile/touchandmouse/
              */
-            $(document).on('mouseup touchend pointerup', onMouseUp);
-            $(document).on('mousemove touchmove pointermove', onMouseMove);
+            $(document.documentElement).on('mouseup touchend pointerup', onMouseUp);
+            $(document.documentElement).on('mousemove touchmove pointermove', onMouseMove);
         };
 
         /**
@@ -113,7 +113,7 @@ var UIUtils = function($) { // jshint ignore:line
             e.stopPropagation();
 
             // make scroll availalbe
-            $(document).off('wheel mousewheel', preventedEvent);
+            $(document.documentElement).off('wheel mousewheel', preventedEvent);
 
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
@@ -156,9 +156,9 @@ var UIUtils = function($) { // jshint ignore:line
                 }
             }
 
-            $(document).off('mouseup touchend pointerup', onMouseUp);
+            $(document.documentElement).off('mouseup touchend pointerup', onMouseUp);
 
-            $(document).off('mousemove touchmove pointermove', onMouseMove);
+            $(document.documentElement).off('mousemove touchmove pointermove', onMouseMove);
         };
 
         $(element).on('mousedown touchstart', mouseDown.bind(this));
@@ -232,7 +232,7 @@ var UIUtils = function($) { // jshint ignore:line
         };
 
         // prevent iframe dragging while browser tabs is switching
-        document.addEventListener('visibilitychange', onMouseUp);
+        document.documentElement.addEventListener('visibilitychange', onMouseUp);
 
         dragHandle.on('mousedown touchstart', onMouseDown);
         $iframeDocument.on('mouseup touchend pointerup', onMouseUp);

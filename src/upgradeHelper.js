@@ -15,7 +15,7 @@ var UpgradeHelper = function () {
                 return JSON.parse(userPosition);
             }
         } catch (ex) {
-            removeUserPositionForButton();
+            // removeUserPositionForButton();
             log.error(ex);
         }
     };
@@ -28,8 +28,13 @@ var UpgradeHelper = function () {
         }
     };
 
+    var upgradeGmStorage = function () {
+        var position = getButtonPositionData();
+        console.log(position);
+    };
+
     return {
-        removeUserPositionForButton: removeUserPositionForButton,
-        getButtonPositionData: getButtonPositionData
+        // removeUserPositionForButton: removeUserPositionForButton,
+        upgradeGmStorage: upgradeGmStorage
     };
 };

@@ -26,7 +26,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         buttonPositionLeft: false,
         largeIcon: true,
         assistantFirstStart: true,
-        scriptVersion: 1,
+        scriptVersion: 2,
         personal: {}
     };
 
@@ -67,7 +67,12 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
     var getSettings = function () {
         return gmApi.getValue('settings').then(function(config) {
-            return JSON.parse(config);
+            try {
+                return JSON.parse(config);
+            } catch (ex) {
+                log.error(ex);
+                return null;
+            }
         });
     };
 
@@ -93,14 +98,18 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
     var getUserPositionForButton = function () {
         return getSettings().then(function(config) {
+            if (!config) {
+                return null;
+            }
+
             Config = config;
             var userPosition;
 
-            var oldData = UpgradeHelper.getButtonPositionData();
-
-            if (oldData) {
-                return oldData;
-            }
+            // var oldData = UpgradeHelper.getButtonPositionData();
+            //
+            // if (oldData) {
+            //     return oldData;
+            // }
 
             if (config.personalConfig) {
                 userPosition = config.personal;
@@ -121,7 +130,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     var setUserPositionForButton = function (position) {
-        UpgradeHelper.removeUserPositionForButton();
+        // UpgradeHelper.removeUserPositionForButton();
         if (Config.personalConfig) {
             Config.personal[SITENAME].position = position;
         } else {
@@ -155,7 +164,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
      */
     var setButtonSide = function (buttonSides) {
         // function for backward compatibility. TODO: remove it in major update
-        UpgradeHelper.removeUserPositionForButton();
+        // UpgradeHelper.removeUserPositionForButton();
 
         if (Config.personalConfig) {
             delete Config.personal[SITENAME].position;
@@ -215,11 +224,15 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
             }
             var property = DefaultConfig[prop];
             if (property && typeof property !== typeof settings[prop]) {
-                throw 'Invalid settings object';
+                throw new Error('Invalid settings object');
             }
         }
         if (settings.scriptVersion > DefaultConfig.scriptVersion) {
-            throw 'Invalid settings object';
+            throw new Error('Invalid settings object');
+        }
+        if (settings.scriptVersion < DefaultConfig.scriptVersion) {
+            UpgradeHelper.upgradeGmStorage();
+            log.info('update scheme');
         }
     };
 

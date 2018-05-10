@@ -4,8 +4,15 @@
  * @constructor
  */
 var Log = function () { // jshint ignore:line
+    var currentLevel;
+    // gulp preprocess condition
+    // @if DEBUG
+    currentLevel = "DEBUG";
+    // @endif
 
-    var currentLevel = "INFO";
+    // @if !DEBUG
+    currentLevel = "ERROR";
+    // @endif
 
     var LogLevels = {
         ERROR: 1,
@@ -15,8 +22,6 @@ var Log = function () { // jshint ignore:line
     };
 
     var print = function (level, method, args) {
-        // gulp preprocess condition
-        // @if DEBUG
 
         //check log level
         if (LogLevels[currentLevel] < LogLevels[level]) {
@@ -35,11 +40,6 @@ var Log = function () { // jshint ignore:line
             formatted = now.toISOString() + ": " + formatted;
         }
         console[method](formatted);
-        // @endif
-
-        // @if !DEBUG
-        return false;
-        // @endif
     };
 
     var debug = function () {

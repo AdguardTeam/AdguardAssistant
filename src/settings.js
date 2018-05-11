@@ -13,6 +13,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
     };
+
     var MenuItemsNames = {
         DetailedMenu: 'mainMenu.html',
         SelectorMenu: 'selectorMenu.html',
@@ -21,12 +22,22 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         SettingsMenu: 'settingsMenu.html'
     };
 
+    /**
+     * Config data stored in GM storage
+     * @typedef {Object} DefaultConfig
+     * @property {boolean} buttonPositionTop - Static button position from top.
+     * @property {boolean} buttonPositionLeft - Static button position from left.
+     * @property {boolean} largeIcon - Button size. true - large, false - small.
+     * @property {boolean} personalConfig - Is the settings save for all sites or for each site individually.
+     * @property {number} scriptVersion - Version of scheme. 2 is set since assistant version 4.2.
+     * @property {object} personal - Object config that may includes the same properties, except `scriptVersion`, but for each site individually.
+     */
     var DefaultConfig = {
         buttonPositionTop: false,
         buttonPositionLeft: false,
         largeIcon: true,
         personalConfig: true,
-        scriptVersion: 2, // version scheme 2 is set since assistant 4.2
+        scriptVersion: 2,
         personal: {}
     };
 

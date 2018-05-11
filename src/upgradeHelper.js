@@ -34,6 +34,7 @@ var UpgradeHelper = function () {
         return settings;
     };
 
+    // Helper for assistant update from 4.1 to 4.2
     var upgradeLocalStorage = function (settings, sitename) {
         var position = getButtonPositionData();
         if (position) {

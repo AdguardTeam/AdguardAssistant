@@ -8,7 +8,7 @@
  */
 var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     var Constants = {
-        MINIMUM_IE_SUPPORTED_VERSION: 9,
+        MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         IFRAME_ID: 'adguard-assistant-dialog',
         REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
@@ -25,8 +25,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         buttonPositionTop: false,
         buttonPositionLeft: false,
         largeIcon: true,
-        assistantFirstStart: true,
-        scriptVersion: 2,
+        scriptVersion: 2, // version scheme 2 is set since assistant 4.2
         personal: {}
     };
 
@@ -37,24 +36,18 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
     var SITENAME = window.location.host;
 
-    var loadSettings = function () {
+    var loadSettings = function (showButton) {
         log.debug('Trying to get settings');
         var settings;
 
-        gmApi.getValue('settings').then(function(settings) {
-            var config;
-            try {
-                config = JSON.parse(settings);
-                validateSettings(config);
+        getSettings().then(function(config) {
+            if (config && validateSettings(config)) {
+                Config = config;
                 log.debug('Settings parsed successfully');
-            } catch (ex) {
-                log.error(ex);
-                config = JSON.parse(JSON.stringify(DefaultConfig));
-                if (typeof settings !== 'undefined') {
-                    config.assistantFirstStart = false;
-                }
-                saveSettings(config);
+            } else {
+                saveSettings(DefaultConfig);
             }
+            showButton();
         });
     };
 
@@ -62,13 +55,14 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         if (config) {
             Config = config;
         }
+        log.info('Update settings...');
         gmApi.setValue('settings', Config);
     };
 
     var getSettings = function () {
         return gmApi.getValue('settings').then(function(config) {
             try {
-                return JSON.parse(config);
+                return config && JSON.parse(config);
             } catch (ex) {
                 log.error(ex);
                 return null;
@@ -97,36 +91,23 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     var getUserPositionForButton = function () {
-        return getSettings().then(function(config) {
-            if (!config) {
-                return null;
-            }
+        var userPosition;
 
-            Config = config;
-            var userPosition;
-
-            // var oldData = UpgradeHelper.getButtonPositionData();
-            //
-            // if (oldData) {
-            //     return oldData;
-            // }
-
-            if (config.personalConfig) {
-                userPosition = config.personal;
-
-                if (userPosition) {
-                    userPosition = userPosition[SITENAME].position;
-                }
-            } else {
-                userPosition = config.position;
-            }
+        if (Config.personalConfig) {
+            userPosition = Config.personal;
 
             if (userPosition) {
-                return userPosition;
+                userPosition = userPosition[SITENAME].position;
             }
+        } else {
+            userPosition = Config.position;
+        }
 
-            return null;
-        });
+        if (userPosition) {
+            return userPosition;
+        }
+
+        return null;
     };
 
     var setUserPositionForButton = function (position) {
@@ -149,12 +130,10 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     var getIconSize = function () {
-        var config = Config;
-
-        if (config.personalConfig) {
-            return config.personal[SITENAME].largeIcon;
+        if (Config.personalConfig) {
+            return Config.personal[SITENAME].largeIcon;
         } else {
-            return config.largeIcon;
+            return Config.largeIcon;
         }
     };
 
@@ -216,7 +195,8 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
     var validateSettings = function (settings) {
         if (!settings) {
-            throw 'Invalid settings object';
+            log.error('Invalid settings object');
+            return false;
         }
         for (var prop in settings) {
             if (!settings.hasOwnProperty(prop)) {
@@ -224,16 +204,20 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
             }
             var property = DefaultConfig[prop];
             if (property && typeof property !== typeof settings[prop]) {
-                throw new Error('Invalid settings object');
+                log.error('Invalid settings object');
+                return false;
             }
         }
         if (settings.scriptVersion > DefaultConfig.scriptVersion) {
-            throw new Error('Invalid settings object');
+            log.error('Invalid settings object');
+            return false;
         }
         if (settings.scriptVersion < DefaultConfig.scriptVersion) {
-            UpgradeHelper.upgradeGmStorage();
-            log.info('update scheme');
+            log.info('Settings object is outdated. Updating...');
+            var updatedConfig = UpgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
+            saveSettings(updatedConfig);
         }
+        return true;
     };
 
     return {

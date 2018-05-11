@@ -28,16 +28,23 @@ var UpgradeHelper = function () {
     };
 
     var upgradeGmStorage = function (settings, version) {
+        settings.personal = {};
+        settings.scriptVersion = version;
+        settings.personalConfig = true;
+        return settings;
+    };
+
+    var upgradeLocalStorage = function (settings, sitename) {
         var position = getButtonPositionData();
         if (position) {
-            settings.position = position;
+            settings.personal[sitename] = position;
         }
         removeUserPositionForButton();
-        settings.scriptVersion = version;
         return settings;
     };
 
     return {
-        upgradeGmStorage: upgradeGmStorage
+        upgradeGmStorage: upgradeGmStorage,
+        upgradeLocalStorage: upgradeLocalStorage
     };
 };

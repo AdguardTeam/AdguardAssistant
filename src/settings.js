@@ -25,6 +25,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         buttonPositionTop: false,
         buttonPositionLeft: false,
         largeIcon: true,
+        personalConfig: true,
         scriptVersion: 2, // version scheme 2 is set since assistant 4.2
         personal: {}
     };
@@ -55,7 +56,8 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         if (config) {
             Config = config;
         }
-        log.info('Update settings...');
+        log.debug('Update settings...');
+        log.debug(Config);
         gmApi.setValue('settings', Config);
     };
 
@@ -94,10 +96,8 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         var userPosition;
 
         if (Config.personalConfig) {
-            userPosition = Config.personal;
-
-            if (userPosition) {
-                userPosition = userPosition[SITENAME].position;
+            if (Config.personal && Config.personal[SITENAME]) {
+                userPosition = Config.personal[SITENAME].position;
             }
         } else {
             userPosition = Config.position;
@@ -111,8 +111,10 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     var setUserPositionForButton = function (position) {
-        // UpgradeHelper.removeUserPositionForButton();
         if (Config.personalConfig) {
+            if (!Config.personal[SITENAME]) {
+                Config.personal[SITENAME] = {};
+            }
             Config.personal[SITENAME].position = position;
         } else {
             Config.position = position;
@@ -130,7 +132,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     var getIconSize = function () {
-        if (Config.personalConfig) {
+        if (Config.personalConfig && Config.personal && Config.personal[SITENAME]) {
             return Config.personal[SITENAME].largeIcon;
         } else {
             return Config.largeIcon;
@@ -142,9 +144,6 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
      * window the button position is placed by option (not drag)
      */
     var setButtonSide = function (buttonSides) {
-        // function for backward compatibility. TODO: remove it in major update
-        // UpgradeHelper.removeUserPositionForButton();
-
         if (Config.personalConfig) {
             delete Config.personal[SITENAME].position;
             Config.personal[SITENAME].buttonPositionTop = buttonSides.top;
@@ -164,6 +163,9 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
 
         if (Config.personalConfig && !Config.personal) {
             Config.personal = {};
+        }
+
+        if (Config.personalConfig && !Config.personal[SITENAME]) {
             Config.personal[SITENAME] = {};
             Config.personal[SITENAME].position = Config.position;
         }
@@ -180,7 +182,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
      */
     var getButtonSide = function () {
         var config = Config;
-        if (config.personalConfig) {
+        if (config.personalConfig && config.personal && config.personal[SITENAME]) {
             return {
                 top: config.personal[SITENAME].buttonPositionTop,
                 left: config.personal[SITENAME].buttonPositionLeft
@@ -214,9 +216,12 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         }
         if (settings.scriptVersion < DefaultConfig.scriptVersion) {
             log.info('Settings object is outdated. Updating...');
-            var updatedConfig = UpgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
-            saveSettings(updatedConfig);
+            settings = UpgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
         }
+
+        // save to gm store position data from localStorage
+        settings = UpgradeHelper.upgradeLocalStorage(settings, SITENAME);
+        saveSettings(settings);
         return true;
     };
 

@@ -88,18 +88,17 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
                 contentDocument.getElementById('all-site').checked = true;
             }
 
-            settings.getUserPositionForButton().then(function(position) {
-                if (position) {
-                    return;
-                }
-                var sideFromSettings = settings.getButtonSide();
+            var position = settings.getUserPositionForButton();
+            if (position) {
+                return;
+            }
+            var sideFromSettings = settings.getButtonSide();
 
-                Object.keys(buttonSides).forEach(function (item) {
-                    var sideItem = buttonSides[item];
-                    if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
-                        contentDocument.getElementById(item).checked = true;
-                    }
-                });
+            Object.keys(buttonSides).forEach(function (item) {
+                var sideItem = buttonSides[item];
+                if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
+                    contentDocument.getElementById(item).checked = true;
+                }
             });
         });
     };

@@ -22,7 +22,6 @@ var Log = function () { // jshint ignore:line
     };
 
     var print = function (level, method, args) {
-
         //check log level
         if (LogLevels[currentLevel] < LogLevels[level]) {
             return;
@@ -30,14 +29,19 @@ var Log = function () { // jshint ignore:line
         if (!args || args.length === 0 || !args[0]) {
             return;
         }
-        var str = args[0] + '';
-        args = Array.prototype.slice.call(args, 1);
-        var formatted = str.replace(/{(\d+)}/g, function (match, number) {
-            return typeof  args[number] !== 'undefined' ? args[number] : match;
-        });
-        if (LogLevels[level] >= LogLevels[currentLevel]) {
-            var now = new Date();
-            formatted = now.toISOString() + ': ' + formatted;
+        var formatted;
+        if (typeof args[0] === 'object') {
+            formatted = args[0];
+        } else {
+            var str = args[0] + '';
+            args = Array.prototype.slice.call(args, 1);
+            formatted = str.replace(/{(\d+)}/g, function (match, number) {
+                return typeof  args[number] !== 'undefined' ? args[number] : match;
+            });
+            if (LogLevels[level] >= LogLevels[currentLevel]) {
+                var now = new Date();
+                formatted = now.toISOString() + ': ' + formatted;
+            }
         }
         console[method](formatted);
     };

@@ -160,5 +160,50 @@ var CommonUtils = { // jshint ignore:line
         }
 
         return tagNode;
+    },
+     /**
+      * Multiplue event handler helper.
+      * @param {Object}  elements  element or nodeList.
+      * @param {String}  events    multiple events divided by space.
+      * @param {Function}  eventHandler   event handler.
+      * @param {Boolean}  useCapture   capture.
+      * @return {Function} add/remove.
+      */
+    events: {
+        add: function(elements, events, eventHandler, useCapture) {
+            this.addRemoveEvents(true, elements, events, eventHandler, useCapture);
+        },
+        remove: function(elements, events, eventHandler, useCapture) {
+            this.addRemoveEvents(false, elements, events, eventHandler, useCapture);
+        },
+        addRemoveEvents: function (add, elements, events, eventHandler, useCapture) {
+            if (!elements || !events || !eventHandler) {
+                return false;
+            }
+
+            var eventList = events.split(' ');
+
+            if (!eventList || eventList.length < 1) {
+                return false;
+            }
+
+            if (!elements.length) {
+                elements = new Array(elements);
+            }
+
+            for (var el = 0; el < elements.length; el++) {
+                for (var evt = 0; evt < eventList.length; evt++) {
+                    if (!eventList[evt] || !eventList[evt].length) {
+                        continue;
+                    }
+
+                    if (add) {
+                        elements[el].addEventListener(eventList[evt], eventHandler, !!useCapture);
+                    } else {
+                        elements[el].removeEventListener(eventList[evt], eventHandler, !!useCapture);
+                    }
+                }
+            }
+        }
     }
 };

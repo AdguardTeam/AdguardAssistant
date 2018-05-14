@@ -71,7 +71,7 @@ var UIUtils = function($) { // jshint ignore:line
             pauseEvent(e);
 
             // prevent browser scroll
-            $(document).on('wheel mousewheel', preventedEvent);
+            CommonUtils.events.add(document.documentElement, 'wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -100,8 +100,8 @@ var UIUtils = function($) { // jshint ignore:line
              * binding both mouse and touch/pointer events simultaneously
              * see: http://www.html5rocks.com/en/mobile/touchandmouse/
              */
-            $(document).on('mouseup touchend pointerup', onMouseUp);
-            $(document).on('mousemove touchmove pointermove', onMouseMove);
+            CommonUtils.events.add(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
+            CommonUtils.events.add(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
         };
 
         /**
@@ -113,7 +113,7 @@ var UIUtils = function($) { // jshint ignore:line
             e.stopPropagation();
 
             // make scroll availalbe
-            $(document).off('wheel mousewheel', preventedEvent);
+            CommonUtils.events.remove(document.documentElement, 'wheel mousewheel', preventedEvent);
 
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
@@ -156,13 +156,12 @@ var UIUtils = function($) { // jshint ignore:line
                 }
             }
 
-            $(document).off('mouseup touchend pointerup', onMouseUp);
-
-            $(document).off('mousemove touchmove pointermove', onMouseMove);
+            CommonUtils.events.remove(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
+            CommonUtils.events.remove(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
         };
 
-        $(element).on('mousedown touchstart', mouseDown.bind(this));
-        $(element).on('dragstart', function() {return;});
+        CommonUtils.events.add(element, 'mousedown touchstart', mouseDown.bind(this));
+        CommonUtils.events.add(element, 'dragstart', function() {return;});
     };
 
     var outsidePosition = {
@@ -187,9 +186,7 @@ var UIUtils = function($) { // jshint ignore:line
      * @param handleElement
      */
     var makeIframeDraggable = function(iframe, handleElement) {
-        var iframeJ = $(iframe);
-        var dragHandle = $(handleElement);
-        var $iframeDocument = $(iframe.contentDocument);
+        var iframeDoc = iframe.contentDocument;
 
         var offset = Object.create(null);
 
@@ -200,8 +197,8 @@ var UIUtils = function($) { // jshint ignore:line
          * @param y
          */
         var drag = function(x, y) {
-            iframeJ.css('left', x + 'px');
-            iframeJ.css('top', y + 'px');
+            iframe.style.left = x + 'px';
+            iframe.style.top = y + 'px';
         };
 
         var cancelIFrameSelection = function(e) {
@@ -216,27 +213,26 @@ var UIUtils = function($) { // jshint ignore:line
 
         var onMouseDown = function(e) {
             var eventPosition = getOriginalEvent(e);
-            var dragHandleEl = dragHandle.get(0);
-            var rect = iframeJ.get(0).getBoundingClientRect();
+            var rect = iframe.getBoundingClientRect();
 
-            offset.x = rect.left + dragHandleEl.offsetLeft - eventPosition.screenX;
-            offset.y = rect.top + dragHandleEl.offsetTop - eventPosition.screenY;
+            offset.x = rect.left + handleElement.offsetLeft - eventPosition.screenX;
+            offset.y = rect.top + handleElement.offsetTop - eventPosition.screenY;
 
-            $iframeDocument.on('mousemove touchmove pointermove', onMouseMove);
-            $iframeDocument.on('selectstart', cancelIFrameSelection);
+            CommonUtils.events.add(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
+            CommonUtils.events.add(iframeDoc, 'selectstart', cancelIFrameSelection);
         };
 
         var onMouseUp = function() {
-            $iframeDocument.off('mousemove touchmove pointermove', onMouseMove);
-            $iframeDocument.off('selectstart', cancelIFrameSelection);
+            CommonUtils.events.remove(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
+            CommonUtils.events.remove(iframeDoc, 'selectstart', cancelIFrameSelection);
         };
 
         // prevent iframe dragging while browser tabs is switching
         document.addEventListener('visibilitychange', onMouseUp);
 
-        dragHandle.on('mousedown touchstart', onMouseDown);
-        $iframeDocument.on('mouseup touchend pointerup', onMouseUp);
-        $iframeDocument.on('contextmenu', function(e) {
+        CommonUtils.events.add(handleElement, 'mousedown touchstart', onMouseDown);
+        CommonUtils.events.add(iframeDoc, 'mouseup touchend pointerup', onMouseUp);
+        CommonUtils.events.add(iframeDoc, 'contextmenu', function(e) {
             e.preventDefault();
             return false;
         });

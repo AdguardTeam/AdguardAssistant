@@ -38,7 +38,8 @@ var UpgradeHelper = function () {
     var upgradeLocalStorage = function (settings, sitename) {
         var position = getButtonPositionData();
         if (position) {
-            settings.personal[sitename] = position;
+            settings.personal[sitename].position = position;
+            settings.personal[sitename].largeIcon = settings.largeIcon;
         }
         removeUserPositionForButton();
         return settings;

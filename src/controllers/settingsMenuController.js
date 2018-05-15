@@ -75,31 +75,29 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
     };
 
     var setDefaultSettings = function () {
-        settings.getSettings().then(function(currentSettings) {
-            if (settings.getIconSize()) {
-                contentDocument.getElementById('size-big').checked = true;
-            } else {
-                contentDocument.getElementById('size-small').checked = true;
-            }
+        if (settings.getIconSize()) {
+            contentDocument.getElementById('size-big').checked = true;
+        } else {
+            contentDocument.getElementById('size-small').checked = true;
+        }
 
-            if (currentSettings.personalConfig) {
-                contentDocument.getElementById('this-site').checked = true;
-            } else {
-                contentDocument.getElementById('all-site').checked = true;
-            }
+        if (settings.getPersonalConfig()) {
+            contentDocument.getElementById('this-site').checked = true;
+        } else {
+            contentDocument.getElementById('all-site').checked = true;
+        }
 
-            var position = settings.getUserPositionForButton();
-            if (position) {
-                return;
-            }
-            var sideFromSettings = settings.getButtonSide();
+        var position = settings.getUserPositionForButton();
+        if (position) {
+            return;
+        }
+        var sideFromSettings = settings.getButtonSide();
 
-            Object.keys(buttonSides).forEach(function (item) {
-                var sideItem = buttonSides[item];
-                if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
-                    contentDocument.getElementById(item).checked = true;
-                }
-            });
+        Object.keys(buttonSides).forEach(function (item) {
+            var sideItem = buttonSides[item];
+            if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
+                contentDocument.getElementById(item).checked = true;
+            }
         });
     };
 

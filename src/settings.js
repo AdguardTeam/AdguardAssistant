@@ -188,6 +188,13 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     };
 
     /**
+     * Get config that specifies how to save button settings: for all sites or only on this
+     */
+    var getPersonalConfig = function () {
+        return Config.personalConfig;
+    };
+
+    /**
      * Get the option to which corner of the browser window the button position is placed
      * @return {Object}
      */
@@ -252,6 +259,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         setPersonalParam: setPersonalParam,
         setButtonSide: setButtonSide,
         getAdguardSettings: getAdguardSettings,
-        getIconSize: getIconSize
+        getIconSize: getIconSize,
+        getPersonalConfig: getPersonalConfig
     };
 };

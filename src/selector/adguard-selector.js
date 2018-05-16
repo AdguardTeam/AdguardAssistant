@@ -61,7 +61,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var clearSelected = function() {
-        removeElementPreventeEvents();
+        removeElementToPreventEvents();
         selectedElements = [];
         rejectedElements = [];
 
@@ -313,7 +313,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var removePlaceholders = function() {
-        removeElementPreventeEvents();
+        removeElementToPreventEvents();
         if (!placeholdedElements) {
             return;
         }
@@ -361,15 +361,15 @@ var AdguardSelectorLib = (function(api, $) {
         placeHolder.style['z-index'] = '99999999999999999999';
         placeHolder.className += IGNORED_CLASS;
         transparentPlaceholdedElement = placeHolder;
-        $(placeHolder).on('click', sgMousedownHandler);
+        $(placeHolder).on('click touchstart pointerdown', touchElementSelectHandler);
         document.documentElement.appendChild(placeHolder);
     };
 
-    var removeElementPreventeEvents = function() {
+    var removeElementToPreventEvents = function() {
         if (!transparentPlaceholdedElement) {
             return false;
         }
-        $(transparentPlaceholdedElement).off('click', sgMousedownHandler);
+        $(transparentPlaceholdedElement).off('click touchstart pointerdown', touchElementSelectHandler);
         transparentPlaceholdedElement.parentNode.removeChild(transparentPlaceholdedElement);
         transparentPlaceholdedElement = null;
     };

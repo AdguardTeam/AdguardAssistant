@@ -328,8 +328,6 @@ var AdguardSelectorLib = (function(api, $) {
                 if (parent) {
                     parent.replaceChild(current, placeHolder);
                 }
-            } else {
-                current.parentNode.removeChild(current);
             }
         }
 

@@ -7,6 +7,7 @@ var AdguardSelectorLib = (function(api, $) {
 
     var PLACEHOLDER_PREFIX = 'adguard-placeholder';
     var placeholdedElements = null;
+    var transparentPlaceholdedElement = null;
 
     var restrictedElements = null;
 
@@ -60,6 +61,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var clearSelected = function() {
+        removeElementPreventeEvents();
         selectedElements = [];
         rejectedElements = [];
 
@@ -311,6 +313,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var removePlaceholders = function() {
+        removeElementPreventeEvents();
         if (!placeholdedElements) {
             return;
         }
@@ -325,6 +328,8 @@ var AdguardSelectorLib = (function(api, $) {
                 if (parent) {
                     parent.replaceChild(current, placeHolder);
                 }
+            } else {
+                current.parentNode.removeChild(current);
             }
         }
 
@@ -336,6 +341,39 @@ var AdguardSelectorLib = (function(api, $) {
         removePlaceholders();
 
         onElementSelectedHandler(element);
+    };
+
+    /**
+     * Making top level transparent layer to prevented events on emerging ad.
+     * see: https://github.com/AdguardTeam/AdguardAssistant/issues/220
+     *
+     * @param element element where ad is added
+     */
+    var preventEvents = function(element) {
+        var placeHolder = CommonUtils.createElement('div');
+        var style = getOffsetExtended(element);
+        placeHolder.style.height = px(style.outerHeight);
+        placeHolder.style.width = px(style.outerWidth);
+        placeHolder.style.top = px(style.top);
+        placeHolder.style.left = px(style.left);
+        placeHolder.style.background = 'transparent';
+        placeHolder.style.position = 'absolute';
+        placeHolder.style['pointer-events'] = 'all';
+        placeHolder.style['box-sizing'] = 'content-box';
+        placeHolder.style['z-index'] = '99999999999999999999';
+        placeHolder.className += IGNORED_CLASS;
+        transparentPlaceholdedElement = placeHolder;
+        $(placeHolder).on('click', sgMousedownHandler);
+        document.documentElement.appendChild(placeHolder);
+    };
+
+    var removeElementPreventeEvents = function() {
+        if (!transparentPlaceholdedElement) {
+            return false;
+        }
+        $(transparentPlaceholdedElement).off('click', sgMousedownHandler);
+        transparentPlaceholdedElement.parentNode.removeChild(transparentPlaceholdedElement);
+        transparentPlaceholdedElement = null;
     };
 
     var makeIFrameAndEmbeddedSelector = function() {
@@ -585,10 +623,10 @@ var AdguardSelectorLib = (function(api, $) {
      * @param element
      */
     api.selectElement = function(element) {
-        deleteEventHandlers();
         selectionRenderer.add(element);
-
+        removePlaceholders();
         unbound = true;
+        preventEvents(element);
     };
 
     /**

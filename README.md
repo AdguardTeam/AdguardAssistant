@@ -34,7 +34,7 @@ Version to be used in the browser extension:
 
 Embedded version run as:
 
-    adguardAssistant.start(callback);
+    adguardAssistant().start(null, callback);
 
 Сallback returns a rule string.
 

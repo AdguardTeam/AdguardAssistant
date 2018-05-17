@@ -74,4 +74,5 @@
 // @grant   GM_getResourceText
 // @grant   GM_addStyle
 // @grant   property:settings
+// @run-at document-start
 // ==/UserScript==

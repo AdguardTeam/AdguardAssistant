@@ -19,7 +19,7 @@
 // @name:sk AdGuard asistant
 // @name:no AdGuard-assistent
 // @name:da AdGuard Assistent
-// @name:fr Assistant AdGuard 
+// @name:fr Assistant AdGuard
 // @name:id Asisten Aguard
 // @name:sv AdGuard-assistent
 // @name:sr AdGuard pomoćnik
@@ -74,4 +74,5 @@
 // @grant   GM_getResourceText
 // @grant   GM_addStyle
 // @grant   property:settings
+// @run-at document-start
 // ==/UserScript==

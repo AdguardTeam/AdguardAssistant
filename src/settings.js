@@ -27,7 +27,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
      * @typedef {Object} DefaultConfig
      * @property {boolean} buttonPositionTop - Static button position from top.
      * @property {boolean} buttonPositionLeft - Static button position from left.
-     * @property {boolean} largeIcon - Button size. true - large, false - small.
+     * @property {boolean} smallIcon - Button size. true - small, false - large.
      * @property {boolean} personalConfig - Is the settings save for all sites or for each site individually.
      * @property {number} scriptVersion - Version of scheme. 2 is set since assistant version 4.2.
      * @property {object} personal - Object config that may includes the same properties, except `scriptVersion`, but for each site individually.
@@ -35,7 +35,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     var DefaultConfig = {
         buttonPositionTop: false,
         buttonPositionLeft: false,
-        largeIcon: true,
+        smallIcon: false,
         personalConfig: true,
         scriptVersion: 2,
         personal: {}
@@ -134,19 +134,19 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
         saveSettings(Config);
     };
 
-    var setIconSize = function (largeIcon) {
+    var setIconSize = function (smallIcon) {
         if (Config.personalConfig) {
-            Config.personal[SITENAME].largeIcon = largeIcon;
+            Config.personal[SITENAME].smallIcon = smallIcon;
         } else {
-            Config.largeIcon = largeIcon;
+            Config.smallIcon = smallIcon;
         }
     };
 
     var getIconSize = function () {
         if (Config.personalConfig && Config.personal && Config.personal[SITENAME]) {
-            return Config.personal[SITENAME].largeIcon;
+            return Config.personal[SITENAME].smallIcon;
         } else {
-            return Config.largeIcon;
+            return Config.smallIcon;
         }
     };
 

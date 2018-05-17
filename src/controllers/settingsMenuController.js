@@ -42,8 +42,8 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
     };
 
     var setIconSize = function () {
-        var largeIcon = contentDocument.getElementById('size-big').checked;
-        settings.setIconSize(largeIcon);
+        var smallIcon = contentDocument.getElementById('size-small').checked;
+        settings.setIconSize(smallIcon);
     };
 
     var setPersonalParam = function () {
@@ -76,9 +76,9 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
 
     var setDefaultSettings = function () {
         if (settings.getIconSize()) {
-            contentDocument.getElementById('size-big').checked = true;
-        } else {
             contentDocument.getElementById('size-small').checked = true;
+        } else {
+            contentDocument.getElementById('size-big').checked = true;
         }
 
         if (settings.getPersonalConfig()) {

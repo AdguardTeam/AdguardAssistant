@@ -85,7 +85,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
 
     var setPositionSettingsToButton = function(button) {
         var position = settings.getUserPositionForButton();
-        if (!settings.getIconSize()) {
+        if (settings.getIconSize()) {
             $(button).addClass('logo-small');
         }
 

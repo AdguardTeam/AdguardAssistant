@@ -15,7 +15,7 @@
 
 var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization) { // jshint ignore:line
     var iframe = null;
-    var iframeElement = null;
+    var iframeAnchor = null;
     var currentItem = null;
     var iframeMaxWidth = 320;
     var iframeMaxHeight = 407;
@@ -66,25 +66,25 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             }
 
             iframeAlreadyLoaded = true;
-            iframeElement.style.setProperty('display', 'block', 'important');
+            iframeAnchor.style.setProperty('display', 'block', 'important');
             onIframeLoadCallback();
         });
 
         if (CommonUtils.checkShadowDomSupport()) {
-            iframeElement = CommonUtils.createElement('div');
-            createShadowRootElement(iframeElement).appendChild(iframe);
+            iframeAnchor = CommonUtils.createElement('div');
+            createShadowRootElement(iframeAnchor).appendChild(iframe);
         } else {
-            iframeElement = iframe;
+            iframeAnchor = iframe;
         }
 
-        document.documentElement.appendChild(iframeElement);
+        document.documentElement.appendChild(iframeAnchor);
     };
 
-    var createShadowRootElement = function(iframeElement) {
-        var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
-        shadowiframeElement.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.iframe));
+    var createShadowRootElement = function(iframeAnchor) {
+        var shadowiframeAnchor = iframeAnchor.attachShadow({mode: 'closed'});
+        shadowiframeAnchor.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.iframe));
 
-        return shadowiframeElement;
+        return shadowiframeAnchor;
     };
 
     var getIframePosition = function() {
@@ -311,14 +311,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             return false;
         }
 
-        if (!iframeElement) {
+        if (!iframeAnchor) {
             return false;
         }
 
         document.removeEventListener('click', removeIframe);
-        document.documentElement.removeChild(iframeElement);
+        document.documentElement.removeChild(iframeAnchor);
         iframe = null;
-        iframeElement = null;
+        iframeAnchor = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

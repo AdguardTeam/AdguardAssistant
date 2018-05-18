@@ -77,7 +77,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             iframeElement = iframe;
         }
 
-        iframeElement.style.setProperty('display', 'none', 'important');
         document.documentElement.appendChild(iframeElement);
     };
 

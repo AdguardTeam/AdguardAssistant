@@ -32,8 +32,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
     var defaultAttributes = {
         'class': selector.ignoreClassName(),
         frameBorder: 0,
-        width: 320,
-        height: 'auto',
         allowTransparency: 'true',
         id: 'iframe-x2eRYVVQRsG9'
     };
@@ -65,32 +63,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         document.documentElement.appendChild(iframeElement);
     };
 
-    var createShadowRootElement = function(iframeElement) {
-        var shadowiframeElement = iframeElement.attachShadow({mode: 'closed'});
-
-        // do not use `overflow: hidden` for host element. See: https://github.com/w3c/webcomponents/issues/672
-        var shadowRootDefaultStyle = {
-            display: 'block',
-            position: 'relative',
-            width: 0,
-            height: 0,
-            margin: 0,
-            padding: 0,
-            'z-index': 9999999999
-        };
-
-        var style = [];
-
-        Object.keys(shadowRootDefaultStyle).forEach(function(key) {
-            style.push(key + ':' + shadowRootDefaultStyle[key] + '!important;');
-        });
-
-        style = ':host {' + style.join('') + '}' + ':host::before {display: none!important}' + ':host::after {display: none!important}';
-        shadowiframeElement.appendChild(CommonUtils.createStylesElement(style));
-
-        return shadowiframeElement;
-    };
-
     var updateIframeAttrs = function(attrs) {
         iframe.removeAttribute('style');
         iframe.removeAttribute('height');
@@ -100,9 +72,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         Object.keys(attributes).forEach(function (item) {
             iframe.setAttribute(item, attributes[item]);
         });
-
-        iframe.setAttribute('width', attributes.width);
-        iframe.setAttribute('height', attributes.height === 'auto' ? iframe.contentDocument.body.scrollHeight : attributes.height);
     };
 
     var updateIframeStyles = function (styles) {
@@ -111,8 +80,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         Object.keys(css).forEach(function (item) {
             iframe.style[item] = css[item];
         });
-
-        iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px';
     };
 
     var showMenuItem = function (viewName, controller, options, styles, attrs) {
@@ -179,7 +146,9 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             bottom: 0,
             margin: 'auto',
             'border-radius': '2px',
-            'background': 'transparent'
+            'background': 'transparent',
+            width: '55vw',
+            height: '56vw',
         };
 
         showMenuItem('mobilePopup.html', null, null, styles);
@@ -206,7 +175,9 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             position: 'fixed',
             bottom: 0,
             left: '50%',
-            transform: 'translateX(-50%)'
+            transform: 'translateX(-50%)',
+            width: '70vw',
+            height: '27vw'
         };
 
         showMenuItem('mobileMenu.html', controller, options, styles);

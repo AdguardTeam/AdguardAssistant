@@ -72,9 +72,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         Object.keys(attributes).forEach(function (item) {
             iframe.setAttribute(item, attributes[item]);
         });
-
-        // iframe.setAttribute('width', attributes.width);
-        // iframe.setAttribute('height', attributes.height === 'auto' ? iframe.contentDocument.body.scrollHeight : attributes.height);
     };
 
     var updateIframeStyles = function (styles) {
@@ -83,8 +80,6 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         Object.keys(css).forEach(function (item) {
             iframe.style[item] = css[item];
         });
-
-        // iframe.style.height = iframe.contentDocument.body.scrollHeight + 'px';
     };
 
     var showMenuItem = function (viewName, controller, options, styles, attrs) {

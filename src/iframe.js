@@ -248,7 +248,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var showSettingsMenu = function () {
         var controller = Ioc.get(SettingsMenuController);
         var options = {dragElement: '.head'};
-        showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 400, 360, options);
+        showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 400, 468, options);
         setCloseEventIfNotHitIframe(true);
     };
 

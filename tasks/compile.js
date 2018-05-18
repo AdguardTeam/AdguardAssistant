@@ -19,10 +19,12 @@ module.exports = () => {
     let userMetaFileName = options.scriptName + '.meta.js';
 
     let resources = [
-        'src/utils/css.escape.js',
+        'src/libs/css.escape.js',
         'src/ioc.js',
         'src/log.js',
-        'src/balalaika.patched.js',
+        'src/libs/polyfill.js',
+        'src/upgradeHelper.js',
+        'src/libs/balalaika.patched.js',
         'src/settings.js',
         'src/utils/ui-utils.js',
         'src/utils/common-utils.js',

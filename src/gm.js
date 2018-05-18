@@ -5,7 +5,7 @@
  * @param ADG_sendAbuse
  * @param ADG_isFiltered
  * @param ADG_changeFilteringState
- * @returns {{GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
+ * @returns {{getValue, setValue, GM_getResourceText, GM_addStyle, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
  * @constructor
  */
 /* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
@@ -45,9 +45,22 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
         };
     }
 
+    var getValue = function(value) {
+        return new Promise(function(resolve, reject) {
+            resolve(GM_getValue(value));
+        });
+    };
+
+    var setValue = function (key, value) {
+        return new Promise(function(resolve, reject) {
+            GM_setValue(key, JSON.stringify(value));
+            resolve();
+        });
+    };
+
     return {
-        GM_getValue: GM_getValue,
-        GM_setValue: GM_setValue,
+        getValue: getValue,
+        setValue: setValue,
         GM_getResourceText: GM_getResourceText,
         GM_addStyle: GM_addStyle,
         ADG_addRule: ADG_addRule,

@@ -1,4 +1,7 @@
 var pt_BR = {
+    "settings_position_save": "Sites",
+    "settings_position_save_all": "Todos os sites",
+    "settings_position_save_this": "Neste site",
     "assistant_select_element_start": "Iniciar",
     "assistant_select_element_text": "Escolha um elemento na p\u00e1gina para bloquear. Atualize a p\u00e1gina para cancelar o bloqueio do elemento.",
     "menu_filtration_status": {
@@ -11,7 +14,7 @@ var pt_BR = {
         "message": "Bloquear an\u00fancios neste site"
     },
     "menu_report_abuse": {
-        "message": "Denunciar o site"
+        "message": "Reportar o site"
     },
     "menu_site_report": {
         "message": "Relat\u00f3rio de seguran\u00e7a do site"
@@ -47,7 +50,7 @@ var pt_BR = {
         "message": "Configura\u00e7\u00f5es avan\u00e7adas"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Aplicar a regra para todos os sites"
+        "message": "Aplicar regra para todos os sites"
     },
     "assistant_block_by_reference": {
         "message": "Bloquear pelo link de refer\u00eancia"
@@ -56,7 +59,7 @@ var pt_BR = {
         "message": "Bloquear semelhante"
     },
     "assistant_another_element": {
-        "message": "Selecione outro elemento"
+        "message": "Selecionar outro elemento"
     },
     "assistant_preview": {
         "message": "Ver pr\u00e9via"
@@ -68,10 +71,10 @@ var pt_BR = {
         "message": "Configura\u00e7\u00f5es do assistente"
     },
     "assistant_preview_header": {
-        "message": "Bloquear elemento - Pr\u00e9via"
+        "message": "Bloqueio de elemento - Pr\u00e9via"
     },
     "assistant_preview_header_info": {
-        "message": "Certifique-se de que o elemento esteja bloqueado como pretendido"
+        "message": "Certifique-se de que o elemento esteja bloqueado como desejado"
     },
     "assistant_preview_end": {
         "message": "Sair da pr\u00e9via"

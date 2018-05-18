@@ -20,13 +20,13 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      */
     var show = function() {
         if (!checkRequirements()) {
-            log.info("Environment doesn't satisfy requirements, so don't show Adguard");
+            log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
             return;
         }
         if (button) {
             return;
         }
-        log.debug("Requirements checked, all ok");
+        log.debug('Requirements checked, all ok');
 
         buttonElement = CommonUtils.createElement('div');
         buttonElement.innerHTML = HTML.button;
@@ -83,41 +83,30 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
     };
 
-    var setUserPositionIfExists = function(button) {
+    var setPositionSettingsToButton = function(button) {
         var position = settings.getUserPositionForButton();
+        if (settings.getIconSize()) {
+            $(button).addClass('logo-small');
+        }
 
-        // check if the browser stores old data without a anchor to prevent an error
-        if (!position || !position.storedAnchor) {
+        // The anchor determines from which side of the browser the positions of `position.x`, `position.y`.
+        // If `position` parameter is not defined, so the position of the button is set in the corners of the browser
+        if (position && position.storedAnchor) {
+            uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
+            uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
+            uiUtils.moveElementTo(button, position.x, position.y);
+            uiUtils.checkElementPosition(button, position);
             return false;
         }
 
-        uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
-        uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
+        // Getting the corner of the browser where the button is placed
+        var side = settings.getButtonSide();
 
-        uiUtils.moveElementTo(button, position.x, position.y);
-
-        // validate that button is in the viewport
-        // with timeout for deferred execution
-        setTimeout(function () {
-            uiUtils.checkElementPosition(button, position);
-        });
-
-        return true;
-    };
-
-    var setPositionSettingsToButton = function(button) {
-        var config = settings.getSettings();
-        if (!config.largeIcon) {
-            $(button).addClass('logo-small');
+        if (side) {
+            uiUtils.setAnchorPosition.positionY(button, side.top);
+            uiUtils.setAnchorPosition.positionX(button, side.left);
+            respectPageElements(button);
         }
-        if (setUserPositionIfExists(button)) {
-            return;
-        }
-
-        uiUtils.setAnchorPosition.positionY(button, config.buttonPositionTop);
-        uiUtils.setAnchorPosition.positionX(button, config.buttonPositionLeft);
-
-        respectPageElements(button);
     };
 
     var registerEvents = function(button) {

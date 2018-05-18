@@ -7,6 +7,7 @@
  */
 var adguardAssistantExtended = function () {
     Ioc.register('log', new Log());
+    Ioc.register('UpgradeHelper', new UpgradeHelper());
 
     Ioc.register('addRule', function() {
         return false;
@@ -34,10 +35,9 @@ var adguardAssistantExtended = function () {
     Ioc.register('iframeController', Ioc.get(IframeController));
     Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-    settings.loadSettings();
     var button = Ioc.get(UIButton);
     Ioc.register('button', button);
-    button.show();
+    settings.loadSettings(button.show);
 };
 
 /*

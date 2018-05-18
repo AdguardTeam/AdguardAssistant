@@ -41,39 +41,58 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
         });
     };
 
-    var saveSettings = function () {
-        var largeIcon = contentDocument.getElementById('size-big').checked;
+    var setIconSize = function () {
+        var smallIcon = contentDocument.getElementById('size-small').checked;
+        settings.setIconSize(smallIcon);
+    };
+
+    var setPersonalParam = function () {
+        var personalConfig = contentDocument.getElementById('this-site').checked;
+        settings.setPersonalParam(personalConfig);
+    };
+
+    var setButtonSide = function () {
         var sideItem = null;
         Object.keys(buttonSides).forEach(function (item) {
             if (contentDocument.getElementById(item).checked) {
                 sideItem = item;
             }
         });
-        var config = settings.getSettings();
-        config.largeIcon = largeIcon;
+
         if (sideItem) {
-            config.buttonPositionTop = buttonSides[sideItem].top;
-            config.buttonPositionLeft = buttonSides[sideItem].left;
-            settings.removeUserPositionForButton();
+            settings.setButtonSide(buttonSides[sideItem]);
         }
-        settings.saveSettings(config);
+    };
+
+    var saveSettings = function () {
+        setPersonalParam();
+        setIconSize();
+        setButtonSide();
+        settings.saveSettings();
         close();
         button.remove();
         button.show();
     };
 
     var setDefaultSettings = function () {
-        var currentSettings = settings.getSettings();
-        if (currentSettings.largeIcon) {
-            contentDocument.getElementById('size-big').checked = true;
-        } else {
+        if (settings.getIconSize()) {
             contentDocument.getElementById('size-small').checked = true;
+        } else {
+            contentDocument.getElementById('size-big').checked = true;
         }
+
+        if (settings.getPersonalConfig()) {
+            contentDocument.getElementById('this-site').checked = true;
+        } else {
+            contentDocument.getElementById('all-site').checked = true;
+        }
+
         var position = settings.getUserPositionForButton();
         if (position) {
             return;
         }
-        var sideFromSettings = {top: currentSettings.buttonPositionTop, left: currentSettings.buttonPositionLeft};
+        var sideFromSettings = settings.getButtonSide();
+
         Object.keys(buttonSides).forEach(function (item) {
             var sideItem = buttonSides[item];
             if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {

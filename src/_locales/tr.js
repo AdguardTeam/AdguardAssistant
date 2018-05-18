@@ -1,4 +1,7 @@
 var tr = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Ba\u015fla",
     "assistant_select_element_text": "Engellemek i\u00e7in sayfada bir \u00f6\u011fe se\u00e7in. \u00d6\u011fe engelleme modunu iptal etmek i\u00e7in sayfay\u0131 yenileyin.",
     "menu_filtration_status": {

@@ -1,4 +1,7 @@
 var es_419 = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Iniciar",
     "assistant_select_element_text": "Seleccione un elemento de la p\u00e1gina para bloquear. Recargue la p\u00e1gina para cancelar el modo de bloqueo de elementos.",
     "menu_filtration_status": {

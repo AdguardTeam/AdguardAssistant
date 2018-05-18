@@ -1,6 +1,6 @@
 {
   "name": "assistant-compiler",
-  "version": "4.1.12",
+  "version": "4.2.0",
   "description": "Compile source files to userscript form",
   "main": "gulpfile.js",
   "dependencies": {},
@@ -10,6 +10,7 @@
     "beta": "gulp beta",
     "locales": "gulp locales",
     "watch": "gulp watch",
+    "embedded": "gulp embedded",
     "test": "mocha-phantomjs test/test.html",
     "test-embedded": "mocha-phantomjs test/embedded.html"
   },

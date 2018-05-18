@@ -1,4 +1,7 @@
 var da = {
+    "settings_position_save": "Hjemmesider",
+    "settings_position_save_all": "Alle hjemmesider",
+    "settings_position_save_this": "Denne hjemmeside",
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "V\u00e6lg et element p\u00e5 denne side som skal blokeres. Opdater siden for at annullere tilstanden for elementblokering.",
     "menu_filtration_status": {

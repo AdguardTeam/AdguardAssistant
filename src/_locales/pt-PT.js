@@ -1,4 +1,7 @@
 var pt_PT = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "Todos os websites",
+    "settings_position_save_this": "Este website",
     "assistant_select_element_start": "Iniciar",
     "assistant_select_element_text": "Escolha um elemento na p\u00e1gina para bloquear. Actualize a p\u00e1gina para cancelar o bloqueio do elemento.",
     "menu_filtration_status": {

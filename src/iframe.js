@@ -66,7 +66,6 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             }
 
             iframeAlreadyLoaded = true;
-            iframeAnchor.style.setProperty('display', 'block', 'important');
             onIframeLoadCallback();
         });
 

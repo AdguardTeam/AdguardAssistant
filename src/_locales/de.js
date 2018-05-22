@@ -1,4 +1,7 @@
 var de = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "Starten",
     "assistant_select_element_text": "W\u00e4hlen Sie ein zu blockierendes Element auf der Seite aus. Laden Sie die Seite neu, um den Blockiermodus zu verlassen.",
     "menu_filtration_status": {

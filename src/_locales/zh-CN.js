@@ -1,4 +1,7 @@
 var zh_CN = {
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "All websites",
+    "settings_position_save_this": "This website",
     "assistant_select_element_start": "\u5f00\u59cb",
     "assistant_select_element_text": "\u9009\u62e9\u8981\u62e6\u622a\u7684\u7f51\u9875\u5143\u7d20\u3002\u8981\u53d6\u6d88\u5143\u7d20\u62e6\u622a\u6a21\u5f0f\uff0c\u8bf7\u5237\u65b0\u7f51\u9875\u3002",
     "menu_filtration_status": {

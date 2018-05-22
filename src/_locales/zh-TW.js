@@ -1,4 +1,7 @@
 var zh_TW = {
+    "settings_position_save": "\u7db2\u7ad9",
+    "settings_position_save_all": "\u6240\u6709\u7684\u7db2\u7ad9",
+    "settings_position_save_this": "\u6b64\u7db2\u7ad9",
     "assistant_select_element_start": "\u958b\u59cb",
     "assistant_select_element_text": "\u9078\u64c7\u65bc\u6b64\u9801\u9762\u4e0a\u4e4b\u5143\u4ef6\u4ee5\u5c01\u9396\u3002\u91cd\u65b0\u6574\u7406\u8a72\u9801\u9762\u4ee5\u53d6\u6d88\u5143\u4ef6\u5c01\u9396\u6a21\u5f0f\u3002",
     "menu_filtration_status": {

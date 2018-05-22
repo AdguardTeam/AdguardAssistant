@@ -1,4 +1,4 @@
-/* global Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
+/* global ProtectedApi, Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
 
 /* global ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState */
 
@@ -6,7 +6,9 @@
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 var adguardAssistantExtended = function () {
+    Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
+    Ioc.register('UpgradeHelper', new UpgradeHelper());
 
     Ioc.register('addRule', function() {
         return false;
@@ -34,10 +36,10 @@ var adguardAssistantExtended = function () {
     Ioc.register('iframeController', Ioc.get(IframeController));
     Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-    settings.loadSettings();
     var button = Ioc.get(UIButton);
+    var runSheduler = Ioc.get(RunSheduler);
     Ioc.register('button', button);
-    button.show();
+    runSheduler.onDocumentEnd(settings.loadSettings, button.show);
 };
 
 /*
@@ -51,6 +53,7 @@ var adguardAssistantExtended = function () {
 var adguardAssistantMini = (function() {
     return {
         start: function(callback) {
+            Ioc.register('protectedApi', new ProtectedApi());
             Ioc.register('log', new Log());
             Ioc.register('addRule', callback.bind(this));
             Ioc.register('$', balalaika);
@@ -60,8 +63,8 @@ var adguardAssistantMini = (function() {
             var iframeController = Ioc.get(IframeControllerMobile);
             Ioc.register('iframeController', iframeController);
             Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-
-            iframeController.showSelectorMenu();
+            var runSheduler = Ioc.get(RunSheduler);
+            runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
         }
     };
 })();

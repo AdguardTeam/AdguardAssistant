@@ -10,7 +10,7 @@
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController) { // jshint ignore:line
+var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, protectedApi) { // jshint ignore:line
     var button = null;
     var buttonElement = null;
     var isFullScreenEventsRegistered = false;
@@ -28,17 +28,17 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
         log.debug('Requirements checked, all ok');
 
-        buttonElement = CommonUtils.createElement('div');
+        buttonElement = protectedApi.createElement('div');
         buttonElement.innerHTML = HTML.button;
         button = buttonElement.firstChild;
 
         if (CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowbuttonElement.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.button));
+            shadowbuttonElement.appendChild(protectedApi.createStylesElement(CSS.common + CSS.button));
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {
-            var adgStylesButton = CommonUtils.createStylesElement(CSS.button, 'adg-styles-button');
+            var adgStylesButton = protectedApi.createStylesElement(CSS.button, 'adg-styles-button');
             if (adgStylesButton) {
                 document.documentElement.appendChild(adgStylesButton);
             }

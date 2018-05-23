@@ -13,7 +13,7 @@
  */
 /* global CSS, HTML, StringUtils, Ioc, DetailedMenuController, SelectorMenuController, SliderMenuController, BlockPreviewController, SettingsMenuController */
 
-var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization) { // jshint ignore:line
+var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiValidationUtils, localization, protectedApi) { // jshint ignore:line
     var iframe = null;
     var iframeAnchor = null;
     var currentItem = null;
@@ -41,7 +41,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createIframe = function (onIframeLoadCallback) {
         log.debug('Creating iframe');
-        iframe = CommonUtils.createElement('iframe');
+        iframe = protectedApi.createElement('iframe');
 
         // IE hack for prevent access denied error
         // see: https://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
@@ -70,7 +70,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         });
 
         if (CommonUtils.checkShadowDomSupport()) {
-            iframeAnchor = CommonUtils.createElement('div');
+            iframeAnchor = protectedApi.createElement('div');
             createShadowRootElement(iframeAnchor).appendChild(iframe);
         } else {
             iframeAnchor = iframe;
@@ -81,7 +81,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createShadowRootElement = function(iframeAnchor) {
         var shadowiframeAnchor = iframeAnchor.attachShadow({mode: 'closed'});
-        shadowiframeAnchor.appendChild(CommonUtils.createStylesElement(CSS.common + CSS.iframe));
+        shadowiframeAnchor.appendChild(protectedApi.createStylesElement(CSS.common + CSS.iframe));
 
         return shadowiframeAnchor;
     };
@@ -173,9 +173,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         var onIframeLoad = function () {
             var frameElement = iframe;
 
-            var view = CommonUtils.createElement(views[viewName]);
+            var view = protectedApi.createElement(views[viewName]);
             var styles = getStyleNonce() + CSS.common + CSS.button + CSS.iframe;
-            view.appendChild(CommonUtils.createStylesElement(styles));
+            view.appendChild(protectedApi.createStylesElement(styles));
             appendContent(view);
             localize();
             if (!options) {
@@ -200,7 +200,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         };
 
         if (!iframe) {
-            var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+            var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }

@@ -19,6 +19,9 @@ module.exports = () => {
     let userMetaFileName = options.scriptName + '.meta.js';
 
     let resources = [
+        'src/protectedApi.js',
+        'src/runSheduler.js',
+        'src/log.js',
         'src/libs/css.escape.js',
         'src/ioc.js',
         'src/log.js',

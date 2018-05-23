@@ -1,4 +1,4 @@
-/* global Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
+/* global ProtectedApi, Ioc, Log, GM, Wot, Settings, AdguardSettings, UIValidationUtils, balalaika, UIUtils, Localization, IframeController, SliderWidget, AdguardRulesConstructorLib, AdguardSelectorLib, UIButton */
 
 /* global ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState */
 
@@ -6,8 +6,11 @@
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 var adguardAssistantExtended = function () {
+    Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
     Ioc.register('UpgradeHelper', new UpgradeHelper());
+
+    var protectedApiCtrl = Ioc.get(ProtectedApi);
 
     Ioc.register('addRule', function() {
         return false;
@@ -20,7 +23,7 @@ var adguardAssistantExtended = function () {
     var changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
     var adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
-    Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState));
+    Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState, protectedApiCtrl));
     var wot = new Wot();
     wot.registerWotEventHandler();
     Ioc.register('wot', wot);
@@ -29,15 +32,16 @@ var adguardAssistantExtended = function () {
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('$', balalaika);
-    Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
+    Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
     Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     var button = Ioc.get(UIButton);
+    var runSheduler = Ioc.get(RunSheduler);
     Ioc.register('button', button);
-    settings.loadSettings(button.show);
+    runSheduler.onDocumentEnd(settings.loadSettings, button.show);
 };
 
 /*
@@ -51,8 +55,10 @@ var adguardAssistantExtended = function () {
 var adguardAssistantMini = (function() {
     return {
         start: function(callback) {
+            Ioc.register('protectedApi', new ProtectedApi());
+            var protectedApiCtrl = Ioc.get(ProtectedApi);
             Ioc.register('log', new Log());
-            Ioc.register('addRule', callback.bind(this));
+            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
             Ioc.register('$', balalaika);
             Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
             Ioc.register('uiUtils', Ioc.get(UIUtils));
@@ -60,8 +66,8 @@ var adguardAssistantMini = (function() {
             var iframeController = Ioc.get(IframeControllerMobile);
             Ioc.register('iframeController', iframeController);
             Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-
-            iframeController.showSelectorMenu();
+            var runSheduler = Ioc.get(RunSheduler);
+            runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
         }
     };
 })();

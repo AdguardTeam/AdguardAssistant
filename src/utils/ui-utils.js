@@ -4,7 +4,7 @@
  * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function}}
  * @constructor
  */
-var UIUtils = function($) { // jshint ignore:line
+var UIUtils = function($, protectedApi) { // jshint ignore:line
     var elWidth, elHeight, windowWidth, windowHeight;
 
     /**
@@ -160,7 +160,7 @@ var UIUtils = function($) { // jshint ignore:line
             CommonUtils.events.remove(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
         };
 
-        CommonUtils.events.add(element, 'mousedown touchstart', mouseDown.bind(this));
+        CommonUtils.events.add(element, 'mousedown touchstart', protectedApi.functionBind.call(mouseDown, this));
         CommonUtils.events.add(element, 'dragstart', function() {return;});
     };
 

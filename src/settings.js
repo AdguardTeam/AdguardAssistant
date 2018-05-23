@@ -6,7 +6,7 @@
  * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
  * @constructor
  */
-var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
+var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ignore:line
     var Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
@@ -75,7 +75,7 @@ var Settings = function (log, gmApi, UpgradeHelper) { // jshint ignore:line
     var getSettings = function () {
         return gmApi.getValue('settings').then(function(config) {
             try {
-                return config && JSON.parse(config);
+                return config && protectedApi.json.parse(config);
             } catch (ex) {
                 log.error(ex);
                 return null;

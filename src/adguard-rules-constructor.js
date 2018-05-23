@@ -2,14 +2,14 @@
  * Adguard rules constructor
  * @type {Function}
  */
-var AdguardRulesConstructorLib = function (api) { // jshint ignore:line
+var AdguardRulesConstructorLib = function (api, protectedApi) { // jshint ignore:line
 
     var CSS_RULE_MARK = '##';
     var RULE_OPTIONS_MARK = '$';
 
     var URLBLOCK_ATTRIBUTES = ["src", "data"];
 
-    var linkHelper = CommonUtils.createElement('a');
+    var linkHelper = protectedApi.createElement('a');
 
     /**
      * Constructs css selector for element using tag name, id and classed, like: tagName#id.class1.class2

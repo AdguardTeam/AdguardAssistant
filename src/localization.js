@@ -120,7 +120,7 @@ var Localization = function() { // jshint ignore:line
 
     var createElement = function (tagName, attributes) {
 
-        var el = CommonUtils.createElement(tagName);
+        var el = protectedApi.createElement(tagName);
         if (!attributes) {
             return el;
         }

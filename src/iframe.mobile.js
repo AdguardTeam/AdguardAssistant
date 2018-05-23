@@ -10,7 +10,7 @@
 
 /* global CSS, HTML, CommonUtils, Ioc, SelectorMenuController, SliderMenuControllerMobile */
 
-var IframeControllerMobile = function ($, log, selector, localization) { // jshint ignore:line
+var IframeControllerMobile = function ($, log, selector, localization, protectedApi) { // jshint ignore:line
     var iframe = null;
     var iframeElement = null;
     var currentItem = null;
@@ -44,7 +44,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
             return;
         }
 
-        iframe = CommonUtils.createElement('iframe');
+        iframe = protectedApi.createElement('iframe');
 
         $(iframe).on('load', function () {
             onIframeLoadCallback();
@@ -55,7 +55,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
 
         iframeElement = iframe;
 
-        var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+        var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
         if (adgStylesSelector) {
             document.documentElement.appendChild(adgStylesSelector);
         }
@@ -89,9 +89,9 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
 
         var onIframeLoad = function () {
             var frameElement = iframe;
-            var view = CommonUtils.createElement(views[viewName]);
+            var view = protectedApi.createElement(views[viewName]);
             var iframeStyles = CSS.common + CSS.mobile;
-            view.appendChild(CommonUtils.createStylesElement(iframeStyles));
+            view.appendChild(protectedApi.createStylesElement(iframeStyles));
             appendContent(view);
             localize();
 
@@ -111,7 +111,7 @@ var IframeControllerMobile = function ($, log, selector, localization) { // jshi
         };
 
         if (!iframe) {
-            var adgStylesSelector = CommonUtils.createStylesElement(CSS.selector, 'adg-styles-selector');
+            var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }

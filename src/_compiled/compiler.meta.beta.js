@@ -16,7 +16,7 @@
 // @name:pt Assistente do AdGuard Beta
 // @name:ar AdGuardمساعد Beta
 // @name:ko AdGuard 도우미 Beta
-// @name:sk AdGuard asistant Beta
+// @name:sk AdGuard Assistant Beta
 // @name:no AdGuard-assistent Beta
 // @name:da AdGuard Assistent Beta
 // @name:fr Assistant AdGuard  Beta
@@ -48,7 +48,7 @@
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:sv Erbjuder ett enkelt och bekvämt sätt att hantera filtrering direkt i webbläsaren
 // @description:sr Pruža jednostavan i zgodan način upravljanja filtriranjem direktno iz preglednika
-// @version 4.2.0
+// @version 4.2.1
 // @downloadURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.0/assistant.meta.js
 // @include *
@@ -76,4 +76,5 @@
 // @grant   GM_getResourceText
 // @grant   GM_addStyle
 // @grant   property:settings
+// @run-at document-start
 // ==/UserScript==

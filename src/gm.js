@@ -9,7 +9,7 @@
  * @constructor
  */
 /* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
-var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState) { // jshint ignore:line
+var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState, protectedApi) { // jshint ignore:line
     if (!ADG_addRule) {
         ADG_addRule = function (rule, callback) {
             alert('GM_api is not supported. ' + rule + ' rule added');
@@ -53,7 +53,7 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
 
     var setValue = function (key, value) {
         return new Promise(function(resolve, reject) {
-            GM_setValue(key, JSON.stringify(value));
+            GM_setValue(key, protectedApi.json.stringify(value));
             resolve();
         });
     };

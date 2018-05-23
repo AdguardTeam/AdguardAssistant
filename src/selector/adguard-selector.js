@@ -4,7 +4,7 @@
  */
 var AdguardSelectorLib = (function(api, $, protectedApi) {
     // PRIVATE FIELDS
-console.log(protectedApi);
+
     var PLACEHOLDER_PREFIX = 'adguard-placeholder';
     var placeholdedElements = null;
     var transparentPlaceholdedElement = null;

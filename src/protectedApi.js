@@ -6,12 +6,15 @@
 var ProtectedApi = function () {
     var win = window;
     var functionPType = Function.prototype;
-    var _apply = functionPType.apply;
     var originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     var documentMode = document.documentMode;
+    var originalAppendChild = document.appendChild;
+    var originalJSON = win.JSON;
+    var functionApply = functionPType.apply;
+    var functionBind = functionPType.bind;
 
     var apply = typeof Reflect !== 'undefined' ? Reflect.apply : function(target, _this, _arguments) {
-        return _apply.call(target, _this, _arguments);
+        return functionApply.call(target, _this, _arguments);
     };
 
     var noop = function() {};
@@ -36,11 +39,70 @@ var ProtectedApi = function () {
 
     var addListenerToWindow = methodCallerFactory(win, 'addEventListener');
     var removeListenerFromWindow = methodCallerFactory(win, 'removeEventListener');
+    var querySelector = methodCallerFactory(document, 'querySelector');
+
+    var appendChildToElement = function(elem, child) {
+        apply(originalAppendChild, elem, [child]);
+    };
+
+    /**
+     * Creating element instead `document.createElement`
+     * to prevented a custom `document.createElement`
+     * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
+     */
+    var createElement = function(markup) {
+        var doc = document.implementation.createHTMLDocument('');
+
+        if (markup && markup[0] !== '<') {
+            markup = '<' + markup + '></' + markup + '>';
+        }
+
+        doc.body.innerHTML = markup;
+
+        return doc.body.firstChild;
+    };
+
+    var json = {
+        parse: methodCallerFactory(originalJSON, 'parse'),
+        stringify: methodCallerFactory(originalJSON, 'stringify'),
+    };
+
+    /**
+     * Creating style element
+     * @param {String}  styles css styles in string
+     * @param {String}  id     to prevent duplicates, can be empty
+     * @return {Object|false}  style tag with styles or false if the styles with transferred id is exist
+     */
+    var createStylesElement = function(styles, id) {
+        if (id && querySelector('#' + id)) {
+            return false;
+        }
+
+        var tagNode = createElement('style');
+        tagNode.setAttribute('type', 'text/css');
+
+        if (id) {
+            tagNode.setAttribute('id', id);
+        }
+
+        if (tagNode.styleSheet) {
+            tagNode.styleSheet.cssText = styles;
+        } else {
+            appendChildToElement(tagNode, document.createTextNode(styles));
+        }
+
+        return tagNode;
+    };
 
     return {
+        functionBind: functionBind,
         addListenerToWindow: addListenerToWindow,
         removeListenerFromWindow: removeListenerFromWindow,
         getReadyState: getReadyState,
-        documentMode: documentMode
+        documentMode: documentMode,
+        appendChildToElement: appendChildToElement,
+        createElement: createElement,
+        json: json,
+        createStylesElement: createStylesElement
     };
 };

@@ -117,50 +117,6 @@ var CommonUtils = { // jshint ignore:line
 
         return typeof(document.documentElement.attachShadow) !== 'undefined' && !safari.test(navigator.userAgent);
     },
-
-    /**
-     * Creating element instead `document.createElement`
-     * to prevented a custom `document.createElement`
-     * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
-     */
-    createElement: function(markup) {
-        var doc = document.implementation.createHTMLDocument('');
-
-        if (markup && markup[0] !== '<') {
-            markup = '<' + markup + '></' + markup + '>';
-        }
-
-        doc.body.innerHTML = markup;
-
-        return doc.body.firstChild;
-    },
-
-    /**
-     * Creating style element
-     * @param {String}  styles css styles in string
-     * @param {String}  id     to prevent duplicates, can be empty
-     * @return {Object|false}  style tag with styles or false if the styles with transferred id is exist
-     */
-    createStylesElement: function(styles, id) {
-        if (id && document.querySelector('#' + id)) {
-            return false;
-        }
-
-        var tagNode = this.createElement('style');
-        tagNode.setAttribute('type', 'text/css');
-
-        if (id) {
-            tagNode.setAttribute('id', id);
-        }
-
-        if (tagNode.styleSheet) {
-            tagNode.styleSheet.cssText = styles;
-        } else {
-            tagNode.appendChild(document.createTextNode(styles));
-        }
-
-        return tagNode;
-    },
      /**
       * Multiplue event handler helper.
       * @param {Object}  elements  element or nodeList.

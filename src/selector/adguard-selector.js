@@ -2,9 +2,9 @@
  * Adguard selector library
  * @type {Function}
  */
-var AdguardSelectorLib = (function(api, $) {
+var AdguardSelectorLib = (function(api, $, protectedApi) {
     // PRIVATE FIELDS
-
+console.log(protectedApi);
     var PLACEHOLDER_PREFIX = 'adguard-placeholder';
     var placeholdedElements = null;
     var transparentPlaceholdedElement = null;
@@ -195,10 +195,10 @@ var AdguardSelectorLib = (function(api, $) {
                 var width = px(BORDER_WIDTH);
                 var bottomHeight = px(BORDER_WIDTH + 6);
 
-                borderTop = $(CommonUtils.createElement('div')).css('height', width).hide().on('click', sgMousedownHandler);
-                borderBottom = $(CommonUtils.createElement('div')).css('height', bottomHeight).hide().on('click', sgMousedownHandler);
-                borderLeft = $(CommonUtils.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
-                borderRight = $(CommonUtils.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
+                borderTop = $(protectedApi.createElement('div')).css('height', width).hide().on('click', sgMousedownHandler);
+                borderBottom = $(protectedApi.createElement('div')).css('height', bottomHeight).hide().on('click', sgMousedownHandler);
+                borderLeft = $(protectedApi.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
+                borderRight = $(protectedApi.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
 
                 api.borderTop = borderTop[0];
                 api.borderBottom = borderBottom[0];
@@ -277,7 +277,7 @@ var AdguardSelectorLib = (function(api, $) {
         return api;
     })(BorderSelectionRenderer || {});
 
-    var linkHelper = CommonUtils.createElement('a');
+    var linkHelper = protectedApi.createElement('a');
     var getHost = function(url) {
         if (!url) {
             return '';
@@ -288,7 +288,7 @@ var AdguardSelectorLib = (function(api, $) {
     };
 
     var makePlaceholderImage = function(element) {
-        var placeHolder = CommonUtils.createElement('div');
+        var placeHolder = protectedApi.createElement('div');
         var style = window.getComputedStyle(element);
         placeHolder.style.height = style.height;
         placeHolder.style.width = style.width;
@@ -299,10 +299,10 @@ var AdguardSelectorLib = (function(api, $) {
         placeHolder.style.right = style.right;
         placeHolder.className += PLACEHOLDER_PREFIX + ' ' + IGNORED_CLASS;
 
-        var icon = CommonUtils.createElement('div');
+        var icon = protectedApi.createElement('div');
         icon.className += PLACEHOLDER_PREFIX + '-icon ' + IGNORED_CLASS;
 
-        var domain = CommonUtils.createElement('div');
+        var domain = protectedApi.createElement('div');
         domain.textContent = getHost(element.src);
         domain.className += PLACEHOLDER_PREFIX + '-domain ' + IGNORED_CLASS;
 
@@ -348,7 +348,7 @@ var AdguardSelectorLib = (function(api, $) {
      * @param element element where ad is added
      */
     var preventEvents = function(element) {
-        var placeHolder = CommonUtils.createElement('div');
+        var placeHolder = protectedApi.createElement('div');
         var style = getOffsetExtended(element);
         placeHolder.style.height = px(style.outerHeight);
         placeHolder.style.width = px(style.outerWidth);

@@ -10,6 +10,8 @@ var adguardAssistantExtended = function () {
     Ioc.register('log', new Log());
     Ioc.register('UpgradeHelper', new UpgradeHelper());
 
+    var protectedApiCtrl = Ioc.get(ProtectedApi);
+
     Ioc.register('addRule', function() {
         return false;
     });
@@ -21,7 +23,7 @@ var adguardAssistantExtended = function () {
     var changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
     var adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
-    Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState));
+    Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState, protectedApiCtrl));
     var wot = new Wot();
     wot.registerWotEventHandler();
     Ioc.register('wot', wot);
@@ -30,12 +32,12 @@ var adguardAssistantExtended = function () {
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('$', balalaika);
-    Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
+    Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
     Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     var button = Ioc.get(UIButton);
     var runSheduler = Ioc.get(RunSheduler);
     Ioc.register('button', button);
@@ -54,8 +56,9 @@ var adguardAssistantMini = (function() {
     return {
         start: function(callback) {
             Ioc.register('protectedApi', new ProtectedApi());
+            var protectedApiCtrl = Ioc.get(ProtectedApi);
             Ioc.register('log', new Log());
-            Ioc.register('addRule', callback.bind(this));
+            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
             Ioc.register('$', balalaika);
             Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
             Ioc.register('uiUtils', Ioc.get(UIUtils));

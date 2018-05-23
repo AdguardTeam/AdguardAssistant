@@ -8,7 +8,7 @@
  * @constructor
  */
 /* global Ioc, StringUtils */
-var DetailedMenuController = function($, wot, localization, gmApi, settings, log) { // jshint ignore:line
+var DetailedMenuController = function($, wot, localization, gmApi, settings, log, protectedApi) { // jshint ignore:line
     var contentDocument = null;
     var iframeCtrl = null;
     var domain = null;
@@ -77,7 +77,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
      */
     var setFilteringStateToStore = function(state) {
         try {
-            localStorage.setItem(FILTERING_STATE_LS_PROPERTY, JSON.stringify({
+            localStorage.setItem(FILTERING_STATE_LS_PROPERTY, protectedApi.json.stringify({
                 "state": state
             }));
         } catch (ex) {
@@ -96,7 +96,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
         try {
             var state = localStorage.getItem(FILTERING_STATE_LS_PROPERTY);
             if (state) {
-                return JSON.parse(state).state;
+                return protectedApi.json.parse(state).state;
             } else {
                 return false;
             }
@@ -135,7 +135,7 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
 
             contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
             wotIndication.addClass(wotReputationSettings.class);
-            var wotLogo = CommonUtils.createElement('<span id="WotLogo"><span class="wot-logo"></span></span>');
+            var wotLogo = protectedApi.createElement('<span id="WotLogo"><span class="wot-logo"></span></span>');
             wotDescriptionText.textContent = wotReputationSettings.text;
             wotDescriptionText.appendChild(wotLogo);
 

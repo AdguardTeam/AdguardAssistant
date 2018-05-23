@@ -3,7 +3,7 @@
  * @returns {{}}
  * @constructor
  */
-var UpgradeHelper = function () {
+var UpgradeHelper = function (protectedApi) {
     var Constants = {
         BUTTON_POSITION_ITEM_NAME: '__adbpos'
     };
@@ -12,7 +12,7 @@ var UpgradeHelper = function () {
         try {
             userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
             if (userPosition) {
-                return JSON.parse(userPosition);
+                return protectedApi.json.parse(userPosition);
             }
         } catch (ex) {
             return null;

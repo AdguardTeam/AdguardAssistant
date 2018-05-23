@@ -2,7 +2,7 @@
  * Slider widget
  * @type {Function}
  */
-var SliderWidget = (function(api, $) { // jshint ignore:line
+var SliderWidget = (function(api, $, protectedApi) { // jshint ignore:line
     var PLACEHOLDER_CLASS = "adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all";
     var HANDLE_CLASS = "ui-slider-handle";
     var HANDLE_FULL_CLASS = "ui-slider-handle ui-state-default ui-corner-all";
@@ -17,9 +17,7 @@ var SliderWidget = (function(api, $) { // jshint ignore:line
     var max = 1;
     var value = 0;
     var sliderArea = null;
-
     var onValueChanged = null;
-
 
     var refresh = function() {
         var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
@@ -38,13 +36,13 @@ var SliderWidget = (function(api, $) { // jshint ignore:line
     var render = function() {
         $(placeholder).addClass(PLACEHOLDER_CLASS);
 
-        var handle = CommonUtils.createElement('span');
+        var handle = protectedApi.createElement('span');
         handle.setAttribute('class', HANDLE_FULL_CLASS);
         placeholder.appendChild(handle);
 
         var count = max - min;
         var prepare = function(i) {
-            var tick = CommonUtils.createElement('div');
+            var tick = protectedApi.createElement('div');
             tick.setAttribute('class', TICK_FULL_CLASS);
             tick.style.left = (100 / count * i) + '%';
             tick.style.width = (100 / count) + '%';
@@ -125,7 +123,6 @@ var SliderWidget = (function(api, $) { // jshint ignore:line
     };
 
     /**
-     *
      * @param placeholderElement
      * @param options
      */

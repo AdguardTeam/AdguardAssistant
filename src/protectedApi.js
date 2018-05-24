@@ -32,7 +32,8 @@ var ProtectedApi = function () {
     };
 
     var getReadyState = (function() {
-        // hook for tests
+        // We need to add this hook for tests, because a phantomjs
+        // doesn't work with Object.getOwnPropertyDescriptor correctly
         if (typeof originalGetOwnPropertyDescriptor(Document.prototype, 'readyState') === 'undefined') {
             return function() {
                 return COMPLETE;

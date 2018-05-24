@@ -12,6 +12,7 @@ var ProtectedApi = function () {
     var originalJSON = win.JSON;
     var functionApply = functionPType.apply;
     var functionBind = functionPType.bind;
+    var COMPLETE = 'complete';
 
     var apply = typeof Reflect !== 'undefined' ? Reflect.apply : function(target, _this, _arguments) {
         return functionApply.call(target, _this, _arguments);
@@ -31,6 +32,14 @@ var ProtectedApi = function () {
     };
 
     var getReadyState = (function() {
+        // We need to add this hook for tests, because a phantomjs
+        // doesn't work with Object.getOwnPropertyDescriptor correctly
+        if (typeof originalGetOwnPropertyDescriptor(Document.prototype, 'readyState') === 'undefined') {
+            return function() {
+                return COMPLETE;
+            };
+        }
+
         var readyStateGetter = originalGetOwnPropertyDescriptor(Document.prototype, 'readyState').get;
         return function() {
             return apply(readyStateGetter, document, []);

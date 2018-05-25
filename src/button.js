@@ -44,15 +44,13 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         var adgStylesButton;
         if (!CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button);
-            adgStylesButton.setAttribute('nonce', getStyleNonce());
+            adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button, getStyleNonce());
             shadowbuttonElement.appendChild(adgStylesButton);
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {
-            adgStylesButton = protectedApi.createStylesElement(CSS.button, 'adg-styles-button');
+            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
             if (adgStylesButton) {
-                adgStylesButton.setAttribute('nonce', getStyleNonce());
                 document.documentElement.appendChild(adgStylesButton);
             }
 

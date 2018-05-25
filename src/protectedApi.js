@@ -79,10 +79,11 @@ var ProtectedApi = function () {
     /**
      * Creating style element
      * @param {String}  styles css styles in string
+     * @param {String}  nonce  attribute for content-security-policy
      * @param {String}  id     to prevent duplicates, can be empty
      * @return {Object|false}  style tag with styles or false if the styles with transferred id is exist
      */
-    var createStylesElement = function(styles, id) {
+    var createStylesElement = function(styles, nonce, id) {
         if (id && querySelector('#' + id)) {
             return false;
         }
@@ -92,6 +93,10 @@ var ProtectedApi = function () {
 
         if (id) {
             tagNode.setAttribute('id', id);
+        }
+
+        if (nonce) {
+            tagNode.setAttribute('nonce', nonce);
         }
 
         if (tagNode.styleSheet) {

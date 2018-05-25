@@ -81,8 +81,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createShadowRootElement = function(iframeAnchor) {
         var shadowiframeAnchor = iframeAnchor.attachShadow({mode: 'closed'});
-        var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.iframe);
-        stylesElement.setAttribute('nonce', getStyleNonce());
+        var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.iframe, getStyleNonce());
         shadowiframeAnchor.appendChild(stylesElement);
 
         return shadowiframeAnchor;
@@ -178,8 +177,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var frameElement = iframe;
 
             var view = protectedApi.createElement(views[viewName]);
-            var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.button + CSS.iframe);
-            stylesElement.setAttribute('nonce', getStyleNonce());
+            var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.button + CSS.iframe, getStyleNonce());
             view.appendChild(stylesElement);
             appendContent(view);
             localize();
@@ -205,9 +203,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         };
 
         if (!iframe) {
-            var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
+            var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, getStyleNonce(), 'adg-styles-selector');
             if (adgStylesSelector) {
-                adgStylesSelector.setAttribute('nonce', getStyleNonce());
                 document.documentElement.appendChild(adgStylesSelector);
             }
 

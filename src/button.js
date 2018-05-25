@@ -15,6 +15,16 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     var buttonElement = null;
     var isFullScreenEventsRegistered = false;
 
+    // Important attribute for all inline stylesheets.
+    // It needs for Content-Security-Policy.
+    var getStyleNonce = function () {
+        var adgSettings = settings.getAdguardSettings();
+        if (adgSettings === null) {
+            return '';
+        }
+        return adgSettings.nonce;
+    };
+
     /**
      * Shows Adguard initial button
      */
@@ -31,14 +41,15 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         buttonElement = protectedApi.createElement('div');
         buttonElement.innerHTML = HTML.button;
         button = buttonElement.firstChild;
-
-        if (CommonUtils.checkShadowDomSupport()) {
+        var adgStylesButton;
+        if (!CommonUtils.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
-            shadowbuttonElement.appendChild(protectedApi.createStylesElement(CSS.common + CSS.button));
+            adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button, getStyleNonce());
+            shadowbuttonElement.appendChild(adgStylesButton);
             shadowbuttonElement.appendChild(button);
             document.documentElement.appendChild(buttonElement);
         } else {
-            var adgStylesButton = protectedApi.createStylesElement(CSS.button, 'adg-styles-button');
+            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
             if (adgStylesButton) {
                 document.documentElement.appendChild(adgStylesButton);
             }

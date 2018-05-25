@@ -81,7 +81,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
 
     var createShadowRootElement = function(iframeAnchor) {
         var shadowiframeAnchor = iframeAnchor.attachShadow({mode: 'closed'});
-        shadowiframeAnchor.appendChild(protectedApi.createStylesElement(CSS.common + CSS.iframe));
+        var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.iframe);
+        stylesElement.setAttribute('nonce', getStyleNonce());
+        shadowiframeAnchor.appendChild(stylesElement);
 
         return shadowiframeAnchor;
     };
@@ -157,12 +159,14 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         }
     };
 
+    // Important attribute for all inline stylesheets.
+    // It needs for Content-Security-Policy.
     var getStyleNonce = function () {
         var adgSettings = settings.getAdguardSettings();
         if (adgSettings === null) {
             return '';
         }
-        return 'nonce="' + adgSettings.nonce + '"';
+        return adgSettings.nonce;
     };
 
     var showMenuItem = function (viewName, controller, width, height, options) {
@@ -174,8 +178,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             var frameElement = iframe;
 
             var view = protectedApi.createElement(views[viewName]);
-            var styles = getStyleNonce() + CSS.common + CSS.button + CSS.iframe;
-            view.appendChild(protectedApi.createStylesElement(styles));
+            var stylesElement = protectedApi.createStylesElement(CSS.common + CSS.button + CSS.iframe);
+            stylesElement.setAttribute('nonce', getStyleNonce());
+            view.appendChild(stylesElement);
             appendContent(view);
             localize();
             if (!options) {
@@ -202,6 +207,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         if (!iframe) {
             var adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
             if (adgStylesSelector) {
+                adgStylesSelector.setAttribute('nonce', getStyleNonce());
                 document.documentElement.appendChild(adgStylesSelector);
             }
 

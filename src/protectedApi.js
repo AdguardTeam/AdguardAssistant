@@ -97,6 +97,8 @@ var ProtectedApi = function () {
 
         if (nonce) {
             tagNode.setAttribute('nonce', nonce);
+        } else {
+            throw new Error('Attribute `nonce` is not defined');
         }
 
         if (tagNode.styleSheet) {

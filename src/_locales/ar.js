@@ -1,7 +1,7 @@
 var ar = {
-    "settings_position_save": "Websites",
-    "settings_position_save_all": "All websites",
-    "settings_position_save_this": "This website",
+    "settings_position_save": "\u0645\u0648\u0627\u0642\u0639 \u0627\u0644\u0648\u064a\u0628",
+    "settings_position_save_all": "\u0643\u0627\u0641\u0629 \u0645\u0648\u0627\u0642\u0639 \u0627\u0644\u0648\u064a\u0628",
+    "settings_position_save_this": "\u0647\u0630\u0627 \u0627\u0644\u0645\u0648\u0642\u0639",
     "assistant_select_element_start": "\u0628\u062f\u0621",
     "assistant_select_element_text": "\u0627\u062e\u062a\u0631 \u0639\u0646\u0635\u0631\u0627 \u0641\u064a \u0627\u0644\u0635\u0641\u062d\u0629 \u0644\u0644\u062d\u0638\u0631\u0642\u0645 \u0628\u062a\u062d\u062f\u064a\u062b \u0627\u0644\u0635\u0641\u062d\u0629 \u0644\u0627\u0644\u063a\u0627\u0621 \u0648\u0636\u0639 \u062d\u0638\u0631 \u0627\u0644\u0639\u0646\u0635\u0631.",
     "menu_filtration_status": {
@@ -119,7 +119,7 @@ var ar = {
         "message": "\u0627\u0639\u0644\u064a \u0627\u0644\u064a\u0645\u064a\u0646"
     },
     "settings_left_bottom": {
-        "message": "Bottom left"
+        "message": "\u0623\u0633\u0641\u0644 \u0644\u0644\u064a\u0633\u0627\u0631"
     },
     "settings_right_bottom": {
         "message": "\u0623\u0633\u0641\u0644 \u0644\u0644\u064a\u0645\u064a\u0646"

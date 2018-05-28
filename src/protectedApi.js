@@ -13,6 +13,8 @@ var ProtectedApi = function () {
     var functionApply = functionPType.apply;
     var functionBind = functionPType.bind;
     var COMPLETE = 'complete';
+    var documentElement = document.documentElement;
+    var originalAttachShadow = documentElement.attachShadow;
 
     var apply = typeof Reflect !== 'undefined' ? Reflect.apply : function(target, _this, _arguments) {
         return functionApply.call(target, _this, _arguments);
@@ -95,11 +97,7 @@ var ProtectedApi = function () {
             tagNode.setAttribute('id', id);
         }
 
-        if (nonce) {
-            tagNode.setAttribute('nonce', nonce);
-        } else {
-            throw new Error('Attribute `nonce` is not defined');
-        }
+        tagNode.setAttribute('nonce', nonce);
 
         if (tagNode.styleSheet) {
             tagNode.styleSheet.cssText = styles;
@@ -108,6 +106,17 @@ var ProtectedApi = function () {
         }
 
         return tagNode;
+    };
+
+    /**
+     * Check browser shadow dom support.
+     * Safari crashes after adding style tag in attachShadow so exclude it
+     * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
+     */
+     var checkShadowDomSupport = function() {
+        var safari = /^((?!chrome|android).)*safari/i;
+
+        return typeof originalAttachShadow !== 'undefined' && !safari.test(navigator.userAgent);
     };
 
     return {
@@ -119,6 +128,7 @@ var ProtectedApi = function () {
         appendChildToElement: appendChildToElement,
         createElement: createElement,
         json: json,
-        createStylesElement: createStylesElement
+        createStylesElement: createStylesElement,
+        checkShadowDomSupport: checkShadowDomSupport
     };
 };

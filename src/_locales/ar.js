@@ -119,7 +119,7 @@ var ar = {
         "message": "\u0627\u0639\u0644\u064a \u0627\u0644\u064a\u0645\u064a\u0646"
     },
     "settings_left_bottom": {
-        "message": "\u0623\u0633\u0641\u0644 \u0627\u0644\u064a\u0633\u0627\u0631"
+        "message": "Bottom left"
     },
     "settings_right_bottom": {
         "message": "\u0623\u0633\u0641\u0644 \u0644\u0644\u064a\u0645\u064a\u0646"

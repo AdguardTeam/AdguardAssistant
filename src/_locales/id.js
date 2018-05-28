@@ -5,10 +5,10 @@ var id = {
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
     "menu_filtration_status": {
-        "message": "Filtering di situs ini"
+        "message": "Penyaringan di situs ini"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "Nonaktifkan filter untuk 30 detik"
+        "message": "Nonaktifkan penyaring untuk 30 detik"
     },
     "menu_block_ad_on_site": {
         "message": "Blokir iklan di situs ini"
@@ -20,7 +20,7 @@ var id = {
         "message": "Laporan keamanan situs"
     },
     "menu_settings": {
-        "message": "Pengaturan Assistant"
+        "message": "Pengaturan Asisten"
     },
     "assistant_select_element": {
         "message": "Blok Elemen"
@@ -44,7 +44,7 @@ var id = {
         "message": "MIN"
     },
     "assistant_slider_max": {
-        "message": "MAX"
+        "message": "MAKS"
     },
     "assistant_extended_settings": {
         "message": "Pengaturan lanjutan"
@@ -62,22 +62,22 @@ var id = {
         "message": "Pilih elemen lainnya"
     },
     "assistant_preview": {
-        "message": "Preview"
+        "message": "Pratinjau"
     },
     "assistant_block": {
         "message": "Blok"
     },
     "assistant_settings": {
-        "message": "Pengaturan Assistant"
+        "message": "Pengaturan Asisten"
     },
     "assistant_preview_header": {
-        "message": "Blok elemen - preview"
+        "message": "Blok elemen - pratinjau"
     },
     "assistant_preview_header_info": {
         "message": "Harap pastikan bahwa elemen diblok sesuai kemauan Anda"
     },
     "assistant_preview_end": {
-        "message": "Keluar preview"
+        "message": "Keluar pratinjau"
     },
     "wot_unknown_description": {
         "message": "Reputasi tidak terdefinisi"

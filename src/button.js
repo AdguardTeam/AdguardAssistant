@@ -42,7 +42,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         buttonElement.innerHTML = HTML.button;
         button = buttonElement.firstChild;
         var adgStylesButton;
-        if (!CommonUtils.checkShadowDomSupport()) {
+        if (protectedApi.checkShadowDomSupport()) {
             var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
             adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button, getStyleNonce());
             shadowbuttonElement.appendChild(adgStylesButton);

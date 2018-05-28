@@ -48,9 +48,7 @@ var adguardAssistantExtended = function () {
  * adguardAssistantMini function is for mobile browsers and stored in global variable `adguardAssistant`
  * execute with callback:
  *
- * adguardAssistant.start(function(rules){
-        // apply rules
-    });
+ * adguardAssistant().start(null, callback);
  */
 var adguardAssistantMini = (function() {
     return {

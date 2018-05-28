@@ -107,16 +107,6 @@ var CommonUtils = { // jshint ignore:line
         return to;
     },
 
-    /**
-     * Check browser shadow dom support.
-     * Safari crashes after adding style tag in attachShadow so exclude it
-     * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
-     */
-    checkShadowDomSupport: function() {
-        var safari = /^((?!chrome|android).)*safari/i;
-
-        return typeof(document.documentElement.attachShadow) !== 'undefined' && !safari.test(navigator.userAgent);
-    },
      /**
       * Multiplue event handler helper.
       * @param {Object}  elements  element or nodeList.

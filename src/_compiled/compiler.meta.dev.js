@@ -51,6 +51,7 @@
 // @version 4.2.2
 // @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
+// @homepageURL https://github.com/AdguardTeam/AdguardAssistant
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *wikipedia.org*

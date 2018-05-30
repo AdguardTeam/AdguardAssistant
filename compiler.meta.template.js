@@ -7,6 +7,7 @@
 // @version [ASSISTANT_VERSION]
 // @downloadURL [DOWNLOAD_URL]
 // @updateURL [UPDATE_URL]
+// @homepageURL https://github.com/AdguardTeam/AdguardAssistant
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *wikipedia.org*

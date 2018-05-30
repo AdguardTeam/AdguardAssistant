@@ -36,7 +36,7 @@ var adguardAssistantExtended = function () {
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
-    Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
+    Ioc.register('sliderWidget', new SliderWidget({}, balalaika, protectedApiCtrl));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     var button = Ioc.get(UIButton);
     var runSheduler = Ioc.get(RunSheduler);

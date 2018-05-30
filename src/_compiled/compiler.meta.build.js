@@ -51,6 +51,7 @@
 // @version 4.2.2
 // @downloadURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.0/assistant.meta.js
+// @homepageURL https://github.com/AdguardTeam/AdguardAssistant
 // @include *
 // @exclude *://mil.ru/*
 // @exclude *wikipedia.org*

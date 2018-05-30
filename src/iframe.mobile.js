@@ -26,7 +26,7 @@ var IframeControllerMobile = function ($, log, selector, localization, protected
 
     var defaultCSS = {
         clip: 'auto',
-        'z-index': 999999999999
+        'z-index': 2147483647
     };
 
     var defaultAttributes = {

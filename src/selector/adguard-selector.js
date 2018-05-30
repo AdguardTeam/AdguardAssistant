@@ -126,7 +126,7 @@ var AdguardSelectorLib = (function(api, $, protectedApi) {
             'max-width': 'auto',
             'width': 0,
             'height': 0,
-            'z-index': 2147483645,
+            'z-index': 2147483646,
             'border-radius': 0
         };
 
@@ -358,7 +358,7 @@ var AdguardSelectorLib = (function(api, $, protectedApi) {
         placeHolder.style.position = 'absolute';
         placeHolder.style['pointer-events'] = 'all';
         placeHolder.style['box-sizing'] = 'content-box';
-        placeHolder.style['z-index'] = '99999999999999999999';
+        placeHolder.style['z-index'] = '2147483646';
         placeHolder.className += IGNORED_CLASS;
         transparentPlaceholdedElement = placeHolder;
         $(placeHolder).on('click touchstart pointerdown', touchElementSelectHandler);

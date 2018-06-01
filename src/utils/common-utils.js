@@ -65,6 +65,7 @@ var CommonUtils = { // jshint ignore:line
     /**
      * Force clear page cache
      * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
+     * @param notReload  reload page if false and do not reload page if true
      */
     reloadPageBypassCache: function(notReload) {
         var xhr = new XMLHttpRequest();

@@ -54,6 +54,7 @@ var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFil
     var setValue = function (key, value) {
         return new Promise(function(resolve, reject) {
             GM_setValue(key, protectedApi.json.stringify(value));
+            CommonUtils.reloadPageBypassCache(true);
             resolve();
         });
     };

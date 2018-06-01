@@ -182,7 +182,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         }
 
         if (!Config.personalConfig && Config.personal) {
-            Config.position = Config.personal[SITENAME].position;
+            Config.position = Config.personal[SITENAME] && Config.personal[SITENAME].position;
             delete Config.personal;
         }
     };

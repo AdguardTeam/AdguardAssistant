@@ -62,7 +62,7 @@ var CommonUtils = { // jshint ignore:line
         return domain.replace("www.", "").replace(/:\d+/, '');
     },
 
-    reloadPageBypassCache: function(notReload) {
+    reloadPageBypassCache: function() {
         this.bypassCache(function() {
             window.location.reload(true);
         });

@@ -23,7 +23,7 @@ var UpgradeHelper = function (protectedApi) {
         try {
             localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
         } catch (ex) {
-            log.error(ex);
+            return null;
         }
     };
 

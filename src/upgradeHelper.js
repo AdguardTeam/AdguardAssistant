@@ -3,7 +3,7 @@
  * @returns {{}}
  * @constructor
  */
-var UpgradeHelper = function (protectedApi) {
+var UpgradeHelper = function (log, protectedApi) {
     var Constants = {
         BUTTON_POSITION_ITEM_NAME: '__adbpos'
     };
@@ -15,6 +15,7 @@ var UpgradeHelper = function (protectedApi) {
                 return protectedApi.json.parse(userPosition);
             }
         } catch (ex) {
+            log.error(ex);
             return null;
         }
     };
@@ -24,6 +25,7 @@ var UpgradeHelper = function (protectedApi) {
             localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
         } catch (ex) {
             log.error(ex);
+            return null;
         }
     };
 

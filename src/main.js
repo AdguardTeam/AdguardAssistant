@@ -8,7 +8,7 @@
 var adguardAssistantExtended = function () {
     Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
-    Ioc.register('UpgradeHelper', new UpgradeHelper());
+    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log), Ioc.get(ProtectedApi)));
 
     var protectedApiCtrl = Ioc.get(ProtectedApi);
 

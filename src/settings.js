@@ -53,11 +53,14 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         var settings;
 
         getSettings().then(function(config) {
-            if (config && validateSettings(config)) {
-                Config = config;
+            var checkedConfig = config && validateSettings(config);
+            if (checkedConfig) {
+                Config = checkedConfig;
+                saveSettings(Config);
                 log.debug('Settings parsed successfully');
             } else {
-                saveSettings(DefaultConfig);
+                Config = DefaultConfig;
+                log.debug('No settings found');
             }
             showButton();
         });
@@ -239,8 +242,8 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
 
         // save to gm store position data from localStorage
         settings = UpgradeHelper.upgradeLocalStorage(settings, SITENAME);
-        saveSettings(settings);
-        return true;
+
+        return settings;
     };
 
     return {

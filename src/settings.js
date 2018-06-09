@@ -52,13 +52,17 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         log.debug('Trying to get settings');
         var settings;
 
+        // getting config from gm storage
         getSettings().then(function(config) {
+            // check and validate config data for prevent errors and backward compatibility
             var checkedConfig = config && validateSettings(config);
             if (checkedConfig) {
+                // saving existing settings to Config variable and in gm storage
                 Config = checkedConfig;
                 saveSettings(Config);
-                log.debug('Settings parsed successfully');
+                log.debug('Settings parsed successfully and saved');
             } else {
+                // use default settings without saving
                 Config = DefaultConfig;
                 log.debug('No settings found');
             }

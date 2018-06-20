@@ -28,9 +28,7 @@ module.exports = () => {
         if (localesMetaJSON.length) {
             localesMetaJSON = JSON.parse(localesMetaJSON);
 
-            if (language === 'es-419') {
-                language = 'es';
-            } else if (language === 'pt-PT') {
+            if (language === 'pt-PT') {
                 language = 'pt';
             } else if (language === 'zh-CN') {
                 language = 'zh';

@@ -3,7 +3,7 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global en, ru, uk, pl, de, zh_CN, zh_TW, he, it, fa, tr, ja, ar, es_419, pt_BR, pt_PT, ko, AdguardSettings */
+/* global en, ru, uk, pl, de, zh_CN, zh_TW, he, it, fa, tr, ja, ar, es, pt_BR, pt_PT, ko, AdguardSettings */
 
 var Localization = function() { // jshint ignore:line
     var currentLocale = null, locale;
@@ -21,7 +21,7 @@ var Localization = function() { // jshint ignore:line
         'tr': tr,
         'ja': ja,
         'ar': ar,
-        'es': es_419,
+        'es': es,
         'pt-br': pt_BR,
         'pt': pt_PT,
         'ko': ko,

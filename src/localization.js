@@ -22,6 +22,8 @@ var Localization = function() { // jshint ignore:line
         'ja': ja,
         'ar': ar,
         'es': es,
+        'es-419': es,
+        'es-ES': es,
         'pt-br': pt_BR,
         'pt': pt_PT,
         'ko': ko,

@@ -69,7 +69,7 @@ var CommonUtils = { // jshint ignore:line
     },
 
     /**
-     * Force clear page cache
+     * Force clear the page cache
      * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
      * @param callback
      */
@@ -78,7 +78,7 @@ var CommonUtils = { // jshint ignore:line
         xhr.open('GET', window.location.href, true);
 
         xhr.setRequestHeader('Pragma', 'no-cache');
-        xhr.setRequestHeader('Expires', -1);
+        xhr.setRequestHeader('Expires', '-1');
         xhr.setRequestHeader('Cache-Control', 'no-cache');
 
         xhr.onreadystatechange = function() {

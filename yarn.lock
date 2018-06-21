@@ -1937,9 +1937,9 @@ ini@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.1.0.tgz#4e808c2ce144c6c1788918e034d6797bc6cf6281"
 
-"inline-resource-literal@git+https://github.com/seanl-adg/InlineResourceLiteral.git":
+"inline-resource-literal@git+https://github.com/AdguardTeam/InlineResourceLiteral.git":
   version "1.0.2"
-  resolved "git+https://github.com/seanl-adg/InlineResourceLiteral.git#025119d021001f37290fa96075fac0d69efe8eb7"
+  resolved "git+https://github.com/AdguardTeam/InlineResourceLiteral.git#025119d021001f37290fa96075fac0d69efe8eb7"
   dependencies:
     clean-css "^4.1.9"
     esprima "^4.0.0"

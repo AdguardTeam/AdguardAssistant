@@ -1,17 +1,17 @@
 var es = {
-    "settings_position_save": "Websites",
-    "settings_position_save_all": "All websites",
-    "settings_position_save_this": "This website",
-    "assistant_select_element_start": "Comienzo",
-    "assistant_select_element_text": "Elige un elemento en la p\u00e1gina para bloquear. Actualiza la p\u00e1gina para cancelar el modo de bloqueo de elementos.",
+    "settings_position_save": "Sitios web",
+    "settings_position_save_all": "Todos sitios web",
+    "settings_position_save_this": "Este sitio web",
+    "assistant_select_element_start": "Empezar",
+    "assistant_select_element_text": "Elija un elemento en la p\u00e1gina para bloquear. Actualice la p\u00e1gina para cancelar el bloqueo de elementos.",
     "menu_filtration_status": {
         "message": "Filtraje en este sitio web"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "No filtre durante 30 segundos"
+        "message": "No filtrar durante 30 segundos"
     },
     "menu_block_ad_on_site": {
-        "message": "Bloquee anuncios en este sitio web"
+        "message": "Bloquear anuncios en este sitio web"
     },
     "menu_report_abuse": {
         "message": "Reporte el sitio web"
@@ -47,25 +47,25 @@ var es = {
         "message": "Max"
     },
     "assistant_extended_settings": {
-        "message": "Configuraciones avanzadas"
+        "message": "Ajustes avanzadas"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Aplique la regla a todos los sitios web"
+        "message": "Aplicar la regla a todos los sitios web"
     },
     "assistant_block_by_reference": {
-        "message": "Bloquee por enlace de referencia"
+        "message": "Bloquear por enlace de referencia"
     },
     "assistant_block_similar": {
-        "message": "Bloquee elemento similar"
+        "message": "Bloquear elemento similar"
     },
     "assistant_another_element": {
-        "message": "Seleccione otro elemento"
+        "message": "Seleccionar otro elemento"
     },
     "assistant_preview": {
         "message": "Vista previa"
     },
     "assistant_block": {
-        "message": "Bloquee"
+        "message": "Bloquear"
     },
     "assistant_settings": {
         "message": "Configuraci\u00f3n de asistente"
@@ -95,7 +95,7 @@ var es = {
         "message": "Este sitio web tiene buena reputaci\u00f3n\nde acuerdo a "
     },
     "wot_excellent_description": {
-        "message": "Este sitio web tiene una excelente reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene excelente reputaci\u00f3n\nde acuerdo a "
     },
     "settings_choose_size_and_position": {
         "message": "Ajuste el tama\u00f1o y la posici\u00f3n del Asistente de AdGuard"

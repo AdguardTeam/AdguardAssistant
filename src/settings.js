@@ -57,10 +57,9 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
             // check and validate config data for prevent errors and backward compatibility
             var checkedConfig = config && validateSettings(config);
             if (checkedConfig) {
-                // saving existing settings to Config variable and in gm storage
+                // saving existing settings to Config variable in the gm storage
                 Config = checkedConfig;
-                saveSettings(Config);
-                log.debug('Settings parsed successfully and saved');
+                log.debug('Settings parsed successfully');
             } else {
                 // use default settings without saving
                 Config = DefaultConfig;
@@ -77,6 +76,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         log.debug('Update settings...');
         log.debug(Config);
         gmApi.setValue('settings', Config);
+        CommonUtils.bypassCache();
     };
 
     var getSettings = function () {

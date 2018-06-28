@@ -6,7 +6,11 @@
  * adguardAssistantExtended main function is for desktop browsers
  */
 var adguardAssistantExtended = function () {
+    Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
+    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log), Ioc.get(ProtectedApi)));
+
+    var protectedApiCtrl = Ioc.get(ProtectedApi);
 
     Ioc.register('gmApi', function() {
         return false;
@@ -22,17 +26,17 @@ var adguardAssistantExtended = function () {
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('$', balalaika);
-    Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
+    Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
-    Ioc.register('sliderWidget', new SliderWidget({}, balalaika));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
+    Ioc.register('sliderWidget', new SliderWidget({}, balalaika, protectedApiCtrl));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     var iframe = Ioc.get(IframeController);
     Ioc.register('iframeController', iframe);
 
     return {
         start: function(element, callback) {
-            Ioc.register('addRule', callback.bind(this));
+            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
 
             if (element) {
                 iframe.showSelectorMenu();
@@ -51,18 +55,20 @@ var adguardAssistantExtended = function () {
  * adguardAssistantMini function is for mobile browsers
  */
 var adguardAssistantMini = function() {
+    Ioc.register('protectedApi', new ProtectedApi());
+    var protectedApiCtrl = Ioc.get(ProtectedApi);
     Ioc.register('log', new Log());
     Ioc.register('$', balalaika);
-    Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
+    Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     var iframeController = Ioc.get(IframeControllerMobile);
     Ioc.register('iframeController', iframeController);
 
     return {
         start: function(element, callback) {
-            Ioc.register('addRule', callback.bind(this));
+            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
 
             if (element) {
                 iframeController.showSelectorMenu();

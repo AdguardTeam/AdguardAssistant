@@ -5,7 +5,7 @@ describe("#DOM Tests", function() {
     });
 
     before(function() {
-        adguardAssistant.start(function(rules) {
+        adguardAssistant().start(null, function(rules) {
             console.log(rules);
         });
     });

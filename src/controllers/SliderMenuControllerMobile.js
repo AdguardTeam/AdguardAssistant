@@ -77,6 +77,7 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
     };
 
     var blockElement = function () {
+        selectedElement.classList.remove('sg_hide_element');
         selectedElement.style.display = 'none';
         addRule(getFilterText());
         iframeCtrl.removeIframe();

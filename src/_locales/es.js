@@ -47,7 +47,7 @@ var es = {
         "message": "Max"
     },
     "assistant_extended_settings": {
-        "message": "Ajustes avanzadas"
+        "message": "Ajustes avanzados"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "Aplicar la regla a todos los sitios web"

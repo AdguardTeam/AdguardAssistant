@@ -124,15 +124,27 @@ var IframeControllerMobile = function ($, log, selector, localization, protected
     };
 
     var hideIframe = function() {
-        if (iframe && iframe) {
+        if (iframe) {
             iframe.style.display = 'none';
         }
     };
 
     var showIframe = function() {
-        if (iframe && iframe) {
+        if (iframe) {
             iframe.style.display = 'block';
         }
+    };
+
+    var mobilePopupButtonsInit = function() {
+        return {
+            init: function() {
+                var startSelectMode = iframe.contentDocument.querySelector('.start-select-mode');
+                var cancelSelectMode = iframe.contentDocument.querySelector('.cancel-select-mode');
+
+                startSelectMode.addEventListener('click', startSelect);
+                cancelSelectMode.addEventListener('click', removeIframe);
+            }
+        };
     };
 
     var showSelectorMenu = function () {
@@ -151,13 +163,7 @@ var IframeControllerMobile = function ($, log, selector, localization, protected
             height: '56vw',
         };
 
-        showMenuItem('mobilePopup.html', null, null, styles);
-
-        var startSelectMode = iframe.contentDocument.querySelector('.start-select-mode');
-        var cancelSelectMode = iframe.contentDocument.querySelector('.cancel-select-mode');
-
-        startSelectMode.addEventListener('click', startSelect);
-        cancelSelectMode.addEventListener('click', removeIframe);
+        showMenuItem('mobilePopup.html', mobilePopupButtonsInit(), null, styles);
     };
 
     var startSelect = function() {

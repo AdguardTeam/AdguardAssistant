@@ -7,6 +7,9 @@
 var UIUtils = function($, protectedApi) { // jshint ignore:line
     var elWidth, elHeight, windowWidth, windowHeight;
 
+    // Stored button anchor position
+    var storedAnchor = {};
+
     /**
      * Make element draggable
      * @param element
@@ -314,11 +317,6 @@ var UIUtils = function($, protectedApi) { // jshint ignore:line
         if(outsidePosition.right(pos)) pos.x = - windowWidth + 60;
 
         moveElementTo(element, pos.x, pos.y);
-    };
-
-    var storedAnchor = {
-        top: false,
-        left: false
     };
 
     return {

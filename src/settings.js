@@ -34,7 +34,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
      */
     var DefaultConfig = {
         buttonPositionTop: false,
-        buttonPositionLeft: false,
+        buttonPositionLeft: true,
         smallIcon: false,
         personalConfig: true,
         scriptVersion: 2,

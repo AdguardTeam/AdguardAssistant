@@ -14,6 +14,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     var selectedPath = null;
     var iframeAnchor = null;
     var elementsFromInputFilterRule = null;
+    var optionsState = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
@@ -25,6 +26,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         currentElement = options.currentElement;
         contentDocument = iframe.contentDocument;
         iframeAnchor = options.iframeAnchor;
+        optionsState = options.options;
         selector.reset();
         bindEvents();
         hideElement();
@@ -53,7 +55,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         }
 
         if (selectedPath.indexOf('://') > 0) {
-            var imagesElements = $('[src*="' + selectedPath + '"]');
+            var imagesElements = $('[src*="' + selectedPath.split('$domain=')[0] + '"]');
             imagesElements.addClass('sg_hide_element');
             return false;
         }
@@ -79,7 +81,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         }
 
         if (selectedPath.indexOf('://') > 0) {
-            var imagesElements = $('[src*="' + selectedPath + '"]');
+            var imagesElements = $('[src*="' + selectedPath.split('$domain=')[0] + '"]');
             imagesElements.removeClass('sg_hide_element');
             return false;
         }
@@ -115,7 +117,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var showDetailedMenu = function () {
         showElement();
-        iframeCtrl.showSliderMenu(currentElement, selectedElement, selectedPath);
+        iframeCtrl.showSliderMenu(currentElement, selectedElement, selectedPath, optionsState);
     };
 
     return {

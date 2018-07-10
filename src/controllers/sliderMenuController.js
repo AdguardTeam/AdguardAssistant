@@ -46,6 +46,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             setFilterRuleInputText(options.path);
             expandAdvanced();
         }
+
+        if (options.options) {
+            makeDefaultCheckboxesForDetailedMenu(options.options);
+            handleShowBlockSettings(options.options.isBlockByUrl, options.options.isBlockSimilar);
+        }
     };
 
     var close = function () {
@@ -95,7 +100,13 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     };
 
     var showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement);
+        var options = {
+            isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
+            isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
+            isBlockOneDomain: contentDocument.getElementById('one-domain-checkbox').checked
+        };
+
+        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement, options);
     };
 
     var createSlider = function (setElement) {
@@ -161,10 +172,10 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
     };
 
-    var makeDefaultCheckboxesForDetailedMenu = function () {
-        contentDocument.getElementById('block-by-url-checkbox').checked = false;
-        contentDocument.getElementById('block-similar-checkbox').checked = false;
-        contentDocument.getElementById('one-domain-checkbox').checked = false;
+    var makeDefaultCheckboxesForDetailedMenu = function (options) {
+        contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
+        contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;
+        contentDocument.getElementById('one-domain-checkbox').checked = options && options.isBlockOneDomain;
     };
 
     var onScopeChange = function () {

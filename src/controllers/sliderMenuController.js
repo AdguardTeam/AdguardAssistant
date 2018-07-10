@@ -41,6 +41,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         CommonUtils.events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', function(e) {
             e.stopPropagation();
         });
+
+        if (options.path) {
+            setFilterRuleInputText(options.path);
+            expandAdvanced();
+        }
     };
 
     var close = function () {

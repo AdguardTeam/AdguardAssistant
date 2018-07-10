@@ -233,9 +233,9 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         setCloseEventIfNotHitIframe(false);
     };
 
-    var showSliderMenu = function (initElement, currentElement) {
+    var showSliderMenu = function (initElement, currentElement, path) {
         var controller = Ioc.get(SliderMenuController);
-        var options = {element: initElement, dragElement: '.head', currentElement: currentElement};
+        var options = {element: initElement, path: path, dragElement: '.head', currentElement: currentElement};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };

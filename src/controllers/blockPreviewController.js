@@ -48,32 +48,50 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     };
 
     var hideElement = function () {
-        if (!selectedElement || !selectedPath) {
+        if (!selectedPath) {
             return;
         }
 
-        elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
+        if (selectedPath.indexOf('://') > 0) {
+            var imagesElements = $('[src*="' + selectedPath + '"]');
+            imagesElements.addClass('sg_hide_element');
+            return false;
+        }
 
-        if (elementsFromInputFilterRule.length && selectedElement !== elementsFromInputFilterRule[0]) {
+        try {
+            elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
+        } catch (e) {
+            return;
+        }
+
+        if (elementsFromInputFilterRule && elementsFromInputFilterRule.length) {
             elementsFromInputFilterRule.addClass('sg_hide_element');
 
             // do not hide assistant div if the user wrote a rule
             // that blocks all div or iframe elements
             iframeAnchor.classList.remove('sg_hide_element');
-        } else {
-            selectedElement.classList.add('sg_hide_element');
         }
     };
 
     var showElement = function () {
-        if (!selectedElement || !selectedPath) {
+        if (!selectedPath) {
             return;
         }
 
-        if (elementsFromInputFilterRule.length && selectedElement !== elementsFromInputFilterRule[0]) {
+        if (selectedPath.indexOf('://') > 0) {
+            var imagesElements = $('[src*="' + selectedPath + '"]');
+            imagesElements.removeClass('sg_hide_element');
+            return false;
+        }
+
+        try {
+            elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
+        } catch (e) {
+            return;
+        }
+
+        if (elementsFromInputFilterRule && elementsFromInputFilterRule.length) {
             elementsFromInputFilterRule.removeClass('sg_hide_element');
-        } else {
-            selectedElement.classList.remove('sg_hide_element');
         }
     };
 
@@ -97,7 +115,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var showDetailedMenu = function () {
         showElement();
-        iframeCtrl.showSliderMenu(currentElement, selectedElement);
+        iframeCtrl.showSliderMenu(currentElement, selectedElement, selectedPath);
     };
 
     return {

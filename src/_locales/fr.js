@@ -14,7 +14,7 @@ var fr = {
         "message": "Blocage des annonces sur ce site "
     },
     "menu_report_abuse": {
-        "message": "Renseigner le site"
+        "message": "Signaler le site"
     },
     "menu_site_report": {
         "message": "Rapport de s\u00e9curit\u00e9 du site"
@@ -107,7 +107,7 @@ var fr = {
         "message": "Petite"
     },
     "settings_big": {
-        "message": "Grand"
+        "message": "Grande"
     },
     "settings_position": {
         "message": "Positionnement"

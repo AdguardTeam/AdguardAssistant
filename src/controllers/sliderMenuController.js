@@ -36,6 +36,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         if (currentElement) {
             onSliderMove(currentElement);
         }
+
+        // make input clickable with right mouse button for text editing
+        CommonUtils.events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', function(e) {
+            e.stopPropagation();
+        });
     };
 
     var close = function () {
@@ -46,10 +51,12 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         var menuEvents = {
             '.close': close,
             '#ExtendedSettingsText': expandAdvanced,
-            '#adv-settings': onScopeChange,
             '#adg-cancel': iframeCtrl.showSelectorMenu,
             '#adg-preview': showPreview,
-            '#adg-accept': blockElement
+            '#adg-accept': blockElement,
+            '#block-by-url-checkbox-block': onScopeChange,
+            '#one-domain-checkbox-block': onScopeChange,
+            '#block-similar-checkbox-block': onScopeChange
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);

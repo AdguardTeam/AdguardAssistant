@@ -184,6 +184,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             if (!options) {
                 options = {};
             }
+            options.iframeAnchor = iframeAnchor;
             controller.init(frameElement, options);
             currentItem = viewName;
             onShowMenuItem.notify();

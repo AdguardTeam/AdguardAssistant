@@ -12,6 +12,8 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     var contentDocument = null;
     var selectedElement = null;
     var selectedPath = null;
+    var iframeAnchor = null;
+    var elementsFromInputFilterRule = null;
     var iframeCtrl = Ioc.get('iframeController');
 
     /*
@@ -22,9 +24,10 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         selectedPath = options.path;
         currentElement = options.currentElement;
         contentDocument = iframe.contentDocument;
+        iframeAnchor = options.iframeAnchor;
         selector.reset();
         bindEvents();
-        hideElement();
+        hideElement(iframe);
     };
 
     var close = function () {
@@ -44,18 +47,31 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         });
     };
 
-    var hideElement = function () {
-        if (!selectedElement) {
+    var hideElement = function (iframe) {
+        if (!selectedElement || !selectedPath) {
             return;
         }
-        $(selectedElement).addClass('sg_hide_element');
+
+        elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
+
+        if (elementsFromInputFilterRule.length && selectedElement !== elementsFromInputFilterRule[0]) {
+            elementsFromInputFilterRule.addClass('sg_hide_element');
+            iframeAnchor.classList.remove('sg_hide_element');
+        } else {
+            selectedElement.classList.add('sg_hide_element');
+        }
     };
 
     var showElement = function () {
-        if (!selectedElement) {
+        if (!selectedElement || !selectedPath) {
             return;
         }
-        $(selectedElement).removeClass('sg_hide_element');
+
+        if (elementsFromInputFilterRule.length && selectedElement !== elementsFromInputFilterRule[0]) {
+            elementsFromInputFilterRule.removeClass('sg_hide_element');
+        } else {
+            selectedElement.classList.remove('sg_hide_element');
+        }
     };
 
     var selectAnotherElement = function () {

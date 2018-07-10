@@ -27,7 +27,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         iframeAnchor = options.iframeAnchor;
         selector.reset();
         bindEvents();
-        hideElement(iframe);
+        hideElement();
     };
 
     var close = function () {
@@ -47,7 +47,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         });
     };
 
-    var hideElement = function (iframe) {
+    var hideElement = function () {
         if (!selectedElement || !selectedPath) {
             return;
         }
@@ -56,6 +56,9 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
         if (elementsFromInputFilterRule.length && selectedElement !== elementsFromInputFilterRule[0]) {
             elementsFromInputFilterRule.addClass('sg_hide_element');
+
+            // do not hide assistant div if the user wrote a rule
+            // that blocks all div or iframe elements
             iframeAnchor.classList.remove('sg_hide_element');
         } else {
             selectedElement.classList.add('sg_hide_element');

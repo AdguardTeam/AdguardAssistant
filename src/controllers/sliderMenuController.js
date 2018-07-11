@@ -49,7 +49,6 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
         if (options.options) {
             makeDefaultCheckboxesForDetailedMenu(options.options);
-            handleShowBlockSettings(options.options.isBlockByUrl, options.options.isBlockSimilar);
         }
     };
 
@@ -176,6 +175,10 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
         contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;
         contentDocument.getElementById('one-domain-checkbox').checked = options && options.isBlockOneDomain;
+
+        if (options && (options.isBlockByUrl || options.isBlockSimilar)) {
+            handleShowBlockSettings(options.isBlockByUrl, options.isBlockSimilar);
+        }
     };
 
     var onScopeChange = function () {
@@ -196,6 +199,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
         var ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);
         setFilterRuleInputText(ruleText);
+        iframeCtrl.resizeIframe();
     };
 
     var haveUrlBlockParameter = function (element) {

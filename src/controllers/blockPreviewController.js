@@ -16,6 +16,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     var elementsFromInputFilterRule = null;
     var optionsState = null;
     var iframeCtrl = Ioc.get('iframeController');
+    var previewStyleID = 'ag-preview-style-id';
 
     /*
      Called from IframeController.showMenuItem to initialize view
@@ -54,24 +55,22 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
             return;
         }
 
+        var selector;
+
         if (selectedPath.indexOf('://') > 0) {
-            var imagesElements = $('[src*="' + selectedPath.split('$domain=')[0] + '"]');
-            imagesElements.addClass('sg_hide_element');
-            return false;
+            // images
+            selector = '[src*="' + selectedPath.split('$domain=')[0] + '"]';
+        } else {
+            selector = selectedPath.split('##')[1];
         }
 
-        try {
-            elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
-        } catch (e) {
-            return;
-        }
-
-        if (elementsFromInputFilterRule && elementsFromInputFilterRule.length) {
-            elementsFromInputFilterRule.addClass('sg_hide_element');
+        if (selector) {
+            var style = selector + '{display:none!important}';
+            document.documentElement.appendChild(iframeCtrl.stylesElementForPreview(style, previewStyleID));
 
             // do not hide assistant div if the user wrote a rule
             // that blocks all div or iframe elements
-            iframeAnchor.classList.remove('sg_hide_element');
+            iframeAnchor.style.setProperty('display', 'block', 'important');
         }
     };
 
@@ -80,20 +79,10 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
             return;
         }
 
-        if (selectedPath.indexOf('://') > 0) {
-            var imagesElements = $('[src*="' + selectedPath.split('$domain=')[0] + '"]');
-            imagesElements.removeClass('sg_hide_element');
-            return false;
-        }
+        var stylesElement = document.documentElement.querySelector('#' + previewStyleID);
 
-        try {
-            elementsFromInputFilterRule = $(selectedPath.split('##')[1]);
-        } catch (e) {
-            return;
-        }
-
-        if (elementsFromInputFilterRule && elementsFromInputFilterRule.length) {
-            elementsFromInputFilterRule.removeClass('sg_hide_element');
+        if (stylesElement) {
+            stylesElement.remove();
         }
     };
 

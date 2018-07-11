@@ -327,6 +327,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         onCloseMenu.notify();
     };
 
+    // public function for BlockPreviewController
+    var stylesElementForPreview = function (styles, id) {
+        return protectedApi.createStylesElement(styles, getStyleNonce(), id);
+    };
+
     return {
         showDetailedMenu: showDetailedMenu,
         showSelectorMenu: showSelectorMenu,
@@ -339,6 +344,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         removeIframe: removeIframe,
         resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced,
         resizeSliderMenuToNormal: resizeSliderMenuToNormal,
-        resizeIframe: resizeIframe
+        resizeIframe: resizeIframe,
+        stylesElementForPreview: stylesElementForPreview
     };
 };

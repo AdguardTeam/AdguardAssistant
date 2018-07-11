@@ -81,7 +81,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         var stylesElement = document.documentElement.querySelector('#' + previewStyleID);
 
         if (stylesElement) {
-            stylesElement.remove();
+            stylesElement.parentNode.removeChild(stylesElement);
         }
     };
 

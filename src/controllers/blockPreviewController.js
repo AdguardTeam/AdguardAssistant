@@ -13,7 +13,6 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     var selectedElement = null;
     var selectedPath = null;
     var iframeAnchor = null;
-    var elementsFromInputFilterRule = null;
     var optionsState = null;
     var iframeCtrl = Ioc.get('iframeController');
     var previewStyleID = 'ag-preview-style-id';

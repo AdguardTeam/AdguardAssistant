@@ -12,7 +12,10 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     var contentDocument = null;
     var selectedElement = null;
     var selectedPath = null;
+    var iframeAnchor = null;
+    var optionsState = null;
     var iframeCtrl = Ioc.get('iframeController');
+    var previewStyleID = 'ag-preview-style-id';
 
     /*
      Called from IframeController.showMenuItem to initialize view
@@ -22,6 +25,8 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
         selectedPath = options.path;
         currentElement = options.currentElement;
         contentDocument = iframe.contentDocument;
+        iframeAnchor = options.iframeAnchor;
+        optionsState = options.options;
         selector.reset();
         bindEvents();
         hideElement();
@@ -45,17 +50,39 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     };
 
     var hideElement = function () {
-        if (!selectedElement) {
+        if (!selectedPath) {
             return;
         }
-        $(selectedElement).addClass('sg_hide_element');
+
+        var selector;
+
+        if (selectedPath.indexOf('://') > 0) {
+            // images
+            selector = '[src*="' + selectedPath.split('$domain=')[0] + '"]';
+        } else {
+            selector = selectedPath.split('##')[1];
+        }
+
+        if (selector) {
+            var style = selector + '{display:none!important}';
+            document.documentElement.appendChild(iframeCtrl.stylesElementForPreview(style, previewStyleID));
+
+            // do not hide assistant div if the user wrote a rule
+            // that blocks all div or iframe elements
+            iframeAnchor.style.setProperty('display', 'block', 'important');
+        }
     };
 
     var showElement = function () {
-        if (!selectedElement) {
+        if (!selectedPath) {
             return;
         }
-        $(selectedElement).removeClass('sg_hide_element');
+
+        var stylesElement = document.documentElement.querySelector('#' + previewStyleID);
+
+        if (stylesElement) {
+            stylesElement.parentNode.removeChild(stylesElement);
+        }
     };
 
     var selectAnotherElement = function () {
@@ -78,7 +105,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var showDetailedMenu = function () {
         showElement();
-        iframeCtrl.showSliderMenu(currentElement, selectedElement);
+        iframeCtrl.showSliderMenu(currentElement, selectedElement, selectedPath, optionsState);
     };
 
     return {

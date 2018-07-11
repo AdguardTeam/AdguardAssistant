@@ -36,6 +36,20 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         if (currentElement) {
             onSliderMove(currentElement);
         }
+
+        // make input clickable with right mouse button for text editing
+        CommonUtils.events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', function(e) {
+            e.stopPropagation();
+        });
+
+        if (options.path) {
+            setFilterRuleInputText(options.path);
+            expandAdvanced();
+        }
+
+        if (options.options) {
+            makeDefaultCheckboxesForDetailedMenu(options.options);
+        }
     };
 
     var close = function () {
@@ -46,10 +60,12 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         var menuEvents = {
             '.close': close,
             '#ExtendedSettingsText': expandAdvanced,
-            '#adv-settings': onScopeChange,
             '#adg-cancel': iframeCtrl.showSelectorMenu,
             '#adg-preview': showPreview,
-            '#adg-accept': blockElement
+            '#adg-accept': blockElement,
+            '#block-by-url-checkbox-block': onScopeChange,
+            '#one-domain-checkbox-block': onScopeChange,
+            '#block-similar-checkbox-block': onScopeChange
         };
         Object.keys(menuEvents).forEach(function (item) {
             $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
@@ -83,7 +99,13 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     };
 
     var showPreview = function () {
-        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement);
+        var options = {
+            isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
+            isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
+            isBlockOneDomain: contentDocument.getElementById('one-domain-checkbox').checked
+        };
+
+        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement, options);
     };
 
     var createSlider = function (setElement) {
@@ -149,10 +171,14 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
         handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
     };
 
-    var makeDefaultCheckboxesForDetailedMenu = function () {
-        contentDocument.getElementById('block-by-url-checkbox').checked = false;
-        contentDocument.getElementById('block-similar-checkbox').checked = false;
-        contentDocument.getElementById('one-domain-checkbox').checked = false;
+    var makeDefaultCheckboxesForDetailedMenu = function (options) {
+        contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
+        contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;
+        contentDocument.getElementById('one-domain-checkbox').checked = options && options.isBlockOneDomain;
+
+        if (options && (options.isBlockByUrl || options.isBlockSimilar)) {
+            handleShowBlockSettings(options.isBlockByUrl, options.isBlockSimilar);
+        }
     };
 
     var onScopeChange = function () {
@@ -173,6 +199,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
         var ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);
         setFilterRuleInputText(ruleText);
+        iframeCtrl.resizeIframe();
     };
 
     var haveUrlBlockParameter = function (element) {

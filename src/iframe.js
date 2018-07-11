@@ -184,6 +184,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
             if (!options) {
                 options = {};
             }
+            options.iframeAnchor = iframeAnchor;
             controller.init(frameElement, options);
             currentItem = viewName;
             onShowMenuItem.notify();
@@ -232,16 +233,16 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         setCloseEventIfNotHitIframe(false);
     };
 
-    var showSliderMenu = function (initElement, currentElement) {
+    var showSliderMenu = function (initElement, currentElement, path, optionsState) {
         var controller = Ioc.get(SliderMenuController);
-        var options = {element: initElement, dragElement: '.head', currentElement: currentElement};
+        var options = {element: initElement, path: path, dragElement: '.head', currentElement: currentElement, options: optionsState};
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
-    var showBlockPreview = function (initElement, path, currentElement) {
+    var showBlockPreview = function (initElement, path, currentElement, optionsState) {
         var controller = Ioc.get(BlockPreviewController);
-        var options = {element: initElement, path: path, dragElement: '.head', currentElement: currentElement};
+        var options = {element: initElement, path: path, dragElement: '.head', currentElement: currentElement, options: optionsState};
         showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
@@ -326,6 +327,11 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         onCloseMenu.notify();
     };
 
+    // public function for BlockPreviewController
+    var stylesElementForPreview = function (styles, id) {
+        return protectedApi.createStylesElement(styles, getStyleNonce(), id);
+    };
+
     return {
         showDetailedMenu: showDetailedMenu,
         showSelectorMenu: showSelectorMenu,
@@ -338,6 +344,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         removeIframe: removeIframe,
         resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced,
         resizeSliderMenuToNormal: resizeSliderMenuToNormal,
-        resizeIframe: resizeIframe
+        resizeIframe: resizeIframe,
+        stylesElementForPreview: stylesElementForPreview
     };
 };

@@ -51,6 +51,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var hideElement = function () {
         if (!selectedPath) {
+            log.error('Can`t block element: `selector` path is empty');
             return;
         }
 

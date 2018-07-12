@@ -345,6 +345,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         if (selector) {
             style = selector + '{display:none!important}';
         } else {
+            log.error('Can`t block element: `selector` path is empty');
             return false;
         }
 

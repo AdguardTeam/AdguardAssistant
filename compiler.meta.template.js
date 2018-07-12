@@ -29,6 +29,7 @@
 // @exclude *tutosdeath.blogspot.com.ar*
 // @exclude *notifications.google.com*
 // @exclude *google.com/recaptcha/*
+// @exclude *bizmania.ru/*
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

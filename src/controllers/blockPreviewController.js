@@ -51,38 +51,15 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
 
     var hideElement = function () {
         if (!selectedPath) {
+            log.error('Can`t block element: `selector` path is empty');
             return;
         }
 
-        var selector;
-
-        if (selectedPath.indexOf('://') > 0) {
-            // images
-            selector = '[src*="' + selectedPath.split('$domain=')[0] + '"]';
-        } else {
-            selector = selectedPath.split('##')[1];
-        }
-
-        if (selector) {
-            var style = selector + '{display:none!important}';
-            document.documentElement.appendChild(iframeCtrl.stylesElementForPreview(style, previewStyleID));
-
-            // do not hide assistant div if the user wrote a rule
-            // that blocks all div or iframe elements
-            iframeAnchor.style.setProperty('display', 'block', 'important');
-        }
+        iframeCtrl.hideElementsByPath(selectedPath, previewStyleID);
     };
 
     var showElement = function () {
-        if (!selectedPath) {
-            return;
-        }
-
-        var stylesElement = document.documentElement.querySelector('#' + previewStyleID);
-
-        if (stylesElement) {
-            stylesElement.parentNode.removeChild(stylesElement);
-        }
+        iframeCtrl.showHiddenElements(previewStyleID);
     };
 
     var selectAnotherElement = function () {
@@ -91,16 +68,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     };
 
     var blockElement = function () {
-        if (gmApi.ADG_addRule) {
-            gmApi.ADG_addRule(selectedPath, function () {
-                iframeCtrl.removeIframe();
-                CommonUtils.reloadPageBypassCache();
-            });
-        } else {
-            selectedElement.style.display = 'none';
-            addRule(selectedPath);
-            iframeCtrl.removeIframe();
-        }
+        iframeCtrl.blockElement(selectedPath);
     };
 
     var showDetailedMenu = function () {

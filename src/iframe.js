@@ -24,6 +24,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
     var iframePositionOffset = 20;
     var sliderMenuHeight = {advanced: 420, normal: 291};
     var buttonPosition = null;
+    var blockedElementsStyleID = 'ag-hide-elements-style-id';
 
     var views = {};
 
@@ -327,9 +328,68 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         onCloseMenu.notify();
     };
 
-    // public function for BlockPreviewController
-    var stylesElementForPreview = function (styles, id) {
-        return protectedApi.createStylesElement(styles, getStyleNonce(), id);
+    var hideElementsByPath = function (selectedPath, styleID) {
+        if (!selectedPath) {
+            return false;
+        }
+
+        var selector, style;
+
+        if (selectedPath.indexOf('://') > 0) {
+            // all images by src
+            selector = '[src*="' + selectedPath.split('$domain=')[0] + '"]';
+        } else {
+            selector = selectedPath.split('##')[1];
+        }
+
+        if (selector) {
+            style = selector + '{display:none!important}';
+        } else {
+            return false;
+        }
+
+        if (!styleID) {
+            styleID = blockedElementsStyleID;
+        }
+
+        var stylesElement = document.documentElement.querySelector('#' + styleID);
+
+        if (stylesElement) {
+            stylesElement.innerHTML = stylesElement.innerHTML + style;
+        } else {
+            document.documentElement.appendChild(protectedApi.createStylesElement(style, getStyleNonce(), styleID));
+        }
+
+        // do not hide assistant div if the user wrote a rule
+        // that blocks all div or iframe elements
+        iframeAnchor.style.setProperty('display', 'block', 'important');
+    };
+
+    // show elements hidden by `hideElementsByPath` function
+    var showHiddenElements = function (styleID) {
+        if (!styleID) {
+            styleID = blockedElementsStyleID;
+        }
+        var stylesElement = document.documentElement.querySelector('#' + styleID);
+
+        if (stylesElement) {
+            stylesElement.parentNode.removeChild(stylesElement);
+        }
+    };
+
+    var blockElement = function (path) {
+        if (gmApi.ADG_addRule) {
+            gmApi.ADG_addRule(path, function () {
+                removeIframe();
+                hideElementsByPath(path);
+                CommonUtils.bypassCache();
+            });
+        } else {
+            addRule(path);
+            removeIframe();
+            hideElementsByPath(path);
+            CommonUtils.bypassCache();
+        }
     };
 
     return {
@@ -345,6 +405,8 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         resizeSliderMenuToAdvanced: resizeSliderMenuToAdvanced,
         resizeSliderMenuToNormal: resizeSliderMenuToNormal,
         resizeIframe: resizeIframe,
-        stylesElementForPreview: stylesElementForPreview
+        hideElementsByPath: hideElementsByPath,
+        showHiddenElements: showHiddenElements,
+        blockElement: blockElement
     };
 };

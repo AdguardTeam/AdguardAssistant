@@ -73,16 +73,8 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     };
 
     var blockElement = function () {
-        if (gmApi.ADG_addRule) {
-            gmApi.ADG_addRule(getFilterRuleInputText(), function () {
-                iframeCtrl.removeIframe();
-                CommonUtils.reloadPageBypassCache();
-            });
-        } else {
-            selectedElement.style.display = 'none';
-            addRule(getFilterRuleInputText());
-            iframeCtrl.removeIframe();
-        }
+        var path = getFilterRuleInputText();
+        iframeCtrl.blockElement(path);
     };
 
     var expandAdvanced = function () {
@@ -221,7 +213,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
     var haveClassAttribute = function (element) {
         var className = element.className;
-        return className && className.trim() !== '';
+        return className && typeof className === 'string' && className.trim() !== '';
     };
 
     var handleShowBlockSettings = function (showBlockByUrl, showBlockSimilar) {

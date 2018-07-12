@@ -48,7 +48,7 @@
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:sv Erbjuder ett enkelt och bekvämt sätt att hantera filtrering direkt i webbläsaren
 // @description:sr Pruža jednostavan i zgodan način upravljanja filtriranjem direktno iz preglednika
-// @version 4.3.0
+// @version 4.3.1
 // @downloadURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.meta.js
 // @homepageURL https://github.com/AdguardTeam/AdguardAssistant
@@ -73,6 +73,7 @@
 // @exclude *tutosdeath.blogspot.com.ar*
 // @exclude *notifications.google.com*
 // @exclude *google.com/recaptcha/*
+// @exclude *bizmania.ru/*
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

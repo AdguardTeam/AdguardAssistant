@@ -26,7 +26,7 @@
 // @exclude *tpc.googlesyndication.com*
 // @exclude *syndication.twitter.com*
 // @exclude *platform.twitter.com*
-// @exclude *tutosdeath.blogspot.com.ar*
+// @exclude *tutosdeath.blogspot.com*
 // @exclude *notifications.google.com*
 // @exclude *google.com/recaptcha/*
 // @exclude *bizmania.ru/*

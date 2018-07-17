@@ -1,7 +1,7 @@
 var no = {
-    "settings_position_save": "Websites",
-    "settings_position_save_all": "All websites",
-    "settings_position_save_this": "This website",
+    "settings_position_save": "Nettsider",
+    "settings_position_save_all": "Alle nettsider",
+    "settings_position_save_this": "Denne nettsiden",
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "Velg et element p\u00e5 siden som skal blokkeres. Oppdater siden for \u00e5 avbryte elementblokkeringsmodusen.",
     "menu_filtration_status": {

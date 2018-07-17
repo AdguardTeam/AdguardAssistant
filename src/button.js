@@ -168,17 +168,17 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     };
 
     var hideButton = function() {
-        if (!button) {
+        if (!buttonElement) {
             return;
         }
-        $(button).addClass('sg_hide_element');
+        buttonElement.style.setProperty('display', 'none', 'important');
     };
 
     var showButton = function() {
-        if (!button) {
+        if (!buttonElement) {
             return;
         }
-        $(button).removeClass('sg_hide_element');
+        buttonElement.style.setProperty('display', 'block', 'important');
     };
 
     var removeButton = function() {

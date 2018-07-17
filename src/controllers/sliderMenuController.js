@@ -74,7 +74,7 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
 
     var blockElement = function () {
         var path = getFilterRuleInputText();
-        iframeCtrl.blockElement(path);
+        iframeCtrl.blockElement(path, addRule);
     };
 
     var expandAdvanced = function () {

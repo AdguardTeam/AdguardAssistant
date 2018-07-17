@@ -378,7 +378,7 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
         }
     };
 
-    var blockElement = function (path) {
+    var blockElement = function (path, addRule) {
         if (gmApi.ADG_addRule) {
             gmApi.ADG_addRule(path, function () {
                 removeIframe();
@@ -386,6 +386,10 @@ var IframeController = function ($, settings, uiUtils, gmApi, log, selector, uiV
                 CommonUtils.bypassCache();
             });
         } else {
+            if (!addRule) {
+                log.error('Callback function `addRule` can\'t be undefined!');
+            }
+
             addRule(path);
             removeIframe();
             hideElementsByPath(path);

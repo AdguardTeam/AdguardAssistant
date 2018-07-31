@@ -31,27 +31,27 @@ options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
 gulp.task('beta', () => {
     options.metaPath = options.metaBeta;
-    runSequence('css', 'compile', 'preprocess', 'restore-meta');
+    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'restore-meta');
 });
 
 gulp.task('dev', () => {
     options.metaPath = options.metaDev;
     options.fileName = options.scriptName + '.user.js';
-    runSequence('css', 'compile', 'preprocess', 'restore-meta');
+    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'restore-meta');
 });
 
 gulp.task('embedded', () => {
     options.metaPath = options.metaDev;
     options.embedded = true;
     options.fileName = options.scriptName + '.embedded.js';
-    runSequence('css', 'compile', 'preprocess', 'uglify');
+    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'uglify');
 });
 
 gulp.task('build', () => {
     options.debug = false;
     options.metaPath = options.metaBuild;
     options.fileName = options.scriptName + '.user.js';
-    runSequence('css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
+    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
 });
 
 gulp.task('restore-meta-min', () => {

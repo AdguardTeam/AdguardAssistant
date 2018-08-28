@@ -34,7 +34,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
      */
     var DefaultConfig = {
         buttonPositionTop: false,
-        buttonPositionLeft: true,
+        buttonPositionLeft: false,
         smallIcon: false,
         personalConfig: true,
         scriptVersion: 2,
@@ -53,7 +53,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         var settings;
 
         // getting config from gm storage
-        getSettings().then(function(config) {
+        getSettings().then(function (config) {
             // check and validate config data for prevent errors and backward compatibility
             var checkedConfig = config && validateSettings(config);
             if (checkedConfig) {
@@ -80,7 +80,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
     };
 
     var getSettings = function () {
-        return gmApi.getValue('settings').then(function(config) {
+        return gmApi.getValue('settings').then(function (config) {
             try {
                 return config && protectedApi.json.parse(config);
             } catch (ex) {

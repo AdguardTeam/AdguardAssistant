@@ -10,7 +10,7 @@
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, protectedApi) { // jshint ignore:line
+var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, protectedApi) { // jshint ignore:line
     var button = null;
     var buttonElement = null;
     var isFullScreenEventsRegistered = false;
@@ -28,7 +28,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
     /**
      * Shows Adguard initial button
      */
-    var show = function() {
+    var show = function () {
         if (!checkRequirements()) {
             log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
             return;
@@ -43,7 +43,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         button = buttonElement.firstChild;
         var adgStylesButton;
         if (protectedApi.checkShadowDomSupport()) {
-            var shadowbuttonElement = buttonElement.attachShadow({mode: 'closed'});
+            var shadowbuttonElement = buttonElement.attachShadow({ mode: 'closed' });
             adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button, getStyleNonce());
             shadowbuttonElement.appendChild(adgStylesButton);
             shadowbuttonElement.appendChild(button);
@@ -66,7 +66,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      * Checking browser and other requirements.
      * @private
      */
-    var checkRequirements = function() {
+    var checkRequirements = function () {
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
@@ -85,8 +85,8 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         return true;
     };
 
-    var isButtonAlreadyInDOM = function() {
-        var already =  $('.adguard-alert').length > 0;
+    var isButtonAlreadyInDOM = function () {
+        var already = $('.adguard-alert').length > 0;
 
         if (already) {
             log.error('Assistant button is already in DOM');
@@ -94,7 +94,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
     };
 
-    var setPositionSettingsToButton = function(button) {
+    var setPositionSettingsToButton = function (button) {
         var position = settings.getUserPositionForButton();
         if (settings.getIconSize()) {
             $(button).addClass('logo-small');
@@ -120,12 +120,12 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         }
     };
 
-    var registerEvents = function(button) {
-        var onDragEnd = function(data) {
+    var registerEvents = function (button) {
+        var onDragEnd = function (data) {
             settings.setUserPositionForButton(data);
         };
 
-        var openMenu = function() {
+        var openMenu = function () {
             iframeController.setButtonPosition(getButtonPosition(button));
             iframeController.showDetailedMenu();
         };
@@ -139,7 +139,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      * @returns {{left: *, top: *}}
      * @private
      */
-    var getButtonPosition = function(button) {
+    var getButtonPosition = function (button) {
         var box = button.getBoundingClientRect();
         return {
             top: box.top + button.offsetHeight / 2,
@@ -147,14 +147,14 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         };
     };
 
-    var hideRestoreOnFullScreen = function() {
+    var hideRestoreOnFullScreen = function () {
         if (isFullScreenEventsRegistered) {
             return;
         }
 
         var isFullScreen = false;
 
-        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function() {
+        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
             if (!isFullScreen) {
                 hideButton();
                 isFullScreen = true;
@@ -167,21 +167,21 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
         isFullScreenEventsRegistered = true;
     };
 
-    var hideButton = function() {
-        if (!buttonElement) {
+    var hideButton = function () {
+        if (!button) {
             return;
         }
-        buttonElement.style.setProperty('display', 'none', 'important');
+        button.style.setProperty('display', 'none', 'important');
     };
 
-    var showButton = function() {
-        if (!buttonElement) {
+    var showButton = function () {
+        if (!button) {
             return;
         }
-        buttonElement.style.setProperty('display', 'block', 'important');
+        button.style.setProperty('display', 'block', 'important');
     };
 
-    var removeButton = function() {
+    var removeButton = function () {
         if (!button) {
             return;
         }
@@ -194,7 +194,7 @@ var UIButton = function(log, settings, uiValidationUtils, $, gmApi, uiUtils, ifr
      * under the button there are important elements
      * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */
-    var respectPageElements = function(element) {
+    var respectPageElements = function (element) {
         var buttonInRightBottom =
             $(element).hasClass('adguard-assistant-button-bottom') &&
             $(element).hasClass('adguard-assistant-button-right');

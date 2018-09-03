@@ -42,6 +42,7 @@ gulp.task('dev', () => {
 
 gulp.task('embedded', () => {
     options.metaPath = options.metaDev;
+    options.debug = false;
     options.embedded = true;
     options.fileName = options.scriptName + '.embedded.js';
     runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'uglify');

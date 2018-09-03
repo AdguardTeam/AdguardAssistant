@@ -68,7 +68,7 @@ var BlockPreviewController = function ($, selector, gmApi, addRule) { // jshint 
     };
 
     var blockElement = function () {
-        iframeCtrl.blockElement(selectedPath);
+        iframeCtrl.blockElement(selectedPath, addRule);
     };
 
     var showDetailedMenu = function () {

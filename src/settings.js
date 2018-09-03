@@ -99,7 +99,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
     };
 
     var setAdguardSettings = function (settings) {
-        if (!settings) {
+        if (typeof settings === undefined) {
             log.info('No Adguard API Found');
             return;
         }

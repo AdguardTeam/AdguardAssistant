@@ -16,7 +16,7 @@ To see the 'big picture', to watch current progress and to get an idea of approx
 
 ### Releases
 
-You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam/AdguardBrowserExtension/releases
+You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam/AdguardAssistant/releases
 
 ### Development build
 

@@ -80,7 +80,7 @@ var pt_BR = {
         "message": "Sair da pr\u00e9via"
     },
     "wot_unknown_description": {
-        "message": "Reputa\u00e7\u00e3o n\u00e3o definida"
+        "message": "A reputa\u00e7\u00e3o deste site ainda n\u00e3o foi definida por"
     },
     "wot_bad_description": {
         "message": "Este site tem uma reputa\u00e7\u00e3o muito ruim\nde acordo com "
@@ -95,10 +95,10 @@ var pt_BR = {
         "message": "Este site tem uma boa reputa\u00e7\u00e3o\nde acordo com "
     },
     "wot_excellent_description": {
-        "message": "Este site tem uma excelente reputa\u00e7\u00e3o\n\nde acordo com "
+        "message": "Este site tem uma excelente reputa\u00e7\u00e3o\nde acordo com "
     },
     "settings_choose_size_and_position": {
-        "message": "Ajuste o tamanho e posi\u00e7\u00e3o do AdGuard Assistente"
+        "message": "Ajuste o tamanho e posi\u00e7\u00e3o do Assistente do AdGuard"
     },
     "settings_icon_size": {
         "message": "Tamanho do \u00edcone:"

@@ -3,9 +3,9 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global en, ru, uk, pl, de, zh_CN, zh_TW, he, it, fa, tr, ja, ar, es, pt_BR, pt_PT, ko, AdguardSettings */
+/* global en, ru, uk, pl, de, zh_CN, zh_TW, he, it, fa, tr, ja, ar, es, pt_BR, pt_PT, ko, cs, sl_SI, be_BY, AdguardSettings */
 
-var Localization = function() { // jshint ignore:line
+var Localization = function () { // jshint ignore:line
     var currentLocale = null, locale;
     var SupportedLocales = {
         'en': en,
@@ -33,7 +33,10 @@ var Localization = function() { // jshint ignore:line
         'fr': fr,
         'id': id,
         'sv': sv,
-        'sr': sr_Latn
+        'sr': sr_Latn,
+        'cs': cs,
+        'sl-SI': sl_SI,
+        'be-BY': be_BY
     };
 
     /*

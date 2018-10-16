@@ -21,7 +21,7 @@ module.exports = () => {
     let compilerMetaDescriptions = [];
 
     options.metaLocales.forEach((language) => {
-        if(language === 'en') return false;
+        if (language === 'en') return false;
 
         let localesMetaJSON = fs.readFileSync(path.join(options.localesDir, language + '.meta.json')).toString();
 
@@ -34,6 +34,10 @@ module.exports = () => {
                 language = 'zh';
             } else if (language === 'sr-Latn') {
                 language = 'sr';
+            } else if (language === 'be-BY') {
+                language = 'be';
+            } else if (language === 'sl-SI') {
+                language = 'sl';
             }
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);

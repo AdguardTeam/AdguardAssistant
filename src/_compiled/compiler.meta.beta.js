@@ -12,7 +12,7 @@
 // @name:tr AdGuard Assistant Beta
 // @name:ja AdGuardアシスタント Beta
 // @name:es Asistente de Adguard Beta
-// @name:pt-BR AdGuard Assistente Beta
+// @name:pt-BR Assistente do AdGuard Beta
 // @name:pt Assistente do AdGuard Beta
 // @name:ar AdGuardمساعد Beta
 // @name:ko AdGuard 도우미 Beta
@@ -23,6 +23,9 @@
 // @name:id Asisten Aguard Beta
 // @name:sv AdGuard-assistent Beta
 // @name:sr AdGuard pomoćnik Beta
+// @name:cs AdGuard Asistent Beta
+// @name:sl AdGuard Pomočnik Beta
+// @name:be Памочнік AdGuard Beta
 // @namespace Adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
@@ -48,7 +51,10 @@
 // @description:id Menyediakan cara mudah dan nyaman untuk mengelola penyaringan langsung dari peramban
 // @description:sv Erbjuder ett enkelt och bekvämt sätt att hantera filtrering direkt i webbläsaren
 // @description:sr Pruža jednostavan i zgodan način upravljanja filtriranjem direktno iz preglednika
-// @version 4.3.3
+// @description:cs Poskytuje snadný a pohodlný způsob správy filtrování přímo z prohlížeče
+// @description:sl Omogoča preprost in priročen način za upravljanje filtriranja neposredno iz brskalnika
+// @description:be Дазваляе лёгка і хутка кіраваць фільтрацыяй непасрэдна з браўзара
+// @version 4.3.5
 // @downloadURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.meta.js
 // @homepageURL https://github.com/AdguardTeam/AdguardAssistant

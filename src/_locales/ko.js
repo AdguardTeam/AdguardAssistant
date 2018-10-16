@@ -1,9 +1,9 @@
 var ko = {
-    "settings_position_save": "Websites",
-    "settings_position_save_all": "All websites",
-    "settings_position_save_this": "This website",
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Choose an element on the page to block. Refresh the page to cancel the element blocking mode.",
+    "settings_position_save": "\uc6f9\uc0ac\uc774\ud2b8",
+    "settings_position_save_all": "\ubaa8\ub4e0 \uc6f9\uc0ac\uc774\ud2b8",
+    "settings_position_save_this": "\uc774 \uc6f9\uc0ac\uc774\ud2b8",
+    "assistant_select_element_start": "\uc2dc\uc791",
+    "assistant_select_element_text": "\ud398\uc774\uc9c0\uc5d0\uc11c \ucc28\ub2e8\ud560 \uc694\uc18c\ub97c \uc120\ud0dd\ud558\uc138\uc694. \uc694\uc18c \ucc28\ub2e8 \ubaa8\ub4dc\ub97c \ucde8\uc18c\ud558\ub824\uba74 \ud398\uc774\uc9c0\ub97c \uc0c8\ub85c \uace0\uce68\ud558\uc138\uc694.",
     "menu_filtration_status": {
         "message": "\uc774 \uc6f9\uc0ac\uc774\ud2b8\uc5d0\uc11c\uc758 \ubcf4\ud638"
     },

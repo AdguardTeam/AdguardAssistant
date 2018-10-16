@@ -3,7 +3,7 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global ar,be-BY,cs,da,de,en,es,fa,fr,he,id,it,ja,ko,no,pl,pt-PT,ru,sk,sl-SI,sr-Latn,sv,tr,uk,zh,zh-tw, AdguardSettings */
+/* global ar,be-BY,cs,da,de,en,es,fa,fr,he,id,it,ja,ko,no,pl,pt-PT,pt-BR,ru,sk,sl-SI,sr-Latn,sv,tr,uk,zh,zh-tw, AdguardSettings */
 
 var Localization = function () { // jshint ignore:line
     var currentLocale = null, locale;
@@ -23,6 +23,7 @@ var Localization = function () { // jshint ignore:line
         'ar': ar,
         'es': es,
         'pt-PT': pt_PT,
+        'pt-BR': pt_BR,
         'ko': ko,
         'sk': sk,
         'no': no,

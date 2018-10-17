@@ -5,19 +5,19 @@ var da = {
     "assistant_select_element_start": "Start",
     "assistant_select_element_text": "V\u00e6lg et element p\u00e5 denne side som skal blokeres. Opdater siden for at annullere tilstanden for elementblokering.",
     "menu_filtration_status": {
-        "message": "Filtrering p\u00e5 denne webside"
+        "message": "Filtrering p\u00e5 denne hjemmeside"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Filtrer ikke i 30 sekunder"
     },
     "menu_block_ad_on_site": {
-        "message": "Bloker annoncer p\u00e5 denne webside"
+        "message": "Bloker annoncer p\u00e5 denne hjemmeside"
     },
     "menu_report_abuse": {
-        "message": "Rapporter denne webside"
+        "message": "Rapporter denne hjemmeside"
     },
     "menu_site_report": {
-        "message": "Webside sikkerhedsrapport"
+        "message": "Sikkerhedsrapport for hjemmesiden"
     },
     "menu_settings": {
         "message": "Assistent indstillinger"
@@ -50,7 +50,7 @@ var da = {
         "message": "Avancerede indstillinger"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Anvend reglen p\u00e5 alle websider"
+        "message": "Anvend reglen p\u00e5 alle hjemmesider"
     },
     "assistant_block_by_reference": {
         "message": "Bloker ved reference link"
@@ -80,22 +80,22 @@ var da = {
         "message": "Exit forh\u00e5ndsvisning"
     },
     "wot_unknown_description": {
-        "message": "Omd\u00f8mmet er ikke defineret"
+        "message": "Hjemmesidens omd\u00f8mme er ikke defineret af"
     },
     "wot_bad_description": {
-        "message": "Denne webside har et meget d\u00e5rligt omd\u00f8mme if\u00f8lge"
+        "message": "Denne hjemmeside har et meget d\u00e5rligt omd\u00f8mme if\u00f8lge "
     },
     "wot_poor_description": {
-        "message": "Denne webside har et d\u00e5rligt omd\u00f8mme if\u00f8lge"
+        "message": "Denne hjemmeside har et d\u00e5rligt omd\u00f8mme if\u00f8lge "
     },
     "wot_unsatisfactory_description": {
-        "message": "Denne webside har et d\u00e5rligt omd\u00f8mme if\u00f8lge"
+        "message": "Denne hjemmeside har et d\u00e5rligt omd\u00f8mme if\u00f8lge "
     },
     "wot_good_description": {
-        "message": "Denne webside har et godt omd\u00f8mme if\u00f8lge"
+        "message": "Denne hjemmeside har et godt omd\u00f8mme if\u00f8lge "
     },
     "wot_excellent_description": {
-        "message": "Denne webside har et fremragende omd\u00f8mme if\u00f8lge"
+        "message": "Denne hjemmeside har et fremragende omd\u00f8mme if\u00f8lge "
     },
     "settings_choose_size_and_position": {
         "message": "Juster AdGuard Assistent st\u00f8rrelse og position"

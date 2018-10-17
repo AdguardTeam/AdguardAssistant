@@ -80,7 +80,7 @@ var zh_TW = {
         "message": "\u96e2\u958b\u9810\u89bd"
     },
     "wot_unknown_description": {
-        "message": "\u4fe1\u8b7d\u672a\u88ab\u754c\u5b9a"
+        "message": "\u8a72\u7db2\u7ad9\u7684\u4fe1\u8b7d\u672a\u88ab\u754c\u5b9a"
     },
     "wot_bad_description": {
         "message": "\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"

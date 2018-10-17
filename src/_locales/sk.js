@@ -80,7 +80,7 @@ var sk = {
         "message": "Ukon\u010denie n\u00e1h\u013eadu"
     },
     "wot_unknown_description": {
-        "message": "Reput\u00e1cia nebola definovan\u00e1"
+        "message": "Reput\u00e1cia tejto webovej str\u00e1nky nebola definovan\u00e1"
     },
     "wot_bad_description": {
         "message": "Str\u00e1nka m\u00e1 ve\u013emi zl\u00fa reput\u00e1ciu\npod\u013ea "

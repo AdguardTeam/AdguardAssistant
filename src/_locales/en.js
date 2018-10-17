@@ -80,22 +80,22 @@ var en = {
         "message": "Exit preview"
     },
     "wot_unknown_description": {
-        "message": "Reputation is not defined"
+        "message": "This website's reputation is not defined by"
     },
     "wot_bad_description": {
-        "message": "This website has very bad reputation\naccording to "
+        "message": "This website has a very bad reputation\naccording to "
     },
     "wot_poor_description": {
-        "message": "This website has bad reputation\naccording to "
+        "message": "This website has a bad reputation \naccording to "
     },
     "wot_unsatisfactory_description": {
-        "message": "This website has poor reputation\naccording to "
+        "message": "This website has a poor reputation\naccording to "
     },
     "wot_good_description": {
-        "message": "This website has good reputation\naccording to "
+        "message": "This website has a good reputation\naccording to "
     },
     "wot_excellent_description": {
-        "message": "This website has excellent reputation\naccording to "
+        "message": "This website has an excellent reputation\naccording to "
     },
     "settings_choose_size_and_position": {
         "message": "Adjust AdGuard Assistant size and position"

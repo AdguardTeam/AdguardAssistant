@@ -12,8 +12,8 @@ const options = global.options = {
     downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
     outputPath: 'build',
-    locales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-CN', 'zh-TW', 'he', 'it', 'fa', 'tr', 'ja', 'es', 'pt-BR', 'pt-PT', 'ar', 'ko', 'sk', 'no', 'da', 'fr', 'id', 'sv', 'sr-Latn'],
-    metaLocales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-CN', 'zh-TW', 'he', 'it', 'fa', 'tr', 'ja', 'es', 'pt-BR', 'pt-PT', 'ar', 'ko', 'sk', 'no', 'da', 'fr', 'id', 'sv', 'sr-Latn'],
+    locales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-CN', 'zh-TW', 'he', 'it', 'fa', 'tr', 'ja', 'es', 'pt-BR', 'pt-PT', 'ar', 'ko', 'sk', 'no', 'da', 'fr', 'id', 'sv', 'sr-Latn', 'cs', 'sl-SI', 'be-BY'],
+    metaLocales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-CN', 'zh-TW', 'he', 'it', 'fa', 'tr', 'ja', 'es', 'pt-BR', 'pt-PT', 'ar', 'ko', 'sk', 'no', 'da', 'fr', 'id', 'sv', 'sr-Latn', 'cs', 'sl-SI', 'be-BY'],
     localesDir: 'locales',
     sourceFile: 'en.json',
     sourceFileMeta: 'en.meta.json',
@@ -22,7 +22,7 @@ const options = global.options = {
     ext: '.user.js'
 };
 
-options.languagesFiles = options.locales.reduce(function(p,c) {
+options.languagesFiles = options.locales.reduce(function (p, c) {
     p.push('src/_locales/' + c + '.js');
     return p;
 }, []);

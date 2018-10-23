@@ -80,22 +80,22 @@ var cs = {
         "message": "Ukon\u010dit n\u00e1hled"
     },
     "wot_unknown_description": {
-        "message": "Pov\u011bst nen\u00ed definov\u00e1na"
+        "message": "Pov\u011bst t\u00e9to webov\u00e9 str\u00e1nky nen\u00ed definov\u00e1na podle"
     },
     "wot_bad_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 velmi \u0161patnou pov\u011bst \n\npodle "
+        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 velmi \u0161patnou pov\u011bst \npodle "
     },
     "wot_poor_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \n\npodle  "
+        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \npodle  "
     },
     "wot_unsatisfactory_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \n\npodle  "
+        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \npodle  "
     },
     "wot_good_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 dobrou pov\u011bst \n\npodle  "
+        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 dobrou pov\u011bst \npodle  "
     },
     "wot_excellent_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 v\u00fdbornou pov\u011bst \n\npodle  "
+        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 v\u00fdbornou pov\u011bst \npodle  "
     },
     "settings_choose_size_and_position": {
         "message": "Upravit velikost a pozici AdGuard Asistenta"

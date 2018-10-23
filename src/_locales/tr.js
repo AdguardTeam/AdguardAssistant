@@ -80,7 +80,7 @@ var tr = {
         "message": "\u00d6nizlemeden \u00e7\u0131k"
     },
     "wot_unknown_description": {
-        "message": "Pop\u00fclarite belirlenmemi\u015f"
+        "message": "Bu sitenin itibar\u0131 hen\u00fcz belirlenmemi\u015f"
     },
     "wot_bad_description": {
         "message": "Bu site \u00e7ok k\u00f6t\u00fc bir itibara sahip "

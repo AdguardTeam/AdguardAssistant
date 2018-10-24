@@ -3,7 +3,7 @@
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global ar,be-BY,cs,da,de,en,es,fa,fr,he,id,it,ja,ko,no,pl,pt-PT,pt-BR,ru,sk,sl-SI,sr-Latn,sv,tr,uk,zh,zh-tw, AdguardSettings */
+/* global ar,be-BY,cs,da,de,en,es,fa,fr,he,id,it,ja,ko,no,pl,pt-PT,pt-BR,ru,sk,sl-SI,sr-Latn,sv,tr,uk,zh-CN,zh-TW, AdguardSettings */
 
 var Localization = function () { // jshint ignore:line
     var currentLocale = null, locale;
@@ -14,7 +14,7 @@ var Localization = function () { // jshint ignore:line
         'pl': pl,
         'de': de,
         'zh': zh_CN,
-        'zh-tw': zh_TW,
+        'zh-TW': zh_TW,
         'he': he,
         'it': it,
         'fa': fa,
@@ -23,7 +23,7 @@ var Localization = function () { // jshint ignore:line
         'ar': ar,
         'es': es,
         'pt-PT': pt_PT,
-        'pt-BR': pt_BR,
+        'pt': pt_BR,
         'ko': ko,
         'sk': sk,
         'no': no,
@@ -31,10 +31,10 @@ var Localization = function () { // jshint ignore:line
         'fr': fr,
         'id': id,
         'sv': sv,
-        'sr-Latn': sr_Latn,
+        'sr': sr_Latn,
         'cs': cs,
-        'sl-SI': sl_SI,
-        'be-BY': be_BY
+        'sl': sl_SI,
+        'be': be_BY
     };
 
     /*

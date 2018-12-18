@@ -80,7 +80,7 @@ var pt_PT = {
         "message": "Sair da previsualiza\u00e7\u00e3o"
     },
     "wot_unknown_description": {
-        "message": "N\u00e3o foi definida qualquer reputa\u00e7\u00e3o"
+        "message": "A reputa\u00e7\u00e3o deste site n\u00e3o est\u00e1 definida por"
     },
     "wot_bad_description": {
         "message": "Este site tem uma p\u00e9ssima reputa\u00e7\u00e3o\nde acordo com"

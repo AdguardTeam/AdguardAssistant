@@ -20,7 +20,7 @@ var fr = {
         "message": "Rapport de s\u00e9curit\u00e9 du site"
     },
     "menu_settings": {
-        "message": "Assistant de param\u00e9trage "
+        "message": "R\u00e9glages de l'Assistant AdGuard"
     },
     "assistant_select_element": {
         "message": "Blocage d'\u00e9l\u00e9ments "
@@ -68,7 +68,7 @@ var fr = {
         "message": "Blocage "
     },
     "assistant_settings": {
-        "message": "Assistant de param\u00e9trage "
+        "message": "R\u00e9glages de l'Assistant AdGuard"
     },
     "assistant_preview_header": {
         "message": "Blocage d'\u00e9l\u00e9ments - Previsualisation "

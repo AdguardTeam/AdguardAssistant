@@ -11,7 +11,7 @@ var sv = {
         "message": "Pausa filtrering 30 sekunder"
     },
     "menu_block_ad_on_site": {
-        "message": "Blockera reklam p\u00e5 den h\u00e4r webbplatsen"
+        "message": "Block ad on this website"
     },
     "menu_report_abuse": {
         "message": "Rapportera webbplatsen"
@@ -80,10 +80,10 @@ var sv = {
         "message": "Avsluta f\u00f6rhandsgranskningen"
     },
     "wot_unknown_description": {
-        "message": "Anseende \u00e4r inte fastst\u00e4llt"
+        "message": "Den h\u00e4r sajtens anseende \u00e4r inte klarlagd av"
     },
     "wot_bad_description": {
-        "message": "Webbplatsen har d\u00e5ligt anseende\nenligt "
+        "message": "Webbplatsen har ett mycket d\u00e5ligt anseende\nenligt "
     },
     "wot_poor_description": {
         "message": "Webbplatsen har d\u00e5ligt anseende\nenligt "

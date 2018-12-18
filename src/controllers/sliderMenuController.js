@@ -78,13 +78,13 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
     };
 
     var expandAdvanced = function () {
-        var hidden = !$(contentDocument.getElementById('adv-settings')).hasClass("open");
+        var hidden = !$(contentDocument.getElementById('advanced-settings')).hasClass("open");
         if (hidden) {
-            $(contentDocument.getElementById('adv-settings')).addClass('open');
+            $(contentDocument.getElementById('advanced-settings')).addClass('open');
             $(contentDocument.getElementById('ExtendedSettingsText')).addClass('active');
             iframeCtrl.resizeSliderMenuToAdvanced();
         } else {
-            $(contentDocument.getElementById('adv-settings')).removeClass('open');
+            $(contentDocument.getElementById('advanced-settings')).removeClass('open');
             $(contentDocument.getElementById('ExtendedSettingsText')).removeClass('active');
             iframeCtrl.resizeSliderMenuToNormal();
         }

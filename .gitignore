@@ -1,7 +1,6 @@
 .idea/
 build
 compile
-locales
 beta
 dev
 node_modules

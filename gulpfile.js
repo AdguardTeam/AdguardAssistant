@@ -72,6 +72,10 @@ gulp.task('testsToGhPages', () => {
     ]).pipe(gulp.dest(options.outputPath + '/test/'));
 });
 
+gulp.task('upload-locales', () => {
+    runSequence('upload-en-locale', 'upload-base-meta-locale');
+});
+
 
 gulp.task('compile', require('./tasks/compile'));
 gulp.task('restore-meta', require('./tasks/restore-meta'));
@@ -83,3 +87,5 @@ gulp.task('download-localization', require('./tasks/download-localization'));
 gulp.task('append-locales', require('./tasks/append-locales'));
 gulp.task('update-meta-locales', require('./tasks/update-meta-locales'));
 gulp.task('css', require('./tasks/css'));
+gulp.task('upload-en-locale', require('./tasks/upload-base-locale'));
+gulp.task('upload-base-meta-locale', require('./tasks/upload-base-meta-locale'));

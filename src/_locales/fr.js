@@ -59,7 +59,7 @@ var fr = {
         "message": "Blocage des objets similaires "
     },
     "assistant_another_element": {
-        "message": "S\u00e9lectionner un autre \u00e9l\u00e9ment "
+        "message": "S\u00e9lectionner un \u00e9l\u00e9ment diff\u00e9rent"
     },
     "assistant_preview": {
         "message": "Previsualisation "
@@ -80,10 +80,10 @@ var fr = {
         "message": "Sortir de la previsualisation "
     },
     "wot_unknown_description": {
-        "message": "Aucune d\u00e9finition de r\u00e9putation "
+        "message": "Aucune d\u00e9finition de r\u00e9putation selon "
     },
     "wot_bad_description": {
-        "message": "Ce site web a tr\u00e8s mauvaise r\u00e9putation selon :"
+        "message": "Ce site web a tr\u00e8s mauvaise r\u00e9putation selon"
     },
     "wot_poor_description": {
         "message": "Ce site web a mauvaise r\u00e9putation selon :"

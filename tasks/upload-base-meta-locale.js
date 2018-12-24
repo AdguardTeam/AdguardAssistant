@@ -55,4 +55,4 @@ function uploadBaseMetaLocale() {
     });
 }
 
-module.exports = uploadBaseMetaLocale();
+module.exports = uploadBaseMetaLocale;

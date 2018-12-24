@@ -59,7 +59,7 @@ var en = {
         "message": "Block similar"
     },
     "assistant_another_element": {
-        "message": "Select another element"
+        "message": "Select a different element"
     },
     "assistant_preview": {
         "message": "Preview"

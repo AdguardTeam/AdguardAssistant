@@ -9,6 +9,7 @@
     "dev": "gulp dev",
     "beta": "gulp beta",
     "locales": "gulp locales",
+    "upload-locales": "gulp upload-locales",
     "watch": "gulp watch",
     "embedded": "gulp embedded",
     "test": "mocha-phantomjs test/test.html",
@@ -34,6 +35,7 @@
     "less-plugin-inline-urls": "^1.2.0",
     "mocha": "^3.4.2",
     "mocha-phantomjs": "^4.1.0",
+    "request": "^2.88.0",
     "run-sequence": "^1.2.2"
   }
 }

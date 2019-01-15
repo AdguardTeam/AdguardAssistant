@@ -54,7 +54,7 @@
 // @description:cs Poskytuje snadný a pohodlný způsob správy filtrování přímo z prohlížeče
 // @description:sl Omogoča preprost in priročen način za upravljanje filtriranja neposredno iz brskalnika
 // @description:be Дазваляе лёгка і хутка кіраваць фільтрацыяй непасрэдна з браўзара
-// @version 4.3.7
+// @version 4.3.8
 // @downloadURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.user.js
 // @updateURL https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/assistant.meta.js
 // @homepageURL https://github.com/AdguardTeam/AdguardAssistant

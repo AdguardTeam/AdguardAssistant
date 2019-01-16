@@ -80,22 +80,22 @@ var fr = {
         "message": "Sortir de la previsualisation "
     },
     "wot_unknown_description": {
-        "message": "Aucune d\u00e9finition de r\u00e9putation selon "
+        "message": "Aucune d\u00e9finition de r\u00e9putation de ce site web selon "
     },
     "wot_bad_description": {
         "message": "Ce site web a tr\u00e8s mauvaise r\u00e9putation selon"
     },
     "wot_poor_description": {
-        "message": "Ce site web a mauvaise r\u00e9putation selon :"
+        "message": "Ce site web a une r\u00e9putation m\u00e9diocre selon"
     },
     "wot_unsatisfactory_description": {
-        "message": "Ce site web a mauvaise reputation selon :"
+        "message": "Ce site web a mauvaise reputation selon"
     },
     "wot_good_description": {
-        "message": "Ce site \u00e0 bonne r\u00e9putation selon :"
+        "message": "Ce site a bonne r\u00e9putation selon"
     },
     "wot_excellent_description": {
-        "message": "Ce site \u00e0 une excellente r\u00e9putation selon :"
+        "message": "Ce site a une excellente r\u00e9putation selon"
     },
     "settings_choose_size_and_position": {
         "message": "Affiner la taille et la position de l'assistant AdGuard "

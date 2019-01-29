@@ -7,6 +7,7 @@
 
 var Localization = function () { // jshint ignore:line
     var currentLocale = null, locale;
+    // keys should be in the lowercase, because they are compared bellow with lowercased found locale
     var SupportedLocales = {
         'en': en,
         'ru': ru,
@@ -14,7 +15,7 @@ var Localization = function () { // jshint ignore:line
         'pl': pl,
         'de': de,
         'zh': zh_CN,
-        'zh-TW': zh_TW,
+        'zh-tw': zh_TW,
         'he': he,
         'it': it,
         'fa': fa,
@@ -22,7 +23,7 @@ var Localization = function () { // jshint ignore:line
         'ja': ja,
         'ar': ar,
         'es': es,
-        'pt-PT': pt_PT,
+        'pt-pt': pt_PT,
         'pt': pt_BR,
         'ko': ko,
         'sk': sk,

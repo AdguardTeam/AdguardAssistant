@@ -11,7 +11,7 @@ var sv = {
         "message": "Pausa filtrering 30 sekunder"
     },
     "menu_block_ad_on_site": {
-        "message": "Block ad on this website"
+        "message": "Blockera annons p\u00e5 den h\u00e4r webbplatsen"
     },
     "menu_report_abuse": {
         "message": "Rapportera webbplatsen"

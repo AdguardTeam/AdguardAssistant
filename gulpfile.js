@@ -45,7 +45,7 @@ gulp.task('embedded', () => {
     options.debug = false;
     options.embedded = true;
     options.fileName = options.scriptName + '.embedded.js';
-    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'uglify');
+    runSequence('clean', 'update-meta-locales', 'css', 'compile', 'preprocess', 'uglify');
 });
 
 gulp.task('build', () => {

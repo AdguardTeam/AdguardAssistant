@@ -83,19 +83,19 @@ var id = {
         "message": "Reputasi tidak terdefinisi"
     },
     "wot_bad_description": {
-        "message": "Situs ini mempunyai reputasi sangat buruk\nberdasarkan "
+        "message": "Situs ini mempunyai reputasi sangat buruk\nberdasarkan $1"
     },
     "wot_poor_description": {
-        "message": "Situs ini mempunyai reputasi buruk\nberdasarkan "
+        "message": "Situs ini mempunyai reputasi buruk\nberdasarkan $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Situs ini mempunyai reputasi biasa \nberdasarkan "
+        "message": "Situs ini mempunyai reputasi biasa \nberdasarkan $1"
     },
     "wot_good_description": {
-        "message": "Situs ini mempunyai reputasi baik \nberdasarkan "
+        "message": "Situs ini mempunyai reputasi baik \nberdasarkan $1"
     },
     "wot_excellent_description": {
-        "message": "Situs ini mempunyai reputasi sempurna \nberdasarkan "
+        "message": "Situs ini mempunyai reputasi sempurna \nberdasarkan $1"
     },
     "settings_choose_size_and_position": {
         "message": "Atur ukuran dan posisi AdGuard Assistant"

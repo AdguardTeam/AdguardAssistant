@@ -83,19 +83,19 @@ var es = {
         "message": "La reputaci\u00f3n no est\u00e1 definida"
     },
     "wot_bad_description": {
-        "message": "Este sitio web tiene muy mala reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene muy mala reputaci\u00f3n\nde acuerdo a $1"
     },
     "wot_poor_description": {
-        "message": "Este sitio web tiene mala reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene mala reputaci\u00f3n\nde acuerdo a $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Este sitio web tiene mala reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene mala reputaci\u00f3n\nde acuerdo a $1"
     },
     "wot_good_description": {
-        "message": "Este sitio web tiene buena reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene buena reputaci\u00f3n\nde acuerdo a $1"
     },
     "wot_excellent_description": {
-        "message": "Este sitio web tiene excelente reputaci\u00f3n\nde acuerdo a "
+        "message": "Este sitio web tiene excelente reputaci\u00f3n\nde acuerdo a $1"
     },
     "settings_choose_size_and_position": {
         "message": "Ajuste el tama\u00f1o y la posici\u00f3n del Asistente de AdGuard"

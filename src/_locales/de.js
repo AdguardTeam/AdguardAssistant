@@ -80,22 +80,22 @@ var de = {
         "message": "Vorschau beenden"
     },
     "wot_unknown_description": {
-        "message": "Kein Ruf festgelegt"
+        "message": "Der Ruf dieser Webseite wird nicht durch $1 festgelegt"
     },
     "wot_bad_description": {
-        "message": "Diese Webseite hat einen sehr schlechten Ruf laut "
+        "message": "Diese Webseite hat einen sehr schlechten Ruf laut $1"
     },
     "wot_poor_description": {
-        "message": "Diese Webseite hat einen schlechten Ruf laut "
+        "message": "Diese Webseite hat einen schlechten Ruf laut $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Diese Webseite hat einen schlechten Ruf laut "
+        "message": "Diese Webseite hat einen schlechten Ruf laut $1"
     },
     "wot_good_description": {
-        "message": "Diese Webseite hat einen guten Ruf laut "
+        "message": "Diese Webseite hat einen guten Ruf laut $1"
     },
     "wot_excellent_description": {
-        "message": "Diese Webseite hat einen exzellenten Ruf laut "
+        "message": "Diese Webseite hat einen exzellenten Ruf laut $1"
     },
     "settings_choose_size_and_position": {
         "message": "Anpassen der Gr\u00f6\u00dfe und Position des AdGuard-Assistenten"

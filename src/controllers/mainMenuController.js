@@ -135,9 +135,8 @@ var DetailedMenuController = function($, wot, localization, gmApi, settings, log
 
             contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
             wotIndication.addClass(wotReputationSettings.class);
-            var wotLogo = protectedApi.createElement('<span id="WotLogo"><span class="wot-logo"></span></span>');
-            wotDescriptionText.textContent = wotReputationSettings.text;
-            wotDescriptionText.appendChild(wotLogo);
+            var wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
+            wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
 
             var wotConfidenceClass = getWotConfidenceClass(wotData);
             confidenceIndication.addClass(wotConfidenceClass);

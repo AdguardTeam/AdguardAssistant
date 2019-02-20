@@ -83,19 +83,19 @@ var pl = {
         "message": "Reputacja nie jest zdefiniowana"
     },
     "wot_bad_description": {
-        "message": "Ta strona internetowa ma bardzo z\u0142\u0105 reputacj\u0119 zgodnie z"
+        "message": "Ta strona internetowa ma bardzo z\u0142\u0105 reputacj\u0119 zgodnie z $1"
     },
     "wot_poor_description": {
-        "message": "Ta strona internetowa ma z\u0142\u0105 reputacj\u0119 zgodnie z"
+        "message": "Ta strona internetowa ma z\u0142\u0105 reputacj\u0119 zgodnie z $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Ta strona internetowa ma s\u0142ab\u0105 reputacj\u0119 zgodnie z"
+        "message": "Ta strona internetowa ma s\u0142ab\u0105 reputacj\u0119 zgodnie z $1"
     },
     "wot_good_description": {
-        "message": "Ta strona internetowa ma dobr\u0105 reputacj\u0119 zgodnie z"
+        "message": "Ta strona internetowa ma dobr\u0105 reputacj\u0119 zgodnie z $1"
     },
     "wot_excellent_description": {
-        "message": "Ta strona internetowa ma doskona\u0142\u0105 reputacj\u0119 zgodnie z"
+        "message": "Ta strona internetowa ma doskona\u0142\u0105 reputacj\u0119 zgodnie z $1"
     },
     "settings_choose_size_and_position": {
         "message": "Dostosuj rozmiar i pozycj\u0119 Asystenta AdGuarda"

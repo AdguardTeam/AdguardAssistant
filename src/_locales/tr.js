@@ -80,22 +80,22 @@ var tr = {
         "message": "\u00d6nizlemeden \u00e7\u0131k"
     },
     "wot_unknown_description": {
-        "message": "Bu sitenin itibar\u0131 hen\u00fcz belirlenmemi\u015f"
+        "message": "Bu sitenin itibar\u0131 $1 taraf\u0131ndan hen\u00fcz belirlenmemi\u015f"
     },
     "wot_bad_description": {
-        "message": "Bu site \u00e7ok k\u00f6t\u00fc bir itibara sahip "
+        "message": "Bu site $1 de\u011ferlendirmesine g\u00f6re\n\u00e7ok k\u00f6t\u00fc bir itibara sahip"
     },
     "wot_poor_description": {
-        "message": "Bu site k\u00f6t\u00fc bir itibara sahip "
+        "message": "Bu site $1 de\u011ferlendirmesine g\u00f6re\nk\u00f6t\u00fc bir itibara sahip"
     },
     "wot_unsatisfactory_description": {
-        "message": "Bu site zay\u0131f bir itibara sahip "
+        "message": "Bu site $1 de\u011ferlendirmesine g\u00f6re\nzay\u0131f bir itibara sahip"
     },
     "wot_good_description": {
-        "message": "Bu site iyi bir itibara sahip "
+        "message": "Bu site $1 de\u011ferlendirmesine g\u00f6re\niyi bir itibara sahip"
     },
     "wot_excellent_description": {
-        "message": "Bu site m\u00fckemmel bir itibara sahip "
+        "message": "Bu site $1 de\u011ferlendirmesine g\u00f6re\nm\u00fckemmel bir itibara sahip"
     },
     "settings_choose_size_and_position": {
         "message": "AdGuard Assistant'\u0131n boyut ve konumunu ayarla"

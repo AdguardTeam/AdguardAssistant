@@ -80,22 +80,22 @@ var pt_PT = {
         "message": "Sair da previsualiza\u00e7\u00e3o"
     },
     "wot_unknown_description": {
-        "message": "A reputa\u00e7\u00e3o deste site n\u00e3o est\u00e1 definida por"
+        "message": "A reputa\u00e7\u00e3o deste site n\u00e3o est\u00e1 definida por $1"
     },
     "wot_bad_description": {
-        "message": "Este site tem uma p\u00e9ssima reputa\u00e7\u00e3o\nde acordo com"
+        "message": "Este site tem uma p\u00e9ssima reputa\u00e7\u00e3o\nde acordo com $1"
     },
     "wot_poor_description": {
-        "message": "Este site tem uma m\u00e1 reputa\u00e7\u00e3o\nde acordo com "
+        "message": "Este site tem uma m\u00e1 reputa\u00e7\u00e3o\nde acordo com $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Este site tem uma fr\u00e1gil reputa\u00e7\u00e3o\nde acordo com "
+        "message": "Este site tem uma fr\u00e1gil reputa\u00e7\u00e3o\nde acordo com $1"
     },
     "wot_good_description": {
-        "message": "Este site tem uma boa reputa\u00e7\u00e3o\nde acordo com"
+        "message": "Este site tem uma boa reputa\u00e7\u00e3o\nde acordo com $1"
     },
     "wot_excellent_description": {
-        "message": "Este site tem uma excelente reputa\u00e7\u00e3o\nde acordo com "
+        "message": "Este site tem uma excelente reputa\u00e7\u00e3o\nde acordo com $1"
     },
     "settings_choose_size_and_position": {
         "message": "Ajustar o tamanho e a posi\u00e7\u00e3o do Assistente do AdGuard"

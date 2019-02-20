@@ -80,22 +80,22 @@
         "message": "Esci dall'anteprima"
     },
     "wot_unknown_description": {
-        "message": "La reputazione non \u00e8 definita"
+        "message": "La reputazione di questo sito web non \u00e8 definita da $1"
     },
     "wot_bad_description": {
-        "message": "Questo sito ha una pessima reputazione\n\nsecondo "
+        "message": "Questo sito web ha una pessima reputazione secondo $1"
     },
     "wot_poor_description": {
-        "message": "Questo sito ha una cattiva reputazione\n\nsecondo "
+        "message": "Questo sito ha una reputazione cattiva secondo $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Questo sito ha una discreta reputazione\n\nsecondo "
+        "message": "Questo sito web ha una reputazione mediocre secondo $1"
     },
     "wot_good_description": {
-        "message": "Questo sito ha una buona reputazione\n\nsecondo "
+        "message": "Questo sito ha una buona reputazione secondo $1"
     },
     "wot_excellent_description": {
-        "message": "Questo sito ha un'ottima reputazione\n\nsecondo "
+        "message": "Questo sito ha un'ottima reputazione secondo $1"
     },
     "settings_choose_size_and_position": {
         "message": "Regola dimensione e posizione di Assistente AdGuard"

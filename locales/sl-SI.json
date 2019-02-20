@@ -83,19 +83,19 @@
         "message": "Ugled te spletne strani ni opredeljen"
     },
     "wot_bad_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na "
+        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_poor_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na "
+        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na "
+        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_good_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na "
+        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_excellent_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na "
+        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "settings_choose_size_and_position": {
         "message": "Prilagodi velikost in polo\u017eaj AdGuard Assistanta"

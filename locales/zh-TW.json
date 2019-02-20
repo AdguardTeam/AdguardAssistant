@@ -38,7 +38,7 @@
         "message": "\u8abf\u6574\u5143\u4ef6\u5c01\u9396\u898f\u5247"
     },
     "assistant_slider_explain": {
-        "message": "\u79fb\u52d5\u6ed1\u6a19\u4ee5\u66f4\u6539\u6846\u67b6\u7684\u5c3a\u5bf8\u3002\u65b0\u7684\u898f\u5247\u5c07\u4f5c\u7528\u65bc\uff1a"
+        "message": "\u79fb\u52d5\u8a72\u6ed1\u6a19\u4ee5\u66f4\u6539\u65b0\u7684\u898f\u5247\u5c07\u4f5c\u7528\u65bc\u7684\u6846\u67b6\u4e4b\u5c3a\u5bf8\uff1a"
     },
     "assistant_slider_min": {
         "message": "\u6700\u5c0f"
@@ -80,22 +80,22 @@
         "message": "\u96e2\u958b\u9810\u89bd"
     },
     "wot_unknown_description": {
-        "message": "\u8a72\u7db2\u7ad9\u7684\u4fe1\u8b7d\u672a\u88ab\u754c\u5b9a"
+        "message": "\u8a72\u7db2\u7ad9\u7684\u4fe1\u8b7d\u672a\u88ab $1 \u754c\u5b9a"
     },
     "wot_bad_description": {
-        "message": "\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d"
     },
     "wot_poor_description": {
-        "message": "\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d"
     },
     "wot_unsatisfactory_description": {
-        "message": "\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d"
     },
     "wot_good_description": {
-        "message": "\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d"
     },
     "wot_excellent_description": {
-        "message": "\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d\uff0c\u6839\u64da"
+        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d"
     },
     "settings_choose_size_and_position": {
         "message": "\u8abf\u6574 AdGuard \u52a9\u7406 \u5c3a\u5bf8\u548c\u4f4d\u7f6e"

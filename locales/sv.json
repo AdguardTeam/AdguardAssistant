@@ -80,22 +80,22 @@
         "message": "Avsluta f\u00f6rhandsgranskningen"
     },
     "wot_unknown_description": {
-        "message": "Den h\u00e4r sajtens anseende \u00e4r inte klarlagd av"
+        "message": "Den h\u00e4r sajtens anseende \u00e4r inte klarlagd av $1"
     },
     "wot_bad_description": {
-        "message": "Webbplatsen har ett mycket d\u00e5ligt anseende\nenligt "
+        "message": "Webbplatsen har ett mycket d\u00e5ligt anseende\nenligt $1"
     },
     "wot_poor_description": {
-        "message": "Webbplatsen har d\u00e5ligt anseende\nenligt "
+        "message": "Webbplatsen har d\u00e5ligt anseende\nenligt $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Webbplatsen har tveksamt anseende\nenligt "
+        "message": "Webbplatsen har tveksamt anseende\nenligt $1"
     },
     "wot_good_description": {
-        "message": "Webbplatsen har gott anseende\nenligt "
+        "message": "Webbplatsen har gott anseende\nenligt $1"
     },
     "wot_excellent_description": {
-        "message": "Webbplatsen har ett mycket gott anseende\nenligt "
+        "message": "Webbplatsen har ett mycket gott anseende\nenligt $1"
     },
     "settings_choose_size_and_position": {
         "message": "Anpassas storlek och l\u00e4ge f\u00f6r AdGuardassistenten"

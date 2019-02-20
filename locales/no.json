@@ -83,19 +83,19 @@
         "message": "Rykte er ikke definert"
     },
     "wot_bad_description": {
-        "message": "Denne nettsiden har et veldig d\u00e5rlig rykte\ni f\u00f8lge "
+        "message": "Denne nettsiden har et veldig d\u00e5rlig rykte\ni f\u00f8lge $1"
     },
     "wot_poor_description": {
-        "message": "Denne nettsiden har et d\u00e5rlig rykte\ni f\u00f8lge "
+        "message": "Denne nettsiden har et d\u00e5rlig rykte\ni f\u00f8lge $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Denne nettsiden har et d\u00e5rlig rykte\ni f\u00f8lge "
+        "message": "Denne nettsiden har et d\u00e5rlig rykte\ni f\u00f8lge $1"
     },
     "wot_good_description": {
-        "message": "Denne nettsiden har et godt rykte\ni f\u00f8lge "
+        "message": "Denne nettsiden har et godt rykte\ni f\u00f8lge $1"
     },
     "wot_excellent_description": {
-        "message": "Denne nettsiden har et utmerket rykte\ni f\u00f8lge "
+        "message": "Denne nettsiden har et utmerket rykte\ni f\u00f8lge $1"
     },
     "settings_choose_size_and_position": {
         "message": "Juster st\u00f8rrelsen og posisjonen til AdGuard-assistent"

@@ -80,22 +80,22 @@ var sk = {
         "message": "Ukon\u010denie n\u00e1h\u013eadu"
     },
     "wot_unknown_description": {
-        "message": "Reput\u00e1cia tejto webovej str\u00e1nky nebola definovan\u00e1"
+        "message": "Reput\u00e1cia tejto webovej str\u00e1nky nie je v $1 definovan\u00e1"
     },
     "wot_bad_description": {
-        "message": "Str\u00e1nka m\u00e1 ve\u013emi zl\u00fa reput\u00e1ciu\npod\u013ea "
+        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nve\u013emi zl\u00fa reput\u00e1ciu"
     },
     "wot_poor_description": {
-        "message": "Str\u00e1nka m\u00e1 zl\u00fa reput\u00e1ciu\npod\u013ea "
+        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nzl\u00fa reput\u00e1ciu"
     },
     "wot_unsatisfactory_description": {
-        "message": "Str\u00e1nka m\u00e1 slab\u00fa reput\u00e1ciu\npod\u013ea "
+        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nslab\u00fa reput\u00e1ciu"
     },
     "wot_good_description": {
-        "message": "Str\u00e1nka m\u00e1 dobr\u00fa reput\u00e1ciu\npod\u013ea "
+        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\ndobr\u00fa reput\u00e1ciu"
     },
     "wot_excellent_description": {
-        "message": "Str\u00e1nka m\u00e1 v\u00fdborn\u00fa reput\u00e1ciu\npod\u013ea "
+        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nv\u00fdborn\u00fa reput\u00e1ciu"
     },
     "settings_choose_size_and_position": {
         "message": "Prisp\u00f4sobi\u0165 ve\u013ekos\u0165 a polohu AdGuard asistenta"

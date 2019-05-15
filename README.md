@@ -61,15 +61,15 @@ The configuration file looks like:
 
     {
         "url": "url of localizations",
-        "project_id": "some id",
-        "secret_key": "some key",
-        "api_key": "some api key"
+        "projectId": "some id",
+        "secretKey": "some key",
+        "apiKey": "some api key"
     }
 
 For security reasons, this file is ignored by .gitignore settings.
 
 To download and append localizations run:
 
-    $ npm run locales
+    $ npm run downloadLocales
 
-Localization list is in options in `gulpfile.js`.
+Localization list is in options in `tasks/index.js`.

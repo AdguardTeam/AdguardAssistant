@@ -8,7 +8,7 @@ const fs = require('fs');
 const file = require('gulp-file');
 const path = require('path');
 
-module.exports = () => {
+const restoreMeta = () => {
     gutil.log('Restoring meta...');
 
     const options = global.options || {};
@@ -20,7 +20,9 @@ module.exports = () => {
 
     gutil.log('Meta was restored');
 
-    return gulp.src(userJsFileName)
+    return gulp.src(userJsFileName, { allowEmpty: true })
         .pipe(file(userJsFileName, finalString))
         .pipe(gulp.dest(options.outputPath));
 };
+
+export default restoreMeta;

@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-  - "7"
+  - "10"
 install:
-  - npm install
+  - yarn install
 script:
-  - gulp clean
-  - gulp embedded
-  - gulp dev
-  - gulp testsToGhPages
-  - npm test
+  - yarn clean
+  - yarn embedded
+  - yarn dev
+  - yarn test-to-gh-pages
+  - yarn test
 deploy:
   - provider: pages
     skip_cleanup: true

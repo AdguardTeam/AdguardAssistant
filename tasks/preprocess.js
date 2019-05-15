@@ -3,13 +3,13 @@
  */
 
 const gulp = require('gulp');
-const preprocess = require('gulp-preprocess');
+const gulpPreprocess = require('gulp-preprocess');
 
-module.exports = () => {
+const preprocess = () => {
     const options = global.options || {};
 
-    return gulp.src(options.outputPath + '/' + options.fileName)
-        .pipe(preprocess({
+    return gulp.src(options.outputPath + '/' + options.fileName, { allowEmpty: true })
+        .pipe(gulpPreprocess({
             context: {
                 DEBUG: options.debug,
                 VERSION: options.version
@@ -17,3 +17,5 @@ module.exports = () => {
         }))
         .pipe(gulp.dest(options.outputPath));
 };
+
+export default preprocess;

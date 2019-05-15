@@ -2,31 +2,42 @@
   "name": "assistant-compiler",
   "version": "4.3.11",
   "description": "Compile source files to userscript form",
-  "main": "gulpfile.js",
-  "dependencies": {},
+  "main": "tasks/index.js",
+  "dependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/register": "^7.4.4"
+  },
   "scripts": {
-    "start": "gulp build",
-    "dev": "gulp dev",
-    "beta": "gulp beta",
-    "locales": "gulp locales",
-    "upload-locales": "gulp upload-locales",
-    "watch": "gulp watch",
-    "embedded": "gulp embedded",
+    "dev": "NODE_ENV=dev gulp buildDev --require @babel/register --gulpfile tasks",
+    "beta": "NODE_ENV=beta gulp buildBeta --require @babel/register --gulpfile tasks",
+    "release": "NODE_ENV=release gulp buildRelease --require @babel/register --gulpfile tasks",
+    "download-locales": "gulp downloadLocales --require @babel/register --gulpfile tasks",
+    "upload-locales": "gulp uploadLocales --require @babel/register --gulpfile tasks",
+    "watch": "gulp watch --require @babel/register --gulpfile tasks",
+    "embedded": "gulp buildEmbedded --require @babel/register --gulpfile tasks",
     "test": "mocha-phantomjs test/test.html",
-    "test-embedded": "mocha-phantomjs test/embedded.html"
+    "test-embedded": "mocha-phantomjs test/embedded.html",
+    "test-to-gh-pages": "gulp testsToGhPages --require @babel/register --gulpfile tasks",
+    "clean" : "gulp clean --require @babel/register --gulpfile tasks"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.4",
     "browser-sync": "^2.18.12",
     "chai": "^4.0.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^3.4.2",
-    "gulp-download-stream": "0.0.13",
-    "gulp-file": "^0.3.0",
+    "gulp-download-stream": "0.0.19",
+    "gulp-file": "^0.4.0",
     "gulp-hash-creator": "^0.2.0",
     "gulp-inline-assets": "^0.1.1",
     "gulp-less": "^3.3.0",
-    "gulp-minify": "^2.1.0",
+    "gulp-minify": "^3.1.0",
     "gulp-preprocess": "^2.0.0",
     "gulp-util": "^3.0.8",
     "gulp-watch": "^4.3.11",

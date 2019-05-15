@@ -7,7 +7,7 @@ const gutil = require('gulp-util');
 const watch = require('gulp-watch');
 const browserSync = require('browser-sync');
 
-module.exports = () => {
+const watchTask = () => {
     const options = global.options || {};
 
     browserSync.init({
@@ -23,3 +23,5 @@ module.exports = () => {
         gulp.start('dev');
     });
 };
+
+export default watchTask;

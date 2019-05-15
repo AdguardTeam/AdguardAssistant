@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name Adguard Assistant Dev
+// @name AdGuard Assistant Dev
 // @name:ru Помощник AdGuard Dev
 // @name:uk Помічник AdGuard Dev
 // @name:pl Asystent AdGuarda Dev

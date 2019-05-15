@@ -56,7 +56,7 @@ const updateMetaLocales = () => {
     compilerMetaBeta = compilerMetaBeta
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaBetaNames.join(endOfLine))
         .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
-        .replace('@name Adguard Assistant', '@name Adguard Assistant Beta')
+        .replace('@name AdGuard Assistant', '@name AdGuard Assistant Beta')
         .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlBeta + 'assistant.user.js')
         .replace('[UPDATE_URL]', options.downloadUpdateUrlBeta + 'assistant.meta.js')
         .replace('[ASSISTANT_VERSION]', options.version);
@@ -64,7 +64,7 @@ const updateMetaLocales = () => {
     compilerMetaDev = compilerMetaDev
         .replace('// [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDevNames.join(endOfLine))
         .replace('// [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]', compilerMetaDescriptions.join(endOfLine))
-        .replace('@name Adguard Assistant', '@name Adguard Assistant Dev')
+        .replace('@name AdGuard Assistant', '@name AdGuard Assistant Dev')
         .replace('[DOWNLOAD_URL]', options.downloadUpdateUrlDev + 'assistant.user.js')
         .replace('[UPDATE_URL]', options.downloadUpdateUrlDev + 'assistant.meta.js')
         .replace('[ASSISTANT_VERSION]', options.version);

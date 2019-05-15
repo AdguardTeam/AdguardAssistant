@@ -20,8 +20,8 @@ const options = global.options = {
     metaBuild: 'compiler.meta.build.js',
     metaBeta: 'compiler.meta.beta.js',
     metaDev: 'compiler.meta.dev.js',
-    downloadUpdateUrlBuild: 'https://cdn.adguard.com/public/Userscripts/AdguardAssistant/4.2/',
-    downloadUpdateUrlBeta: 'https://cdn.adguard.com/public/Userscripts/Beta/AdguardAssistant/4.2/',
+    downloadUpdateUrlBuild: 'https://userscripts.adtidy.org/release/assistant/4.3/',
+    downloadUpdateUrlBeta: 'https://userscripts.adtidy.org/beta/assistant/4.3/',
     downloadUpdateUrlDev: 'https://AdguardTeam.github.io/AdguardAssistant/',
     outputPath: 'build',
     locales: ['en', 'ru', 'uk', 'pl', 'de', 'zh-CN', 'zh-TW', 'he', 'it', 'fa', 'tr', 'ja', 'es', 'pt-BR', 'pt-PT', 'ar', 'ko', 'sk', 'no', 'da', 'fr', 'id', 'sv', 'sr-Latn', 'cs', 'sl-SI', 'be-BY'],
@@ -42,8 +42,10 @@ options.languagesFiles = options.locales.reduce(function (p, c) {
 options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
 export const buildBeta = (done) => {
+    options.debug = false;
     options.metaPath = options.metaBeta;
-    return gulp.series(updateMetaLocales, css, compile, preprocess, restoreMeta)(done);
+    options.fileName = options.scriptName + '.user.js';
+    return gulp.series(updateMetaLocales, css, compile, preprocess, uglify, restoreMeta, restoreMetaMin)(done);
 };
 
 export const buildDev = (done) => {

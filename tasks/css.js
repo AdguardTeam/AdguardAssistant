@@ -11,7 +11,7 @@ const lessAutoprefix = require('less-plugin-autoprefix');
 const inlineImages = require('less-plugin-inline-urls');
 const inlineAssets = require('gulp-inline-assets');
 
-module.exports = () => {
+const css = () => {
     const options = global.options || {};
 
     gutil.log('Building css...');
@@ -34,3 +34,5 @@ module.exports = () => {
       .pipe(cleanCSS())
       .pipe(gulp.dest('compile'));
 };
+
+export default css;

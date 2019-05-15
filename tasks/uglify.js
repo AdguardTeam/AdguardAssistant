@@ -6,7 +6,7 @@ const path = require('path');
 const gulp = require('gulp');
 const minify = require('gulp-minify');
 
-module.exports = () => {
+const uglify = () => {
     var userJsFileName = options.fileName;
 
     return gulp.src(path.join(options.outputPath, userJsFileName))
@@ -18,3 +18,5 @@ module.exports = () => {
         }))
         .pipe(gulp.dest('build'))
 };
+
+export default uglify;

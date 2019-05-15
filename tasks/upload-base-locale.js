@@ -4,13 +4,12 @@ const fs = require('fs');
 const request = require('request');
 const gutil = require('gulp-util');
 
-const options = global.options || {};
-
 const hashString = stringContent => md5({
     content: stringContent,
 });
 
 const prepare = () => {
+    const options = global.options || {};
     let oneskyapp;
 
     try {
@@ -28,17 +27,17 @@ const prepare = () => {
         file_format: 'HIERARCHICAL_JSON',
         locale: 'en',
         is_keeping_all_strings: 'false',
-        api_key: oneskyapp.api_key,
-        dev_hash: hashString(timestamp + oneskyapp.secret_key),
+        api_key: oneskyapp.apiKey,
+        dev_hash: hashString(timestamp + oneskyapp.secretKey),
         timestamp,
     };
 
-    const url = `${oneskyapp.url}${oneskyapp.project_id}/files`;
+    const url = `${oneskyapp.url}${oneskyapp.projectId}/files`;
 
     return { formData, url };
 };
 
-function uploadBaseLocale() {
+const uploadBaseLocale = () => {
     const data = prepare();
     return request.post({
         url: data.url,
@@ -53,6 +52,6 @@ function uploadBaseLocale() {
             gutil.log(`Upload successful! Server responded with: ${body}`);
         }
     });
-}
+};
 
-module.exports = uploadBaseLocale;
+export default uploadBaseLocale;

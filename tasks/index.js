@@ -1,6 +1,18 @@
-const fs = require('fs');
-const gulp = require('gulp');
-const runSequence = require('run-sequence').use(gulp);
+import fs from 'fs';
+import gulp from 'gulp';
+
+import compile from './compile';
+import restoreMeta from './restore-meta';
+import clean from './clean';
+import preprocess from './preprocess';
+import uglify from './uglify';
+import downloadLocalization from './download-localization';
+import appendLocales from './append-locales';
+import updateMetaLocales from './update-meta-locales';
+import css from './css';
+import uploadEnLocale from './upload-base-locale';
+import uploadBaseMetaLocale from './upload-base-meta-locale';
+import watch from './watch';
 
 const options = global.options = {
     src: 'src',
@@ -29,63 +41,52 @@ options.languagesFiles = options.locales.reduce(function (p, c) {
 
 options.version = JSON.parse(fs.readFileSync('./package.json')).version;
 
-gulp.task('beta', () => {
+export const buildBeta = (done) => {
     options.metaPath = options.metaBeta;
-    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'restore-meta');
-});
+    return gulp.series(updateMetaLocales, css, compile, preprocess, restoreMeta)(done);
+};
 
-gulp.task('dev', () => {
+export const buildDev = (done) => {
     options.metaPath = options.metaDev;
     options.fileName = options.scriptName + '.user.js';
-    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'restore-meta');
-});
+    return gulp.series(updateMetaLocales, css, compile, preprocess, restoreMeta)(done);
+};
 
-gulp.task('embedded', () => {
+export const buildEmbedded = (done) => {
     options.metaPath = options.metaDev;
     options.debug = false;
     options.embedded = true;
     options.fileName = options.scriptName + '.embedded.js';
-    runSequence('clean', 'update-meta-locales', 'css', 'compile', 'preprocess', 'uglify');
-});
+    return gulp.series(clean, updateMetaLocales, css, compile, preprocess, uglify)(done);
+};
 
-gulp.task('build', () => {
+const restoreMetaMin = (done) => {
+    options.ext = '.user.min.js';
+    gulp.series(restoreMeta)(done);
+};
+
+export const buildRelease = (done) => {
     options.debug = false;
     options.metaPath = options.metaBuild;
     options.fileName = options.scriptName + '.user.js';
-    runSequence('update-meta-locales', 'css', 'compile', 'preprocess', 'uglify', 'restore-meta', 'restore-meta-min');
-});
+    return gulp.series(updateMetaLocales, css, compile, preprocess, uglify, restoreMeta, restoreMetaMin)(done);
+};
 
-gulp.task('restore-meta-min', () => {
-    options.ext = '.user.min.js';
-    runSequence('restore-meta');
-});
+export const downloadLocales = (done) => {
+    gulp.series(downloadLocalization, appendLocales, updateMetaLocales)(done);
+};
 
-gulp.task('locales', () => {
-    runSequence('download-localization', 'append-locales', 'update-meta-locales');
-});
-
-gulp.task('testsToGhPages', () => {
+export const testsToGhPages = () => {
     return gulp.src([
         'test/**',
         'node_modules/mocha/mocha.*',
         'node_modules/chai/chai.js'
     ]).pipe(gulp.dest(options.outputPath + '/test/'));
-});
+};
 
-gulp.task('upload-locales', () => {
-    runSequence('upload-en-locale', 'upload-base-meta-locale');
-});
+export const uploadLocales = (done) => {
+    console.log(options);
+    gulp.series(uploadEnLocale, uploadBaseMetaLocale)(done);
+};
 
-
-gulp.task('compile', require('./tasks/compile'));
-gulp.task('restore-meta', require('./tasks/restore-meta'));
-gulp.task('clean', require('./tasks/clean'));
-gulp.task('preprocess', require('./tasks/preprocess'));
-gulp.task('uglify', require('./tasks/uglify'));
-gulp.task('watch', require('./tasks/watch'));
-gulp.task('download-localization', require('./tasks/download-localization'));
-gulp.task('append-locales', require('./tasks/append-locales'));
-gulp.task('update-meta-locales', require('./tasks/update-meta-locales'));
-gulp.task('css', require('./tasks/css'));
-gulp.task('upload-en-locale', require('./tasks/upload-base-locale'));
-gulp.task('upload-base-meta-locale', require('./tasks/upload-base-meta-locale'));
+export { watch, clean };

@@ -10,7 +10,7 @@ const file = require('gulp-file');
 const path = require('path');
 const InlineResource = require('inline-resource-literal');
 
-module.exports = () => {
+const compile = () => {
     gutil.log('Compiling userscript...');
 
     const options = global.options || {};
@@ -84,7 +84,7 @@ module.exports = () => {
     } catch (err) {
         throw new gutil.PluginError({
             plugin: 'compile',
-            message: gutil.colors.green('Make sure you have already uploaded localizations with `gulp locales` command!')
+            message: gutil.colors.green('Make sure you have already uploaded localizations with `gulp downloadLocales` command!')
         });
     }
 
@@ -120,7 +120,7 @@ module.exports = () => {
                 day: ('0' + (new Date()).getDate()).slice(-2)
             };
 
-            copyright = `/*! AdGuard Assistant - v${options.version} - ${currentDate.year}-${currentDate.month}-${currentDate.day}\r\n* https://github.com/AdguardTeam/AdguardAssistant\r\n* Copyright (c) ${currentDate.year}; Licensed LGPL 3.0 */\r\n`;
+            const copyright = `/*! AdGuard Assistant - v${options.version} - ${currentDate.year}-${currentDate.month}-${currentDate.day}\r\n* https://github.com/AdguardTeam/AdguardAssistant\r\n* Copyright (c) ${currentDate.year}; Licensed LGPL 3.0 */\r\n`;
 
             content.unshift(copyright);
         }
@@ -130,8 +130,10 @@ module.exports = () => {
     prepareRequires();
     wrapScript(finalContent);
 
-    return gulp.src(userJsFileName)
+    return gulp.src(userJsFileName, { allowEmpty: true })
         .pipe(file(userJsFileName, finalContent.join('\n')))
         .pipe(file(userMetaFileName, metaContent))
         .pipe(gulp.dest(options.outputPath));
 };
+
+export default compile;

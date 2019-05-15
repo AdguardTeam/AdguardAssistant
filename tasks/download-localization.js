@@ -7,7 +7,7 @@ const gutil = require('gulp-util');
 const download = require('gulp-download-stream');
 const md5 = require('gulp-hash-creator');
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 function hashString(stringContent) {
     return md5({
@@ -15,7 +15,7 @@ function hashString(stringContent) {
     });
 }
 
-module.exports = () => {
+const downloadLocalization = () => {
     let options = global.options || {};
 
     let keys;
@@ -39,13 +39,13 @@ module.exports = () => {
         const timestamp = Math.round(new Date().getTime() / 1000);
         let url = [];
 
-        url.push(options.url + options.project_id);
+        url.push(options.url + options.projectId);
         url.push('/translations?locale=' + localization);
         url.push('&source_file_name=' + options.sourceFile);
         url.push('&export_file_name=' + localization + '.json');
-        url.push('&api_key=' + options.api_key);
+        url.push('&api_key=' + options.apiKey);
         url.push('&timestamp=' + timestamp);
-        url.push('&dev_hash=' + hashString(timestamp + options.secret_key));
+        url.push('&dev_hash=' + hashString(timestamp + options.secretKey));
 
         urls.push({
             file: localization + '.json',
@@ -57,13 +57,13 @@ module.exports = () => {
         const timestamp = Math.round(new Date().getTime() / 1000);
         let urlMeta = [];
 
-        urlMeta.push(options.url + options.project_id);
+        urlMeta.push(options.url + options.projectId);
         urlMeta.push('/translations?locale=' + localization);
         urlMeta.push('&source_file_name=' + options.sourceFileMeta);
         urlMeta.push('&export_file_name=' + localization + '.meta.json');
-        urlMeta.push('&api_key=' + options.api_key);
+        urlMeta.push('&api_key=' + options.apiKey);
         urlMeta.push('&timestamp=' + timestamp);
-        urlMeta.push('&dev_hash=' + hashString(timestamp + options.secret_key));
+        urlMeta.push('&dev_hash=' + hashString(timestamp + options.secretKey));
 
         urls.push({
             file: localization + '.meta.json',
@@ -74,3 +74,5 @@ module.exports = () => {
     return download(urls)
         .pipe(gulp.dest(options.localesDir));
 };
+
+export default downloadLocalization;

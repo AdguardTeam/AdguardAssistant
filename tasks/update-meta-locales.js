@@ -1,15 +1,14 @@
 /**
- * Update meta locales.
+ * Update meta downloadLocales.
  */
 
 const gulp = require('gulp');
-const gutil = require('gulp-util');
 const fs = require('fs');
 const file = require('gulp-file');
 const path = require('path');
 const endOfLine = require('os').EOL;
 
-module.exports = () => {
+const updateMetaLocales = () => {
     const options = global.options || {};
 
     let compilerMeta = fs.readFileSync('compiler.meta.template.js').toString();
@@ -76,3 +75,5 @@ module.exports = () => {
         .pipe(file(options.metaDev, compilerMetaDev))
         .pipe(gulp.dest(path.join(options.src, '_compiled')));
 };
+
+export default updateMetaLocales;

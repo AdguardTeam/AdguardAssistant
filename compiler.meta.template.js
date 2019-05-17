@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name AdGuard Assistant
 // [NAMES_IN_OTHER_LANGUAGES_PLACEHOLDER]
-// @namespace Adguard
+// @namespace adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // [DESCRIPTIONS_IN_OTHER_LANGUAGES_PLACEHOLDER]
 // @version [ASSISTANT_VERSION]

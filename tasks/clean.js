@@ -11,6 +11,6 @@ module.exports = () => {
 
     gutil.log('Cleaning ' + options.outputPath);
 
-    return gulp.src(options.outputPath)
+    return gulp.src(options.outputPath, { allowEmpty: true })
         .pipe(clean());
 };

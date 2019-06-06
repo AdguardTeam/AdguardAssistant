@@ -59,7 +59,7 @@ var pt_PT = {
         "message": "Bloquear semelhante"
     },
     "assistant_another_element": {
-        "message": "Seleccionar outro elemento"
+        "message": "Seleccionar um elemento diferente"
     },
     "assistant_preview": {
         "message": "Previsualiza\u00e7\u00e3o"

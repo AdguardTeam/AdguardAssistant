@@ -26,7 +26,7 @@
 // @name:cs AdGuard Asistent Dev
 // @name:sl AdGuard Pomočnik Dev
 // @name:be Памочнік AdGuard Dev
-// @namespace Adguard
+// @namespace adguard
 // @description Provides easy and convenient way to manage filtering right from the browser
 // @description:ru Позволяет легко и быстро управлять фильтрацией прямо из браузера
 // @description:uk Забезпечує легкий і зручний спосіб керування фільтрацією прямо з веб-переглядача
@@ -54,7 +54,7 @@
 // @description:cs Poskytuje snadný a pohodlný způsob správy filtrování přímo z prohlížeče
 // @description:sl Omogoča preprost in priročen način za upravljanje filtriranja neposredno iz brskalnika
 // @description:be Дазваляе лёгка і хутка кіраваць фільтрацыяй непасрэдна з браўзара
-// @version 4.3.12
+// @version 4.3.14
 // @downloadURL https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js
 // @updateURL https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js
 // @homepageURL https://github.com/AdguardTeam/AdguardAssistant

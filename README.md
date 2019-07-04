@@ -44,14 +44,14 @@ Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssi
 
 For development build run:
 
-    $ npm run dev
+    $ yarn dev
 
 This will compile `assistant.user.js` file without minification.
 
 
 For development build with watcher on file changes and debugging from local server run:
 
-    $ npm run watch
+    $ yarn watch
 
 This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify the script in the address, e.g. `http://localhost:3000/assistant.user.js`.
 
@@ -70,6 +70,6 @@ For security reasons, this file is ignored by .gitignore settings.
 
 To download and append localizations run:
 
-    $ npm run downloadLocales
+    $ yarn download-locales
 
 Localization list is in options in `tasks/index.js`.

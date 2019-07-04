@@ -19,7 +19,7 @@
 // @name:sk AdGuard Assistant
 // @name:no AdGuard-assistent
 // @name:da AdGuard Assistent
-// @name:fr Assistant AdGuard
+// @name:fr Assistant AdGuard 
 // @name:id Asisten AdGuard
 // @name:sv AdGuard-assistent
 // @name:sr AdGuard pomoćnik
@@ -54,7 +54,7 @@
 // @description:cs Poskytuje snadný a pohodlný způsob správy filtrování přímo z prohlížeče
 // @description:sl Omogoča preprost in priročen način za upravljanje filtriranja neposredno iz brskalnika
 // @description:be Дазваляе лёгка і хутка кіраваць фільтрацыяй непасрэдна з браўзара
-// @version 4.3.14
+// @version 4.3.15
 // @downloadURL https://userscripts.adtidy.org/release/assistant/4.3/assistant.user.js
 // @updateURL https://userscripts.adtidy.org/release/assistant/4.3/assistant.meta.js
 // @homepageURL https://github.com/AdguardTeam/AdguardAssistant

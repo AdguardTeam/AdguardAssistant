@@ -9,7 +9,7 @@
 // @name:he העוזר האישי של אדגארד
 // @name:it Assistente AdGuard
 // @name:fa دستیار AdGuard
-// @name:tr AdGuard Assistant
+// @name:tr AdGuard Assistant eklentisi
 // @name:ja AdGuardアシスタント
 // @name:es Asistente de Adguard
 // @name:pt Assistente do AdGuard
@@ -19,7 +19,7 @@
 // @name:sk AdGuard Assistant
 // @name:no AdGuard-assistent
 // @name:da AdGuard Assistent
-// @name:fr Assistant AdGuard 
+// @name:fr Assistant AdGuard
 // @name:id Asisten AdGuard
 // @name:sv AdGuard-assistent
 // @name:sr AdGuard pomoćnik

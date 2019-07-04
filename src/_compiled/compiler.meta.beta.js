@@ -9,7 +9,7 @@
 // @name:he העוזר האישי של אדגארד Beta
 // @name:it Assistente AdGuard Beta
 // @name:fa دستیار AdGuard Beta
-// @name:tr AdGuard Assistant Beta
+// @name:tr AdGuard Assistant eklentisi Beta
 // @name:ja AdGuardアシスタント Beta
 // @name:es Asistente de Adguard Beta
 // @name:pt Assistente do AdGuard Beta

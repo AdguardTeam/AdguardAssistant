@@ -8,7 +8,7 @@ var zh_TW = {
         "message": "\u65bc\u8a72\u7db2\u7ad9\u4e0a\u4e4b\u904e\u6ffe"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "\u8a0830\u79d2\u4e0d\u904e\u6ffe"
+        "message": "\u8a08 30 \u79d2\u4e0d\u904e\u6ffe"
     },
     "menu_block_ad_on_site": {
         "message": "\u5c01\u9396\u65bc\u8a72\u7db2\u7ad9\u4e0a\u4e4b\u5ee3\u544a"
@@ -83,19 +83,19 @@ var zh_TW = {
         "message": "\u8a72\u7db2\u7ad9\u7684\u4fe1\u8b7d\u672a\u88ab $1 \u754c\u5b9a"
     },
     "wot_bad_description": {
-        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d"
+        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d"
     },
     "wot_poor_description": {
-        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d"
+        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d"
     },
     "wot_unsatisfactory_description": {
-        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d"
+        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d"
     },
     "wot_good_description": {
-        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d"
+        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d"
     },
     "wot_excellent_description": {
-        "message": "\u6839\u64da $1 \uff0c\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d"
+        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d"
     },
     "settings_choose_size_and_position": {
         "message": "\u8abf\u6574 AdGuard \u52a9\u7406 \u5c3a\u5bf8\u548c\u4f4d\u7f6e"

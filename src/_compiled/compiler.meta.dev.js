@@ -9,7 +9,7 @@
 // @name:he העוזר האישי של אדגארד Dev
 // @name:it Assistente AdGuard Dev
 // @name:fa دستیار AdGuard Dev
-// @name:tr AdGuard Assistant Dev
+// @name:tr AdGuard Assistant eklentisi Dev
 // @name:ja AdGuardアシスタント Dev
 // @name:es Asistente de Adguard Dev
 // @name:pt Assistente do AdGuard Dev

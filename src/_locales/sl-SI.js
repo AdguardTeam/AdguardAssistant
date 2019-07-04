@@ -38,7 +38,7 @@ var sl_SI = {
         "message": "Prilagodite pravilo za blokiranju elementa"
     },
     "assistant_slider_explain": {
-        "message": "Premaknite drsnik, da spremenite velikost okvira, za katerega bo delovalo novo pravilo:"
+        "message": "Premaknite drsnik, da spremenite velikost okvirja, za katerega bo delovalo novo pravilo:"
     },
     "assistant_slider_min": {
         "message": "NAJM"
@@ -59,7 +59,7 @@ var sl_SI = {
         "message": "Blokiraj podobno"
     },
     "assistant_another_element": {
-        "message": "Izberi drugi element"
+        "message": "Izberi drug element"
     },
     "assistant_preview": {
         "message": "Predogled"
@@ -80,25 +80,25 @@ var sl_SI = {
         "message": "Zapusti predogled"
     },
     "wot_unknown_description": {
-        "message": "Ugled te spletne strani ni opredeljen"
+        "message": "Ugled te spletne strani ni opredeljen z $1"
     },
     "wot_bad_description": {
         "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_poor_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
+        "message": "Ta spletna stran ima slab ugled\nglede na $1"
     },
     "wot_unsatisfactory_description": {
         "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
     },
     "wot_good_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
+        "message": "Ta spletna stran ima dober ugled\nglede na $1"
     },
     "wot_excellent_description": {
-        "message": "Ta spletna stran ima zelo slab ugled\nglede na $1"
+        "message": "Ta spletna stran ima odli\u010den ugled\nglede na $1"
     },
     "settings_choose_size_and_position": {
-        "message": "Prilagodi velikost in polo\u017eaj AdGuard Assistanta"
+        "message": "Prilagodi velikost in polo\u017eaj AdGuard Pomo\u010dnika"
     },
     "settings_icon_size": {
         "message": "Velikost ikone:"

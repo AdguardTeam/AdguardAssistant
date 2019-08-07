@@ -3,10 +3,6 @@
   "version": "4.3.15",
   "description": "Compile source files to userscript form",
   "main": "tasks/index.js",
-  "dependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/register": "^7.4.4"
-  },
   "scripts": {
     "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack",
     "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack",
@@ -19,11 +15,6 @@
     "clean": "gulp clean --require @babel/register --gulpfile tasks",
     "locales:download": "LOCALES=DOWNLOAD node locales.js",
     "locales:upload": "LOCALES=UPLOAD node locales.js"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env"
-    ]
   },
   "devDependencies": {
     "axios": "^0.19.0",

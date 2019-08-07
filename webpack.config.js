@@ -13,7 +13,7 @@ const USERSCRIPT_NAME = 'assistant';
 const config = {
     mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
     entry: {
-        main: path.resolve(__dirname, SOURCE_DIR, 'main.js'),
+        main: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
     },
     output: {
         path: path.resolve(__dirname, BUILD_DIR, MODE),

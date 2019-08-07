@@ -55,21 +55,3 @@ For development build with watcher on file changes and debugging from local serv
 
 This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify the script in the address, e.g. `http://localhost:3000/assistant.user.js`.
 
-To run the task of downloading the localization files, put the `.keys.json` configuration file in the `config` directory.
-
-The configuration file looks like:
-
-    {
-        "url": "url of localizations",
-        "projectId": "some id",
-        "secretKey": "some key",
-        "apiKey": "some api key"
-    }
-
-For security reasons, this file is ignored by .gitignore settings.
-
-To download and append localizations run:
-
-    $ yarn download-locales
-
-Localization list is in options in `tasks/index.js`.

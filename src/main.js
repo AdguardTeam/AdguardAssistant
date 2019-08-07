@@ -14,9 +14,7 @@
     RunSheduler,
     SliderWidget,
     AdguardRulesConstructorLib,
-    AdguardSelectorLib,
     UIButton,
-    UpgradeHelper,
     ADG_addRule,
     ADG_temporaryDontBlock,
     ADG_sendAbuse,
@@ -26,9 +24,10 @@
 import Ioc from './ioc';
 import ProtectedApi from './protectedApi';
 import Log from './log';
+import AdguardSelectorLib from './selector/adguard-selector';
+import UpgradeHelper from './upgradeHelper';
 
-
-/*
+/**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 export const adguardAssistantExtended = () => {
@@ -39,6 +38,8 @@ export const adguardAssistantExtended = () => {
     const protectedApiCtrl = Ioc.get(ProtectedApi);
 
     Ioc.register('addRule', () => false);
+
+    // -------
 
     const addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
     const dontBlock = typeof (ADG_temporaryDontBlock) === 'undefined' ? null : ADG_temporaryDontBlock;

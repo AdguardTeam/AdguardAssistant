@@ -1,44 +1,50 @@
+/* eslint-disable no-param-reassign */
 /**
  * Helper for backward compatibility
  * @returns {{}}
  * @constructor
  */
-var UpgradeHelper = function (log, protectedApi) {
-    var Constants = {
-        BUTTON_POSITION_ITEM_NAME: '__adbpos'
-    };
+export default class UpgradeHelper {
+    constructor(log, protectedApi) {
+        this.log = log;
+        this.protectedApi = protectedApi;
 
-    var getButtonPositionData = function () {
+        this.Constants = {
+            BUTTON_POSITION_ITEM_NAME: '__adbpos',
+        };
+    }
+
+    getButtonPositionData() {
         try {
-            userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
+            const userPosition = localStorage.getItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
             if (userPosition) {
-                return protectedApi.json.parse(userPosition);
+                return this.protectedApi.json.parse(userPosition);
             }
+            return undefined;
         } catch (ex) {
-            log.error(ex);
-            return null;
+            this.log.error(ex);
+            return undefined;
         }
-    };
+    }
 
-    var removeUserPositionForButton = function () {
+    removeUserPositionForButton() {
         try {
-            localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
+            localStorage.removeItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
         } catch (ex) {
-            log.error(ex);
-            return null;
+            this.log.error(ex);
         }
-    };
+    }
 
-    var upgradeGmStorage = function (settings, version) {
+    static upgradeGmStorage(settings, version) {
         settings.personal = {};
         settings.scriptVersion = version;
         settings.personalConfig = true;
         return settings;
-    };
+    }
 
     // Helper for assistant update from 4.1 to 4.2
-    var upgradeLocalStorage = function (settings, sitename) {
-        var position = getButtonPositionData();
+    upgradeLocalStorage(settings, sitename) {
+        const position = this.getButtonPositionData();
         if (position) {
             if (!settings.personal[sitename]) {
                 settings.personal[sitename] = {};
@@ -46,12 +52,7 @@ var UpgradeHelper = function (log, protectedApi) {
             settings.personal[sitename].position = position;
             settings.personal[sitename].largeIcon = settings.largeIcon;
         }
-        removeUserPositionForButton();
+        this.removeUserPositionForButton();
         return settings;
-    };
-
-    return {
-        upgradeGmStorage: upgradeGmStorage,
-        upgradeLocalStorage: upgradeLocalStorage
-    };
-};
+    }
+}

@@ -1,8 +1,11 @@
 /**
+ * 
+ * TODO: make class
+ * TODO: lint
  * Adguard selector library
  * @type {Function}
  */
-var AdguardSelectorLib = (function(api, $, protectedApi) {
+const AdguardSelectorLib = (function(api, $, protectedApi) {
     // PRIVATE FIELDS
 
     var PLACEHOLDER_PREFIX = 'adguard-placeholder';
@@ -638,3 +641,5 @@ var AdguardSelectorLib = (function(api, $, protectedApi) {
     return api;
 
 });
+
+export default AdguardSelectorLib;

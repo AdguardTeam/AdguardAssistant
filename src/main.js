@@ -1,11 +1,7 @@
 /* eslint-disable camelcase */
 /*
     global
-    GM,
-    Wot,
-    Settings,
     AdguardSettings,
-    UIValidationUtils,
     balalaika,
     UIUtils,
     Localization,
@@ -26,6 +22,10 @@ import ProtectedApi from './protectedApi';
 import Log from './log';
 import AdguardSelectorLib from './selector/adguard-selector';
 import UpgradeHelper from './upgradeHelper';
+import GM from './gm';
+import Wot from './wot';
+import Settings from './settings';
+import UIValidationUtils from './utils/ui-validation-utils';
 
 /**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
@@ -38,8 +38,6 @@ export const adguardAssistantExtended = () => {
     const protectedApiCtrl = Ioc.get(ProtectedApi);
 
     Ioc.register('addRule', () => false);
-
-    // -------
 
     const addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
     const dontBlock = typeof (ADG_temporaryDontBlock) === 'undefined' ? null : ADG_temporaryDontBlock;
@@ -56,7 +54,7 @@ export const adguardAssistantExtended = () => {
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
-    Ioc.register('$', balalaika);
+    Ioc.register('$', balalaika); // concat via webpack
     Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));

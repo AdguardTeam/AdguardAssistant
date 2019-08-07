@@ -1,3 +1,8 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-param-reassign */
+/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
+
+/* eslint-disable camelcase */
 /**
  * Gm api wrapper
  * @param ADG_addRule
@@ -5,68 +10,80 @@
  * @param ADG_sendAbuse
  * @param ADG_isFiltered
  * @param ADG_changeFilteringState
- * @returns {{getValue, setValue, GM_getResourceText, GM_addStyle, ADG_addRule: *, ADG_temporaryDontBlock: *, ADG_sendAbuse: *, ADG_isFiltered: *, ADG_changeFilteringState: *}}
+ * @returns {{
+ * getValue,
+ * setValue,
+ * GM_getResourceText,
+ * GM_addStyle,
+ * ADG_addRule: *,
+ * ADG_temporaryDontBlock: *,
+ * ADG_sendAbuse: *,
+ * ADG_isFiltered: *,
+ * ADG_changeFilteringState:
+ * *}}
  * @constructor
  */
-/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
-var GM = function (ADG_addRule, ADG_temporaryDontBlock, ADG_sendAbuse, ADG_isFiltered, ADG_changeFilteringState, protectedApi) { // jshint ignore:line
+export default function GM(
+    ADG_addRule,
+    ADG_temporaryDontBlock,
+    ADG_sendAbuse,
+    ADG_isFiltered,
+    ADG_changeFilteringState,
+    protectedApi,
+) {
     if (!ADG_addRule) {
-        ADG_addRule = function (rule, callback) {
-            alert('GM_api is not supported. ' + rule + ' rule added');
-            if(callback) callback();
+        ADG_addRule = (rule, callback) => {
+            alert(`GM_api is not supported. ${rule} rule added`);
+            if (callback) callback();
         };
     }
 
     if (!ADG_sendAbuse) {
-        ADG_sendAbuse = function (url, callback) {
-            alert('GM_api is not supported. ' + url + 'abused');
-            if(callback) callback();
+        ADG_sendAbuse = (url, callback) => {
+            alert(`GM_api is not supported. ${url}abused`);
+            if (callback) callback();
         };
     }
 
     if (!ADG_temporaryDontBlock) {
-        ADG_temporaryDontBlock = function (timeout, callback) {
-            alert('GM_api is not supported. ' + 'Do not block for ' + timeout + ' seconds');
-            if(callback) callback();
+        ADG_temporaryDontBlock = (timeout, callback) => {
+            alert(`GM_api is not supported. Do not block for ${timeout} seconds`);
+            if (callback) callback();
         };
     }
 
     if (!ADG_isFiltered) {
-        ADG_isFiltered = function (callback) {
-            if(callback) callback();
+        ADG_isFiltered = (callback) => {
+            if (callback) callback();
             return true;
         };
     }
 
     if (!ADG_changeFilteringState) {
-        ADG_changeFilteringState = function (callback) {
-            alert('GM_api is not supported. ' + 'State changed');
-            if(callback) callback();
+        ADG_changeFilteringState = (callback) => {
+            alert('GM_api is not supported. State changed');
+            if (callback) callback();
         };
     }
 
-    var getValue = function(value) {
-        return new Promise(function(resolve, reject) {
-            resolve(GM_getValue(value));
-        });
-    };
+    const getValue = value => new Promise(((resolve) => {
+        resolve(GM_getValue(value));
+    }));
 
-    var setValue = function (key, value) {
-        return new Promise(function(resolve, reject) {
-            GM_setValue(key, protectedApi.json.stringify(value));
-            resolve();
-        });
-    };
+    const setValue = (key, value) => new Promise(((resolve) => {
+        GM_setValue(key, protectedApi.json.stringify(value));
+        resolve();
+    }));
 
     return {
-        getValue: getValue,
-        setValue: setValue,
-        GM_getResourceText: GM_getResourceText,
-        GM_addStyle: GM_addStyle,
-        ADG_addRule: ADG_addRule,
-        ADG_temporaryDontBlock: ADG_temporaryDontBlock,
-        ADG_sendAbuse: ADG_sendAbuse,
-        ADG_isFiltered: ADG_isFiltered,
-        ADG_changeFilteringState: ADG_changeFilteringState
+        getValue,
+        setValue,
+        GM_getResourceText,
+        GM_addStyle,
+        ADG_addRule,
+        ADG_temporaryDontBlock,
+        ADG_sendAbuse,
+        ADG_isFiltered,
+        ADG_changeFilteringState,
     };
-};
+}

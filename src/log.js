@@ -3,69 +3,68 @@
  * @returns {{warn: warn, info: info, debug: debug, error: error}}
  * @constructor
  */
-var Log = function () { // jshint ignore:line
-    var currentLevel;
-    // gulp preprocess condition
-    // @if DEBUG
-    currentLevel = 'DEBUG';
-    // @endif
+export default class Log {
+    constructor() {
+        this.currentLevel = null;
 
-    // @if !DEBUG
-    currentLevel = 'ERROR';
-    // @endif
+        // gulp preprocess condition
+        // @if DEBUG
+        this.currentLevel = 'DEBUG';
+        // @endif
 
-    var LogLevels = {
-        ERROR: 1,
-        WARN: 2,
-        INFO: 3,
-        DEBUG: 4
-    };
+        // @if !DEBUG
+        this.currentLevel = 'ERROR';
+        // @endif
 
-    var print = function (level, method, args) {
-        //check log level
-        if (LogLevels[currentLevel] < LogLevels[level]) {
+        this.LogLevels = {
+            ERROR: 1,
+            WARN: 2,
+            INFO: 3,
+            DEBUG: 4,
+        };
+    }
+
+    print(level, method, args) {
+        // check log level
+        if (this.LogLevels[this.currentLevel] < this.LogLevels[level]) {
             return;
         }
         if (!args || args.length === 0 || !args[0]) {
             return;
         }
-        var formatted;
+        let formatted;
         if (typeof args[0] === 'object') {
+            // eslint-disable-next-line prefer-destructuring
             formatted = args[0];
         } else {
-            var str = args[0] + '';
+            const str = `${args[0]}`;
+            // eslint-disable-next-line no-param-reassign
             args = Array.prototype.slice.call(args, 1);
-            formatted = str.replace(/{(\d+)}/g, function (match, number) {
-                return typeof  args[number] !== 'undefined' ? args[number] : match;
-            });
-            if (LogLevels[level] >= LogLevels[currentLevel]) {
-                var now = new Date();
-                formatted = now.toISOString() + ': ' + formatted;
+            formatted = str.replace(
+                /{(\d+)}/g,
+                (match, number) => (typeof args[number] !== 'undefined' ? args[number] : match),
+            );
+            if (this.LogLevels[level] >= this.LogLevels[this.currentLevel]) {
+                const now = new Date();
+                formatted = `${now.toISOString()}: ${formatted}`;
             }
         }
         console[method](formatted);
-    };
+    }
 
-    var debug = function () {
-        print('DEBUG', 'log', arguments);
-    };
+    debug(...args) {
+        this.print('DEBUG', 'log', args);
+    }
 
-    var info = function () {
-        print('INFO', 'info', arguments);
-    };
+    info(...args) {
+        this.print('INFO', 'info', args);
+    }
 
-    var warn = function () {
-        print('WARN', 'info', arguments);
-    };
+    warn(...args) {
+        this.print('WARN', 'info', args);
+    }
 
-    var error = function () {
-        print('ERROR', 'error', arguments);
-    };
-
-    return {
-        warn: warn,
-        info: info,
-        debug: debug,
-        error: error
-    };
-};
+    error(...args) {
+        this.print('ERROR', 'error', args);
+    }
+}

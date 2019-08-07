@@ -1,58 +1,57 @@
 /**
+ * TODO: rewrite to class
+ * TODO: add relevant jsdoc
  * Protected API
- * @returns {{addListenerToWindow, removeListenerFromWindow, getReadyState, documentMode}}
  * @constructor
  */
-var ProtectedApi = function () {
-    var win = window;
-    var functionPType = Function.prototype;
-    var originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
-    var documentMode = document.documentMode;
-    var originalAppendChild = document.appendChild;
-    var originalJSON = win.JSON;
-    var functionApply = functionPType.apply;
-    var functionBind = functionPType.bind;
-    var COMPLETE = 'complete';
-    var documentElement = document.documentElement;
-    var originalAttachShadow = documentElement.attachShadow;
+export default function ProtectedApi() {
+    const win = window;
+    const functionPType = Function.prototype;
+    const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
+    const { documentMode, documentElement } = document;
+    const originalAppendChild = document.appendChild;
+    const originalJSON = win.JSON;
+    const functionApply = functionPType.apply;
+    const functionBind = functionPType.bind;
+    const COMPLETE = 'complete';
+    const originalAttachShadow = documentElement.attachShadow;
 
-    var apply = typeof Reflect !== 'undefined' ? Reflect.apply : function(target, _this, _arguments) {
+    // eslint-disable-next-line func-names
+    const apply = typeof Reflect !== 'undefined' ? Reflect.apply : function (target, _this, _arguments) {
         return functionApply.call(target, _this, _arguments);
     };
 
-    var noop = function() {};
-    var methodCallerFactory = function(owner, prop) {
+    const noop = () => { };
+    const methodCallerFactory = (owner, prop) => {
         if (!owner) { return noop; }
         // Keeps reference to the method, so that it is unaffected
         // when `owner` is mutated.
-        var method = owner[prop];
+        const method = owner[prop];
+        // eslint-disable-next-line consistent-return, func-names
         return function () {
             if (method) {
+                // eslint-disable-next-line prefer-rest-params
                 return apply(method, owner, arguments);
             }
         };
     };
 
-    var getReadyState = (function() {
+    const getReadyState = () => {
         // We need to add this hook for tests, because a phantomjs
         // doesn't work with Object.getOwnPropertyDescriptor correctly
         if (typeof originalGetOwnPropertyDescriptor(Document.prototype, 'readyState') === 'undefined') {
-            return function() {
-                return COMPLETE;
-            };
+            return () => COMPLETE;
         }
 
-        var readyStateGetter = originalGetOwnPropertyDescriptor(Document.prototype, 'readyState').get;
-        return function() {
-            return apply(readyStateGetter, document, []);
-        };
-    })();
+        const readyStateGetter = originalGetOwnPropertyDescriptor(Document.prototype, 'readyState').get;
+        return () => apply(readyStateGetter, document, []);
+    };
 
-    var addListenerToWindow = methodCallerFactory(win, 'addEventListener');
-    var removeListenerFromWindow = methodCallerFactory(win, 'removeEventListener');
-    var querySelector = methodCallerFactory(document, 'querySelector');
+    const addListenerToWindow = methodCallerFactory(win, 'addEventListener');
+    const removeListenerFromWindow = methodCallerFactory(win, 'removeEventListener');
+    const querySelector = methodCallerFactory(document, 'querySelector');
 
-    var appendChildToElement = function(elem, child) {
+    const appendChildToElement = (elem, child) => {
         apply(originalAppendChild, elem, [child]);
     };
 
@@ -61,11 +60,12 @@ var ProtectedApi = function () {
      * to prevented a custom `document.createElement`
      * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
      */
-    var createElement = function(markup) {
-        var doc = document.implementation.createHTMLDocument('');
+    const createElement = (markup) => {
+        const doc = document.implementation.createHTMLDocument('');
 
         if (markup && markup[0] !== '<') {
-            markup = '<' + markup + '></' + markup + '>';
+            // eslint-disable-next-line no-param-reassign
+            markup = `<${markup}></${markup}>`;
         }
 
         doc.body.innerHTML = markup;
@@ -73,24 +73,25 @@ var ProtectedApi = function () {
         return doc.body.firstChild;
     };
 
-    var json = {
+    const json = {
         parse: methodCallerFactory(originalJSON, 'parse'),
         stringify: methodCallerFactory(originalJSON, 'stringify'),
     };
 
     /**
      * Creating style element
-     * @param {String}  styles css styles in string
-     * @param {String}  nonce  attribute for content-security-policy
-     * @param {String}  id     to prevent duplicates, can be empty
-     * @return {Object|false}  style tag with styles or false if the styles with transferred id is exist
+     * @param {String} styles css styles in string
+     * @param {String} nonce  attribute for content-security-policy
+     * @param {String} id to prevent duplicates, can be empty
+     * @return {Object|false} style tag with styles or false
+     * if the styles with transferred id is exist
      */
-    var createStylesElement = function(styles, nonce, id) {
-        if (id && querySelector('#' + id)) {
+    const createStylesElement = (styles, nonce, id) => {
+        if (id && querySelector(`#${id}`)) {
             return false;
         }
 
-        var tagNode = createElement('style');
+        const tagNode = createElement('style');
         tagNode.setAttribute('type', 'text/css');
 
         if (id) {
@@ -113,22 +114,22 @@ var ProtectedApi = function () {
      * Safari crashes after adding style tag in attachShadow so exclude it
      * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
      */
-     var checkShadowDomSupport = function() {
-        var safari = /^((?!chrome|android).)*safari/i;
+    const checkShadowDomSupport = () => {
+        const safari = /^((?!chrome|android).)*safari/i;
 
         return typeof originalAttachShadow !== 'undefined' && !safari.test(navigator.userAgent);
     };
 
     return {
-        functionBind: functionBind,
-        addListenerToWindow: addListenerToWindow,
-        removeListenerFromWindow: removeListenerFromWindow,
-        getReadyState: getReadyState,
-        documentMode: documentMode,
-        appendChildToElement: appendChildToElement,
-        createElement: createElement,
-        json: json,
-        createStylesElement: createStylesElement,
-        checkShadowDomSupport: checkShadowDomSupport
+        functionBind,
+        addListenerToWindow,
+        removeListenerFromWindow,
+        getReadyState,
+        documentMode,
+        appendChildToElement,
+        createElement,
+        json,
+        createStylesElement,
+        checkShadowDomSupport,
     };
-};
+}

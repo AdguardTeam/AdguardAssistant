@@ -1,9 +1,6 @@
 /* eslint-disable camelcase */
 /*
     global
-    ProtectedApi,
-    Ioc,
-    Log,
     GM,
     Wot,
     Settings,
@@ -26,6 +23,10 @@
     ADG_isFiltered,
     ADG_changeFilteringState
 */
+import Ioc from './ioc';
+import ProtectedApi from './protectedApi';
+import Log from './log';
+
 
 /*
  * adguardAssistantExtended main function is for desktop browsers, running by onload event

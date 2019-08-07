@@ -1,23 +1,23 @@
 {
-    "settings_position_save": "Webov\u00e9 str\u00e1nky",
-    "settings_position_save_all": "V\u0161etky str\u00e1nky",
-    "settings_position_save_this": "T\u00e1to str\u00e1nka",
-    "assistant_select_element_start": "\u0160tart",
-    "assistant_select_element_text": "Vyberte prvok na str\u00e1nke, ktor\u00fd chcete zablokova\u0165. Obnovte str\u00e1nku pre zru\u0161enie re\u017eimu blokovania prvkov.",
+    "settings_position_save": "Webové stránky",
+    "settings_position_save_all": "Všetky stránky",
+    "settings_position_save_this": "Táto stránka",
+    "assistant_select_element_start": "Štart",
+    "assistant_select_element_text": "Vyberte prvok na stránke, ktorý chcete zablokovať. Obnovte stránku pre zrušenie režimu blokovania prvkov.",
     "menu_filtration_status": {
-        "message": "Filtr\u00e1cia na tejto str\u00e1nke"
+        "message": "Filtrácia na tejto stránke"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "Nefiltrova\u0165 po\u010das 30 sek\u00fand"
+        "message": "Nefiltrovať počas 30 sekúnd"
     },
     "menu_block_ad_on_site": {
-        "message": "Blokova\u0165 reklamy na tejto str\u00e1nke"
+        "message": "Blokovať reklamy na tejto stránke"
     },
     "menu_report_abuse": {
-        "message": "Nahl\u00e1si\u0165 str\u00e1nku"
+        "message": "Nahlásiť stránku"
     },
     "menu_site_report": {
-        "message": "Bezpe\u010dnostn\u00e1 spr\u00e1va o str\u00e1nke"
+        "message": "Bezpečnostná správa o stránke"
     },
     "menu_settings": {
         "message": "Nastavenia asistenta"
@@ -26,108 +26,102 @@
         "message": "Blokovanie prvku"
     },
     "assistant_select_element_ext": {
-        "message": "Vyberte prvok str\u00e1nky, ktor\u00fd sa m\u00e1 blokova\u0165"
+        "message": "Vyberte prvok stránky, ktorý sa má blokovať"
     },
     "assistant_select_element_cancel": {
-        "message": "Zru\u0161i\u0165"
+        "message": "Zrušiť"
     },
     "assistant_block_element": {
         "message": "Blokovanie prvku"
     },
     "assistant_block_element_explain": {
-        "message": "Upravi\u0165 pravidlo blokovania prvku"
+        "message": "Upraviť pravidlo blokovania prvku"
     },
     "assistant_slider_explain": {
-        "message": "Pou\u017eite posuvn\u00edk pre zmenu ve\u013ekosti r\u00e1mu pre nov\u00e9 pravidlo, ktor\u00e9 bude pou\u017eit\u00e9 na:"
-    },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
+        "message": "Použite posuvník pre zmenu veľkosti rámu pre nové pravidlo, ktoré bude použité na:"
     },
     "assistant_extended_settings": {
-        "message": "Pokro\u010dil\u00e9 nastavenia"
+        "message": "Pokročilé nastavenia"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Pou\u017ei\u0165 pravidlo na v\u0161etky str\u00e1nky"
+        "message": "Použiť pravidlo na všetky stránky"
     },
     "assistant_block_by_reference": {
-        "message": "Blokova\u0165 referen\u010dn\u00fdm odkazom"
+        "message": "Blokovať referenčným odkazom"
     },
     "assistant_block_similar": {
-        "message": "Blokova\u0165 podobn\u00e9"
+        "message": "Blokovať podobné"
     },
     "assistant_another_element": {
-        "message": "Zvoli\u0165 in\u00fd prvok"
+        "message": "Zvoliť iný prvok"
     },
     "assistant_preview": {
-        "message": "N\u00e1h\u013ead"
+        "message": "Náhľad"
     },
     "assistant_block": {
-        "message": "Blokova\u0165"
+        "message": "Blokovať"
     },
     "assistant_settings": {
         "message": "Nastavenia asistenta"
     },
     "assistant_preview_header": {
-        "message": "Blokovanie prvku - n\u00e1h\u013ead"
+        "message": "Blokovanie prvku - náhľad"
     },
     "assistant_preview_header_info": {
-        "message": "Uistite sa, \u017ee prvok je blokovan\u00fd pod\u013ea Va\u0161ich predst\u00e1v"
+        "message": "Uistite sa, že prvok je blokovaný podľa Vašich predstáv"
     },
     "assistant_preview_end": {
-        "message": "Ukon\u010denie n\u00e1h\u013eadu"
+        "message": "Ukončenie náhľadu"
     },
     "wot_unknown_description": {
-        "message": "Reput\u00e1cia tejto webovej str\u00e1nky nie je v $1 definovan\u00e1"
+        "message": "Reputácia tejto webovej stránky nie je v $1 definovaná"
     },
     "wot_bad_description": {
-        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nve\u013emi zl\u00fa reput\u00e1ciu"
+        "message": "Táto stránka má podľa $1\nveľmi zlú reputáciu"
     },
     "wot_poor_description": {
-        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nzl\u00fa reput\u00e1ciu"
+        "message": "Táto stránka má podľa $1\nzlú reputáciu"
     },
     "wot_unsatisfactory_description": {
-        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nslab\u00fa reput\u00e1ciu"
+        "message": "Táto stránka má podľa $1\nslabú reputáciu"
     },
     "wot_good_description": {
-        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\ndobr\u00fa reput\u00e1ciu"
+        "message": "Táto stránka má podľa $1\ndobrú reputáciu"
     },
     "wot_excellent_description": {
-        "message": "T\u00e1to str\u00e1nka m\u00e1 pod\u013ea $1\nv\u00fdborn\u00fa reput\u00e1ciu"
+        "message": "Táto stránka má podľa $1\nvýbornú reputáciu"
     },
     "settings_choose_size_and_position": {
-        "message": "Prisp\u00f4sobi\u0165 ve\u013ekos\u0165 a polohu AdGuard asistenta"
+        "message": "Prispôsobiť veľkosť a polohu AdGuard asistenta"
     },
     "settings_icon_size": {
-        "message": "Ve\u013ekos\u0165 ikony:"
+        "message": "Veľkosť ikony:"
     },
     "settings_small": {
-        "message": "Mal\u00e1"
+        "message": "Malá"
     },
     "settings_big": {
-        "message": "Ve\u013ek\u00e1"
+        "message": "Veľká"
     },
     "settings_position": {
         "message": "Poloha:"
     },
     "settings_left_top": {
-        "message": "V\u013eavo hore"
+        "message": "Vľavo hore"
     },
     "settings_right_top": {
         "message": "Vpravo hore"
     },
     "settings_left_bottom": {
-        "message": "V\u013eavo dole"
+        "message": "Vľavo dole"
     },
     "settings_right_bottom": {
         "message": "Vpravo dole"
     },
     "settings_cancel": {
-        "message": "Zru\u0161i\u0165"
+        "message": "Zrušiť"
     },
     "settings_save": {
-        "message": "Ulo\u017ei\u0165 zmeny"
+        "message": "Uložiť zmeny"
     }
 }

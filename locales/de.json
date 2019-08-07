@@ -3,12 +3,12 @@
     "settings_position_save_all": "Alle Webseiten",
     "settings_position_save_this": "Diese Webseite",
     "assistant_select_element_start": "Starten",
-    "assistant_select_element_text": "W\u00e4hlen Sie ein zu blockierendes Element auf der Seite aus. Laden Sie die Seite neu, um den Blockiermodus zu verlassen.",
+    "assistant_select_element_text": "Wählen Sie ein zu blockierendes Element auf der Seite aus. Laden Sie die Seite neu, um den Blockiermodus zu verlassen.",
     "menu_filtration_status": {
         "message": "Auf dieser Webseite filtern"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "F\u00fcr 30 Sekunden nicht blockieren"
+        "message": "Für 30 Sekunden nicht blockieren"
     },
     "menu_block_ad_on_site": {
         "message": "Werbung auf dieser Seite blockieren"
@@ -26,7 +26,7 @@
         "message": "Element-Blockierung"
     },
     "assistant_select_element_ext": {
-        "message": "W\u00e4hlen Sie ein zu blockierendes Element auf der Seite aus"
+        "message": "Wählen Sie ein zu blockierendes Element auf der Seite aus"
     },
     "assistant_select_element_cancel": {
         "message": "Abbrechen"
@@ -38,13 +38,7 @@
         "message": "Anpassen der Regel der Element-Blockierung"
     },
     "assistant_slider_explain": {
-        "message": "Bewegen Sie den Schieberegler, um die Ausma\u00dfgr\u00f6\u00dfe der neuen Regeln zu \u00e4ndern:"
-    },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
+        "message": "Bewegen Sie den Schieberegler, um die Ausmaßgröße der neuen Regeln zu ändern:"
     },
     "assistant_extended_settings": {
         "message": "Erweiterte Einstellungen"
@@ -56,10 +50,10 @@
         "message": "Durch Referenzlink blockieren"
     },
     "assistant_block_similar": {
-        "message": "\u00c4hnliche Elemente blockieren"
+        "message": "Ähnliche Elemente blockieren"
     },
     "assistant_another_element": {
-        "message": "Ein anderes Element w\u00e4hlen"
+        "message": "Ein anderes Element wählen"
     },
     "assistant_preview": {
         "message": "Vorschau"
@@ -74,7 +68,7 @@
         "message": "Element-Blockierung - Vorschau"
     },
     "assistant_preview_header_info": {
-        "message": "Pr\u00fcfen Sie, ob das Element blockiert ist"
+        "message": "Prüfen Sie, ob das Element blockiert ist"
     },
     "assistant_preview_end": {
         "message": "Vorschau beenden"
@@ -98,19 +92,16 @@
         "message": "Diese Webseite hat einen exzellenten Ruf laut $1"
     },
     "settings_choose_size_and_position": {
-        "message": "Anpassen der Gr\u00f6\u00dfe und Position des AdGuard-Assistenten"
+        "message": "Anpassen der Größe und Position des AdGuard-Assistenten"
     },
     "settings_icon_size": {
-        "message": "Symbol-Gr\u00f6\u00dfe:"
+        "message": "Symbol-Größe:"
     },
     "settings_small": {
         "message": "Klein"
     },
     "settings_big": {
-        "message": "Gro\u00df"
-    },
-    "settings_position": {
-        "message": "Position:"
+        "message": "Groß"
     },
     "settings_left_top": {
         "message": "Oben links"
@@ -128,6 +119,6 @@
         "message": "Abbrechen"
     },
     "settings_save": {
-        "message": "\u00c4nderungen speichern"
+        "message": "Änderungen speichern"
     }
 }

@@ -1,133 +1,133 @@
 {
-    "settings_position_save": "\u7db2\u7ad9",
-    "settings_position_save_all": "\u6240\u6709\u7684\u7db2\u7ad9",
-    "settings_position_save_this": "\u8a72\u7db2\u7ad9",
-    "assistant_select_element_start": "\u958b\u59cb",
-    "assistant_select_element_text": "\u9078\u64c7\u65bc\u8a72\u9801\u9762\u4e0a\u4e4b\u5143\u4ef6\u4ee5\u5c01\u9396\u3002\u91cd\u65b0\u6574\u7406\u8a72\u9801\u9762\u4ee5\u53d6\u6d88\u5143\u4ef6\u5c01\u9396\u6a21\u5f0f\u3002",
+    "settings_position_save": "網站",
+    "settings_position_save_all": "所有的網站",
+    "settings_position_save_this": "該網站",
+    "assistant_select_element_start": "開始",
+    "assistant_select_element_text": "選擇於該頁面上之元件以封鎖。重新整理該頁面以取消元件封鎖模式。",
     "menu_filtration_status": {
-        "message": "\u65bc\u8a72\u7db2\u7ad9\u4e0a\u4e4b\u904e\u6ffe"
+        "message": "於該網站上之過濾"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "\u8a08 30 \u79d2\u4e0d\u904e\u6ffe"
+        "message": "計 30 秒不過濾"
     },
     "menu_block_ad_on_site": {
-        "message": "\u5c01\u9396\u65bc\u8a72\u7db2\u7ad9\u4e0a\u4e4b\u5ee3\u544a"
+        "message": "封鎖於該網站上之廣告"
     },
     "menu_report_abuse": {
-        "message": "\u5831\u544a\u8a72\u7db2\u7ad9"
+        "message": "報告該網站"
     },
     "menu_site_report": {
-        "message": "\u7db2\u7ad9\u5b89\u5168\u6027\u5831\u544a"
+        "message": "網站安全性報告"
     },
     "menu_settings": {
-        "message": "\u52a9\u7406\u8a2d\u5b9a"
+        "message": "助理設定"
     },
     "assistant_select_element": {
-        "message": "\u5143\u4ef6\u5c01\u9396"
+        "message": "元件封鎖"
     },
     "assistant_select_element_ext": {
-        "message": "\u9078\u64c7\u65bc\u8a72\u9801\u9762\u4e0a\u4e4b\u5143\u4ef6\u4ee5\u5c01\u9396"
+        "message": "選擇於該頁面上之元件以封鎖"
     },
     "assistant_select_element_cancel": {
-        "message": "\u53d6\u6d88"
+        "message": "取消"
     },
     "assistant_block_element": {
-        "message": "\u5143\u4ef6\u5c01\u9396"
+        "message": "元件封鎖"
     },
     "assistant_block_element_explain": {
-        "message": "\u8abf\u6574\u5143\u4ef6\u5c01\u9396\u898f\u5247"
+        "message": "調整元件封鎖規則"
     },
     "assistant_slider_explain": {
-        "message": "\u79fb\u52d5\u8a72\u6ed1\u6a19\u4ee5\u66f4\u6539\u65b0\u7684\u898f\u5247\u5c07\u4f5c\u7528\u65bc\u7684\u6846\u67b6\u4e4b\u5c3a\u5bf8\uff1a"
+        "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
     },
     "assistant_slider_min": {
-        "message": "\u6700\u5c0f"
+        "message": "最小"
     },
     "assistant_slider_max": {
-        "message": "\u6700\u5927"
+        "message": "最大"
     },
     "assistant_extended_settings": {
-        "message": "\u9032\u968e\u7684\u8a2d\u5b9a"
+        "message": "進階的設定"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "\u5c0d\u6240\u6709\u7684\u7db2\u7ad9\u5957\u7528\u8a72\u898f\u5247"
+        "message": "對所有的網站套用該規則"
     },
     "assistant_block_by_reference": {
-        "message": "\u6309\u7167\u53c3\u8003\u9023\u7d50\u5c01\u9396"
+        "message": "按照參考連結封鎖"
     },
     "assistant_block_similar": {
-        "message": "\u5c01\u9396\u76f8\u4f3c\u4e4b\u7269"
+        "message": "封鎖相似之物"
     },
     "assistant_another_element": {
-        "message": "\u9078\u64c7\u4e0d\u540c\u7684\u5143\u4ef6"
+        "message": "選擇不同的元件"
     },
     "assistant_preview": {
-        "message": "\u9810\u89bd"
+        "message": "預覽"
     },
     "assistant_block": {
-        "message": "\u5c01\u9396"
+        "message": "封鎖"
     },
     "assistant_settings": {
-        "message": "\u52a9\u7406\u8a2d\u5b9a"
+        "message": "助理設定"
     },
     "assistant_preview_header": {
-        "message": "\u5143\u4ef6\u5c01\u9396 - \u9810\u89bd"
+        "message": "元件封鎖 - 預覽"
     },
     "assistant_preview_header_info": {
-        "message": "\u78ba\u5b9a\u5143\u4ef6\u5982\u9810\u671f\u7684\u88ab\u5c01\u9396"
+        "message": "確定元件如預期的被封鎖"
     },
     "assistant_preview_end": {
-        "message": "\u96e2\u958b\u9810\u89bd"
+        "message": "離開預覽"
     },
     "wot_unknown_description": {
-        "message": "\u8a72\u7db2\u7ad9\u7684\u4fe1\u8b7d\u672a\u88ab $1 \u754c\u5b9a"
+        "message": "該網站的信譽未被 $1 界定"
     },
     "wot_bad_description": {
-        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u975e\u5e38\u58de\u7684\u4fe1\u8b7d"
+        "message": "根據 $1，\n該網站有非常壞的信譽"
     },
     "wot_poor_description": {
-        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u58de\u7684\u4fe1\u8b7d"
+        "message": "根據 $1，\n該網站有壞的信譽"
     },
     "wot_unsatisfactory_description": {
-        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u4e0d\u597d\u7684\u4fe1\u8b7d"
+        "message": "根據 $1，\n該網站有不好的信譽"
     },
     "wot_good_description": {
-        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u597d\u7684\u4fe1\u8b7d"
+        "message": "根據 $1，\n該網站有好的信譽"
     },
     "wot_excellent_description": {
-        "message": "\u6839\u64da $1\uff0c\n\u8a72\u7db2\u7ad9\u6709\u6975\u597d\u7684\u4fe1\u8b7d"
+        "message": "根據 $1，\n該網站有極好的信譽"
     },
     "settings_choose_size_and_position": {
-        "message": "\u8abf\u6574 AdGuard \u52a9\u7406 \u5c3a\u5bf8\u548c\u4f4d\u7f6e"
+        "message": "調整 AdGuard 助理尺寸和位置"
     },
     "settings_icon_size": {
-        "message": "\u5716\u793a\u5c3a\u5bf8\uff1a"
+        "message": "圖示尺寸："
     },
     "settings_small": {
-        "message": "\u5c0f\u7684"
+        "message": "小的"
     },
     "settings_big": {
-        "message": "\u5927\u7684"
+        "message": "大的"
     },
     "settings_position": {
-        "message": "\u4f4d\u7f6e\uff1a"
+        "message": "位置："
     },
     "settings_left_top": {
-        "message": "\u5de6\u4e0a\u89d2"
+        "message": "左上角"
     },
     "settings_right_top": {
-        "message": "\u53f3\u4e0a\u89d2"
+        "message": "右上角"
     },
     "settings_left_bottom": {
-        "message": "\u5de6\u4e0b\u89d2"
+        "message": "左下角"
     },
     "settings_right_bottom": {
-        "message": "\u53f3\u4e0b\u89d2"
+        "message": "右下角"
     },
     "settings_cancel": {
-        "message": "\u53d6\u6d88"
+        "message": "取消"
     },
     "settings_save": {
-        "message": "\u5132\u5b58\u66f4\u6539"
+        "message": "儲存更改"
     }
 }

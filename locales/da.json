@@ -2,16 +2,15 @@
     "settings_position_save": "Hjemmesider",
     "settings_position_save_all": "Alle hjemmesider",
     "settings_position_save_this": "Denne hjemmeside",
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "V\u00e6lg et element p\u00e5 denne side som skal blokeres. Opdater siden for at annullere tilstanden for elementblokering.",
+    "assistant_select_element_text": "Vælg et element på denne side som skal blokeres. Opdater siden for at annullere tilstanden for elementblokering.",
     "menu_filtration_status": {
-        "message": "Filtrering p\u00e5 denne hjemmeside"
+        "message": "Filtrering på denne hjemmeside"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Filtrer ikke i 30 sekunder"
     },
     "menu_block_ad_on_site": {
-        "message": "Bloker annoncer p\u00e5 denne hjemmeside"
+        "message": "Bloker annoncer på denne hjemmeside"
     },
     "menu_report_abuse": {
         "message": "Rapporter denne hjemmeside"
@@ -26,7 +25,7 @@
         "message": "Element blokering"
     },
     "assistant_select_element_ext": {
-        "message": "V\u00e6lg et element p\u00e5 denne side som skal blokeres"
+        "message": "Vælg et element på denne side som skal blokeres"
     },
     "assistant_select_element_cancel": {
         "message": "Annuller"
@@ -38,19 +37,13 @@
         "message": "Juster regel for element blokering"
     },
     "assistant_slider_explain": {
-        "message": "Flyt skyderen for at \u00e6ndre st\u00f8rrelsen af den ramme, den nye regel vil fungere efter:"
-    },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
+        "message": "Flyt skyderen for at ændre størrelsen af den ramme, den nye regel vil fungere efter:"
     },
     "assistant_extended_settings": {
         "message": "Avancerede indstillinger"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Anvend reglen p\u00e5 alle hjemmesider"
+        "message": "Anvend reglen på alle hjemmesider"
     },
     "assistant_block_by_reference": {
         "message": "Bloker ved reference link"
@@ -59,10 +52,10 @@
         "message": "Bloker lignende"
     },
     "assistant_another_element": {
-        "message": "V\u00e6lg et andet element"
+        "message": "Vælg et andet element"
     },
     "assistant_preview": {
-        "message": "Forh\u00e5ndsvisning"
+        "message": "Forhåndsvisning"
     },
     "assistant_block": {
         "message": "Bloker"
@@ -71,37 +64,37 @@
         "message": "Assistent indstillinger"
     },
     "assistant_preview_header": {
-        "message": "Element blokering - forh\u00e5ndsvisning"
+        "message": "Element blokering - forhåndsvisning"
     },
     "assistant_preview_header_info": {
-        "message": "S\u00f8rg for, at elementet er blokeret som tilsigtet"
+        "message": "Sørg for, at elementet er blokeret som tilsigtet"
     },
     "assistant_preview_end": {
-        "message": "Exit forh\u00e5ndsvisning"
+        "message": "Exit forhåndsvisning"
     },
     "wot_unknown_description": {
-        "message": "Hjemmesidens omd\u00f8mme er ikke defineret af $1"
+        "message": "Hjemmesidens omdømme er ikke defineret af $1"
     },
     "wot_bad_description": {
-        "message": "Denne hjemmeside har et meget d\u00e5rligt omd\u00f8mme if\u00f8lge $1"
+        "message": "Denne hjemmeside har et meget dårligt omdømme ifølge $1"
     },
     "wot_poor_description": {
-        "message": "Denne hjemmeside har et d\u00e5rligt omd\u00f8mme if\u00f8lge $1"
+        "message": "Denne hjemmeside har et dårligt omdømme ifølge $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Denne hjemmeside har et d\u00e5rligt omd\u00f8mme if\u00f8lge $1"
+        "message": "Denne hjemmeside har et dårligt omdømme ifølge $1"
     },
     "wot_good_description": {
-        "message": "Denne hjemmeside har et godt omd\u00f8mme if\u00f8lge $1"
+        "message": "Denne hjemmeside har et godt omdømme ifølge $1"
     },
     "wot_excellent_description": {
-        "message": "Denne hjemmeside har et fremragende omd\u00f8mme \nif\u00f8lge $1"
+        "message": "Denne hjemmeside har et fremragende omdømme \nifølge $1"
     },
     "settings_choose_size_and_position": {
-        "message": "Juster AdGuard Assistent st\u00f8rrelse og position"
+        "message": "Juster AdGuard Assistent størrelse og position"
     },
     "settings_icon_size": {
-        "message": "Ikonst\u00f8rrelse:"
+        "message": "Ikonstørrelse:"
     },
     "settings_small": {
         "message": "Lille"
@@ -109,25 +102,22 @@
     "settings_big": {
         "message": "Stor"
     },
-    "settings_position": {
-        "message": "Position:"
-    },
     "settings_left_top": {
-        "message": "\u00d8verst til venstre"
+        "message": "Øverst til venstre"
     },
     "settings_right_top": {
-        "message": "\u00d8verst til h\u00f8jre"
+        "message": "Øverst til højre"
     },
     "settings_left_bottom": {
         "message": "Nederst til venstre"
     },
     "settings_right_bottom": {
-        "message": "Nederst til h\u00f8jre"
+        "message": "Nederst til højre"
     },
     "settings_cancel": {
         "message": "Annuller"
     },
     "settings_save": {
-        "message": "Gem \u00e6ndringer"
+        "message": "Gem ændringer"
     }
 }

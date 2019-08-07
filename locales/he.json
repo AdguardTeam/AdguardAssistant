@@ -1,133 +1,133 @@
 {
-    "settings_position_save": "\u05d0\u05ea\u05e8\u05d9 \u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8",
-    "settings_position_save_all": "\u05db\u05dc \u05d4\u05d0\u05ea\u05e8\u05d9\u05dd",
-    "settings_position_save_this": "\u05d4\u05d0\u05ea\u05e8 \u05d4\u05d6\u05d4",
-    "assistant_select_element_start": "\u05d4\u05ea\u05d7\u05dc",
-    "assistant_select_element_text": ".\u05d1\u05d7\u05e8 \u05d0\u05dc\u05de\u05e0\u05d8 \u05d1\u05d3\u05e3 \u05dc\u05d7\u05e1\u05d9\u05de\u05d4 .\u05e8\u05e2\u05e0\u05df \u05d0\u05ea \u05d4\u05d3\u05e3 \u05db\u05d3\u05d9 \u05dc\u05d1\u05d8\u05dc \u05d0\u05ea \u05de\u05e6\u05d1 \u05d7\u05e1\u05d9\u05de\u05ea \u05d4\u05d0\u05dc\u05de\u05e0\u05d8\u05d9\u05dd",
+    "settings_position_save": "אתרי אינטרנט",
+    "settings_position_save_all": "כל האתרים",
+    "settings_position_save_this": "האתר הזה",
+    "assistant_select_element_start": "התחל",
+    "assistant_select_element_text": ".בחר אלמנט בדף לחסימה .רענן את הדף כדי לבטל את מצב חסימת האלמנטים",
     "menu_filtration_status": {
-        "message": "\u05e1\u05d9\u05e0\u05d5\u05df \u05d1\u05d0\u05ea\u05e8 \u05d6\u05d4"
+        "message": "סינון באתר זה"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "\u05d0\u05dc \u05ea\u05e1\u05e0\u05df \u05db- 30 \u05e9\u05e0\u05d9\u05d5\u05ea"
+        "message": "אל תסנן כ- 30 שניות"
     },
     "menu_block_ad_on_site": {
-        "message": "\u05d7\u05e1\u05d5\u05dd \u05e4\u05e8\u05e1\u05d5\u05de\u05ea \u05d1\u05d0\u05ea\u05e8 \u05d6\u05d4"
+        "message": "חסום פרסומת באתר זה"
     },
     "menu_report_abuse": {
-        "message": "\u05d3\u05d5\u05d5\u05d7 \u05e2\u05dc \u05d4\u05d0\u05ea\u05e8"
+        "message": "דווח על האתר"
     },
     "menu_site_report": {
-        "message": "\u05d3\u05d9\u05d5\u05d5\u05d7 \u05d0\u05d1\u05d8\u05d7\u05ea \u05d0\u05ea\u05e8"
+        "message": "דיווח אבטחת אתר"
     },
     "menu_settings": {
-        "message": "\u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05d4\u05e2\u05d5\u05d6\u05e8 \u05d4\u05d0\u05d9\u05e9\u05d9"
+        "message": "הגדרות העוזר האישי"
     },
     "assistant_select_element": {
-        "message": "\u05d7\u05d5\u05e1\u05dd \u05d0\u05dc\u05de\u05e0\u05d8"
+        "message": "חוסם אלמנט"
     },
     "assistant_select_element_ext": {
-        "message": "\u05d1\u05d7\u05e8 \u05d0\u05dc\u05de\u05e0\u05d8 \u05d1\u05d3\u05e3 \u05dc\u05d7\u05e1\u05d9\u05de\u05d4"
+        "message": "בחר אלמנט בדף לחסימה"
     },
     "assistant_select_element_cancel": {
-        "message": "\u05d1\u05d8\u05dc"
+        "message": "בטל"
     },
     "assistant_block_element": {
-        "message": "\u05d7\u05e1\u05d9\u05de\u05ea \u05d0\u05dc\u05de\u05e0\u05d8"
+        "message": "חסימת אלמנט"
     },
     "assistant_block_element_explain": {
-        "message": "\u05d4\u05ea\u05d0\u05dd \u05db\u05dc\u05dc \u05d7\u05e1\u05d9\u05de\u05ea \u05d0\u05dc\u05de\u05e0\u05d8"
+        "message": "התאם כלל חסימת אלמנט"
     },
     "assistant_slider_explain": {
-        "message": ":\u05d4\u05d6\u05d6 \u05d0\u05ea \u05d4\u05de\u05d7\u05d5\u05d5\u05df \u05db\u05d3\u05d9 \u05dc\u05e9\u05e0\u05d5\u05ea \u05d0\u05ea \u05d2\u05d5\u05d3\u05dc \u05d4\u05de\u05e1\u05d2\u05e8\u05ea \u05d1\u05d4 \u05d9\u05e2\u05d1\u05d5\u05d3 \u05d4\u05db\u05dc\u05dc \u05d4\u05d7\u05d3\u05e9"
+        "message": ":הזז את המחוון כדי לשנות את גודל המסגרת בה יעבוד הכלל החדש"
     },
     "assistant_slider_min": {
-        "message": "\u05de\u05d9\u05e0\u05d9\u05de\u05d5\u05dd"
+        "message": "מינימום"
     },
     "assistant_slider_max": {
-        "message": "\u05de\u05e7\u05e1\u05d9\u05de\u05d5\u05dd"
+        "message": "מקסימום"
     },
     "assistant_extended_settings": {
-        "message": "\u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05de\u05ea\u05e7\u05d3\u05de\u05d5\u05ea"
+        "message": "הגדרות מתקדמות"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "\u05d4\u05d7\u05dc \u05d0\u05ea \u05d4\u05db\u05dc\u05dc \u05e2\u05dc \u05db\u05dc \u05d4\u05d0\u05ea\u05e8\u05d9\u05dd"
+        "message": "החל את הכלל על כל האתרים"
     },
     "assistant_block_by_reference": {
-        "message": "\u05d7\u05e1\u05d5\u05dd \u05d4\u05e4\u05e0\u05d9\u05d9\u05ea \u05e7\u05d9\u05e9\u05d5\u05e8"
+        "message": "חסום הפניית קישור"
     },
     "assistant_block_similar": {
-        "message": "\u05d7\u05e1\u05d5\u05dd \u05d3\u05d5\u05de\u05d4"
+        "message": "חסום דומה"
     },
     "assistant_another_element": {
-        "message": "\u05d1\u05d7\u05e8 \u05d0\u05dc\u05de\u05e0\u05d8 \u05d0\u05d7\u05e8"
+        "message": "בחר אלמנט אחר"
     },
     "assistant_preview": {
-        "message": "\u05ea\u05e6\u05d5\u05d2\u05d4 \u05de\u05e7\u05d3\u05d9\u05de\u05d4"
+        "message": "תצוגה מקדימה"
     },
     "assistant_block": {
-        "message": "\u05d7\u05e1\u05d5\u05dd"
+        "message": "חסום"
     },
     "assistant_settings": {
-        "message": "\u05d4\u05d2\u05d3\u05e8\u05d5\u05ea \u05d4\u05e2\u05d5\u05d6\u05e8 \u05d4\u05d0\u05d9\u05e9\u05d9"
+        "message": "הגדרות העוזר האישי"
     },
     "assistant_preview_header": {
-        "message": "\u05ea\u05e6\u05d5\u05d2\u05d4 \u05de\u05e7\u05d3\u05d9\u05de\u05d4 - \u05d7\u05e1\u05d9\u05de\u05ea \u05d0\u05dc\u05de\u05e0\u05d8"
+        "message": "תצוגה מקדימה - חסימת אלמנט"
     },
     "assistant_preview_header_info": {
-        "message": "\u05d5\u05d3\u05d0 \u05db\u05d9 \u05d0\u05dc\u05de\u05e0\u05d8 \u05d6\u05d4 \u05d7\u05e1\u05d5\u05dd \u05d1\u05db\u05d5\u05d5\u05e0\u05d4"
+        "message": "ודא כי אלמנט זה חסום בכוונה"
     },
     "assistant_preview_end": {
-        "message": "\u05e6\u05d0 \u05de\u05ea\u05e6\u05d5\u05d2\u05d4 \u05de\u05e7\u05d3\u05d9\u05de\u05d4"
+        "message": "צא מתצוגה מקדימה"
     },
     "wot_unknown_description": {
-        "message": "\u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05d0\u05d9\u05e0\u05d5 \u05de\u05d5\u05d2\u05d3\u05e8"
+        "message": "מוניטין אינו מוגדר"
     },
     "wot_bad_description": {
-        "message": "\u05dc\u05d0\u05ea\u05e8 \u05d6\u05d4 \u05d9\u05e9 \u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05e8\u05e2 \u05de\u05d0\u05d5\u05d3 \u05e2\u05dc \u05e4\u05d9"
+        "message": "לאתר זה יש מוניטין רע מאוד על פי"
     },
     "wot_poor_description": {
-        "message": "\u05dc\u05d0\u05ea\u05e8 \u05d6\u05d4 \u05d9\u05e9 \u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05e8\u05e2 \u05e2\u05dc \u05e4\u05d9"
+        "message": "לאתר זה יש מוניטין רע על פי"
     },
     "wot_unsatisfactory_description": {
-        "message": "\u05dc\u05d0\u05ea\u05e8 \u05d6\u05d4 \u05d9\u05e9 \u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05d3\u05dc \u05e2\u05dc \u05e4\u05d9"
+        "message": "לאתר זה יש מוניטין דל על פי"
     },
     "wot_good_description": {
-        "message": "\u05dc\u05d0\u05ea\u05e8 \u05d6\u05d4 \u05d9\u05e9 \u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05d8\u05d5\u05d1 \u05e2\u05dc \u05e4\u05d9"
+        "message": "לאתר זה יש מוניטין טוב על פי"
     },
     "wot_excellent_description": {
-        "message": "\u05dc\u05d0\u05ea\u05e8 \u05d6\u05d4 \u05d9\u05e9 \u05de\u05d5\u05e0\u05d9\u05d8\u05d9\u05df \u05de\u05e2\u05d5\u05dc\u05d4 \u05e2\u05dc \u05e4\u05d9"
+        "message": "לאתר זה יש מוניטין מעולה על פי"
     },
     "settings_choose_size_and_position": {
-        "message": "\u05d4\u05ea\u05d0\u05dd \u05d2\u05d5\u05d3\u05dc \u05d5\u05de\u05d9\u05e7\u05d5\u05dd \u05e9\u05dc \u05d4\u05e2\u05d5\u05d6\u05e8 \u05d4\u05d0\u05d9\u05e9\u05d9 \u05e9\u05dc \u05d0\u05d3\u05d2\u05d0\u05e8\u05d3"
+        "message": "התאם גודל ומיקום של העוזר האישי של אדגארד"
     },
     "settings_icon_size": {
-        "message": ":\u05d2\u05d5\u05d3\u05dc \u05e6\u05dc\u05de\u05d9\u05ea"
+        "message": ":גודל צלמית"
     },
     "settings_small": {
-        "message": "\u05e7\u05d8\u05df"
+        "message": "קטן"
     },
     "settings_big": {
-        "message": "\u05d2\u05d3\u05d5\u05dc"
+        "message": "גדול"
     },
     "settings_position": {
-        "message": ":\u05de\u05d9\u05e7\u05d5\u05dd"
+        "message": ":מיקום"
     },
     "settings_left_top": {
-        "message": "\u05d1\u05d7\u05dc\u05e7 \u05d4\u05e2\u05dc\u05d9\u05d5\u05df \u05de\u05e9\u05de\u05d0\u05dc"
+        "message": "בחלק העליון משמאל"
     },
     "settings_right_top": {
-        "message": "\u05d1\u05d7\u05dc\u05e7 \u05d4\u05e2\u05dc\u05d9\u05d5\u05df \u05de\u05d9\u05de\u05d9\u05df"
+        "message": "בחלק העליון מימין"
     },
     "settings_left_bottom": {
-        "message": "\u05e6\u05d3 \u05e9\u05de\u05d0\u05dc \u05dc\u05de\u05d8\u05d4"
+        "message": "צד שמאל למטה"
     },
     "settings_right_bottom": {
-        "message": "\u05e6\u05d3 \u05d9\u05de\u05d9\u05df \u05dc\u05de\u05d8\u05d4"
+        "message": "צד ימין למטה"
     },
     "settings_cancel": {
-        "message": "\u05d1\u05d8\u05dc"
+        "message": "בטל"
     },
     "settings_save": {
-        "message": "\u05e9\u05de\u05d5\u05e8 \u05e9\u05d9\u05e0\u05d5\u05d9\u05d9\u05dd"
+        "message": "שמור שינויים"
     }
 }

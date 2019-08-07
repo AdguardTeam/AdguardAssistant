@@ -1,101 +1,94 @@
 {
-    "settings_position_save": "Webov\u00e9 str\u00e1nky",
-    "settings_position_save_all": "V\u0161echny webov\u00e9 str\u00e1nky",
-    "settings_position_save_this": "Tato webov\u00e1 str\u00e1nka",
-    "assistant_select_element_start": "Start",
-    "assistant_select_element_text": "Vyberte prvek na str\u00e1nce, kter\u00fd chcete zablokovat. Obnovte str\u00e1nku pro zru\u0161en\u00ed re\u017eimu blokov\u00e1n\u00ed prvk\u016f.",
+    "settings_position_save": "Webové stránky",
+    "settings_position_save_all": "Všechny webové stránky",
+    "settings_position_save_this": "Tato webová stránka",
+    "assistant_select_element_text": "Vyberte prvek na stránce, který chcete zablokovat. Obnovte stránku pro zrušení režimu blokování prvků.",
     "menu_filtration_status": {
-        "message": "Filtrov\u00e1n\u00ed na t\u011bchto webov\u00fdch str\u00e1nk\u00e1ch"
+        "message": "Filtrování na těchto webových stránkách"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Nefiltrovat po dobu 30 sekund"
     },
     "menu_block_ad_on_site": {
-        "message": "Blokovat reklamy na t\u00e9to webov\u00e9 str\u00e1nce"
+        "message": "Blokovat reklamy na této webové stránce"
     },
     "menu_report_abuse": {
-        "message": "Nahl\u00e1sit webovou str\u00e1nku"
+        "message": "Nahlásit webovou stránku"
     },
     "menu_site_report": {
-        "message": "Zpr\u00e1va o bezpe\u010dnosti webov\u00e9 str\u00e1nky"
+        "message": "Zpráva o bezpečnosti webové stránky"
     },
     "menu_settings": {
-        "message": "Nastaven\u00ed asistenta"
+        "message": "Nastavení asistenta"
     },
     "assistant_select_element": {
-        "message": "Blokov\u00e1n\u00ed prvku"
+        "message": "Blokování prvku"
     },
     "assistant_select_element_ext": {
-        "message": "Vyberte prvek na str\u00e1nce, kter\u00fd chcete zablokovat"
+        "message": "Vyberte prvek na stránce, který chcete zablokovat"
     },
     "assistant_select_element_cancel": {
-        "message": "Zru\u0161it"
+        "message": "Zrušit"
     },
     "assistant_block_element": {
-        "message": "Blokov\u00e1n\u00ed prvku"
+        "message": "Blokování prvku"
     },
     "assistant_block_element_explain": {
-        "message": "Upravit pravidlo blokov\u00e1n\u00ed prvku"
+        "message": "Upravit pravidlo blokování prvku"
     },
     "assistant_slider_explain": {
-        "message": "P\u0159esunut\u00edm posuvn\u00edku zm\u011b\u0148te velikost r\u00e1mce, pro kter\u00fd bude nov\u00e9 pravidlo fungovat:"
-    },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
+        "message": "Přesunutím posuvníku změňte velikost rámce, pro který bude nové pravidlo fungovat:"
     },
     "assistant_extended_settings": {
-        "message": "Pokro\u010dil\u00e1 nastaven\u00ed"
+        "message": "Pokročilá nastavení"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Pou\u017e\u00edt pravidlo pro v\u0161echny webov\u00e9 str\u00e1nky"
+        "message": "Použít pravidlo pro všechny webové stránky"
     },
     "assistant_block_by_reference": {
-        "message": "Blokovat referen\u010dn\u00edm odkazem"
+        "message": "Blokovat referenčním odkazem"
     },
     "assistant_block_similar": {
-        "message": "Blokovat podobn\u00e9"
+        "message": "Blokovat podobné"
     },
     "assistant_another_element": {
-        "message": "Vyber jin\u00fd prvek"
+        "message": "Vyber jiný prvek"
     },
     "assistant_preview": {
-        "message": "N\u00e1hled"
+        "message": "Náhled"
     },
     "assistant_block": {
         "message": "Blokovat"
     },
     "assistant_settings": {
-        "message": "Nastaven\u00ed asistenta"
+        "message": "Nastavení asistenta"
     },
     "assistant_preview_header": {
-        "message": "Blokov\u00e1n\u00ed prvku - n\u00e1hled"
+        "message": "Blokování prvku - náhled"
     },
     "assistant_preview_header_info": {
-        "message": "Ujist\u011bte se, \u017ee je prvek zablokov\u00e1n podle ur\u010den\u00ed"
+        "message": "Ujistěte se, že je prvek zablokován podle určení"
     },
     "assistant_preview_end": {
-        "message": "Ukon\u010dit n\u00e1hled"
+        "message": "Ukončit náhled"
     },
     "wot_unknown_description": {
-        "message": "Pov\u011bst t\u00e9to webov\u00e9 str\u00e1nky nen\u00ed definov\u00e1na podle $1"
+        "message": "Pověst této webové stránky není definována podle $1"
     },
     "wot_bad_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 velmi \u0161patnou pov\u011bst \npodle $1"
+        "message": "Tato webová stránka má velmi špatnou pověst \npodle $1"
     },
     "wot_poor_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \npodle $1"
+        "message": "Tato webová stránka má špatnou pověst \npodle $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 \u0161patnou pov\u011bst \npodle $1"
+        "message": "Tato webová stránka má špatnou pověst \npodle $1"
     },
     "wot_good_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 dobrou pov\u011bst \npodle $1"
+        "message": "Tato webová stránka má dobrou pověst \npodle $1"
     },
     "wot_excellent_description": {
-        "message": "Tato webov\u00e1 str\u00e1nka m\u00e1 v\u00fdbornou pov\u011bst \npodle $1"
+        "message": "Tato webová stránka má výbornou pověst \npodle $1"
     },
     "settings_choose_size_and_position": {
         "message": "Upravit velikost a pozici AdGuard Asistenta"
@@ -104,19 +97,19 @@
         "message": "Velikost ikony:"
     },
     "settings_small": {
-        "message": "Mal\u00e1"
+        "message": "Malá"
     },
     "settings_big": {
-        "message": "Velk\u00e1"
+        "message": "Velká"
     },
     "settings_position": {
         "message": "Pozice:"
     },
     "settings_left_top": {
-        "message": "Vlevo naho\u0159e"
+        "message": "Vlevo nahoře"
     },
     "settings_right_top": {
-        "message": "Vpravo naho\u0159e"
+        "message": "Vpravo nahoře"
     },
     "settings_left_bottom": {
         "message": "Vlevo dole"
@@ -125,9 +118,9 @@
         "message": "Vpravo dole"
     },
     "settings_cancel": {
-        "message": "Zru\u0161it"
+        "message": "Zrušit"
     },
     "settings_save": {
-        "message": "Ulo\u017eit zm\u011bny"
+        "message": "Uložit změny"
     }
 }

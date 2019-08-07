@@ -3,7 +3,7 @@
     "settings_position_save_all": "Tutti i siti",
     "settings_position_save_this": "Questo sito",
     "assistant_select_element_start": "Inizio",
-    "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per cancellare la modalit\u00e0 che blocca un elemento.",
+    "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per cancellare la modalità che blocca un elemento.",
     "menu_filtration_status": {
         "message": "Filtraggio su questo sito"
     },
@@ -38,13 +38,7 @@
         "message": "Modifica la regola di bloccaggio elemento"
     },
     "assistant_slider_explain": {
-        "message": "Muovi la barra per cambiare la grandezza del frame da per il quale la nuova regola funzioner\u00e0:"
-    },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
+        "message": "Muovi la barra per cambiare la grandezza del frame da per il quale la nuova regola funzionerà:"
     },
     "assistant_extended_settings": {
         "message": "Impostazioni avanzate"
@@ -74,13 +68,13 @@
         "message": "Bloccaggio elemento - anteprima"
     },
     "assistant_preview_header_info": {
-        "message": "Assicurati che l'elemento \u00e8 bloccato come richiesto"
+        "message": "Assicurati che l'elemento è bloccato come richiesto"
     },
     "assistant_preview_end": {
         "message": "Esci dall'anteprima"
     },
     "wot_unknown_description": {
-        "message": "La reputazione di questo sito web non \u00e8 definita da $1"
+        "message": "La reputazione di questo sito web non è definita da $1"
     },
     "wot_bad_description": {
         "message": "Questo sito web ha una pessima reputazione secondo $1"

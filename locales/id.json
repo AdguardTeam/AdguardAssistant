@@ -40,9 +40,6 @@
     "assistant_slider_explain": {
         "message": "Pindahkan slider untuk mengatur ukuran frame dimana aturan baru akan aktif:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
     "assistant_slider_max": {
         "message": "MAKS"
     },

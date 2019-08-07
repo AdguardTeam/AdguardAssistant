@@ -14,7 +14,7 @@ const appendLocales = (done) => {
     gutil.log('Appending downloadLocales...');
 
     options.locales.forEach((language) => {
-        let localePath = path.join(options.localesDir, language + '.json');
+        let localePath = path.join(options.localesDir, language,  'messages.json');
         let localesJSON = fs.readFileSync(localePath).toString();
         let string = 'var ' + language.replace('-','_') + ' = ' + localesJSON;
         let filename = language + '.js';

@@ -2,7 +2,7 @@
     "extension": {
         "assistant": {
             "name": "AdGuard Assistant eklentisi",
-            "description": "Filtrelemeyi, taray\u0131c\u0131dan do\u011frudan kolayca y\u00f6netmenizi sa\u011flar."
+            "description": "Filtrelemeyi, tarayıcıdan doğrudan kolayca yönetmenizi sağlar."
         }
     }
 }

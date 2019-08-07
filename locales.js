@@ -93,10 +93,7 @@ function download() {
         CROWDIN_FILES.forEach(async (file) => {
             try {
                 const { data } = await axios.get(getDownloadlURL(lang, file));
-                // const filePath = path.resolve(LOCALES_DIR, lang, `${file}`);
-                const filePath = file === 'messages.meta.json'
-                    ? path.resolve(LOCALES_DIR, lang + '.meta.json')
-                    : path.resolve(LOCALES_DIR, lang + '.json')
+                const filePath = path.resolve(LOCALES_DIR, lang, `${file}`);
                 const formatted = removeEmptyStrings(data);
                 saveFile(filePath, formatted);
             } catch (e) {

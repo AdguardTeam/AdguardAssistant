@@ -22,22 +22,10 @@ const updateMetaLocales = () => {
     options.metaLocales.forEach((language) => {
         if (language === 'en') return false;
 
-        let localesMetaJSON = fs.readFileSync(path.join(options.localesDir, language + '.meta.json')).toString();
+        let localesMetaJSON = fs.readFileSync(path.join(options.localesDir, language, 'messages.meta.json')).toString();
 
         if (localesMetaJSON.length) {
             localesMetaJSON = JSON.parse(localesMetaJSON);
-
-            if (language === 'pt-BR') {
-                language = 'pt';
-            } else if (language === 'zh-CN') {
-                language = 'zh';
-            } else if (language === 'sr-Latn') {
-                language = 'sr';
-            } else if (language === 'be-BY') {
-                language = 'be';
-            } else if (language === 'sl-SI') {
-                language = 'sl';
-            }
 
             compilerMetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name);
             compilerMetaBetaNames.push('// @name:' + language + ' ' + localesMetaJSON.extension.assistant.name + ' Beta');

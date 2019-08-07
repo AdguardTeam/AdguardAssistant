@@ -116,8 +116,6 @@ function createMetadata(compilation, callback, options) {
                 }
             }
 
-            console.log(resultObject);
-
             if (typeof resultObject[lastKey] === 'object') {
                 return resultObject[lastKey]['message'];
             }

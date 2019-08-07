@@ -18,21 +18,21 @@ const releaseChannels = {
     dev: {
         postfix: 'Dev',
         fields: {
-            DOWNLOAD_URL: 'https://adguard.com/dev',
-            UPDATE_URL: 'https://adguard.com/dev',
+            DOWNLOAD_URL: 'https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js',
+            UPDATE_URL: 'https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js',
         },
     },
     beta: {
         postfix: 'Beta',
         fields: {
-            DOWNLOAD_URL: 'https://adguard.com/beta',
-            UPDATE_URL: 'https://adguard.com/beta',
+            DOWNLOAD_URL: 'https://userscripts.adtidy.org/beta/assistant/4.3/assistant.user.js',
+            UPDATE_URL: 'https://userscripts.adtidy.org/beta/assistant/4.3/assistant.meta.js',
         },
     },
     release: {
         fields: {
-            DOWNLOAD_URL: 'https://adguard.com',
-            UPDATE_URL: 'https://adguard.com',
+            DOWNLOAD_URL: 'https://userscripts.adtidy.org/release/assistant/4.3/assistant.user.js',
+            UPDATE_URL: 'https://userscripts.adtidy.org/release/assistant/4.3/assistant.meta.js',
         },
     },
 };

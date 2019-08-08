@@ -1,12 +1,27 @@
+/* eslint-disable camelcase */
 /**
+ * TODO: remove from global scope
+ * TODO: may be get rid of it
  * Balalaika library
  *
  * https://github.com/finom/balalaika/blob/master/balalaika.js
  *
- * The patch includes methods `addClass`, `removeClass`, `hasClass`, `get`, `css`, `hide`, `show`, `remove`, `text`, `attr`, `trigger`.
+ * The patch includes methods
+ * `addClass`,
+ * `removeClass`,
+ * `hasClass`,
+ * `get`,
+ * `css`,
+ * `hide`,
+ * `show`,
+ * `remove`,
+ * `text`,
+ * `attr`,
+ * `trigger`.
  * Also, for registration in the Ioc, the library is used through the variable `balalaika`
  */
-var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventListener, s_MatchesSelector, i, j, k, l, $) {
+/* eslint-disable */
+window.balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventListener, s_MatchesSelector, i, j, k, l, $) {
     $ = function (s, context) {
         return new $.i(s, context);
     };
@@ -19,7 +34,7 @@ var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventList
             if (s.nodeType || s == window) {
                 st = [s];
             } else {
-                if (typeof(s) === 'string') {
+                if (typeof (s) === 'string') {
                     if (/</.test(s)) {
                         st = ((i = document.createElement(context || 'q')).innerHTML = s, i.children);
                     } else {
@@ -42,7 +57,7 @@ var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventList
         fn.push.apply(this, st);
     };
 
-    $.i[l = 'prototype'] = ( $.extend = function (obj) {
+    $.i[l = 'prototype'] = ($.extend = function (obj) {
         k = arguments;
         for (i = 1; i < k.length; i++) {
             if (l = k[i]) {
@@ -79,93 +94,99 @@ var balalaika = (function (window, document, fn, nsRegAndEvents, id, s_EventList
         is: function (s) {
             i = this[0];
             return (i.matches
-            || i['webkit' + s_MatchesSelector]
-            || i['moz' + s_MatchesSelector]
-            || i['ms' + s_MatchesSelector]
-            || i['o' + s_MatchesSelector]).call(i, s);
+                || i['webkit' + s_MatchesSelector]
+                || i['moz' + s_MatchesSelector]
+                || i['ms' + s_MatchesSelector]
+                || i['o' + s_MatchesSelector]).call(i, s);
         }
     });
     return $;
-})(window, window.document, [], /\.| /, 0, 'EventListener', 'MatchesSelector');
+})(window, window.document, [], /\.| /, 0, 'EventListener', 'MatchesSelector');;
+/* eslint-enable */
+/* eslint-disable func-names, prefer-spread */
 
 /**
  * Add some more functions to balalaika
  */
-balalaika.fn.hasClass = function (className) {
-    return !!this[0] && (this[0].classList != undefined) && this[0].classList.contains(className);
+window.balalaika.fn.hasClass = function (className) {
+    return !!this[0] && (this[0].classList !== undefined) && this[0].classList.contains(className);
 };
 
-balalaika.fn.addClass = function (className) {
-    this.forEach(function (item) {
-        var classList = item.classList;
+window.balalaika.fn.addClass = function (className) {
+    this.forEach((item) => {
+        const { classList } = item;
         classList.add.apply(classList, className.split(/\s/));
     });
     return this;
 };
 
-balalaika.fn.removeClass = function (className) {
-    this.forEach(function (item) {
-        var classList = item.classList;
+window.balalaika.fn.removeClass = function (className) {
+    this.forEach((item) => {
+        const { classList } = item;
         classList.remove.apply(classList, className.split(/\s/));
     });
     return this;
 };
 
-balalaika.fn.get = function (index) {
+window.balalaika.fn.get = function (index) {
     return this.length > index ? this[index] : null;
 };
 
-balalaika.fn.css = function (attr, value) {
-    this.forEach(function (item) {
+window.balalaika.fn.css = function (attr, value) {
+    this.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
         item.style[attr] = value;
     });
     return this;
 };
 
-balalaika.fn.hide = function () {
-    this.forEach(function (item) {
-        item.style['display'] = 'none';
+window.balalaika.fn.hide = function () {
+    this.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
     });
     return this;
 };
 
-balalaika.fn.show = function () {
-    this.forEach(function (item) {
-        item.style['display'] = 'block';
+window.balalaika.fn.show = function () {
+    this.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'block';
     });
     return this;
 };
 
-balalaika.fn.remove = function () {
-    this.forEach(function (item) {
+window.balalaika.fn.remove = function () {
+    this.forEach((item) => {
         item.parentNode.removeChild(item);
     });
     return this;
 };
 
-balalaika.fn.text = function (v) {
-    this.forEach(function (item) {
+window.balalaika.fn.text = function (v) {
+    this.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
         item.textContent = v;
     });
     return this;
 };
 
-balalaika.fn.attr = function (k, v) {
-    this.forEach(function (item) {
+window.balalaika.fn.attr = function (k, v) {
+    this.forEach((item) => {
         item.setAttribute(k, v);
     });
     return this;
 };
 
-balalaika.fn.trigger = function (eventName, options) {
-    this.forEach(function (item) {
+window.balalaika.fn.trigger = function (eventName, options) {
+    this.forEach((item) => {
+        let event;
         if (window.CustomEvent) {
-            var event = new CustomEvent(eventName, {detail: options});
+            event = new CustomEvent(eventName, { detail: options });
         } else {
-            var event = document.createEvent('CustomEvent');
+            event = document.createEvent('CustomEvent');
             event.initCustomEvent(eventName, true, true, options);
         }
-
         item.dispatchEvent(event);
     });
     return this;

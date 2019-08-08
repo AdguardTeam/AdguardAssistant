@@ -10,7 +10,7 @@ const BASE_DOWNLOAD_URL = `${BASE_URL}/download`;
 const BASE_UPLOAD_URL = `${BASE_URL}/upload`;
 const CROWDIN_PROJECT = 'adguard-assistant';
 const CROWDIN_FILES = ['messages.json', 'messages.meta.json']; // crowdin files for downloading/uploading
-const LOCALES =  [BASE_LOCALE, 'ar', 'be', 'cs', 'da', 'de', 'es', 'fa', 'fr', 'he', 'id', 'it', 'ja', 'ko', 'no', 'pl', 'pt-BR', 'pt-PT', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'zh-CN', 'zh-TW']
+const LOCALES = [BASE_LOCALE, 'ar', 'be', 'cs', 'da', 'de', 'es', 'fa', 'fr', 'he', 'id', 'it', 'ja', 'ko', 'no', 'pl', 'pt-BR', 'pt-PT', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'zh-CN', 'zh-TW']
 const LOCALES_DIR = './locales';
 
 

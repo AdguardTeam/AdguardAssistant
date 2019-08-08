@@ -24,7 +24,6 @@
  * @constructor
  */
 /* global
-HTML,
 StringUtils,
 Ioc,
 CommonUtils,
@@ -34,6 +33,8 @@ SliderMenuController,
 BlockPreviewController,
 SettingsMenuController
 */
+
+import { HTML } from './inline-resources';
 
 export default function IframeController(
     $,

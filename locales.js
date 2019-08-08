@@ -13,6 +13,15 @@ const CROWDIN_FILES = ['messages.json', 'messages.meta.json']; // crowdin files 
 const LOCALES = [BASE_LOCALE, 'ar', 'be', 'cs', 'da', 'de', 'es', 'fa', 'fr', 'he', 'id', 'it', 'ja', 'ko', 'no', 'pl', 'pt-BR', 'pt-PT', 'ru', 'sk', 'sl', 'sr', 'sv', 'tr', 'uk', 'zh-CN', 'zh-TW']
 const LOCALES_DIR = './locales';
 
+/**
+ * Users locale may be defined with only two chars (language code)
+ * Here we provide a map of equivalent translation for such locales
+ */
+const LOCALES_EQUIVALENTS_MAP = {
+    'pt-BR': 'pt',
+    'zh-CN': 'zh',
+};
+
 
 /**
  * Build query string for downloading tranlations
@@ -54,6 +63,12 @@ const removeEmptyStrings = (data) => {
 };
 
 /**
+ * Returns equivalent of specified locale code
+ * @param {string} locale locale
+ */
+const getEquivalent = locale => LOCALES_EQUIVALENTS_MAP[locale] || locale;
+
+/**
  * Build form data for uploading tranlation
  * @param {string} file crowdin file name
  */
@@ -93,7 +108,8 @@ function download() {
         CROWDIN_FILES.forEach(async (file) => {
             try {
                 const { data } = await axios.get(getDownloadlURL(lang, file));
-                const filePath = path.resolve(LOCALES_DIR, lang, `${file}`);
+                const resultLocale = getEquivalent(lang);
+                const filePath = path.resolve(LOCALES_DIR, resultLocale, `${file}`);
                 const formatted = removeEmptyStrings(data);
                 saveFile(filePath, formatted);
             } catch (e) {

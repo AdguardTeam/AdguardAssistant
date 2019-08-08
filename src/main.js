@@ -3,8 +3,6 @@
     global
     AdguardSettings,
     balalaika,
-    Localization,
-    IframeController,
     IframeControllerMobile,
     RunSheduler,
     SliderWidget,
@@ -26,6 +24,8 @@ import Wot from './wot';
 import Settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
 import UIUtils from './utils/ui-utils';
+import Localization from './localization';
+import IframeController from './iframe';
 
 /**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event

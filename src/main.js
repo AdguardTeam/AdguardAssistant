@@ -3,7 +3,6 @@
     global
     AdguardSettings,
     balalaika,
-    IframeControllerMobile,
     ADG_addRule,
     ADG_temporaryDontBlock,
     ADG_sendAbuse,
@@ -26,6 +25,7 @@ import SliderWidget from './slider-widget';
 import AdguardRulesConstructorLib from './adguard-rules-constructor';
 import UIButton from './button';
 import RunSheduler from './runSheduler';
+import IframeControllerMobile from './iframe.mobile';
 
 /**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event

@@ -40,11 +40,11 @@ export default function ProtectedApi() {
         // We need to add this hook for tests, because a phantomjs
         // doesn't work with Object.getOwnPropertyDescriptor correctly
         if (typeof originalGetOwnPropertyDescriptor(Document.prototype, 'readyState') === 'undefined') {
-            return () => COMPLETE;
+            return COMPLETE;
         }
 
         const readyStateGetter = originalGetOwnPropertyDescriptor(Document.prototype, 'readyState').get;
-        return () => apply(readyStateGetter, document, []);
+        return apply(readyStateGetter, document, []);
     };
 
     const addListenerToWindow = methodCallerFactory(win, 'addEventListener');

@@ -11,7 +11,7 @@
  * @constructor
  */
 export default function UIValidationUtils(settings, log) {
-    const { document } = window.document;
+    const { document } = window;
 
     const getViewPort = () => {
         const width = window.innerWidth;

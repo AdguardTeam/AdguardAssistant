@@ -1,4 +1,4 @@
-/* global CommonUtils */
+import { events } from './common-utils';
 
 /**
  * UI utils
@@ -150,7 +150,7 @@ export default function UIUtils($, protectedApi) {
             e.stopPropagation();
 
             // make scroll availalbe
-            CommonUtils.events.remove(document.documentElement, 'wheel mousewheel', preventedEvent);
+            events.remove(document.documentElement, 'wheel mousewheel', preventedEvent);
 
             // When a user finishes dragging icon, we set icon anchor
             // depending on the icon position, i.e. which quarter
@@ -194,8 +194,8 @@ export default function UIUtils($, protectedApi) {
                 onClick(e);
             }
 
-            CommonUtils.events.remove(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
-            CommonUtils.events.remove(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
+            events.remove(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
+            events.remove(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
         };
 
         const moveAt = (e) => {
@@ -221,7 +221,7 @@ export default function UIUtils($, protectedApi) {
             pauseEvent(e);
 
             // prevent browser scroll
-            CommonUtils.events.add(document.documentElement, 'wheel mousewheel', preventedEvent);
+            events.add(document.documentElement, 'wheel mousewheel', preventedEvent);
 
             // prevent right button mousedown
             if (e.button > 0) return;
@@ -250,12 +250,12 @@ export default function UIUtils($, protectedApi) {
              * binding both mouse and touch/pointer events simultaneously
              * see: http://www.html5rocks.com/en/mobile/touchandmouse/
              */
-            CommonUtils.events.add(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
-            CommonUtils.events.add(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
+            events.add(document.documentElement, 'mouseup touchend pointerup', onMouseUp);
+            events.add(document.documentElement, 'mousemove touchmove pointermove', onMouseMove);
         };
 
-        CommonUtils.events.add(element, 'mousedown touchstart', protectedApi.functionBind.call(mouseDown, this));
-        CommonUtils.events.add(element, 'dragstart', () => { });
+        events.add(element, 'mousedown touchstart', protectedApi.functionBind.call(mouseDown, this));
+        events.add(element, 'dragstart', () => { });
     }
 
     /**
@@ -299,21 +299,21 @@ export default function UIUtils($, protectedApi) {
             offset.x = rect.left + handleElement.offsetLeft - eventPosition.screenX;
             offset.y = rect.top + handleElement.offsetTop - eventPosition.screenY;
 
-            CommonUtils.events.add(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
-            CommonUtils.events.add(iframeDoc, 'selectstart', cancelIFrameSelection);
+            events.add(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
+            events.add(iframeDoc, 'selectstart', cancelIFrameSelection);
         };
 
         const onMouseUp = () => {
-            CommonUtils.events.remove(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
-            CommonUtils.events.remove(iframeDoc, 'selectstart', cancelIFrameSelection);
+            events.remove(iframeDoc, 'mousemove touchmove pointermove', onMouseMove);
+            events.remove(iframeDoc, 'selectstart', cancelIFrameSelection);
         };
 
         // prevent iframe dragging while browser tabs is switching
         document.addEventListener('visibilitychange', onMouseUp);
 
-        CommonUtils.events.add(handleElement, 'mousedown touchstart', onMouseDown);
-        CommonUtils.events.add(iframeDoc, 'mouseup touchend pointerup', onMouseUp);
-        CommonUtils.events.add(iframeDoc, 'contextmenu', (e) => {
+        events.add(handleElement, 'mousedown touchstart', onMouseDown);
+        events.add(iframeDoc, 'mouseup touchend pointerup', onMouseUp);
+        events.add(iframeDoc, 'contextmenu', (e) => {
             e.preventDefault();
             return false;
         });

@@ -26,7 +26,6 @@
 /* global
 StringUtils,
 Ioc,
-CommonUtils,
 DetailedMenuController,
 SelectorMenuController,
 SliderMenuController,
@@ -36,6 +35,7 @@ SettingsMenuController
 
 import { HTML } from './inline-resources';
 import CustomEvent from './event';
+import { bypassCache } from './utils/common-utils';
 
 export default function IframeController(
     $,
@@ -450,7 +450,7 @@ export default function IframeController(
             gmApi.ADG_addRule(path, () => {
                 removeIframe();
                 hideElementsByPath(path);
-                CommonUtils.bypassCache();
+                bypassCache();
             });
         } else {
             if (!addRule) {
@@ -460,7 +460,7 @@ export default function IframeController(
             addRule(path);
             removeIframe();
             hideElementsByPath(path);
-            CommonUtils.bypassCache();
+            bypassCache();
         }
     };
 

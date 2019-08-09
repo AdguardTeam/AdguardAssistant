@@ -1,4 +1,4 @@
-/* global CommonUtils */
+import { bypassCache } from './utils/common-utils';
 
 /**
  * Object that manages user settings.
@@ -148,7 +148,7 @@ export default function Settings(log, gmApi, UpgradeHelper, protectedApi) { // j
         log.debug('Update settings...');
         log.debug(Config);
         gmApi.setValue('settings', Config);
-        CommonUtils.bypassCache();
+        bypassCache();
     };
 
     const getWotData = wotData;

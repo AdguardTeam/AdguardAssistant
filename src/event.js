@@ -3,21 +3,21 @@
  * @returns {{attach: attach, notify: notify}}
  * @constructor
  */
-var CustomEvent = function () { // jshint ignore:line
-    var listeners = [];
+export default function CustomEvent() { // jshint ignore:line
+    const listeners = [];
 
-    var attach = function (listener) {
+    const attach = (listener) => {
         listeners.push(listener);
     };
 
-    var notify = function (args) {
-        for (var i = 0; i < listeners.length; i++) {
+    const notify = (args) => {
+        for (let i = 0; i < listeners.length; i += 1) {
             listeners[i](args);
         }
     };
 
     return {
-        attach: attach,
-        notify: notify
+        attach,
+        notify,
     };
-};
+}

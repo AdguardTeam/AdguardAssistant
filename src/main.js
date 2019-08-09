@@ -5,8 +5,6 @@
     balalaika,
     IframeControllerMobile,
     RunSheduler,
-    SliderWidget,
-    AdguardRulesConstructorLib,
     UIButton,
     ADG_addRule,
     ADG_temporaryDontBlock,
@@ -26,6 +24,8 @@ import UIValidationUtils from './utils/ui-validation-utils';
 import UIUtils from './utils/ui-utils';
 import Localization from './localization';
 import IframeController from './iframe';
+import SliderWidget from './slider-widget';
+import AdguardRulesConstructorLib from './adguard-rules-constructor';
 
 /**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event

@@ -35,6 +35,10 @@ const config = {
                 test: /\.html$/i,
                 use: 'raw-loader',
             },
+            {
+                test: /\.less$/,
+                loader: 'less-loader',
+            },
         ],
     },
     plugins: [

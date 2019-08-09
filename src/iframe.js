@@ -35,6 +35,7 @@ SettingsMenuController
 */
 
 import { HTML } from './inline-resources';
+import CustomEvent from './event';
 
 export default function IframeController(
     $,

@@ -49,6 +49,7 @@
     "gulp-watch": "^4.3.11",
     "html-webpack-plugin": "^3.2.0",
     "inline-resource-literal": "git+https://github.com/AdguardTeam/InlineResourceLiteral.git",
+    "less-loader": "^5.0.0",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-inline-urls": "^1.2.0",
     "mocha": "^3.4.2",

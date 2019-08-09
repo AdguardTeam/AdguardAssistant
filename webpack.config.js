@@ -36,6 +36,10 @@ const config = {
                 use: 'raw-loader',
             },
             {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader',
+            },
+            {
                 test: /\.less$/,
                 loader: 'less-loader',
             },

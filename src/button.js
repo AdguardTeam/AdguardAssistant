@@ -11,7 +11,7 @@
  * @constructor
  */
 
-import { HTML } from './inline-resources';
+import { HTML, CSS } from './inline-resources';
 
 export default function UIButton(
     log,

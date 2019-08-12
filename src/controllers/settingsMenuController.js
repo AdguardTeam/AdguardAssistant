@@ -1,3 +1,5 @@
+import Ioc from '../ioc';
+
 /**
  * Settings menu controller
  * @param $
@@ -6,7 +8,6 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc */
 export default function SettingsMenuController($, settings, button) {
     let contentDocument = null;
     const iframeCtrl = Ioc.get('iframeController');

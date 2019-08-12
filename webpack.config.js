@@ -31,18 +31,6 @@ const config = {
                     loader: 'babel-loader',
                 },
             },
-            {
-                test: /\.html$/i,
-                use: 'raw-loader',
-            },
-            {
-                test: /\.svg$/,
-                loader: 'svg-inline-loader',
-            },
-            {
-                test: /\.less$/,
-                loader: 'less-loader',
-            },
         ],
     },
     plugins: [

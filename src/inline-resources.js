@@ -1,28 +1,19 @@
 /* eslint-disable import/no-unresolved, import/no-webpack-loader-syntax */
-/* Inline resource generating by gulp tasks/compile.js */
 
-/* global
-RESOURCE_CSS_COMMON,
-RESOURCE_CSS_BUTTON,
-RESOURCE_CSS_IFRAME,
-RESOURCE_CSS_SELECTOR,
-RESOURCE_CSS_MOBILE,
-*/
+import RESOURCE_CSS_COMMON from 'raw-loader!less-loader!./styles/base/base-common.less';
+import RESOURCE_CSS_BUTTON from 'raw-loader!less-loader!./styles/button.less';
+import RESOURCE_CSS_IFRAME from 'raw-loader!less-loader!./styles/menu.less';
+import RESOURCE_CSS_SELECTOR from 'raw-loader!less-loader!./styles/selector.less';
+import RESOURCE_CSS_MOBILE from 'raw-loader!less-loader!./styles/mobile-style.less';
 
-import RESOURCE_CSS_COMMON from 'raw-loader!./styles/base/base-common.less';
-import RESOURCE_CSS_BUTTON from 'raw-loader!./styles/button.less';
-import RESOURCE_CSS_IFRAME from 'raw-loader!./styles/menu.less';
-import RESOURCE_CSS_SELECTOR from 'raw-loader!./styles/selector.less';
-import RESOURCE_CSS_MOBILE from 'raw-loader!./styles/mobile-style.less';
-
-import RESOURCE_TEMPLATE_BUTTON from './templates/button.html';
-import RESOURCE_TEMPLATE_DETAILEDMENU from './templates/mainMenu.html';
-import RESOURCE_TEMPLATE_SELECTORMENU from './templates/selectorMenu.html';
-import RESOURCE_TEMPLATE_SETTINGSMENU from './templates/settingsMenu.html';
-import RESOURCE_TEMPLATE_SLIDERMENU from './templates/sliderMenu.html';
-import RESOURCE_TEMPLATE_BLOCKPREVIEW from './templates/blockPreview.html';
-import RESOURCE_TEMPLATE_POPUP from './templates/mobilePopup.html';
-import RESOURCE_TEMPLATE_MENU from './templates/mobileMenu.html';
+import RESOURCE_TEMPLATE_BUTTON from 'raw-loader!./templates/button.html';
+import RESOURCE_TEMPLATE_DETAILEDMENU from 'raw-loader!./templates/mainMenu.html';
+import RESOURCE_TEMPLATE_SELECTORMENU from 'raw-loader!./templates/selectorMenu.html';
+import RESOURCE_TEMPLATE_SETTINGSMENU from 'raw-loader!./templates/settingsMenu.html';
+import RESOURCE_TEMPLATE_SLIDERMENU from 'raw-loader!./templates/sliderMenu.html';
+import RESOURCE_TEMPLATE_BLOCKPREVIEW from 'raw-loader!./templates/blockPreview.html';
+import RESOURCE_TEMPLATE_POPUP from 'raw-loader!./templates/mobilePopup.html';
+import RESOURCE_TEMPLATE_MENU from 'raw-loader!./templates/mobileMenu.html';
 
 export const CSS = {
     common: RESOURCE_CSS_COMMON,

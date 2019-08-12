@@ -1,4 +1,6 @@
 import { reloadPageBypassCache } from '../utils/common-utils';
+import Ioc from '../ioc';
+import { format } from '../utils/string-utils';
 
 /**
  * Main menu controller
@@ -9,7 +11,6 @@ import { reloadPageBypassCache } from '../utils/common-utils';
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, StringUtils */
 export default function DetailedMenuController(
     $,
     wot,
@@ -151,7 +152,7 @@ export default function DetailedMenuController(
     };
 
     const goToSiteReport = () => {
-        const url = StringUtils.format(settings.Constants.REPORT_URL, domain);
+        const url = format(settings.Constants.REPORT_URL, domain);
         window.open(url, '_blank');
     };
 

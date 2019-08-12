@@ -1,4 +1,4 @@
-import { HTML } from './inline-resources';
+import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
 import { bypassCache } from './utils/common-utils';
 import Ioc from './ioc';

@@ -6,45 +6,47 @@
  * @constructor
  */
 /* global Ioc */
-var SelectorMenuController = function ($, selector) { // jshint ignore:line
-    var contentDocument = null;
-    var iframeCtrl = Ioc.get('iframeController');
+export default function SelectorMenuController($, selector) {
+    let contentDocument = null;
+    const iframeCtrl = Ioc.get('iframeController');
+
+    const close = () => {
+        iframeCtrl.removeIframe();
+    };
+
+    const bindEvents = () => {
+        const menuEvents = {
+            '.close': close,
+            '.btn-default': close,
+        };
+        Object.keys(menuEvents).forEach((item) => {
+            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+        });
+    };
+
+    const onElementSelected = (element) => {
+        iframeCtrl.showSliderMenu(element);
+    };
+
+    const startSelector = () => {
+        selector.reset();
+        selector.init(onElementSelected);
+    };
 
     /*
      Called from IframeController._showMenuItem to initialize view
      */
-    var init = function (iframe) {
+    const init = (iframe) => {
+        // eslint-disable-next-line prefer-destructuring
         contentDocument = iframe.contentDocument;
         bindEvents();
         startSelector();
     };
 
-    var close = function () {
-        iframeCtrl.removeIframe();
-    };
-
-    var bindEvents = function () {
-        var menuEvents = {
-            '.close': close,
-            '.btn-default': close
-        };
-        Object.keys(menuEvents).forEach(function (item) {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
-        });
-    };
-    var startSelector = function () {
-        selector.reset();
-        selector.init(onElementSelected);
-    };
-
-    var onElementSelected = function (element) {
-        iframeCtrl.showSliderMenu(element);
-    };
-
     iframeCtrl.onCloseMenu.attach(selector.close);
 
     return {
-        init: init,
-        startSelector: startSelector
+        init,
+        startSelector,
     };
-};
+}

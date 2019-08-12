@@ -26,7 +26,7 @@ import * as uk from './uk/messages.json';
 import * as zh from './zh/messages.json';
 import * as zhTW from './zh-TW/messages.json';
 
-export default {
+const locales = {
     ar,
     be,
     cs,
@@ -55,3 +55,5 @@ export default {
     zh,
     'zh-TW': zhTW,
 };
+
+export default locales;

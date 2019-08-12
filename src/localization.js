@@ -1,4 +1,4 @@
-import * as locales from '../locales/index';
+import locales from '../locales/index';
 
 /**
  * Object that manages localizations

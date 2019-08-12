@@ -1,3 +1,15 @@
+import { HTML } from './inline-resources';
+import CustomEvent from './event';
+import { bypassCache } from './utils/common-utils';
+import Ioc from './ioc';
+import { format } from './utils/string-utils';
+import DetailedMenuController from './controllers/mainMenuController';
+import SelectorMenuController from './controllers/selectorMenuController';
+import SliderMenuController from './controllers/sliderMenuController';
+import BlockPreviewController from './controllers/blockPreviewController';
+import SettingsMenuController from './controllers/settingsMenuController';
+
+
 /**
  * Manages iframe and it's content
  * @param $
@@ -23,20 +35,6 @@
  * }}
  * @constructor
  */
-/* global
-StringUtils,
-Ioc,
-DetailedMenuController,
-SelectorMenuController,
-SliderMenuController,
-BlockPreviewController,
-SettingsMenuController
-*/
-
-import { HTML } from './inline-resources';
-import CustomEvent from './event';
-import { bypassCache } from './utils/common-utils';
-
 export default function IframeController(
     $,
     settings,
@@ -244,7 +242,7 @@ export default function IframeController(
     };
 
     const showMenuItem = (viewName, controller, width, height, options) => {
-        log.debug(StringUtils.format('Showing menu item: {0}', viewName));
+        log.debug(format('Showing menu item: {0}', viewName));
         if (currentItem === viewName) {
             return;
         }

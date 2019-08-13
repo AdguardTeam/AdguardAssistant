@@ -1,3 +1,7 @@
+import Ioc from '../ioc';
+import { getParentsLevel, getAllChildren, events } from '../utils/common-utils';
+
+
 /**
  * Slider menu controller
  * @param $
@@ -11,7 +15,6 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, CommonUtils */
 export default function SliderMenuController(
     $,
     selector,
@@ -170,8 +173,8 @@ export default function SliderMenuController(
     };
 
     const createSlider = (setElement) => {
-        const parents = CommonUtils.getParentsLevel(selectedElement);
-        const children = CommonUtils.getAllChildren(selectedElement);
+        const parents = getParentsLevel(selectedElement);
+        const children = getAllChildren(selectedElement);
 
         const value = Math.abs(parents.length + 1);
         const max = parents.length + children.length + 1;
@@ -207,7 +210,7 @@ export default function SliderMenuController(
 
         // set slider position on current element after returning from preview mode
         if (setElement) {
-            const setElementparents = CommonUtils.getParentsLevel(setElement);
+            const setElementparents = getParentsLevel(setElement);
             currentVal = setElementparents.length + 1;
         }
 
@@ -245,7 +248,7 @@ export default function SliderMenuController(
         }
 
         // make input clickable with right mouse button for text editing
-        CommonUtils.events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', (e) => {
+        events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', (e) => {
             e.stopPropagation();
         });
 

@@ -127,7 +127,16 @@ export default function SliderWidget(api, $, protectedApi) {
     // eslint-disable-next-line no-param-reassign
     api.init = (placeholderElement, options) => {
         placeholder = placeholderElement;
-        [min, max, value, onValueChanged, sliderArea] = options;
+        // eslint-disable-next-line prefer-destructuring
+        min = options.min;
+        // eslint-disable-next-line prefer-destructuring
+        max = options.max;
+        // eslint-disable-next-line prefer-destructuring
+        value = options.value;
+        // eslint-disable-next-line prefer-destructuring
+        onValueChanged = options.onValueChanged;
+        // eslint-disable-next-line prefer-destructuring
+        sliderArea = options.sliderArea;
 
         render();
         bindEvents();

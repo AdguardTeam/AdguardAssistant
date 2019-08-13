@@ -1,3 +1,5 @@
+import Ioc from '../ioc';
+
 /**
  * Selector menu controller
  * @param $
@@ -5,7 +7,6 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc */
 export default function SelectorMenuController($, selector) {
     let contentDocument = null;
     const iframeCtrl = Ioc.get('iframeController');

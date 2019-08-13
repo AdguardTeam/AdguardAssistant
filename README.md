@@ -55,3 +55,7 @@ For development build with watcher on file changes and debugging from local serv
 
 This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify the script in the address, e.g. `http://localhost:3000/assistant.user.js`.
 
+
+## Todo
+
+- add .twosky.json

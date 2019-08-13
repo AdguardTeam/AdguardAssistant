@@ -59,3 +59,5 @@ This will open `http://localhost:3000` in browser for debugging with extensions 
 ## Todo
 
 - add .twosky.json
+- build embedded script
+- fix tests running

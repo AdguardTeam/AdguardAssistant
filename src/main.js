@@ -46,7 +46,14 @@ export const adguardAssistantExtended = () => {
     const changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
-    Ioc.register('gmApi', new GM(addRule, dontBlock, sendAbuse, checkRule, changeFilteringState, protectedApiCtrl));
+    Ioc.register('gmApi', new GM(
+        addRule,
+        dontBlock,
+        sendAbuse,
+        checkRule,
+        changeFilteringState,
+        protectedApiCtrl,
+    ));
     const wot = new Wot();
     wot.registerWotEventHandler();
     Ioc.register('wot', wot);
@@ -80,12 +87,12 @@ export const adguardAssistantMini = () => ({
         Ioc.register('log', new Log());
         Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
         Ioc.register('$', balalaika);
-        Ioc.register('selector', new AdguardSelectorLib({}, balalaika));
+        Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
         Ioc.register('uiUtils', Ioc.get(UIUtils));
         Ioc.register('localization', Ioc.get(Localization));
         const iframeController = Ioc.get(IframeControllerMobile);
         Ioc.register('iframeController', iframeController);
-        Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
+        Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
         const runSheduler = Ioc.get(RunSheduler);
         runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
     },

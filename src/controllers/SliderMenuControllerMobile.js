@@ -1,3 +1,7 @@
+import Ioc from '../ioc';
+import { getAllChildren, getParentsLevel } from '../utils/common-utils';
+
+
 /**
  * Slider menu controller mobile
  * @param $
@@ -8,82 +12,24 @@
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, CommonUtils */
-var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor, localization, addRule) { // jshint ignore:line
-    var contentDocument = null;
-    var selectedElement = null;
-    var iframeCtrl = Ioc.get('iframeController');
+export default function SliderMenuControllerMobile(
+    $,
+    selector,
+    adguardRulesConstructor,
+    localization,
+    addRule,
+) {
+    let contentDocument = null;
+    let selectedElement = null;
+    const iframeCtrl = Ioc.get('iframeController');
 
-    var nodeParentsCount = 0;
-    var nodeChildsCount = 0;
-    var parents, children;
-    var nodeNumber = 0;
+    let nodeParentsCount = 0;
+    let nodeChildsCount = 0;
+    let parents;
+    let children;
+    let nodeNumber = 0;
 
-    /*
-     Called from IframeController._showMenuItem to initialize view
-     */
-    var init = function (iframe, options) {
-        selectedElement = options.element;
-        contentDocument = iframe.contentDocument;
-        bindEvents();
-        selector.selectElement(selectedElement);
-
-        children = CommonUtils.getAllChildren(selectedElement);
-        parents = CommonUtils.getParentsLevel(selectedElement);
-
-        parents.splice(0,0,selectedElement);
-
-        nodeParentsCount = parents.length;
-        nodeChildsCount = children.length;
-    };
-
-    var close = function () {
-        iframeCtrl.removeIframe();
-    };
-
-    var plus = function() {
-        (nodeNumber + 1) > nodeParentsCount ? nodeNumber = nodeNumber : nodeNumber++;
-
-        if (nodeNumber >= 0) {
-            if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
-        } else {
-            if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
-        }
-    };
-
-    var minus = function() {
-        nodeNumber <= -nodeChildsCount ? nodeNumber = nodeNumber : nodeNumber--;
-
-        if (nodeNumber >= 0) {
-            if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
-        } else {
-            if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
-        }
-    };
-
-    var bindEvents = function () {
-        var menuEvents = {
-            '.adg-close': iframeCtrl.showSelectorMenu,
-            '.adg-preview': showPreview,
-            '.adg-accept': blockElement,
-            '.adg-plus': plus,
-            '.adg-minus': minus
-        };
-        Object.keys(menuEvents).forEach(function (item) {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
-        });
-
-        window.addEventListener('orientationchange', iframeCtrl.showSelectorMenu);
-    };
-
-    var blockElement = function () {
-        selectedElement.classList.remove('sg_hide_element');
-        selectedElement.style.display = 'none';
-        addRule(getFilterText());
-        iframeCtrl.removeIframe();
-    };
-
-    var showPreview = function () {
+    function showPreview() {
         selector.reset();
 
         if (this.classList.contains('active')) {
@@ -96,34 +42,17 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         } else {
             selectedElement.classList.add('sg_hide_element');
             this.classList.add('active');
-            contentDocument.querySelector('.adg-plus').setAttribute('disabled','disabled');
-            contentDocument.querySelector('.adg-minus').setAttribute('disabled','disabled');
-            contentDocument.querySelector('.adg-close').setAttribute('disabled','disabled');
+            contentDocument.querySelector('.adg-plus').setAttribute('disabled', 'disabled');
+            contentDocument.querySelector('.adg-minus').setAttribute('disabled', 'disabled');
+            contentDocument.querySelector('.adg-close').setAttribute('disabled', 'disabled');
         }
-    };
+    }
 
-    var onSliderMove = function (element) {
-        selectedElement = element;
-        selector.selectElement(element);
-    };
-
-    var getFilterText = function () {
-        var options = {
-            urlMask: getUrlBlockAttribute(selectedElement),
-            cssSelectorType: "STRICT_FULL",
-            isBlockOneDomain: false,
-            url: document.location,
-            ruleType: "CSS"
-        };
-
-        return adguardRulesConstructor.constructRuleText(selectedElement, options);
-    };
-
-    var getUrlBlockAttribute = function (element) {
-        var urlBlockAttributes = ["src", "data"];
-        for (var i = 0; i < urlBlockAttributes.length; i++) {
-            var attr = urlBlockAttributes[i];
-            var value = element.getAttribute(attr);
+    const getUrlBlockAttribute = (element) => {
+        const urlBlockAttributes = ['src', 'data'];
+        for (let i = 0; i < urlBlockAttributes.length; i += 1) {
+            const attr = urlBlockAttributes[i];
+            const value = element.getAttribute(attr);
             if (value) {
                 return value;
             }
@@ -131,7 +60,87 @@ var SliderMenuControllerMobile = function ($, selector, adguardRulesConstructor,
         return null;
     };
 
-    return {
-        init: init
+    const getFilterText = () => {
+        const options = {
+            urlMask: getUrlBlockAttribute(selectedElement),
+            cssSelectorType: 'STRICT_FULL',
+            isBlockOneDomain: false,
+            url: document.location,
+            ruleType: 'CSS',
+        };
+
+        return adguardRulesConstructor.constructRuleText(selectedElement, options);
     };
-};
+
+    const blockElement = () => {
+        selectedElement.classList.remove('sg_hide_element');
+        selectedElement.style.display = 'none';
+        addRule(getFilterText());
+        iframeCtrl.removeIframe();
+    };
+
+    const onSliderMove = (element) => {
+        selectedElement = element;
+        selector.selectElement(element);
+    };
+
+    const plus = () => {
+        nodeNumber = (nodeNumber + 1) > nodeParentsCount
+            ? nodeNumber
+            : nodeNumber + 1;
+
+        if (nodeNumber >= 0) {
+            if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
+        // eslint-disable-next-line no-bitwise
+        } else if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
+    };
+
+    const minus = () => {
+        // TODO: rewrite this
+        // eslint-disable-next-line no-unused-expressions, no-self-assign
+        nodeNumber <= -nodeChildsCount ? nodeNumber = nodeNumber : nodeNumber -= 1;
+
+        if (nodeNumber >= 0) {
+            if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
+        // eslint-disable-next-line no-bitwise
+        } else if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
+    };
+
+    const bindEvents = () => {
+        const menuEvents = {
+            '.adg-close': iframeCtrl.showSelectorMenu,
+            '.adg-preview': showPreview,
+            '.adg-accept': blockElement,
+            '.adg-plus': plus,
+            '.adg-minus': minus,
+        };
+        Object.keys(menuEvents).forEach((item) => {
+            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+        });
+
+        window.addEventListener('orientationchange', iframeCtrl.showSelectorMenu);
+    };
+
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
+    const init = (iframe, options) => {
+        selectedElement = options.element;
+        // eslint-disable-next-line prefer-destructuring
+        contentDocument = iframe.contentDocument;
+        bindEvents();
+        selector.selectElement(selectedElement);
+
+        children = getAllChildren(selectedElement);
+        parents = getParentsLevel(selectedElement);
+
+        parents.splice(0, 0, selectedElement);
+
+        nodeParentsCount = parents.length;
+        nodeChildsCount = children.length;
+    };
+
+    return {
+        init,
+    };
+}

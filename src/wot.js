@@ -1,3 +1,5 @@
+import { format } from './utils/string-utils';
+
 /**
  * Object that manages wot data
  * @returns {{
@@ -8,7 +10,6 @@
  * }}
  * @constructor
  */
-/* global StringUtils */
 export default function Wot() {
     const wotUrlScorecardTemplate = 'http://adguard.com/wot-scorecard.html?domain={0}';
     const WOT_URL = 'http://adguard.com/wot.html';
@@ -35,7 +36,7 @@ export default function Wot() {
 
     const getWotData = () => wotData;
 
-    const getWotScorecardUrl = url => StringUtils.format(wotUrlScorecardTemplate, url);
+    const getWotScorecardUrl = url => format(wotUrlScorecardTemplate, url);
 
     return {
         registerWotEventHandler,

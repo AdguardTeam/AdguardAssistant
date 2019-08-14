@@ -38,9 +38,10 @@ export default function GM(
         };
     }
 
+    // TODO: fix calling this one
     if (!ADG_sendAbuse) {
         ADG_sendAbuse = (url, callback) => {
-            alert(`GM_api is not supported. ${url}abused`);
+            alert(`GM_api is not supported. ${url} abused`);
             if (callback) callback();
         };
     }

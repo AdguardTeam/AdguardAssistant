@@ -1,3 +1,10 @@
+import { CSS, HTML } from './inline-resources';
+import Ioc from './ioc';
+import { objectAssign } from './utils/common-utils';
+import SelectorMenuController from './controllers/selectorMenuController';
+import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile';
+import CustomEvent from './event';
+
 /**
  * Manages iframe and it's content
  * @param $
@@ -14,13 +21,6 @@
  * }}
  * @constructor
  */
-
-/* global SelectorMenuController, SliderMenuControllerMobile */
-
-import { CSS, HTML } from './inline-resources';
-import Ioc from './ioc';
-import { objectAssign } from './utils/common-utils';
-
 export default function IframeControllerMobile(
     $,
     log,

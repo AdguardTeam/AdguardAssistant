@@ -5,7 +5,7 @@ const mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blaze
 
 if (mobileReg.test(navigator.userAgent)) {
     let self = {};
-    if (typeof this === 'undefined') {
+    if (typeof this !== 'undefined') {
         self = this;
     }
     self.adguardAssistant = adguardAssistantMini;

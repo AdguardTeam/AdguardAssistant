@@ -25,11 +25,24 @@ const config = {
     module: {
         rules: [
             {
+                test: /\.svg$/,
+                exclude: /node_modules/,
+                loader: 'url-loader',
+            },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: 'raw-loader',
+            },
+            {
+                test: /\.less$/,
+                exclude: /node_modules/,
+                use: ['to-string-loader', 'css-loader', 'less-loader'],
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                },
+                loader: 'babel-loader',
             },
         ],
     },

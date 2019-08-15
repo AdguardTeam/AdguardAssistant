@@ -1,4 +1,4 @@
-/* global cssEscape */
+import cssEscape from './libs/css.escape';
 
 /**
  * Adguard rules constructor

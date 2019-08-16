@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title> Tests </title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="mocha.css" />
+    </head>
+    <body>
+        <div id="mocha"></div>
+        <script src="./mocha.js"></script>
+        <script src="./chai.js"></script>
+        <script>
+            mocha.setup({
+              ui: 'bdd'
+            });
+            mocha.globals(['GM_getValue','GM_setValue','GM_getResourceText','GM_addStyle','CSS','Promise']);
+            var expect = chai.expect;
+        </script>
+
+        <script src="./tests.js"></script>
+
+        <script>
+            mocha.checkLeaks();
+            mocha.run();
+        </script>
+
+        <script>
+            window.GM_getValue = function() {return false;};
+            window.GM_setValue = function() {return false;};
+            window.GM_getResourceText = function() {return false;};
+            window.GM_addStyle = function() {return false;};
+        </script>
+        <script src="../assistant.user.js"></script>
+    </body>
+</html>

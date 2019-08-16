@@ -1,13 +1,14 @@
+/* global AdguardSettings */
 import locales from '../locales/index';
+import protectedApi from './protectedApi';
 
 /**
  * Object that manages localizations
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-/* global AdguardSettings, protectedApi */
-
 export default function Localization() {
+    const BASE_LOCALE = 'en';
     let currentLocale = null;
     let locale;
     const supportedLocales = { ...locales };
@@ -33,7 +34,7 @@ export default function Localization() {
     } else if (navigator.browserLanguage) {
         locale = navigator.browserLanguage;
     } else {
-        locale = 'en';
+        locale = BASE_LOCALE;
     }
 
     if (supportedLocales[locale]) {
@@ -43,14 +44,16 @@ export default function Localization() {
         if (supportedLocales[langSplit]) {
             currentLocale = langSplit;
         } else {
-            currentLocale = 'en';
+            currentLocale = BASE_LOCALE;
         }
     }
 
     const getMessage = (messageId) => {
         const message = supportedLocales[currentLocale][messageId];
         if (!message) {
-            return messageId;
+            return typeof supportedLocales[BASE_LOCALE][messageId] === 'object'
+                ? supportedLocales[BASE_LOCALE][messageId].message
+                : supportedLocales[BASE_LOCALE][messageId] || '';
         }
         return supportedLocales[currentLocale][messageId].message
             || supportedLocales[currentLocale][messageId];

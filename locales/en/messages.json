@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Assistant settings"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Site reputation indicator"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Reputation Confidence Level"
+    },
     "assistant_select_element": {
         "message": "Element blocking"
     },

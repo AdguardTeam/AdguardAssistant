@@ -1,8 +1,5 @@
-/* eslint-disable no-alert */
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-alert, no-param-reassign, camelcase */
 /* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
-
-/* eslint-disable camelcase */
 /**
  * Gm api wrapper
  * @param ADG_addRule

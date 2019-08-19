@@ -1,3 +1,5 @@
+import { addStyle, addClass } from './libs/dom-lib';
+
 /**
  * Slider widget
  * @type {Function}
@@ -21,20 +23,20 @@ export default function SliderWidget(api, $, protectedApi) {
 
     const refresh = () => {
         const handle = placeholder.querySelectorAll(`.${HANDLE_CLASS}`);
-        $(handle).css('left', `${(value - 1) * 100 / (max - min)}%`);
+        addStyle(handle, 'left', `${(value - 1) * 100 / (max - min)}%`);
 
         const ticks = placeholder.querySelectorAll(`.${TICK_CLASS}`);
         for (let i = 0; i < ticks.length; i += 1) {
             if (i + 1 < value) {
-                $(ticks[i]).css('background-color', TICK_LEFT_COLOR);
+                addStyle(ticks[i], 'background-color', TICK_LEFT_COLOR);
             } else {
-                $(ticks[i]).css('background-color', TICK_RIGHT_COLOR);
+                addStyle(ticks[i], 'background-color', TICK_RIGHT_COLOR);
             }
         }
     };
 
     const render = () => {
-        $(placeholder).addClass(PLACEHOLDER_CLASS);
+        addClass(placeholder, PLACEHOLDER_CLASS);
 
         const handle = protectedApi.createElement('span');
         handle.setAttribute('class', HANDLE_FULL_CLASS);
@@ -72,9 +74,6 @@ export default function SliderWidget(api, $, protectedApi) {
     };
 
     const bindEvents = () => {
-        const $placeholder = $(placeholder);
-        const $sliderArea = $(sliderArea);
-
         const rect = placeholder.getBoundingClientRect();
         const sliderWidth = rect.width;
         const offsetLeft = rect.left + document.body.scrollLeft;
@@ -101,23 +100,29 @@ export default function SliderWidget(api, $, protectedApi) {
             e.cancelBubble = true;
             e.returnValue = false;
 
-            $sliderArea.on('mousemove touchmove pointermove', onMouseMove);
+            sliderArea.addEventListener('mousemove', onMouseMove);
+            sliderArea.addEventListener('touchmove', onMouseMove);
+            sliderArea.addEventListener('pointermove', onMouseMove);
         };
 
-        $(document).on('mouseup touchend pointerup', () => {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        const sliderAreaRemoveListeners = () => {
+            sliderArea.removeEventListener('mousemove', onMouseMove);
+            sliderArea.removeEventListener('touchmove', onMouseMove);
+            sliderArea.removeEventListener('pointermove', onMouseMove);
+        };
 
-        $placeholder.on('click', onClick);
-        $placeholder.on('mousedown touchstart', onMouseDown);
+        document.addEventListener('mouseup', sliderAreaRemoveListeners);
+        document.addEventListener('touchend', sliderAreaRemoveListeners);
+        document.addEventListener('pointerup', sliderAreaRemoveListeners);
 
-        $sliderArea.on('mouseup touchend pointerup', () => {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        placeholder.addEventListener('click', onClick);
+        placeholder.addEventListener('mousedown', onMouseDown);
+        placeholder.addEventListener('touchstart', onMouseDown);
 
-        $sliderArea.on('mouseleave', () => {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        sliderArea.addEventListener('mouseup', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('touchend', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('pointerup', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('mouseleave', sliderAreaRemoveListeners);
     };
 
     /**

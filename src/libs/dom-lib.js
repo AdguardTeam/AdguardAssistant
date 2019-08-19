@@ -1,13 +1,14 @@
-export default function $$(elem) {
-    if (typeof elem === 'string') {
-        return document.querySelectorAll(elem);
-    }
-    return elem;
-}
-
 export const toArray = elems => (elems && elems.length !== undefined
     ? Array.prototype.slice.call(elems)
     : [elems]);
+
+
+export default function $$(elem) {
+    if (typeof elem === 'string') {
+        return toArray(document.querySelectorAll(elem));
+    }
+    return elem;
+}
 
 export const addClass = (elem, className) => {
     const elems = toArray(elem);
@@ -44,5 +45,13 @@ export const hide = (elem) => {
     elems.forEach((item) => {
         // eslint-disable-next-line no-param-reassign
         item.style.display = 'none';
+    });
+};
+
+export const addStyle = (elem, attr, value) => {
+    const elems = toArray(elem);
+    elems.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style[attr] = value;
     });
 };

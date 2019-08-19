@@ -1,4 +1,5 @@
 import Ioc from '../ioc';
+import { toArray } from '../libs/dom-lib';
 
 /**
  * Selector menu controller
@@ -21,7 +22,8 @@ export default function SelectorMenuController($, selector) {
             '.btn-default': close,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

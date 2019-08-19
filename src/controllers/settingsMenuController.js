@@ -1,4 +1,5 @@
 import Ioc from '../ioc';
+import { toArray } from '../libs/dom-lib';
 
 /**
  * Settings menu controller
@@ -91,7 +92,8 @@ export default function SettingsMenuController($, settings, button) {
             '#save-settings': saveSettings,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

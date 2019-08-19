@@ -1,5 +1,6 @@
 import Ioc from '../ioc';
 import log from '../log';
+import { toArray } from '../libs/dom-lib';
 
 /**
  * Block preview controller
@@ -51,7 +52,8 @@ export default function BlockPreviewController($, selector, gmApi, addRule) { //
             '#block-element': blockElement,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

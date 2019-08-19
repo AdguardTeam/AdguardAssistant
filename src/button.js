@@ -11,6 +11,7 @@
  * @constructor
  */
 
+import $$, { hasClass, addClass } from './libs/dom-lib';
 import { HTML, CSS } from './inline-resources';
 
 export default function UIButton(
@@ -38,7 +39,8 @@ export default function UIButton(
     };
 
     const isButtonAlreadyInDOM = () => {
-        const already = $('.adguard-alert').length > 0;
+        const alert = document.querySelector('.adguard-alert');
+        const already = alert !== null;
 
         if (already) {
             log.error('Assistant button is already in DOM');
@@ -76,22 +78,26 @@ export default function UIButton(
      * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */
     const respectPageElements = (element) => {
-        const buttonInRightBottom = $(element).hasClass('adguard-assistant-button-bottom')
-            && $(element).hasClass('adguard-assistant-button-right');
+        const btn = $$(element);
+
+        const buttonInRightBottom = hasClass(btn, 'adguard-assistant-button-bottom')
+            && hasClass(btn, 'adguard-assistant-button-right');
 
         if (buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
-            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
+            addClass(btn, 'adguard-assistant-button-respect adguard-assistant-button-respect-vk');
         }
         if (buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
-            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
+            addClass(btn, 'adguard-assistant-button-respect adguard-assistant-button-respect-fb');
         }
         return false;
     };
 
-    const setPositionSettingsToButton = (btn) => {
+    const setPositionSettingsToButton = (elem) => {
+        const btn = $$(elem);
+
         const position = settings.getUserPositionForButton();
         if (settings.getIconSize()) {
-            $(btn).addClass('logo-small');
+            addClass(button, 'logo-small');
         }
 
         // The anchor determines from which side of the
@@ -151,8 +157,7 @@ export default function UIButton(
         }
 
         let isFullScreen = false;
-
-        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', () => {
+        const onFullScreen = () => {
             if (!isFullScreen) {
                 hideButton();
                 isFullScreen = true;
@@ -160,7 +165,10 @@ export default function UIButton(
                 showButton();
                 isFullScreen = false;
             }
-        });
+        };
+        document.addEventListener('webkitfullscreenchange', onFullScreen);
+        document.addEventListener('mozfullscreenchange', onFullScreen);
+        document.addEventListener('fullscreenchange', onFullScreen);
 
         isFullScreenEventsRegistered = true;
     };

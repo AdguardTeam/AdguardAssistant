@@ -1,6 +1,7 @@
 import { reloadPageBypassCache } from '../utils/common-utils';
 import Ioc from '../ioc';
 import { format } from '../utils/string-utils';
+import { addClass, removeClass, toArray } from '../libs/dom-lib';
 
 /**
  * Main menu controller
@@ -115,19 +116,19 @@ export default function DetailedMenuController(
         const wotReputationSettings = getWotReputationSettings(wotData);
 
         if (wotReputationSettings) {
-            const wotIndication = $(contentDocument.getElementById('WotIndication'));
-            const wotDescriptionText = contentDocument.getElementById('WotDescriptionText');
-            const confidenceIndication = $(contentDocument.getElementById('ConfidenceIndication'));
+            const wotIndication = contentDocument.querySelector('#WotIndication');
+            const wotDescriptionText = contentDocument.querySelector('#WotDescriptionText');
+            const confidenceIndication = contentDocument.querySelector('#ConfidenceIndication');
 
             contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
-            wotIndication.addClass(wotReputationSettings.class);
+            addClass(wotIndication, wotReputationSettings.class);
             const wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
             wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
 
             const wotConfidenceClass = getWotConfidenceClass(wotData);
             confidenceIndication.addClass(wotConfidenceClass);
 
-            $(contentDocument.getElementsByClassName('wot-hide')).removeClass('wot-hide');
+            removeClass(contentDocument.querySelectorAll('.wot-hide'), 'wot-hide');
         }
     };
 
@@ -157,12 +158,12 @@ export default function DetailedMenuController(
     };
 
     const showHideBlockAdButton = (isFilter) => {
+        const blockAd = contentDocument.querySelector('#block-ad');
         if (isFilter) {
-            $(contentDocument.getElementById('block-ad')).removeClass('hidden');
+            removeClass(blockAd, 'hidden');
         } else {
-            $(contentDocument.getElementById('block-ad')).addClass('hidden');
+            addClass(blockAd, 'hidden');
         }
-
         iframeCtrl.resizeIframe();
     };
 
@@ -188,7 +189,7 @@ export default function DetailedMenuController(
         const isFilter = contentDocument.getElementById('is-filter').checked;
 
         // animate class for prevent animation while the state from the application is determined
-        $(contentDocument.querySelectorAll('.menu-filter_label')).addClass('animate');
+        addClass(contentDocument.querySelectorAll('.menu-filter_label'), 'animate');
 
         showHideBlockAdButton(isFilter);
         setFilteringStateToStore(isFilter);
@@ -209,7 +210,8 @@ export default function DetailedMenuController(
             '#is-filter': onIsFilterChange,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

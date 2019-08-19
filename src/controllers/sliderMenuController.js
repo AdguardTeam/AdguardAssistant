@@ -1,5 +1,13 @@
 import Ioc from '../ioc';
 import { getParentsLevel, getAllChildren, events } from '../utils/common-utils';
+import {
+    hasClass,
+    addClass,
+    removeClass,
+    show,
+    hide,
+    toArray,
+} from '../libs/dom-lib';
 
 
 /**
@@ -38,14 +46,16 @@ export default function SliderMenuController(
     };
 
     const expandAdvanced = () => {
-        const hidden = !$(contentDocument.getElementById('advanced-settings')).hasClass('open');
+        const advancedSettings = contentDocument.querySelector('#advanced-settings');
+        const extendedSettingsText = contentDocument.querySelector('#ExtendedSettingsText');
+        const hidden = !hasClass(advancedSettings, 'open');
         if (hidden) {
-            $(contentDocument.getElementById('advanced-settings')).addClass('open');
-            $(contentDocument.getElementById('ExtendedSettingsText')).addClass('active');
+            addClass(advancedSettings, 'open');
+            addClass(extendedSettingsText, 'active');
             iframeCtrl.resizeSliderMenuToAdvanced();
         } else {
-            $(contentDocument.getElementById('advanced-settings')).removeClass('open');
-            $(contentDocument.getElementById('ExtendedSettingsText')).removeClass('active');
+            removeClass(advancedSettings, 'open');
+            removeClass(extendedSettingsText, 'active');
             iframeCtrl.resizeSliderMenuToNormal();
         }
     };
@@ -71,19 +81,19 @@ export default function SliderMenuController(
     };
 
     const handleShowBlockSettings = (showBlockByUrl, showBlockSimilar) => {
-        const blockByUrlBlock = $(contentDocument.getElementById('block-by-url-checkbox-block'));
-        const blockSimilarBlock = $(contentDocument.getElementById('block-similar-checkbox-block'));
+        const blockByUrlBlock = contentDocument.querySelector('#block-by-url-checkbox-block');
+        const blockSimilarBlock = contentDocument.querySelector('#block-similar-checkbox-block');
         if (showBlockByUrl) {
-            blockByUrlBlock.show();
+            show(blockByUrlBlock);
         } else {
             contentDocument.getElementById('block-by-url-checkbox').checked = false;
-            blockByUrlBlock.hide();
+            hide(blockByUrlBlock);
         }
         if (showBlockSimilar) {
-            blockSimilarBlock.show();
+            show(blockSimilarBlock);
         } else {
             contentDocument.getElementById('block-similar-checkbox').checked = false;
-            blockSimilarBlock.hide();
+            hide(blockSimilarBlock);
         }
     };
 
@@ -148,7 +158,8 @@ export default function SliderMenuController(
             '#block-similar-checkbox-block': onScopeChange,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 
@@ -181,13 +192,13 @@ export default function SliderMenuController(
 
         const min = 1;
         const options = { value, min, max };
-        const slider = contentDocument.getElementById('slider');
-        const sliderArea = contentDocument.getElementById('slider-area');
+        const slider = contentDocument.querySelector('#slider');
+        const sliderArea = contentDocument.querySelector('#slider-area');
 
         if (min === max) {
             // hide slider text
-            $(slider).hide();
-            $(contentDocument.getElementsByClassName('element-rule_text')).hide();
+            hide(slider);
+            hide(contentDocument.querySelectorAll('.element-rule_text'));
             expandAdvanced();
         }
 

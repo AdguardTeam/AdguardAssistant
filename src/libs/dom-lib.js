@@ -30,3 +30,19 @@ export const hasClass = (elem, className) => {
     const [target] = elems;
     return target.classList !== undefined && target.classList.contains(className);
 };
+
+export const show = (elem) => {
+    const elems = toArray(elem);
+    elems.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'block';
+    });
+};
+
+export const hide = (elem) => {
+    const elems = toArray(elem);
+    elems.forEach((item) => {
+        // eslint-disable-next-line no-param-reassign
+        item.style.display = 'none';
+    });
+};

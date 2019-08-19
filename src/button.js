@@ -77,9 +77,7 @@ export default function UIButton(
      * under the button there are important elements
      * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */
-    const respectPageElements = (element) => {
-        const btn = $$(element);
-
+    const respectPageElements = (btn) => {
         const buttonInRightBottom = hasClass(btn, 'adguard-assistant-button-bottom')
             && hasClass(btn, 'adguard-assistant-button-right');
 
@@ -92,12 +90,10 @@ export default function UIButton(
         return false;
     };
 
-    const setPositionSettingsToButton = (elem) => {
-        const btn = $$(elem);
-
+    const setPositionSettingsToButton = (btn) => {
         const position = settings.getUserPositionForButton();
         if (settings.getIconSize()) {
-            addClass(button, 'logo-small');
+            addClass(btn, 'logo-small');
         }
 
         // The anchor determines from which side of the

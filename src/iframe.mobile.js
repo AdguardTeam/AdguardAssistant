@@ -80,10 +80,8 @@ export default function IframeControllerMobile(
         }
 
         iframe = protectedApi.createElement('iframe');
-
-        $(iframe).on('load', () => {
+        iframe.addEventListener('load', () => {
             onIframeLoadCallback();
-
             updateIframeAttrs(attrs);
             updateIframeStyles(styles);
         });

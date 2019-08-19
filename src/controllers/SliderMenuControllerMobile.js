@@ -1,5 +1,6 @@
 import Ioc from '../ioc';
 import { getAllChildren, getParentsLevel } from '../utils/common-utils';
+import { toArray } from '../libs/dom-lib';
 
 
 /**
@@ -115,7 +116,8 @@ export default function SliderMenuControllerMobile(
             '.adg-minus': minus,
         };
         Object.keys(menuEvents).forEach((item) => {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
 
         window.addEventListener('orientationchange', iframeCtrl.showSelectorMenu);

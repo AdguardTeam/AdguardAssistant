@@ -112,12 +112,11 @@ export default function IframeController(
             iframe.setAttribute(item, attributes[item]);
         });
         let iframeAlreadyLoaded = false;
-        $(iframe).on('load', () => {
+        iframe.addEventListener('load', () => {
             if (iframeAlreadyLoaded) {
                 // IE calls load each time when we use document.close
                 return;
             }
-
             iframeAlreadyLoaded = true;
             onIframeLoadCallback();
         });

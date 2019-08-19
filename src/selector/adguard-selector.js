@@ -33,7 +33,7 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
     // PRIVATE METHODS
 
     const removeClassName = function (className) {
-        const elem = $$(`.${className}`);
+        const elem = document.querySelectorAll(`.${className}`);
         removeClass(elem, className);
     };
 
@@ -433,7 +433,7 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
             const current = elements[i];
             const id = PLACEHOLDER_PREFIX + i;
 
-            const placeHolder = $$(`#${id}`)[0];
+            const placeHolder = document.querySelector(`#${id}`);
             if (placeHolder) {
                 const parent = placeHolder.parentNode;
                 if (parent) {
@@ -498,11 +498,13 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
     };
 
     const makeIFrameAndEmbeddedSelector = function () {
-        placeholdedElements = $$(`iframe:not(.${IGNORED_CLASS}),embed,object`).filter((elem) => {
-            const isVisible = elem.style.display !== 'none';
-            const isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
-            return isVisible && isHaveSize;
-        });
+        placeholdedElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`)
+        toArray(placeholdedElements)
+            .filter((elem) => {
+                const isVisible = elem.style.display !== 'none';
+                const isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
+                return isVisible && isHaveSize;
+            });
 
         const elements = placeholdedElements;
         for (let i = 0; i < elements.length; i += 1) {
@@ -529,7 +531,7 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
                         placeholderClick(current);
                     });
 
-                    const elems = $$(`#${id}`);
+                    const elems = document.querySelectorAll(`#${id}`);
                     toArray(elems).forEach((elem) => {
                         elem.addEventListener('click', (e) => {
                             e.preventDefault();
@@ -578,9 +580,8 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
 
     const setupEventHandlers = function () {
         makeIFrameAndEmbeddedSelector();
-        const elements = $$(`body *:not(.${IGNORED_CLASS})`);
-
-        elements.forEach((el) => {
+        const elements = document.querySelectorAll(`body *:not(.${IGNORED_CLASS})`);
+        toArray(elements).forEach((el) => {
             el.addEventListener('gestureend', gestureEndHandler);
             el.addEventListener('touchmove', touchMoveHandler);
             el.addEventListener('touchend', elementTouchendHandler, true);
@@ -594,8 +595,8 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
     const deleteEventHandlers = function () {
         removePlaceholders();
 
-        const elements = $$('body *');
-        elements.forEach((el) => {
+        const elements = document.querySelectorAll('body *');
+        toArray(elements).forEach((el) => {
             el.removeEventListener('gestureend', gestureEndHandler);
             el.removeEventListener('touchmove', touchMoveHandler);
             el.removeEventListener('touchend', elementTouchendHandler, true);
@@ -624,7 +625,7 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
         }
 
         restrictedElements = ['html', 'body', 'head', 'base']
-            .map(selector => $$(selector)[0]);
+            .map(selector => document.querySelector(selector));
 
         selectionRenderer.init();
         setupEventHandlers();

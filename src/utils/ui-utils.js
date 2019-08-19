@@ -1,4 +1,5 @@
 import { events } from './common-utils';
+import { addClass, removeClass } from '../libs/dom-lib';
 
 /**
  * UI utils
@@ -76,22 +77,22 @@ export default function UIUtils($, protectedApi) {
             storedAnchor.top = anchor;
 
             if (storedAnchor.top) {
-                $(element).addClass('adguard-assistant-button-top');
-                $(element).removeClass('adguard-assistant-button-bottom');
+                addClass(element, 'adguard-assistant-button-top');
+                removeClass(element, 'adguard-assistant-button-bottom');
             } else {
-                $(element).addClass('adguard-assistant-button-bottom');
-                $(element).removeClass('adguard-assistant-button-top');
+                addClass(element, 'adguard-assistant-button-bottom');
+                removeClass(element, 'adguard-assistant-button-top');
             }
         },
         positionX(element, anchor) {
             storedAnchor.left = anchor;
 
             if (storedAnchor.left) {
-                $(element).addClass('adguard-assistant-button-left');
-                $(element).removeClass('adguard-assistant-button-right');
+                addClass(element, 'adguard-assistant-button-left');
+                removeClass(element, 'adguard-assistant-button-right');
             } else {
-                $(element).addClass('adguard-assistant-button-right');
-                $(element).removeClass('adguard-assistant-button-left');
+                addClass(element, 'adguard-assistant-button-right');
+                removeClass(element, 'adguard-assistant-button-left');
             }
         },
     };

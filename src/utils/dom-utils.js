@@ -2,14 +2,6 @@ export const toArray = elems => (elems && elems.length !== undefined
     ? Array.prototype.slice.call(elems)
     : [elems]);
 
-
-export default function $$(elem) {
-    if (typeof elem === 'string') {
-        return toArray(document.querySelectorAll(elem));
-    }
-    return elem;
-}
-
 export const addClass = (elem, className) => {
     const elems = toArray(elem);
     elems.forEach((item) => {

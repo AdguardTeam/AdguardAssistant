@@ -2,7 +2,6 @@
 /*
     global
     AdguardSettings,
-    balalaika,
     ADG_addRule,
     ADG_temporaryDontBlock,
     ADG_sendAbuse,
@@ -61,12 +60,11 @@ export const adguardAssistantExtended = () => {
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
-    Ioc.register('$', balalaika); // concat via webpack
-    Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
+    Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
-    Ioc.register('sliderWidget', new SliderWidget({}, balalaika, protectedApiCtrl));
+    Ioc.register('sliderWidget', new SliderWidget({}, protectedApiCtrl));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
     const button = Ioc.get(UIButton);
     const runSheduler = Ioc.get(RunSheduler);
@@ -86,8 +84,7 @@ export const adguardAssistantMini = () => ({
         const protectedApiCtrl = Ioc.get(ProtectedApi);
         Ioc.register('log', new Log());
         Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
-        Ioc.register('$', balalaika);
-        Ioc.register('selector', new AdguardSelectorLib({}, balalaika, protectedApiCtrl));
+        Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
         Ioc.register('uiUtils', Ioc.get(UIUtils));
         Ioc.register('localization', Ioc.get(Localization));
         const iframeController = Ioc.get(IframeControllerMobile);

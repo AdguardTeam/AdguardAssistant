@@ -12,7 +12,6 @@ import SettingsMenuController from './controllers/settingsMenuController';
 
 /**
  * Manages iframe and it's content
- * @param $
  * @param settings
  * @param uiUtils
  * @param gmApi
@@ -36,7 +35,6 @@ import SettingsMenuController from './controllers/settingsMenuController';
  * @constructor
  */
 export default function IframeController(
-    $,
     settings,
     uiUtils,
     gmApi,

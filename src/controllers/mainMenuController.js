@@ -1,11 +1,10 @@
 import { reloadPageBypassCache } from '../utils/common-utils';
 import Ioc from '../ioc';
 import { format } from '../utils/string-utils';
-import { addClass, removeClass, toArray } from '../libs/dom-lib';
+import { addClass, removeClass, toArray } from '../utils/dom-utils';
 
 /**
  * Main menu controller
- * @param $
  * @param wot
  * @param localization
  * @param gmApi
@@ -13,7 +12,6 @@ import { addClass, removeClass, toArray } from '../libs/dom-lib';
  * @constructor
  */
 export default function DetailedMenuController(
-    $,
     wot,
     localization,
     gmApi,
@@ -126,7 +124,7 @@ export default function DetailedMenuController(
             wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
 
             const wotConfidenceClass = getWotConfidenceClass(wotData);
-            confidenceIndication.addClass(wotConfidenceClass);
+            addClass(confidenceIndication, wotConfidenceClass);
 
             removeClass(contentDocument.querySelectorAll('.wot-hide'), 'wot-hide');
         }

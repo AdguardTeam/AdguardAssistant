@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign, func-names */
-import $$, {
+import {
     removeClass,
     hasClass,
     addStyle,
     hide,
     toArray,
     show,
-} from '../libs/dom-lib';
+} from '../utils/dom-utils';
 
 /**
  * Adguard selector library
  * @type {Function}
  */
-const AdguardSelectorLib = (function (api, $, protectedApi) {
+const AdguardSelectorLib = (function (api, protectedApi) {
     const PLACEHOLDER_PREFIX = 'adguard-placeholder';
     let placeholdedElements = null;
     let transparentPlaceholdedElement = null;
@@ -498,7 +498,7 @@ const AdguardSelectorLib = (function (api, $, protectedApi) {
     };
 
     const makeIFrameAndEmbeddedSelector = function () {
-        placeholdedElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`)
+        placeholdedElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`);
         toArray(placeholdedElements)
             .filter((elem) => {
                 const isVisible = elem.style.display !== 'none';

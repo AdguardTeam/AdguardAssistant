@@ -1,11 +1,10 @@
 import Ioc from '../ioc';
 import { getAllChildren, getParentsLevel } from '../utils/common-utils';
-import { toArray } from '../libs/dom-lib';
+import { toArray } from '../utils/dom-utils';
 
 
 /**
  * Slider menu controller mobile
- * @param $
  * @param selector
  * @param adguardRulesConstructor
  * @param localization
@@ -14,10 +13,8 @@ import { toArray } from '../libs/dom-lib';
  * @constructor
  */
 export default function SliderMenuControllerMobile(
-    $,
     selector,
     adguardRulesConstructor,
-    localization,
     addRule,
 ) {
     let contentDocument = null;

@@ -3,7 +3,6 @@
  * @param log Logger
  * @param settings User settings
  * @param uiValidationUtils Validation utils
- * @param $ balalaika
  * @param gmApi Gm API impl
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
@@ -11,15 +10,13 @@
  * @constructor
  */
 
-import $$, { hasClass, addClass } from './libs/dom-lib';
+import { hasClass, addClass } from './utils/dom-utils';
 import { HTML, CSS } from './inline-resources';
 
 export default function UIButton(
     log,
     settings,
     uiValidationUtils,
-    $,
-    gmApi,
     uiUtils,
     iframeController,
     protectedApi,

@@ -7,7 +7,6 @@ import CustomEvent from './event';
 
 /**
  * Manages iframe and it's content
- * @param $
  * @param log
  * @param selector
  * @param localization
@@ -22,7 +21,6 @@ import CustomEvent from './event';
  * @constructor
  */
 export default function IframeControllerMobile(
-    $,
     log,
     selector,
     localization,

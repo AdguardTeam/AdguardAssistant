@@ -7,12 +7,11 @@ import {
     show,
     hide,
     toArray,
-} from '../libs/dom-lib';
+} from '../utils/dom-utils';
 
 
 /**
  * Slider menu controller
- * @param $
  * @param selector
  * @param sliderWidget
  * @param settings
@@ -24,13 +23,9 @@ import {
  * @constructor
  */
 export default function SliderMenuController(
-    $,
     selector,
     sliderWidget,
-    settings,
     adguardRulesConstructor,
-    localization,
-    gmApi,
     addRule,
 ) {
     let contentDocument = null;

@@ -1,17 +1,15 @@
 import Ioc from '../ioc';
 import log from '../log';
-import { toArray } from '../libs/dom-lib';
+import { toArray } from '../utils/dom-utils';
 
 /**
  * Block preview controller
- * @param $
  * @param selector
- * @param gmApi
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-export default function BlockPreviewController($, selector, gmApi, addRule) { // jshint ignore:line
+export default function BlockPreviewController(selector, addRule) { // jshint ignore:line
     let contentDocument = null;
     let currentElement = null;
     let selectedElement = null;

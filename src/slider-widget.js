@@ -1,10 +1,10 @@
-import { addStyle, addClass } from './libs/dom-lib';
+import { addStyle, addClass } from './utils/dom-utils';
 
 /**
  * Slider widget
  * @type {Function}
  */
-export default function SliderWidget(api, $, protectedApi) {
+export default function SliderWidget(api, protectedApi) {
     const PLACEHOLDER_CLASS = 'adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all';
     const HANDLE_CLASS = 'ui-slider-handle';
     const HANDLE_FULL_CLASS = 'ui-slider-handle ui-state-default ui-corner-all';

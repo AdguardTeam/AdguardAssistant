@@ -1,13 +1,12 @@
 import { events } from './common-utils';
-import { addClass, removeClass } from '../libs/dom-lib';
+import { addClass, removeClass } from './dom-utils';
 
 /**
  * UI utils
- * @param $
  * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function}}
  * @constructor
  */
-export default function UIUtils($, protectedApi) {
+export default function UIUtils(protectedApi) {
     let elWidth;
     let elHeight;
     let windowWidth;

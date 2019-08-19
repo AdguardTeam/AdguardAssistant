@@ -1,47 +1,46 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable func-names */
 /**
- * 
+ *
  * TODO: make class
  * TODO: lint
  * Adguard selector library
  * @type {Function}
  */
-const AdguardSelectorLib = (function(api, $, protectedApi) {
+const AdguardSelectorLib = (function (api, $, protectedApi) {
     // PRIVATE FIELDS
 
-    var PLACEHOLDER_PREFIX = 'adguard-placeholder';
-    var placeholdedElements = null;
-    var transparentPlaceholdedElement = null;
+    const PLACEHOLDER_PREFIX = 'adguard-placeholder';
+    let placeholdedElements = null;
+    let transparentPlaceholdedElement = null;
 
-    var restrictedElements = null;
+    let restrictedElements = null;
 
-    var SELECTED_CLASS = 'adguard_sg_selected';
-    var REJECTED_CLASS = 'adguard_sg_rejected';
-    var IGNORED_CLASS = 'adguard_sg_ignore';
+    const SELECTED_CLASS = 'adguard_sg_selected';
+    const REJECTED_CLASS = 'adguard_sg_rejected';
+    const IGNORED_CLASS = 'adguard_sg_ignore';
 
-    var selectedElements = [];
-    var rejectedElements = [];
+    let unbound = true;
+    let onElementSelectedHandler = null;
 
-    var selectMode = 'exact';
-    var unbound = true;
-    var onElementSelectedHandler = null;
+    let ignoreTouchEvent = 0;
 
-    var ignoreTouchEvent = 0;
-
-    var selectionRenderer;
+    let selectionRenderer;
 
     // PRIVATE METHODS
 
-    var removeClassName = function(className) {
-        $('.' + className).removeClass(className);
+    const removeClassName = function (className) {
+        $(`.${className}`).removeClass(className);
     };
 
-    var firstSelectedOrSuggestedParent = function(element) {
+    const firstSelectedOrSuggestedParent = function (element) {
         if ($(element).hasClass(SELECTED_CLASS)) {
             return element;
         }
 
+        // eslint-disable-next-line no-cond-assign, no-param-reassign
         while (element.parentNode && (element = element.parentNode)) {
-            if (restrictedElements.indexOf(element) == -1) {
+            if (restrictedElements.indexOf(element) === -1) {
                 if ($(element).hasClass(SELECTED_CLASS)) {
                     return element;
                 }
@@ -51,23 +50,95 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         return null;
     };
 
-    var px = function(p) {
-        return p + 'px';
+    const px = function (p) {
+        return `${p}px`;
     };
 
-    var getTagPath = function(element) {
+    const getTagPath = function (element) {
         if (element.parentNode) {
-            return element.parentNode.tagName.toLowerCase() + ' ' + element.tagName.toLowerCase();
-        } else {
-            return element.tagName.toLowerCase();
+            return `${element.parentNode.tagName.toLowerCase()} ${element.tagName.toLowerCase()}`;
         }
+        return element.tagName.toLowerCase();
     };
 
-    var clearSelected = function() {
-        removeElementToPreventEvents();
-        selectedElements = [];
-        rejectedElements = [];
+    /** ******** Events ************** */
+    const sgMouseoverHandler = function (e) {
+        e.stopPropagation();
 
+        if (unbound) {
+            return true;
+        }
+
+        if (this === document.documentElement || this === document.documentElement.parentNode) {
+            return false;
+        }
+
+        const parent = firstSelectedOrSuggestedParent(this);
+        if (parent !== null && parent !== this) {
+            selectionRenderer.add(parent);
+        } else {
+            selectionRenderer.add(this);
+        }
+
+        return false;
+    };
+
+    // e.isTrusted checking for prevent programmatically events
+    // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
+    const sgMousedownHandler = function (e) {
+        if (e && e.isTrusted === false) return false;
+        if ($(e.target).hasClass(IGNORED_CLASS)) return false;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (unbound) {
+            return true;
+        }
+
+        let elem = e.target;
+
+        const borders = elem === selectionRenderer.borderTop[0]
+            || elem === selectionRenderer.borderLeft[0]
+            || elem === selectionRenderer.borderRight[0]
+            || elem === selectionRenderer.borderBottom[0];
+
+        if (borders) {
+            // Clicked on one of our floating borders, target the element that we are bordering.
+            elem = elem.target_elem || elem;
+        }
+
+        if (elem === document.documentElement || elem === document.documentElement.parentNode) {
+            return undefined;
+        }
+
+        selectionRenderer.remove();
+
+        onElementSelectedHandler(elem);
+
+        return false;
+    };
+
+    /** ******** Touch event handlers ************** */
+    const touchElementSelectHandler = function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        sgMouseoverHandler.call(this, e);
+        sgMousedownHandler.call(this, e);
+    };
+
+
+    const removeElementToPreventEvents = function () {
+        if (!transparentPlaceholdedElement) {
+            return false;
+        }
+        $(transparentPlaceholdedElement).off('click touchstart pointerdown', touchElementSelectHandler);
+        transparentPlaceholdedElement.parentNode.removeChild(transparentPlaceholdedElement);
+        transparentPlaceholdedElement = null;
+        return undefined;
+    };
+
+    const clearSelected = function () {
+        removeElementToPreventEvents();
         removeClassName(SELECTED_CLASS);
         removeClassName(REJECTED_CLASS);
 
@@ -80,18 +151,18 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      * @param elem
      * @returns {{top: number, left: number, outerWidth: number, outerHeight: number}}
      */
-    var getOffsetExtended = function(elem) {
-        var bodyRect = document.documentElement.getBoundingClientRect();
-        var elemRect = elem.getBoundingClientRect();
+    const getOffsetExtended = function (elem) {
+        const bodyRect = document.documentElement.getBoundingClientRect();
+        const elemRect = elem.getBoundingClientRect();
 
-        var rectTop = elemRect.top - bodyRect.top;
-        var rectLeft = elemRect.left - bodyRect.left;
+        const rectTop = elemRect.top - bodyRect.top;
+        const rectLeft = elemRect.left - bodyRect.left;
 
         return {
             top: rectTop,
             left: rectLeft,
             outerWidth: elem.offsetWidth,
-            outerHeight: elem.offsetHeight
+            outerHeight: elem.offsetHeight,
         };
     };
 
@@ -104,19 +175,20 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      * @param element
      * @private
      */
-    var BorderSelectionRenderer = (function(api) {
-        var BORDER_WIDTH = 5;
-        var BORDER_PADDING = 2;
+    // eslint-disable-next-line no-shadow
+    const BorderSelectionRenderer = (function (api) {
+        const BORDER_WIDTH = 5;
+        const BORDER_PADDING = 2;
 
-        var BORDER_CSS = {
-            'position': 'absolute',
-            'background': 'white',
-            'margin': '0px',
-            'padding': '0px',
-            'display': 'block',
-            'float': 'none',
-            'border': '0',
-            'outline': '0',
+        const BORDER_CSS = {
+            position: 'absolute',
+            background: 'white',
+            margin: '0px',
+            padding: '0px',
+            display: 'block',
+            float: 'none',
+            border: '0',
+            outline: '0',
             'background-color': '#13a35e',
             'font-style': 'normal',
             'vertical-align': 'baseline',
@@ -127,26 +199,26 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
             'max-height': 'auto',
             'min-width': 'auto',
             'max-width': 'auto',
-            'width': 0,
-            'height': 0,
+            width: 0,
+            height: 0,
             'z-index': 2147483646,
-            'border-radius': 0
+            'border-radius': 0,
         };
 
-        var BORDER_BOTTOM_CSS = {
+        const BORDER_BOTTOM_CSS = {
             'font-size': '10px',
             'font-weight': 'bold',
-            'color': 'white',
-            'padding': '2px 0px 2px 5px',
-            'overflow': 'hidden',
+            color: 'white',
+            padding: '2px 0px 2px 5px',
+            overflow: 'hidden',
         };
 
-        var borderTop = null;
-        var borderLeft = null;
-        var borderRight = null;
-        var borderBottom = null;
+        let borderTop = null;
+        let borderLeft = null;
+        let borderRight = null;
+        let borderBottom = null;
 
-        var showBorders = function() {
+        const showBorders = function () {
             if (borderTop && borderBottom && borderLeft && borderRight) {
                 borderTop.show();
                 borderBottom.show();
@@ -155,29 +227,29 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
             }
         };
 
-        var addBorderToDom = function() {
+        const addBorderToDom = function () {
             document.documentElement.appendChild(borderTop.get(0));
             document.documentElement.appendChild(borderBottom.get(0));
             document.documentElement.appendChild(borderLeft.get(0));
             document.documentElement.appendChild(borderRight.get(0));
         };
 
-        var addBorderCSS = function() {
-            Object.keys(BORDER_CSS).forEach(function (item) {
+        const addBorderCSS = function () {
+            Object.keys(BORDER_CSS).forEach((item) => {
                 borderTop[0].style[item] = BORDER_CSS[item];
                 borderBottom[0].style[item] = BORDER_CSS[item];
                 borderLeft[0].style[item] = BORDER_CSS[item];
                 borderRight[0].style[item] = BORDER_CSS[item];
             });
 
-            Object.keys(BORDER_BOTTOM_CSS).forEach(function (item) {
+            Object.keys(BORDER_BOTTOM_CSS).forEach((item) => {
                 borderBottom[0].style[item] = BORDER_BOTTOM_CSS[item];
             });
         };
 
-        var removeBorderFromDom = function() {
+        const removeBorderFromDom = function () {
             if (borderTop && borderTop.get(0)) {
-                var parent = borderTop.get(0).parentNode;
+                const parent = borderTop.get(0).parentNode;
 
                 if (parent) {
                     parent.removeChild(borderTop.get(0));
@@ -187,25 +259,44 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
                 }
             }
 
-            borderTop = borderBottom = borderRight = borderLeft = null;
+            borderTop = null;
+            borderBottom = null;
+            borderRight = null;
+            borderLeft = null;
         };
 
         /**
          * Preparing renderer.
          */
-        api.init = function() {
+        api.init = function () {
             if (!borderTop) {
-                var width = px(BORDER_WIDTH);
-                var bottomHeight = px(BORDER_WIDTH + 6);
+                const width = px(BORDER_WIDTH);
+                const bottomHeight = px(BORDER_WIDTH + 6);
 
-                borderTop = $(protectedApi.createElement('div')).css('height', width).hide().on('click', sgMousedownHandler);
-                borderBottom = $(protectedApi.createElement('div')).css('height', bottomHeight).hide().on('click', sgMousedownHandler);
-                borderLeft = $(protectedApi.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
-                borderRight = $(protectedApi.createElement('div')).css('width', width).hide().on('click', sgMousedownHandler);
+                borderTop = $(protectedApi.createElement('div'))
+                    .css('height', width)
+                    .hide()
+                    .on('click', sgMousedownHandler);
+                borderBottom = $(protectedApi.createElement('div'))
+                    .css('height', bottomHeight)
+                    .hide()
+                    .on('click', sgMousedownHandler);
+                borderLeft = $(protectedApi.createElement('div'))
+                    .css('width', width)
+                    .hide()
+                    .on('click', sgMousedownHandler);
+                borderRight = $(protectedApi.createElement('div'))
+                    .css('width', width)
+                    .hide()
+                    .on('click', sgMousedownHandler);
 
+                // eslint-disable-next-line prefer-destructuring
                 api.borderTop = borderTop[0];
+                // eslint-disable-next-line prefer-destructuring
                 api.borderBottom = borderBottom[0];
+                // eslint-disable-next-line prefer-destructuring
                 api.borderLeft = borderLeft[0];
+                // eslint-disable-next-line prefer-destructuring
                 api.borderRight = borderRight[0];
 
                 addBorderCSS();
@@ -216,7 +307,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         /**
          * Clearing DOM and so on.
          */
-        api.finalize = function() {
+        api.finalize = function () {
             removeBorderFromDom();
         };
 
@@ -225,19 +316,19 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
          *
          * @param element
          */
-        api.add = function(element) {
+        api.add = function (element) {
             api.remove();
 
             if (!element) {
                 return;
             }
 
-            var p = getOffsetExtended(element);
+            const p = getOffsetExtended(element);
 
-            var top = p.top;
-            var left = p.left;
-            var width = p.outerWidth;
-            var height = p.outerHeight;
+            const { top } = p;
+            const { left } = p;
+            const width = p.outerWidth;
+            const height = p.outerHeight;
 
             borderTop.css('width', px(width + BORDER_PADDING * 2 + BORDER_WIDTH * 2))
                 .css('height', px(5))
@@ -260,7 +351,10 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
                 .css('left', px(left + width + BORDER_PADDING));
 
             borderBottom.get(0).textContent = getTagPath(element);
-            borderRight.get(0).target_elem = borderLeft.get(0).target_elem = borderTop.get(0).target_elem = borderBottom.get(0).target_elem = element;
+            borderRight.get(0).target_elem = element;
+            borderLeft.get(0).target_elem = element;
+            borderTop.get(0).target_elem = element;
+            borderBottom.get(0).target_elem = element;
 
             showBorders();
         };
@@ -268,7 +362,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         /**
          * Removes borders
          */
-        api.remove = function() {
+        api.remove = function () {
             if (borderTop && borderBottom && borderLeft && borderRight) {
                 borderTop.hide();
                 borderBottom.hide();
@@ -278,10 +372,11 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         };
 
         return api;
-    })(BorderSelectionRenderer || {});
+        // eslint-disable-next-line no-use-before-define
+    }(BorderSelectionRenderer || {}));
 
-    var linkHelper = protectedApi.createElement('a');
-    var getHost = function(url) {
+    const linkHelper = protectedApi.createElement('a');
+    const getHost = function (url) {
         if (!url) {
             return '';
         }
@@ -290,9 +385,9 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         return linkHelper.hostname;
     };
 
-    var makePlaceholderImage = function(element) {
-        var placeHolder = protectedApi.createElement('div');
-        var style = window.getComputedStyle(element);
+    const makePlaceholderImage = function (element) {
+        const placeHolder = protectedApi.createElement('div');
+        const style = window.getComputedStyle(element);
         placeHolder.style.height = style.height;
         placeHolder.style.width = style.width;
         placeHolder.style.position = style.position;
@@ -300,14 +395,14 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         placeHolder.style.bottom = style.bottom;
         placeHolder.style.left = style.left;
         placeHolder.style.right = style.right;
-        placeHolder.className += PLACEHOLDER_PREFIX + ' ' + IGNORED_CLASS;
+        placeHolder.className += `${PLACEHOLDER_PREFIX} ${IGNORED_CLASS}`;
 
-        var icon = protectedApi.createElement('div');
-        icon.className += PLACEHOLDER_PREFIX + '-icon ' + IGNORED_CLASS;
+        const icon = protectedApi.createElement('div');
+        icon.className += `${PLACEHOLDER_PREFIX}-icon ${IGNORED_CLASS}`;
 
-        var domain = protectedApi.createElement('div');
+        const domain = protectedApi.createElement('div');
         domain.textContent = getHost(element.src);
-        domain.className += PLACEHOLDER_PREFIX + '-domain ' + IGNORED_CLASS;
+        domain.className += `${PLACEHOLDER_PREFIX}-domain ${IGNORED_CLASS}`;
 
         icon.appendChild(domain);
         placeHolder.appendChild(icon);
@@ -315,19 +410,19 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         return placeHolder;
     };
 
-    var removePlaceholders = function() {
+    const removePlaceholders = function () {
         removeElementToPreventEvents();
         if (!placeholdedElements) {
             return;
         }
-        var elements = placeholdedElements;
-        for (var i = 0; i < elements.length; i++) {
-            var current = elements[i];
-            var id = PLACEHOLDER_PREFIX + i;
+        const elements = placeholdedElements;
+        for (let i = 0; i < elements.length; i += 1) {
+            const current = elements[i];
+            const id = PLACEHOLDER_PREFIX + i;
 
-            var placeHolder = $('#' + id).get(0);
+            const placeHolder = $(`#${id}`).get(0);
             if (placeHolder) {
-                var parent = placeHolder.parentNode;
+                const parent = placeHolder.parentNode;
                 if (parent) {
                     parent.replaceChild(current, placeHolder);
                 }
@@ -337,7 +432,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         placeholdedElements = null;
     };
 
-    var placeholderClick = function(element) {
+    const placeholderClick = function (element) {
         selectionRenderer.remove();
         removePlaceholders();
 
@@ -350,9 +445,9 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      *
      * @param element element where ad is added
      */
-    var preventEvents = function(element) {
-        var placeHolder = protectedApi.createElement('div');
-        var style = getOffsetExtended(element);
+    const preventEvents = function (element) {
+        const placeHolder = protectedApi.createElement('div');
+        const style = getOffsetExtended(element);
         placeHolder.style.height = px(style.outerHeight);
         placeHolder.style.width = px(style.outerWidth);
         placeHolder.style.top = px(style.top);
@@ -368,38 +463,50 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         document.documentElement.appendChild(placeHolder);
     };
 
-    var removeElementToPreventEvents = function() {
-        if (!transparentPlaceholdedElement) {
-            return false;
-        }
-        $(transparentPlaceholdedElement).off('click touchstart pointerdown', touchElementSelectHandler);
-        transparentPlaceholdedElement.parentNode.removeChild(transparentPlaceholdedElement);
-        transparentPlaceholdedElement = null;
+    const gestureEndHandler = function () {
+        ignoreTouchEvent = 2;
+        return true;
     };
 
-    var makeIFrameAndEmbeddedSelector = function() {
-        placeholdedElements = $('iframe:not(.' + IGNORED_CLASS + '),embed,object').filter(function(elem) {
-            var isVisible = elem.style.display != 'none';
-            var isHaveSize = elem.offsetWidth != 0 && elem.offsetHeight != 0;
+    const touchMoveHandler = function () {
+        ignoreTouchEvent = 1;
+        return true;
+    };
+
+    const needIgnoreTouchEvent = function () {
+        if (ignoreTouchEvent > 0) {
+            ignoreTouchEvent -= 1;
+            return true;
+        }
+
+        return false;
+    };
+
+    const makeIFrameAndEmbeddedSelector = function () {
+        placeholdedElements = $(`iframe:not(.${IGNORED_CLASS}),embed,object`).filter((elem) => {
+            const isVisible = elem.style.display !== 'none';
+            const isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
             return isVisible && isHaveSize;
         });
 
-        var elements = placeholdedElements;
-        for (var i = 0; i < elements.length; i++) {
-            var current = elements[i];
-            (function(current) {
-                var placeHolder = makePlaceholderImage(current);
-                var id = PLACEHOLDER_PREFIX + i;
+        const elements = placeholdedElements;
+        for (let i = 0; i < elements.length; i += 1) {
+            const current = elements[i];
+            // eslint-disable-next-line no-shadow
+            (function (current) {
+                const placeHolder = makePlaceholderImage(current);
+                const id = PLACEHOLDER_PREFIX + i;
 
                 placeHolder.setAttribute('id', id);
 
-                var parent = current.parentNode;
+                const parent = current.parentNode;
                 if (parent) {
                     parent.replaceChild(placeHolder, current);
 
                     $(placeHolder).on('gestureend', gestureEndHandler);
                     $(placeHolder).on('touchmove', touchMoveHandler);
-                    $(placeHolder).on('touchend', function(e) {
+                    // eslint-disable-next-line consistent-return
+                    $(placeHolder).on('touchend', (e) => {
                         e.preventDefault();
 
                         if (needIgnoreTouchEvent()) {
@@ -409,46 +516,22 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
                         placeholderClick(current);
                     });
 
-                    $('#' + id).on('click', function(e) {
+                    $(`#${id}`).on('click', (e) => {
                         e.preventDefault();
 
                         placeholderClick(current);
                     });
-
                 }
-
-            })(current);
+            }(current));
         }
     };
 
-    /********** Events ***************/
-    var sgMouseoverHandler = function(e) {
-        e.stopPropagation();
-
+    const sgMouseoutHandler = function () {
         if (unbound) {
             return true;
         }
 
-        if (this == document.documentElement || this == document.documentElement.parentNode) {
-            return false;
-        }
-
-        var parent = firstSelectedOrSuggestedParent(this);
-        if (parent != null && parent != this) {
-            selectionRenderer.add(parent);
-        } else {
-            selectionRenderer.add(this);
-        }
-
-        return false;
-    };
-
-    var sgMouseoutHandler = function() {
-        if (unbound) {
-            return true;
-        }
-
-        if (this == document.documentElement || this == document.documentElement.parentNode) {
+        if (this === document.documentElement || this === document.documentElement.parentNode) {
             return false;
         }
 
@@ -456,63 +539,8 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         return false;
     };
 
-    // e.isTrusted checking for prevent programmatically events
-    // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
-    var sgMousedownHandler = function(e) {
-        if (e && e.isTrusted === false) return false;
+    const elementTouchendHandler = function (e) {
         if ($(e.target).hasClass(IGNORED_CLASS)) return false;
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        if (unbound) {
-            return true;
-        }
-
-        var elem = e.target;
-
-        var borders =
-            elem == selectionRenderer.borderTop[0] ||
-            elem == selectionRenderer.borderLeft[0] ||
-            elem == selectionRenderer.borderRight[0] ||
-            elem == selectionRenderer.borderBottom[0];
-
-        if (borders) {
-            //Clicked on one of our floating borders, target the element that we are bordering.
-            elem = elem.target_elem || elem;
-        }
-
-        if (elem == document.documentElement || elem == document.documentElement.parentNode) {
-            return;
-        }
-
-        selectionRenderer.remove();
-
-        onElementSelectedHandler(elem);
-
-        return false;
-    };
-
-    /********** Touch event handlers ***************/
-    var touchElementSelectHandler = function(e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        sgMouseoverHandler.call(this, e);
-        sgMousedownHandler.call(this, e);
-    };
-
-    var needIgnoreTouchEvent = function() {
-
-        if (ignoreTouchEvent > 0) {
-
-            ignoreTouchEvent--;
-            return true;
-        }
-
-        return false;
-    };
-
-    var elementTouchendHandler = function(e) {
-        if($(e.target).hasClass(IGNORED_CLASS)) return false;
 
         e.stopPropagation();
 
@@ -524,28 +552,18 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         return false;
     };
 
-    var emptyEventHandler = function(e) {
+    const emptyEventHandler = function (e) {
         e.stopPropagation();
 
         return false;
     };
 
-    var gestureEndHandler = function() {
-        ignoreTouchEvent = 2;
-        return true;
-    };
 
-    var touchMoveHandler = function() {
-        ignoreTouchEvent = 1;
-        return true;
-    };
-
-
-    var setupEventHandlers = function() {
+    const setupEventHandlers = function () {
         makeIFrameAndEmbeddedSelector();
-        var elements = $('body *:not(.' + IGNORED_CLASS + ')');
+        const elements = $(`body *:not(.${IGNORED_CLASS})`);
 
-        elements.forEach(function(el) {
+        elements.forEach((el) => {
             el.addEventListener('gestureend', gestureEndHandler);
             el.addEventListener('touchmove', touchMoveHandler);
             el.addEventListener('touchend', elementTouchendHandler, true);
@@ -556,11 +574,11 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         });
     };
 
-    var deleteEventHandlers = function() {
+    const deleteEventHandlers = function () {
         removePlaceholders();
 
-        var elements = $('body *');
-        elements.forEach(function(el) {
+        const elements = $('body *');
+        elements.forEach((el) => {
             el.removeEventListener('gestureend', gestureEndHandler);
             el.removeEventListener('touchmove', touchMoveHandler);
             el.removeEventListener('touchend', elementTouchendHandler, true);
@@ -571,7 +589,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
         });
     };
 
-    //Define default implementation of selection renderer.
+    // Define default implementation of selection renderer.
     selectionRenderer = BorderSelectionRenderer;
 
     // PUBLIC API
@@ -582,16 +600,14 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      * @param onElementSelected callback function
      * @param selectionRenderImpl optional object contains selection presentation implementation
      */
-    api.init = function(onElementSelected, selectionRenderImpl) {
-
+    api.init = function (onElementSelected, selectionRenderImpl) {
         onElementSelectedHandler = onElementSelected;
         if (selectionRenderImpl && typeof selectionRenderImpl === 'object') {
             selectionRenderer = selectionRenderImpl;
         }
 
-        restrictedElements = ['html', 'body', 'head', 'base'].map(function(selector) {
-            return $(selector).get(0);
-        });
+        restrictedElements = ['html', 'body', 'head', 'base']
+            .map(selector => $(selector).get(0));
 
         selectionRenderer.init();
         setupEventHandlers();
@@ -602,7 +618,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      * Resets state of selector.
      * Clears current selection.
      */
-    api.reset = function() {
+    api.reset = function () {
         clearSelected();
     };
 
@@ -610,7 +626,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      * Destroys selector module.
      * Removes all selector elements and unbinds event handlers.
      */
-    api.close = function() {
+    api.close = function () {
         unbound = true;
 
         selectionRenderer.finalize();
@@ -623,7 +639,7 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      *
      * @param element
      */
-    api.selectElement = function(element) {
+    api.selectElement = function (element) {
         selectionRenderer.add(element);
         removePlaceholders();
         unbound = true;
@@ -634,12 +650,12 @@ const AdguardSelectorLib = (function(api, $, protectedApi) {
      Returns css class name.
      If this class assigns to HTML element, then Adguard Selector ignores it.
      */
-    api.ignoreClassName = function() {
+    // eslint-disable-next-line func-names
+    api.ignoreClassName = function () {
         return IGNORED_CLASS;
     };
 
     return api;
-
 });
 
 export default AdguardSelectorLib;

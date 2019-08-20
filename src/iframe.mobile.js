@@ -7,10 +7,10 @@ import CustomEvent from './event';
 import protectedApi from './protectedApi';
 import log from './log';
 import selector from './selector/adguard-selector';
+import localization from './localization';
 
 /**
  * Manages iframe and it's content
- * @param localization
  * @returns {{
  * showSelectorMenu: showSelectorMenu,
  * showSliderMenu: showSliderMenu,
@@ -21,7 +21,7 @@ import selector from './selector/adguard-selector';
  * }}
  * @constructor
  */
-export default function IframeControllerMobile(localization) {
+export default function IframeControllerMobile() {
     let iframe = null;
     let iframeElement = null;
     let currentItem = null;

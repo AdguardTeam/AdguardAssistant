@@ -7,15 +7,11 @@ import selector from '../selector/adguard-selector';
 /**
  * Slider menu controller mobile
  * @param adguardRulesConstructor
- * @param localization
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-export default function SliderMenuControllerMobile(
-    adguardRulesConstructor,
-    addRule,
-) {
+export default function SliderMenuControllerMobile(adguardRulesConstructor, addRule) {
     let contentDocument = null;
     let selectedElement = null;
     const iframeCtrl = Ioc.get('iframeController');
@@ -88,7 +84,7 @@ export default function SliderMenuControllerMobile(
 
         if (nodeNumber >= 0) {
             if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
-        // eslint-disable-next-line no-bitwise
+            // eslint-disable-next-line no-bitwise
         } else if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
     };
 
@@ -99,7 +95,7 @@ export default function SliderMenuControllerMobile(
 
         if (nodeNumber >= 0) {
             if (parents[nodeNumber]) onSliderMove(parents[nodeNumber]);
-        // eslint-disable-next-line no-bitwise
+            // eslint-disable-next-line no-bitwise
         } else if (children[~nodeNumber]) onSliderMove(children[~nodeNumber]);
     };
 

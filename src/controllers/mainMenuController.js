@@ -7,14 +7,14 @@ import log from '../log';
 import wot from '../wot';
 import settings from '../settings';
 import gm from '../gm';
+import localization from '../localization';
 
 /**
  * Main menu controller
- * @param localization
  * @returns {{init: init}}
  * @constructor
  */
-export default function DetailedMenuController(localization) {
+export default function DetailedMenuController() {
     let contentDocument = null;
     let iframeCtrl = null;
     let domain = null;

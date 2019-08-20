@@ -15,7 +15,6 @@ import selector from '../selector/adguard-selector';
  * Slider menu controller
  * @param sliderWidget
  * @param adguardRulesConstructor
- * @param localization
  * @param addRule
  * @returns {{init: init}}
  * @constructor

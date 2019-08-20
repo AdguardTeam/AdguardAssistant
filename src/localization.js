@@ -7,7 +7,7 @@ import protectedApi from './protectedApi';
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
-export default function Localization() {
+function Localization() {
     const BASE_LOCALE = 'en';
     let currentLocale = null;
     let locale;
@@ -128,3 +128,7 @@ export default function Localization() {
         translateElement,
     };
 }
+
+const localization = new Localization();
+
+export default localization;

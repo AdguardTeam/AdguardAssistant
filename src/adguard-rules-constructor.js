@@ -1,10 +1,11 @@
 import cssEscape from './libs/css.escape';
+import protectedApi from './protectedApi';
 
 /**
  * Adguard rules constructor
  * @type {Function}
  */
-export default function AdguardRulesConstructorLib(api, protectedApi) {
+export default function AdguardRulesConstructorLib(api) {
     const CSS_RULE_MARK = '##';
     const RULE_OPTIONS_MARK = '$';
 

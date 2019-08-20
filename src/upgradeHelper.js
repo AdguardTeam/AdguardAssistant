@@ -1,3 +1,5 @@
+import protectedApi from './protectedApi';
+
 /* eslint-disable no-param-reassign */
 /**
  * Helper for backward compatibility
@@ -5,9 +7,8 @@
  * @constructor
  */
 export default class UpgradeHelper {
-    constructor(log, protectedApi) {
+    constructor(log) {
         this.log = log;
-        this.protectedApi = protectedApi;
 
         this.Constants = {
             BUTTON_POSITION_ITEM_NAME: '__adbpos',
@@ -18,7 +19,7 @@ export default class UpgradeHelper {
         try {
             const userPosition = localStorage.getItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
             if (userPosition) {
-                return this.protectedApi.json.parse(userPosition);
+                return protectedApi.json.parse(userPosition);
             }
             return undefined;
         } catch (ex) {

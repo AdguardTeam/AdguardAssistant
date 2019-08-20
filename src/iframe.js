@@ -8,6 +8,7 @@ import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuController from './controllers/sliderMenuController';
 import BlockPreviewController from './controllers/blockPreviewController';
 import SettingsMenuController from './controllers/settingsMenuController';
+import protectedApi from './protectedApi';
 
 
 /**
@@ -42,7 +43,6 @@ export default function IframeController(
     selector,
     uiValidationUtils,
     localization,
-    protectedApi,
 ) {
     let iframe = null;
     let iframeAnchor = null;

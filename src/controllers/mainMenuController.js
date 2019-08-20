@@ -2,6 +2,7 @@ import { reloadPageBypassCache } from '../utils/common-utils';
 import Ioc from '../ioc';
 import { format } from '../utils/string-utils';
 import { addClass, removeClass, toArray } from '../utils/dom-utils';
+import protectedApi from '../protectedApi';
 
 /**
  * Main menu controller
@@ -17,7 +18,6 @@ export default function DetailedMenuController(
     gmApi,
     settings,
     log,
-    protectedApi,
 ) {
     let contentDocument = null;
     let iframeCtrl = null;

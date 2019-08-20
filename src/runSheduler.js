@@ -1,9 +1,11 @@
+import protectedApi from './protectedApi';
+
 /**
  * Run callback with args on document-end
  * @returns {{}}
  * @constructor
  */
-export default function RunSheduler(protectedApi) {
+export default function RunSheduler() {
     const READY_STATE_CHANGE = 'readystatechange';
     const INTERACTIVE = 'interactive';
     const COMPLETE = 'complete';

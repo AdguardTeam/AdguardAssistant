@@ -1,5 +1,8 @@
 /* eslint-disable no-alert, no-param-reassign, camelcase */
 /* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
+
+import protectedApi from './protectedApi';
+
 /**
  * Gm api wrapper
  * @param ADG_addRule
@@ -26,7 +29,6 @@ export default function GM(
     ADG_sendAbuse,
     ADG_isFiltered,
     ADG_changeFilteringState,
-    protectedApi,
 ) {
     if (!ADG_addRule) {
         ADG_addRule = (rule, callback) => {

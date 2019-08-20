@@ -34,7 +34,10 @@ const config = {
             {
                 test: /\.html$/,
                 exclude: /node_modules/,
-                loader: 'raw-loader',
+                loader: 'html-loader',
+                options: {
+                    minimize: true,
+                },
             },
             {
                 test: /\.less$/,

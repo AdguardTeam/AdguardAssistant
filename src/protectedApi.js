@@ -4,7 +4,7 @@
  * Protected API
  * @constructor
  */
-export default function ProtectedApi() {
+function ProtectedApi() {
     const win = window;
     const functionPType = Function.prototype;
     const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
@@ -133,3 +133,7 @@ export default function ProtectedApi() {
         checkShadowDomSupport,
     };
 }
+
+const protectedApi = new ProtectedApi();
+
+export default protectedApi;

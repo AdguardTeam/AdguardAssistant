@@ -9,7 +9,7 @@
     ADG_changeFilteringState
 */
 import Ioc from './ioc';
-import ProtectedApi from './protectedApi';
+import protectedApi from './protectedApi';
 import Log from './log';
 import AdguardSelectorLib from './selector/adguard-selector';
 import UpgradeHelper from './upgradeHelper';
@@ -30,11 +30,8 @@ import IframeControllerMobile from './iframe.mobile';
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 export const adguardAssistantExtended = () => {
-    Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
-    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log), Ioc.get(ProtectedApi)));
-
-    const protectedApiCtrl = Ioc.get(ProtectedApi);
+    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log)));
 
     Ioc.register('addRule', () => false);
 
@@ -51,7 +48,6 @@ export const adguardAssistantExtended = () => {
         sendAbuse,
         checkRule,
         changeFilteringState,
-        protectedApiCtrl,
     ));
     const wot = new Wot();
     wot.registerWotEventHandler();
@@ -60,12 +56,12 @@ export const adguardAssistantExtended = () => {
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
-    Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
+    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
-    Ioc.register('sliderWidget', new SliderWidget({}, protectedApiCtrl));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
+    Ioc.register('sliderWidget', new SliderWidget({}));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     const button = Ioc.get(UIButton);
     const runSheduler = Ioc.get(RunSheduler);
     Ioc.register('button', button);
@@ -80,16 +76,14 @@ export const adguardAssistantExtended = () => {
  */
 export const adguardAssistantMini = () => ({
     start(callback) {
-        Ioc.register('protectedApi', new ProtectedApi());
-        const protectedApiCtrl = Ioc.get(ProtectedApi);
         Ioc.register('log', new Log());
-        Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
-        Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
+        Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
+        Ioc.register('selector', new AdguardSelectorLib({}));
         Ioc.register('uiUtils', Ioc.get(UIUtils));
         Ioc.register('localization', Ioc.get(Localization));
         const iframeController = Ioc.get(IframeControllerMobile);
         Ioc.register('iframeController', iframeController);
-        Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
+        Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
         const runSheduler = Ioc.get(RunSheduler);
         runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
     },

@@ -1,4 +1,5 @@
 import { bypassCache } from './utils/common-utils';
+import protectedApi from './protectedApi';
 
 /**
  * Object that manages user settings.
@@ -32,7 +33,7 @@ import { bypassCache } from './utils/common-utils';
  * }}
  * @constructor
  */
-export default function Settings(log, gmApi, UpgradeHelper, protectedApi) { // jshint ignore:line
+export default function Settings(log, gmApi, UpgradeHelper) { // jshint ignore:line
     const Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,

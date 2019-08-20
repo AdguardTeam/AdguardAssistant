@@ -1,7 +1,7 @@
 /* global AdguardSettings */
 
 import Ioc from './ioc';
-import ProtectedApi from './protectedApi';
+import protectedApi from './protectedApi';
 import UpgradeHelper from './upgradeHelper';
 import Log from './log';
 import Wot from './wot';
@@ -20,11 +20,8 @@ import IframeControllerMobile from './iframe.mobile';
  * adguardAssistantExtended main function is for desktop browsers
  */
 export function adguardAssistantExtended() {
-    Ioc.register('protectedApi', new ProtectedApi());
     Ioc.register('log', new Log());
-    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log), Ioc.get(ProtectedApi)));
-
-    const protectedApiCtrl = Ioc.get(ProtectedApi);
+    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log)));
 
     Ioc.register('gmApi', () => false);
 
@@ -37,17 +34,17 @@ export function adguardAssistantExtended() {
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
-    Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
+    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
-    Ioc.register('sliderWidget', new SliderWidget({}, protectedApiCtrl));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
+    Ioc.register('sliderWidget', new SliderWidget({}));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     const iframe = Ioc.get(IframeController);
     Ioc.register('iframeController', iframe);
 
     return {
         start(element, callback) {
-            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
+            Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
             if (element) {
                 iframe.showSelectorMenu();
@@ -66,19 +63,17 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
-    Ioc.register('protectedApi', new ProtectedApi());
-    const protectedApiCtrl = Ioc.get(ProtectedApi);
     Ioc.register('log', new Log());
-    Ioc.register('selector', new AdguardSelectorLib({}, protectedApiCtrl));
+    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}, protectedApiCtrl));
+    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     const iframeController = Ioc.get(IframeControllerMobile);
     Ioc.register('iframeController', iframeController);
 
     return {
         start(element, callback) {
-            Ioc.register('addRule', protectedApiCtrl.functionBind.call(callback, this));
+            Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
             if (element) {
                 iframeController.showSelectorMenu();

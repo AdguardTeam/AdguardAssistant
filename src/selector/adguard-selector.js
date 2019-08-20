@@ -7,13 +7,14 @@ import {
     toArray,
     show,
 } from '../utils/dom-utils';
+import protectedApi from '../protectedApi';
 
 /**
  * Adguard selector library
  * TODO: why this in separated directory?
  * @type {Function}
  */
-const AdguardSelectorLib = (function (api, protectedApi) {
+const AdguardSelectorLib = (function (api) {
     const PLACEHOLDER_PREFIX = 'adguard-placeholder';
     let placeholdedElements = null;
     let transparentPlaceholdedElement = null;

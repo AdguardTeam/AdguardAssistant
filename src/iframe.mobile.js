@@ -4,6 +4,7 @@ import { objectAssign } from './utils/common-utils';
 import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile';
 import CustomEvent from './event';
+import protectedApi from './protectedApi';
 
 /**
  * Manages iframe and it's content
@@ -24,7 +25,6 @@ export default function IframeControllerMobile(
     log,
     selector,
     localization,
-    protectedApi,
 ) {
     let iframe = null;
     let iframeElement = null;

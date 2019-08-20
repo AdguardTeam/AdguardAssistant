@@ -1,5 +1,4 @@
 import { reloadPageBypassCache } from '../utils/common-utils';
-import Ioc from '../ioc';
 import { format } from '../utils/string-utils';
 import { addClass, removeClass, toArray } from '../utils/dom-utils';
 import protectedApi from '../protectedApi';
@@ -14,9 +13,9 @@ import localization from '../localization';
  * @returns {{init: init}}
  * @constructor
  */
-export default function DetailedMenuController() {
+export default function DetailedMenuController(iframe) {
     let contentDocument = null;
-    let iframeCtrl = null;
+    const iframeCtrl = iframe;
     let domain = null;
     const FILTERING_STATE_LS_PROPERTY = '__adfstate';
 
@@ -241,10 +240,10 @@ export default function DetailedMenuController() {
     /*
      Called from IframeController._showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe) => {
         // eslint-disable-next-line prefer-destructuring
         contentDocument = iframe.contentDocument;
-        iframeCtrl = Ioc.get('iframeController');
         setDomain();
         setWotData();
         bindEvents();

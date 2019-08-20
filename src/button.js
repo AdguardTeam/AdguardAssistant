@@ -7,17 +7,18 @@ import log from './log';
 import settings from './settings';
 import uiValidationUtils from './utils/ui-validation-utils';
 import uiUtils from './utils/ui-utils';
-import iframeController from './iframe';
+import ioc from './ioc';
 
 /**
  * Adguard assistant button
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-export default function UIButton() {
+function UIButton() {
     let button = null;
     let buttonElement = null;
     let isFullScreenEventsRegistered = false;
+    let iframeController = null;
 
     // Important attribute for all inline stylesheets.
     // It needs for Content-Security-Policy.
@@ -178,6 +179,11 @@ export default function UIButton() {
      * Shows Adguard initial button
      */
     const show = () => {
+        // TODO: get rid of it
+        iframeController = ioc.get('iframeController');
+        iframeController.onCloseMenu.attach(showButton);
+        iframeController.onShowMenuItem.attach(hideButton);
+
         if (!checkRequirements()) {
             log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
             return;
@@ -222,11 +228,12 @@ export default function UIButton() {
         button = null;
     };
 
-    iframeController.onCloseMenu.attach(showButton);
-    iframeController.onShowMenuItem.attach(hideButton);
-
     return {
         show,
         remove: removeButton,
     };
 }
+
+const button = new UIButton();
+
+export default button;

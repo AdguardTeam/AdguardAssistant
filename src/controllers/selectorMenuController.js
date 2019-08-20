@@ -1,4 +1,3 @@
-import Ioc from '../ioc';
 import { toArray } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
 
@@ -7,9 +6,9 @@ import selector from '../selector/adguard-selector';
  * @returns {{init: init}}
  * @constructor
  */
-export default function SelectorMenuController() {
+export default function SelectorMenuController(iframe) {
     let contentDocument = null;
-    const iframeCtrl = Ioc.get('iframeController');
+    const iframeCtrl = iframe;
 
     const close = () => {
         iframeCtrl.removeIframe();
@@ -38,6 +37,7 @@ export default function SelectorMenuController() {
     /*
      Called from IframeController._showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe) => {
         // eslint-disable-next-line prefer-destructuring
         contentDocument = iframe.contentDocument;

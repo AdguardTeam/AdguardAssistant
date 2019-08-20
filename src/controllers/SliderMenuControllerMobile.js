@@ -1,20 +1,18 @@
-import Ioc from '../ioc';
 import { getAllChildren, getParentsLevel } from '../utils/common-utils';
 import { toArray } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
-
+import adguardRulesConstructor from '../adguard-rules-constructor';
 
 /**
  * Slider menu controller mobile
- * @param adguardRulesConstructor
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-export default function SliderMenuControllerMobile(adguardRulesConstructor, addRule) {
+export default function SliderMenuControllerMobile(addRule, iframe) {
     let contentDocument = null;
     let selectedElement = null;
-    const iframeCtrl = Ioc.get('iframeController');
+    const iframeCtrl = iframe;
 
     let nodeParentsCount = 0;
     let nodeChildsCount = 0;
@@ -118,6 +116,7 @@ export default function SliderMenuControllerMobile(adguardRulesConstructor, addR
     /*
      Called from IframeController._showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe, options) => {
         selectedElement = options.element;
         // eslint-disable-next-line prefer-destructuring

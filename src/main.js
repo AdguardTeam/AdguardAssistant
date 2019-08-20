@@ -3,35 +3,26 @@
     global
     AdguardSettings
 */
-import Ioc from './ioc';
+import ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
 import IframeController from './iframe';
-import AdguardRulesConstructorLib from './adguard-rules-constructor';
-import UIButton from './button';
-import RunSheduler from './runSheduler';
+import runSheduler from './runSheduler';
 import IframeControllerMobile from './iframe.mobile';
+import button from './button';
 
 /**
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 export const adguardAssistantExtended = () => {
-    Ioc.register('addRule', () => false);
+    ioc.register('addRule', () => false);
+    ioc.register('iframeController', new IframeController());
 
-    const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
-
-    // TODO think where should we call it
     wot.registerWotEventHandler();
-    // TODO think where should we call it
+    const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
     settings.setAdguardSettings(adguardSettings);
 
-    // TODO How to resolve it?
-    Ioc.register('iframeController', Ioc.get(IframeController));
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-    const button = Ioc.get(UIButton);
-    const runSheduler = Ioc.get(RunSheduler);
-    Ioc.register('button', button);
     runSheduler.onDocumentEnd(settings.loadSettings, button.show);
 };
 
@@ -43,13 +34,11 @@ export const adguardAssistantExtended = () => {
  */
 export const adguardAssistantMini = () => ({
     start(callback) {
-        Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
-        const iframeController = Ioc.get(IframeControllerMobile);
+        ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
-        // TODO How to resolve it?
-        Ioc.register('iframeController', iframeController);
-        Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-        const runSheduler = Ioc.get(RunSheduler);
+        const iframeController = new IframeControllerMobile();
+        ioc.register('iframeController', iframeController);
+
         runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
     },
 });

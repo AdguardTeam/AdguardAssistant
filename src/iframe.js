@@ -1,7 +1,7 @@
 import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
 import { bypassCache } from './utils/common-utils';
-import Ioc from './ioc';
+import ioc from './ioc';
 import { format } from './utils/string-utils';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
@@ -321,21 +321,21 @@ function IframeController() {
     };
 
     const showDetailedMenu = () => {
-        const controller = Ioc.get(DetailedMenuController);
+        const controller = new DetailedMenuController(ioc.get('iframeController'));
         const options = { dragElement: '.menu-head' };
         showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, iframeMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
     const showSelectorMenu = () => {
-        const controller = Ioc.get(SelectorMenuController);
+        const controller = new SelectorMenuController(ioc.get('iframeController'));
         const options = { dragElement: '.head' };
         showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 160, options);
         setCloseEventIfNotHitIframe(false);
     };
 
     const showSliderMenu = (initElement, currentElement, path, optionsState) => {
-        const controller = Ioc.get(SliderMenuController);
+        const controller = new SliderMenuController(ioc.get('addRule'), ioc.get('iframeController'));
         const options = {
             path,
             currentElement,
@@ -348,7 +348,7 @@ function IframeController() {
     };
 
     const showBlockPreview = (initElement, path, currentElement, optionsState) => {
-        const controller = Ioc.get(BlockPreviewController);
+        const controller = new BlockPreviewController(ioc.get('addRule'), ioc.get('iframeController'));
         const options = {
             path,
             currentElement,
@@ -361,7 +361,7 @@ function IframeController() {
     };
 
     const showSettingsMenu = () => {
-        const controller = Ioc.get(SettingsMenuController);
+        const controller = new SettingsMenuController(ioc.get('iframeController'));
         const options = { dragElement: '.head' };
         showMenuItem(settings.MenuItemsNames.SettingsMenu, controller, 400, 468, options);
         setCloseEventIfNotHitIframe(true);
@@ -470,6 +470,4 @@ function IframeController() {
     };
 }
 
-const iframeController = new IframeController();
-
-export default iframeController;
+export default IframeController;

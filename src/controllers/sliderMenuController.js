@@ -1,4 +1,3 @@
-import Ioc from '../ioc';
 import { getParentsLevel, getAllChildren, events } from '../utils/common-utils';
 import {
     hasClass,
@@ -10,20 +9,20 @@ import {
 } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
 import sliderWidget from '../slider-widget';
+import adguardRulesConstructor from '../adguard-rules-constructor';
 
 /**
  * Slider menu controller
- * @param adguardRulesConstructor
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-export default function SliderMenuController(adguardRulesConstructor, addRule) {
+export default function SliderMenuController(addRule, iframe) {
     let contentDocument = null;
     let selectedElement = null;
     let startElement = null;
     let currentElement = null;
-    const iframeCtrl = Ioc.get('iframeController');
+    const iframeCtrl = iframe;
 
     const getFilterRuleInputText = () => contentDocument.getElementById('filter-rule').value;
 
@@ -227,6 +226,7 @@ export default function SliderMenuController(adguardRulesConstructor, addRule) {
     /*
      Called from IframeController._showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe, options) => {
         selectedElement = options.element;
         startElement = selectedElement;

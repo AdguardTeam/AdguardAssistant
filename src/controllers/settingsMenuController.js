@@ -1,16 +1,15 @@
-import Ioc from '../ioc';
 import { toArray } from '../utils/dom-utils';
 import settings from '../settings';
+import button from '../button';
 
 /**
  * Settings menu controller
- * @param button
  * @returns {{init: init}}
  * @constructor
  */
-export default function SettingsMenuController(button) {
+export default function SettingsMenuController(iframe) {
     let contentDocument = null;
-    const iframeCtrl = Ioc.get('iframeController');
+    const iframeCtrl = iframe;
     const buttonSides = {
         'position-bottom-right': { top: false, left: false },
         'position-bottom-left': { top: false, left: true },
@@ -99,6 +98,7 @@ export default function SettingsMenuController(button) {
     /*
      Called from IframeController._showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe) => {
         // eslint-disable-next-line prefer-destructuring
         contentDocument = iframe.contentDocument;

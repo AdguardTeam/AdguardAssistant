@@ -1,10 +1,9 @@
 /* global AdguardSettings */
 
-import Ioc from './ioc';
+import ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
-import AdguardRulesConstructorLib from './adguard-rules-constructor';
 import IframeController from './iframe';
 import IframeControllerMobile from './iframe.mobile';
 
@@ -14,29 +13,25 @@ import IframeControllerMobile from './iframe.mobile';
  */
 export function adguardAssistantExtended() {
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
-
-    // todo: think about where we should call it
     wot.registerWotEventHandler();
-    // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
 
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-    const iframe = Ioc.get(IframeController);
-    Ioc.register('iframeController', iframe);
+    const iframeController = new IframeController();
+    ioc.register('iframeController', iframeController);
 
     return {
         start(element, callback) {
-            Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
+            ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
             if (element) {
-                iframe.showSelectorMenu();
-                iframe.showSliderMenu(element);
+                iframeController.showSelectorMenu();
+                iframeController.showSliderMenu(element);
             } else {
-                iframe.showSelectorMenu();
+                iframeController.showSelectorMenu();
             }
         },
         close() {
-            iframe.removeIframe();
+            iframeController.removeIframe();
         },
     };
 }
@@ -45,13 +40,12 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
-    Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
-    const iframeController = Ioc.get(IframeControllerMobile);
-    Ioc.register('iframeController', iframeController);
+    const iframeController = new IframeControllerMobile();
+    ioc.register('iframeController', iframeController);
 
     return {
         start(element, callback) {
-            Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
+            ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
             if (element) {
                 iframeController.showSelectorMenu();

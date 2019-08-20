@@ -5,7 +5,7 @@ import protectedApi from './protectedApi';
  * Adguard rules constructor
  * @type {Function}
  */
-export default function AdguardRulesConstructorLib(api) {
+function AdguardRulesConstructorLib(api = {}) {
     const CSS_RULE_MARK = '##';
     const RULE_OPTIONS_MARK = '$';
 
@@ -409,3 +409,6 @@ export default function AdguardRulesConstructorLib(api) {
 
     return api;
 }
+const adguardRulesConstructor = new AdguardRulesConstructorLib();
+
+export default adguardRulesConstructor;

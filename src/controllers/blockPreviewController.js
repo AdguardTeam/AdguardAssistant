@@ -1,4 +1,3 @@
-import Ioc from '../ioc';
 import log from '../log';
 import { toArray } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
@@ -9,14 +8,14 @@ import selector from '../selector/adguard-selector';
  * @returns {{init: init}}
  * @constructor
  */
-export default function BlockPreviewController(addRule) { // jshint ignore:line
+export default function BlockPreviewController(addRule, iframe) {
     let contentDocument = null;
     let currentElement = null;
     let selectedElement = null;
     let selectedPath = null;
     // let iframeAnchor = null;
     let optionsState = null;
-    const iframeCtrl = Ioc.get('iframeController');
+    const iframeCtrl = iframe;
     const previewStyleID = 'ag-preview-style-id';
 
     const showElement = () => {
@@ -67,6 +66,7 @@ export default function BlockPreviewController(addRule) { // jshint ignore:line
     /*
      Called from IframeController.showMenuItem to initialize view
      */
+    // eslint-disable-next-line no-shadow
     const init = (iframe, options) => {
         selectedElement = options.element;
         selectedPath = options.path;

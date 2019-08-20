@@ -10,13 +10,13 @@ import BlockPreviewController from './controllers/blockPreviewController';
 import SettingsMenuController from './controllers/settingsMenuController';
 import protectedApi from './protectedApi';
 import log from './log';
+import settings from './settings';
+import gm from './gm';
 
 
 /**
  * Manages iframe and it's content
- * @param settings
  * @param uiUtils
- * @param gmApi
  * @param selector
  * @param uiValidationUtils
  * @param localization
@@ -36,9 +36,7 @@ import log from './log';
  * @constructor
  */
 export default function IframeController(
-    settings,
     uiUtils,
-    gmApi,
     selector,
     uiValidationUtils,
     localization,
@@ -440,8 +438,8 @@ export default function IframeController(
     };
 
     const blockElement = (path, addRule) => {
-        if (gmApi.ADG_addRule) {
-            gmApi.ADG_addRule(path, () => {
+        if (gm.ADG_addRule) {
+            gm.ADG_addRule(path, () => {
                 removeIframe();
                 hideElementsByPath(path);
                 bypassCache();

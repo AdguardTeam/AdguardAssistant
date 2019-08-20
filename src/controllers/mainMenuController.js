@@ -5,20 +5,16 @@ import { addClass, removeClass, toArray } from '../utils/dom-utils';
 import protectedApi from '../protectedApi';
 import log from '../log';
 import wot from '../wot';
+import settings from '../settings';
+import gm from '../gm';
 
 /**
  * Main menu controller
- * @param wot
  * @param localization
- * @param gmApi
  * @returns {{init: init}}
  * @constructor
  */
-export default function DetailedMenuController(
-    localization,
-    gmApi,
-    settings,
-) {
+export default function DetailedMenuController(localization) {
     let contentDocument = null;
     let iframeCtrl = null;
     let domain = null;
@@ -139,13 +135,13 @@ export default function DetailedMenuController(
     };
 
     const doNotBlock = () => {
-        gmApi.ADG_temporaryDontBlock(30, () => {
+        gm.ADG_temporaryDontBlock(30, () => {
             reloadPageBypassCache();
         });
     };
 
     const reportAbuse = () => {
-        gmApi.ADG_sendAbuse(() => {
+        gm.ADG_sendAbuse(() => {
             iframeCtrl.removeIframe();
         });
     };
@@ -191,7 +187,7 @@ export default function DetailedMenuController(
 
         showHideBlockAdButton(isFilter);
         setFilteringStateToStore(isFilter);
-        gmApi.ADG_changeFilteringState(isFilter, () => {
+        gm.ADG_changeFilteringState(isFilter, () => {
             reloadPageBypassCache();
         });
     };
@@ -235,7 +231,7 @@ export default function DetailedMenuController(
     const setInitFilteringState = () => {
         const input = contentDocument.getElementById('is-filter');
         input.checked = getFilteringStateFromStore();
-        gmApi.ADG_isFiltered((isFiltered) => {
+        gm.ADG_isFiltered((isFiltered) => {
             input.checked = isFiltered;
             setFilteringStateToStore(isFiltered);
             showHideBlockAdButton(isFiltered);

@@ -14,10 +14,8 @@ import {
  * Slider menu controller
  * @param selector
  * @param sliderWidget
- * @param settings
  * @param adguardRulesConstructor
  * @param localization
- * @param gmApi
  * @param addRule
  * @returns {{init: init}}
  * @constructor

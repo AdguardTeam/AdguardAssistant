@@ -1,8 +1,8 @@
 import log from '../log';
+import settings from '../settings';
 
 /**
  * Utils that checks environment for compatibility with assistant
- * @param settings
  * @returns {{
  * checkVisibleAreaSize: checkVisibleAreaSize,
  * validateBrowser: validateBrowser,
@@ -11,7 +11,7 @@ import log from '../log';
  * }}
  * @constructor
  */
-export default function UIValidationUtils(settings) {
+export default function UIValidationUtils() {
     const { document } = window;
 
     const getViewPort = () => {

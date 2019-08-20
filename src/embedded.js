@@ -3,7 +3,7 @@
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
-import Settings from './settings';
+import settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
 import AdguardSelectorLib from './selector/adguard-selector';
 import UIUtils from './utils/ui-utils';
@@ -18,15 +18,13 @@ import IframeControllerMobile from './iframe.mobile';
  * adguardAssistantExtended main function is for desktop browsers
  */
 export function adguardAssistantExtended() {
-    Ioc.register('gmApi', () => false);
-
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
     // todo: think about where we should call it
     wot.registerWotEventHandler();
-    const settings = Ioc.get(Settings);
+    // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
-    Ioc.register('settings', settings);
+
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));

@@ -1,19 +1,13 @@
 /* eslint-disable camelcase */
 /*
     global
-    AdguardSettings,
-    ADG_addRule,
-    ADG_temporaryDontBlock,
-    ADG_sendAbuse,
-    ADG_isFiltered,
-    ADG_changeFilteringState
+    AdguardSettings
 */
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import AdguardSelectorLib from './selector/adguard-selector';
-import GM from './gm';
 import wot from './wot';
-import Settings from './settings';
+import settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
 import UIUtils from './utils/ui-utils';
 import Localization from './localization';
@@ -30,25 +24,12 @@ import IframeControllerMobile from './iframe.mobile';
 export const adguardAssistantExtended = () => {
     Ioc.register('addRule', () => false);
 
-    const addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
-    const dontBlock = typeof (ADG_temporaryDontBlock) === 'undefined' ? null : ADG_temporaryDontBlock;
-    const sendAbuse = typeof (ADG_sendAbuse) === 'undefined' ? null : ADG_sendAbuse;
-    const checkRule = typeof (ADG_isFiltered) === 'undefined' ? null : ADG_isFiltered;
-    const changeFilteringState = typeof (ADG_changeFilteringState) === 'undefined' ? null : ADG_changeFilteringState;
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
-    Ioc.register('gmApi', new GM(
-        addRule,
-        dontBlock,
-        sendAbuse,
-        checkRule,
-        changeFilteringState,
-    ));
     // TODO think where should we call it
     wot.registerWotEventHandler();
-    const settings = Ioc.get(Settings);
+    // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
-    Ioc.register('settings', settings);
     Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));

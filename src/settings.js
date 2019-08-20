@@ -2,10 +2,10 @@ import { bypassCache } from './utils/common-utils';
 import protectedApi from './protectedApi';
 import log from './log';
 import upgradeHelper from './upgradeHelper';
+import gm from './gm';
 
 /**
  * Object that manages user settings.
- * @param gmApi
  * @returns {{
  * Constants: {
  *  MINIMUM_IE_SUPPORTED_VERSION: number,
@@ -33,7 +33,7 @@ import upgradeHelper from './upgradeHelper';
  * }}
  * @constructor
  */
-export default function Settings(gmApi) { // jshint ignore:line
+function Settings() {
     const Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
@@ -77,7 +77,7 @@ export default function Settings(gmApi) { // jshint ignore:line
 
     const SITENAME = window.location.host;
 
-    const getSettings = () => gmApi.getValue('settings')
+    const getSettings = () => gm.getValue('settings')
         .then((config) => {
             try {
                 return config && protectedApi.json.parse(config);
@@ -148,7 +148,7 @@ export default function Settings(gmApi) { // jshint ignore:line
         }
         log.debug('Update settings...');
         log.debug(Config);
-        gmApi.setValue('settings', Config);
+        gm.setValue('settings', Config);
         bypassCache();
     };
 
@@ -294,3 +294,7 @@ export default function Settings(gmApi) { // jshint ignore:line
         getPersonalConfig,
     };
 }
+
+const settings = new Settings();
+
+export default settings;

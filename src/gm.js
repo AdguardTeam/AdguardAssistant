@@ -1,15 +1,19 @@
-/* eslint-disable no-alert, no-param-reassign, camelcase */
-/* global GM_getValue, GM_setValue, GM_getResourceText, GM_addStyle */
-
+/* eslint-disable no-global-assign, no-alert, no-param-reassign, camelcase  */
+/* global
+GM_getValue,
+GM_setValue,
+GM_getResourceText,
+GM_addStyle,
+ADG_addRule,
+ADG_temporaryDontBlock,
+ADG_sendAbuse,
+ADG_isFiltered,
+ADG_changeFilteringState
+*/
 import protectedApi from './protectedApi';
 
 /**
  * Gm api wrapper
- * @param ADG_addRule
- * @param ADG_temporaryDontBlock
- * @param ADG_sendAbuse
- * @param ADG_isFiltered
- * @param ADG_changeFilteringState
  * @returns {{
  * getValue,
  * setValue,
@@ -23,13 +27,7 @@ import protectedApi from './protectedApi';
  * *}}
  * @constructor
  */
-export default function GM(
-    ADG_addRule,
-    ADG_temporaryDontBlock,
-    ADG_sendAbuse,
-    ADG_isFiltered,
-    ADG_changeFilteringState,
-) {
+function GM() {
     if (!ADG_addRule) {
         ADG_addRule = (rule, callback) => {
             alert(`GM_api is not supported. ${rule} rule added`);
@@ -87,3 +85,7 @@ export default function GM(
         ADG_changeFilteringState,
     };
 }
+
+const gm = new GM();
+
+export default gm;

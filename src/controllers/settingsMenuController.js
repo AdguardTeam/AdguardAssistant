@@ -1,14 +1,14 @@
 import Ioc from '../ioc';
 import { toArray } from '../utils/dom-utils';
+import settings from '../settings';
 
 /**
  * Settings menu controller
- * @param settings
  * @param button
  * @returns {{init: init}}
  * @constructor
  */
-export default function SettingsMenuController(settings, button) {
+export default function SettingsMenuController(button) {
     let contentDocument = null;
     const iframeCtrl = Ioc.get('iframeController');
     const buttonSides = {

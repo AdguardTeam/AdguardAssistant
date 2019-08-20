@@ -4,20 +4,18 @@ import { hasClass, addClass } from './utils/dom-utils';
 import { HTML, CSS } from './inline-resources';
 import protectedApi from './protectedApi';
 import log from './log';
+import settings from './settings';
 
 /**
  * Adguard assistant button
  * @param log Logger
- * @param settings User settings
  * @param uiValidationUtils Validation utils
- * @param gmApi Gm API impl
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
 export default function UIButton(
-    settings,
     uiValidationUtils,
     uiUtils,
     iframeController,

@@ -12,7 +12,7 @@ import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import AdguardSelectorLib from './selector/adguard-selector';
 import GM from './gm';
-import Wot from './wot';
+import wot from './wot';
 import Settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
 import UIUtils from './utils/ui-utils';
@@ -44,9 +44,8 @@ export const adguardAssistantExtended = () => {
         checkRule,
         changeFilteringState,
     ));
-    const wot = new Wot();
+    // TODO think where should we call it
     wot.registerWotEventHandler();
-    Ioc.register('wot', wot);
     const settings = Ioc.get(Settings);
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);

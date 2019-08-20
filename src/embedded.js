@@ -2,7 +2,7 @@
 
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
-import Wot from './wot';
+import wot from './wot';
 import Settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
 import AdguardSelectorLib from './selector/adguard-selector';
@@ -22,9 +22,8 @@ export function adguardAssistantExtended() {
 
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
 
-    const wot = new Wot();
+    // todo: think about where we should call it
     wot.registerWotEventHandler();
-    Ioc.register('wot', wot);
     const settings = Ioc.get(Settings);
     settings.setAdguardSettings(adguardSettings);
     Ioc.register('settings', settings);

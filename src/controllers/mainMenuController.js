@@ -4,6 +4,7 @@ import { format } from '../utils/string-utils';
 import { addClass, removeClass, toArray } from '../utils/dom-utils';
 import protectedApi from '../protectedApi';
 import log from '../log';
+import wot from '../wot';
 
 /**
  * Main menu controller
@@ -14,7 +15,6 @@ import log from '../log';
  * @constructor
  */
 export default function DetailedMenuController(
-    wot,
     localization,
     gmApi,
     settings,

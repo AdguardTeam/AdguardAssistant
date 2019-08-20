@@ -10,7 +10,7 @@ import { format } from './utils/string-utils';
  * }}
  * @constructor
  */
-export default function Wot() {
+function Wot() {
     const wotUrlScorecardTemplate = 'http://adguard.com/wot-scorecard.html?domain={0}';
     const WOT_URL = 'http://adguard.com/wot.html';
     let wotData = null;
@@ -45,3 +45,7 @@ export default function Wot() {
         WOT_URL,
     };
 }
+
+const wot = new Wot();
+
+export default wot;

@@ -7,7 +7,7 @@ import protectedApi from '../protectedApi';
  * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function}}
  * @constructor
  */
-export default function UIUtils() {
+function UIUtils() {
     let elWidth;
     let elHeight;
     let windowWidth;
@@ -344,3 +344,7 @@ export default function UIUtils() {
         checkElementPosition,
     };
 }
+
+const uiUtils = new UIUtils();
+
+export default uiUtils;

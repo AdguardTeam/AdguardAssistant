@@ -7,7 +7,6 @@ import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
-import UIUtils from './utils/ui-utils';
 import Localization from './localization';
 import IframeController from './iframe';
 import SliderWidget from './slider-widget';
@@ -28,7 +27,6 @@ export const adguardAssistantExtended = () => {
     wot.registerWotEventHandler();
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
-    Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
     Ioc.register('sliderWidget', new SliderWidget({}));
@@ -48,7 +46,6 @@ export const adguardAssistantExtended = () => {
 export const adguardAssistantMini = () => ({
     start(callback) {
         Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
-        Ioc.register('uiUtils', Ioc.get(UIUtils));
         Ioc.register('localization', Ioc.get(Localization));
         const iframeController = Ioc.get(IframeControllerMobile);
         Ioc.register('iframeController', iframeController);

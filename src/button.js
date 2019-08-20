@@ -6,18 +6,15 @@ import protectedApi from './protectedApi';
 import log from './log';
 import settings from './settings';
 import uiValidationUtils from './utils/ui-validation-utils';
+import uiUtils from './utils/ui-utils';
 
 /**
  * Adguard assistant button
- * @param uiUtils UI Utils
  * @param iframeController Iframe controller
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-export default function UIButton(
-    uiUtils,
-    iframeController,
-) {
+export default function UIButton(iframeController) {
     let button = null;
     let buttonElement = null;
     let isFullScreenEventsRegistered = false;

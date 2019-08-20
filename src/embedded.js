@@ -4,7 +4,6 @@ import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
-import UIUtils from './utils/ui-utils';
 import Localization from './localization';
 import SliderWidget from './slider-widget';
 import AdguardRulesConstructorLib from './adguard-rules-constructor';
@@ -23,7 +22,6 @@ export function adguardAssistantExtended() {
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
 
-    Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('sliderWidget', new SliderWidget({}));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
@@ -51,7 +49,6 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
-    Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     const iframeController = Ioc.get(IframeControllerMobile);

@@ -14,11 +14,11 @@ import settings from './settings';
 import gm from './gm';
 import uiValidationUtils from './utils/ui-validation-utils';
 import selector from './selector/adguard-selector';
+import uiUtils from './utils/ui-utils';
 
 
 /**
  * Manages iframe and it's content
- * @param uiUtils
  * @param localization
  * @returns {{
  * showDetailedMenu: showDetailedMenu,
@@ -35,7 +35,7 @@ import selector from './selector/adguard-selector';
  * }}
  * @constructor
  */
-export default function IframeController(uiUtils, localization) {
+export default function IframeController(localization) {
     let iframe = null;
     let iframeAnchor = null;
     let currentItem = null;

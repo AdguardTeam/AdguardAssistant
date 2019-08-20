@@ -4,7 +4,6 @@ import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
-import AdguardSelectorLib from './selector/adguard-selector';
 import UIUtils from './utils/ui-utils';
 import Localization from './localization';
 import SliderWidget from './slider-widget';
@@ -24,7 +23,6 @@ export function adguardAssistantExtended() {
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
 
-    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('sliderWidget', new SliderWidget({}));
@@ -53,7 +51,6 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
-    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));

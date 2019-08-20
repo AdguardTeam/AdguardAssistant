@@ -12,9 +12,10 @@ import protectedApi from '../protectedApi';
 /**
  * Adguard selector library
  * TODO: why this in separated directory?
+ * TODO: rename it
  * @type {Function}
  */
-const AdguardSelectorLib = (function (api) {
+function AdguardSelectorLib(api = {}) {
     const PLACEHOLDER_PREFIX = 'adguard-placeholder';
     let placeholdedElements = null;
     let transparentPlaceholdedElement = null;
@@ -676,6 +677,8 @@ const AdguardSelectorLib = (function (api) {
     };
 
     return api;
-});
+}
 
-export default AdguardSelectorLib;
+const selector = new AdguardSelectorLib();
+
+export default selector;

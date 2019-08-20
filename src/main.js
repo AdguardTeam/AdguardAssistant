@@ -5,7 +5,6 @@
 */
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
-import AdguardSelectorLib from './selector/adguard-selector';
 import wot from './wot';
 import settings from './settings';
 import UIUtils from './utils/ui-utils';
@@ -29,7 +28,6 @@ export const adguardAssistantExtended = () => {
     wot.registerWotEventHandler();
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
-    Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));
     Ioc.register('iframeController', Ioc.get(IframeController));
@@ -50,7 +48,6 @@ export const adguardAssistantExtended = () => {
 export const adguardAssistantMini = () => ({
     start(callback) {
         Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
-        Ioc.register('selector', new AdguardSelectorLib({}));
         Ioc.register('uiUtils', Ioc.get(UIUtils));
         Ioc.register('localization', Ioc.get(Localization));
         const iframeController = Ioc.get(IframeControllerMobile);

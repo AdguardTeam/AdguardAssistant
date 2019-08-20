@@ -6,10 +6,10 @@ import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile
 import CustomEvent from './event';
 import protectedApi from './protectedApi';
 import log from './log';
+import selector from './selector/adguard-selector';
 
 /**
  * Manages iframe and it's content
- * @param selector
  * @param localization
  * @returns {{
  * showSelectorMenu: showSelectorMenu,
@@ -21,10 +21,7 @@ import log from './log';
  * }}
  * @constructor
  */
-export default function IframeControllerMobile(
-    selector,
-    localization,
-) {
+export default function IframeControllerMobile(localization) {
     let iframe = null;
     let iframeElement = null;
     let currentItem = null;

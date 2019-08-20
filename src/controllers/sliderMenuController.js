@@ -8,11 +8,11 @@ import {
     hide,
     toArray,
 } from '../utils/dom-utils';
+import selector from '../selector/adguard-selector';
 
 
 /**
  * Slider menu controller
- * @param selector
  * @param sliderWidget
  * @param adguardRulesConstructor
  * @param localization
@@ -21,7 +21,6 @@ import {
  * @constructor
  */
 export default function SliderMenuController(
-    selector,
     sliderWidget,
     adguardRulesConstructor,
     addRule,

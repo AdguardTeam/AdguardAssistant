@@ -1,13 +1,13 @@
 import Ioc from '../ioc';
 import { toArray } from '../utils/dom-utils';
+import selector from '../selector/adguard-selector';
 
 /**
  * Selector menu controller
- * @param selector
  * @returns {{init: init}}
  * @constructor
  */
-export default function SelectorMenuController(selector) {
+export default function SelectorMenuController() {
     let contentDocument = null;
     const iframeCtrl = Ioc.get('iframeController');
 

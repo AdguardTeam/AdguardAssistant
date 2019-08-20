@@ -5,7 +5,7 @@ import protectedApi from './protectedApi';
  * Slider widget
  * @type {Function}
  */
-export default function SliderWidget(api) {
+function SliderWidget(api = {}) {
     const PLACEHOLDER_CLASS = 'adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all';
     const HANDLE_CLASS = 'ui-slider-handle';
     const HANDLE_FULL_CLASS = 'ui-slider-handle ui-state-default ui-corner-all';
@@ -150,3 +150,7 @@ export default function SliderWidget(api) {
 
     return api;
 }
+
+const sliderWidget = new SliderWidget();
+
+export default sliderWidget;

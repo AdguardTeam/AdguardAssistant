@@ -9,21 +9,16 @@ import {
     toArray,
 } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
-
+import sliderWidget from '../slider-widget';
 
 /**
  * Slider menu controller
- * @param sliderWidget
  * @param adguardRulesConstructor
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-export default function SliderMenuController(
-    sliderWidget,
-    adguardRulesConstructor,
-    addRule,
-) {
+export default function SliderMenuController(adguardRulesConstructor, addRule) {
     let contentDocument = null;
     let selectedElement = null;
     let startElement = null;

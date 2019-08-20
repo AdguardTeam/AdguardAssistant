@@ -8,7 +8,6 @@ import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
 import IframeController from './iframe';
-import SliderWidget from './slider-widget';
 import AdguardRulesConstructorLib from './adguard-rules-constructor';
 import UIButton from './button';
 import RunSheduler from './runSheduler';
@@ -27,8 +26,8 @@ export const adguardAssistantExtended = () => {
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
 
+    // TODO How to resolve it?
     Ioc.register('iframeController', Ioc.get(IframeController));
-    Ioc.register('sliderWidget', new SliderWidget({}));
     Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
     const button = Ioc.get(UIButton);
     const runSheduler = Ioc.get(RunSheduler);
@@ -46,6 +45,8 @@ export const adguardAssistantMini = () => ({
     start(callback) {
         Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
         const iframeController = Ioc.get(IframeControllerMobile);
+
+        // TODO How to resolve it?
         Ioc.register('iframeController', iframeController);
         Ioc.register('adguardRulesConstructor', new AdguardRulesConstructorLib({}));
         const runSheduler = Ioc.get(RunSheduler);

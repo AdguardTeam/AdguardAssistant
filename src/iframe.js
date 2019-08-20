@@ -35,7 +35,7 @@ import localization from './localization';
  * }}
  * @constructor
  */
-export default function IframeController() {
+function IframeController() {
     let iframe = null;
     let iframeAnchor = null;
     let currentItem = null;
@@ -469,3 +469,7 @@ export default function IframeController() {
         blockElement,
     };
 }
+
+const iframeController = new IframeController();
+
+export default iframeController;

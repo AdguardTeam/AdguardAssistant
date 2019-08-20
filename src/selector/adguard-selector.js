@@ -10,6 +10,7 @@ import {
 
 /**
  * Adguard selector library
+ * TODO: why this in separated directory?
  * @type {Function}
  */
 const AdguardSelectorLib = (function (api, protectedApi) {

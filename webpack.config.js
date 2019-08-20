@@ -10,14 +10,16 @@ const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
 const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
 const USERSCRIPT_NAME = 'assistant';
 
+
 const config = {
     mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
     entry: {
-        main: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
+        [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
+        embedded: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     },
     output: {
         path: path.resolve(__dirname, BUILD_DIR, MODE),
-        filename: `${USERSCRIPT_NAME}.user.js`,
+        filename: '[name].js',
     },
     optimization: {
         minimize: MODE === MODE_TYPES.RELEASE || MODE === MODE_TYPES.BETA,

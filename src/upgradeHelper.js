@@ -1,4 +1,5 @@
 import protectedApi from './protectedApi';
+import log from './log';
 
 /* eslint-disable no-param-reassign */
 /**
@@ -6,10 +7,8 @@ import protectedApi from './protectedApi';
  * @returns {{}}
  * @constructor
  */
-export default class UpgradeHelper {
-    constructor(log) {
-        this.log = log;
-
+class UpgradeHelper {
+    constructor() {
         this.Constants = {
             BUTTON_POSITION_ITEM_NAME: '__adbpos',
         };
@@ -23,7 +22,7 @@ export default class UpgradeHelper {
             }
             return undefined;
         } catch (ex) {
-            this.log.error(ex);
+            log.error(ex);
             return undefined;
         }
     }
@@ -32,7 +31,7 @@ export default class UpgradeHelper {
         try {
             localStorage.removeItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
         } catch (ex) {
-            this.log.error(ex);
+            log.error(ex);
         }
     }
 
@@ -57,3 +56,7 @@ export default class UpgradeHelper {
         return settings;
     }
 }
+
+const upgradeHelper = new UpgradeHelper();
+
+export default upgradeHelper;

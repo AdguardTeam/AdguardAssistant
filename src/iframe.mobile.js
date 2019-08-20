@@ -5,10 +5,10 @@ import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile';
 import CustomEvent from './event';
 import protectedApi from './protectedApi';
+import log from './log';
 
 /**
  * Manages iframe and it's content
- * @param log
  * @param selector
  * @param localization
  * @returns {{
@@ -22,7 +22,6 @@ import protectedApi from './protectedApi';
  * @constructor
  */
 export default function IframeControllerMobile(
-    log,
     selector,
     localization,
 ) {

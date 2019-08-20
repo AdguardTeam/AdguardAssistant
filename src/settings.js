@@ -1,11 +1,11 @@
 import { bypassCache } from './utils/common-utils';
 import protectedApi from './protectedApi';
+import log from './log';
+import upgradeHelper from './upgradeHelper';
 
 /**
  * Object that manages user settings.
- * @param log
  * @param gmApi
- * @param UpgradeHelper // backward compatibility class
  * @returns {{
  * Constants: {
  *  MINIMUM_IE_SUPPORTED_VERSION: number,
@@ -33,7 +33,7 @@ import protectedApi from './protectedApi';
  * }}
  * @constructor
  */
-export default function Settings(log, gmApi, UpgradeHelper) { // jshint ignore:line
+export default function Settings(gmApi) { // jshint ignore:line
     const Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
@@ -112,12 +112,12 @@ export default function Settings(log, gmApi, UpgradeHelper) { // jshint ignore:l
         if (settings.scriptVersion < DefaultConfig.scriptVersion) {
             log.info('Settings object is outdated. Updating...');
             // eslint-disable-next-line no-param-reassign
-            settings = UpgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
+            settings = upgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
         }
 
         // save to gm store position data from localStorage
         // eslint-disable-next-line no-param-reassign
-        settings = UpgradeHelper.upgradeLocalStorage(settings, SITENAME);
+        settings = upgradeHelper.upgradeLocalStorage(settings, SITENAME);
 
         return settings;
     };

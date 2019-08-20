@@ -10,9 +10,7 @@
 */
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
-import Log from './log';
 import AdguardSelectorLib from './selector/adguard-selector';
-import UpgradeHelper from './upgradeHelper';
 import GM from './gm';
 import Wot from './wot';
 import Settings from './settings';
@@ -30,9 +28,6 @@ import IframeControllerMobile from './iframe.mobile';
  * adguardAssistantExtended main function is for desktop browsers, running by onload event
  */
 export const adguardAssistantExtended = () => {
-    Ioc.register('log', new Log());
-    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log)));
-
     Ioc.register('addRule', () => false);
 
     const addRule = typeof (ADG_addRule) === 'undefined' ? null : ADG_addRule;
@@ -76,7 +71,6 @@ export const adguardAssistantExtended = () => {
  */
 export const adguardAssistantMini = () => ({
     start(callback) {
-        Ioc.register('log', new Log());
         Ioc.register('addRule', protectedApi.functionBind.call(callback, this));
         Ioc.register('selector', new AdguardSelectorLib({}));
         Ioc.register('uiUtils', Ioc.get(UIUtils));

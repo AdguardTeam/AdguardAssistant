@@ -2,8 +2,6 @@
 
 import Ioc from './ioc';
 import protectedApi from './protectedApi';
-import UpgradeHelper from './upgradeHelper';
-import Log from './log';
 import Wot from './wot';
 import Settings from './settings';
 import UIValidationUtils from './utils/ui-validation-utils';
@@ -20,9 +18,6 @@ import IframeControllerMobile from './iframe.mobile';
  * adguardAssistantExtended main function is for desktop browsers
  */
 export function adguardAssistantExtended() {
-    Ioc.register('log', new Log());
-    Ioc.register('UpgradeHelper', new UpgradeHelper(Ioc.get(Log)));
-
     Ioc.register('gmApi', () => false);
 
     const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
@@ -63,7 +58,6 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
-    Ioc.register('log', new Log());
     Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));

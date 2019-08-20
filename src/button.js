@@ -3,6 +3,7 @@
 import { hasClass, addClass } from './utils/dom-utils';
 import { HTML, CSS } from './inline-resources';
 import protectedApi from './protectedApi';
+import log from './log';
 
 /**
  * Adguard assistant button
@@ -16,7 +17,6 @@ import protectedApi from './protectedApi';
  * @constructor
  */
 export default function UIButton(
-    log,
     settings,
     uiValidationUtils,
     uiUtils,

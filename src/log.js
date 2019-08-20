@@ -3,7 +3,7 @@
  * @returns {{warn: warn, info: info, debug: debug, error: error}}
  * @constructor
  */
-export default function Log() {
+function Log() {
     let currentLevel = null;
 
     // gulp preprocess condition
@@ -47,6 +47,7 @@ export default function Log() {
                 formatted = `${now.toISOString()}: ${formatted}`;
             }
         }
+        // eslint-disable-next-line no-console
         console[method](formatted);
     };
 
@@ -70,3 +71,7 @@ export default function Log() {
         debug, info, warn, error,
     };
 }
+
+const log = new Log();
+
+export default log;

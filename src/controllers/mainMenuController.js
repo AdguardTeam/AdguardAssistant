@@ -3,6 +3,7 @@ import Ioc from '../ioc';
 import { format } from '../utils/string-utils';
 import { addClass, removeClass, toArray } from '../utils/dom-utils';
 import protectedApi from '../protectedApi';
+import log from '../log';
 
 /**
  * Main menu controller
@@ -17,7 +18,6 @@ export default function DetailedMenuController(
     localization,
     gmApi,
     settings,
-    log,
 ) {
     let contentDocument = null;
     let iframeCtrl = null;

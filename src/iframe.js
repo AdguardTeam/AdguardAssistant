@@ -9,6 +9,7 @@ import SliderMenuController from './controllers/sliderMenuController';
 import BlockPreviewController from './controllers/blockPreviewController';
 import SettingsMenuController from './controllers/settingsMenuController';
 import protectedApi from './protectedApi';
+import log from './log';
 
 
 /**
@@ -16,7 +17,6 @@ import protectedApi from './protectedApi';
  * @param settings
  * @param uiUtils
  * @param gmApi
- * @param log
  * @param selector
  * @param uiValidationUtils
  * @param localization
@@ -39,7 +39,6 @@ export default function IframeController(
     settings,
     uiUtils,
     gmApi,
-    log,
     selector,
     uiValidationUtils,
     localization,

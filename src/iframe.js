@@ -12,13 +12,13 @@ import protectedApi from './protectedApi';
 import log from './log';
 import settings from './settings';
 import gm from './gm';
+import uiValidationUtils from './utils/ui-validation-utils';
 
 
 /**
  * Manages iframe and it's content
  * @param uiUtils
  * @param selector
- * @param uiValidationUtils
  * @param localization
  * @returns {{
  * showDetailedMenu: showDetailedMenu,
@@ -38,7 +38,6 @@ import gm from './gm';
 export default function IframeController(
     uiUtils,
     selector,
-    uiValidationUtils,
     localization,
 ) {
     let iframe = null;

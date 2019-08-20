@@ -11,7 +11,7 @@ import settings from '../settings';
  * }}
  * @constructor
  */
-export default function UIValidationUtils() {
+function UIValidationUtils() {
     const { document } = window;
 
     const getViewPort = () => {
@@ -71,3 +71,7 @@ export default function UIValidationUtils() {
         getViewPort,
     };
 }
+
+const uiValidationUtils = new UIValidationUtils();
+
+export default uiValidationUtils;

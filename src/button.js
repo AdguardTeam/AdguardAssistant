@@ -5,18 +5,16 @@ import { HTML, CSS } from './inline-resources';
 import protectedApi from './protectedApi';
 import log from './log';
 import settings from './settings';
+import uiValidationUtils from './utils/ui-validation-utils';
 
 /**
  * Adguard assistant button
- * @param log Logger
- * @param uiValidationUtils Validation utils
  * @param uiUtils UI Utils
  * @param iframeController Iframe controller
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
 export default function UIButton(
-    uiValidationUtils,
     uiUtils,
     iframeController,
 ) {

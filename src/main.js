@@ -8,7 +8,6 @@ import protectedApi from './protectedApi';
 import AdguardSelectorLib from './selector/adguard-selector';
 import wot from './wot';
 import settings from './settings';
-import UIValidationUtils from './utils/ui-validation-utils';
 import UIUtils from './utils/ui-utils';
 import Localization from './localization';
 import IframeController from './iframe';
@@ -30,7 +29,6 @@ export const adguardAssistantExtended = () => {
     wot.registerWotEventHandler();
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
-    Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));

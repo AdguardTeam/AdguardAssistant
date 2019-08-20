@@ -4,7 +4,6 @@ import Ioc from './ioc';
 import protectedApi from './protectedApi';
 import wot from './wot';
 import settings from './settings';
-import UIValidationUtils from './utils/ui-validation-utils';
 import AdguardSelectorLib from './selector/adguard-selector';
 import UIUtils from './utils/ui-utils';
 import Localization from './localization';
@@ -25,7 +24,6 @@ export function adguardAssistantExtended() {
     // TODO think where should we call it
     settings.setAdguardSettings(adguardSettings);
 
-    Ioc.register('uiValidationUtils', Ioc.get(UIValidationUtils));
     Ioc.register('selector', new AdguardSelectorLib({}));
     Ioc.register('uiUtils', Ioc.get(UIUtils));
     Ioc.register('localization', Ioc.get(Localization));

@@ -7,12 +7,9 @@
     "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
     "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack && NODE_ENV=BETA ./node_modules/.bin/webpack --config webpack.embedded.config.js",
     "release": "NODE_ENV=RELEASE ./node_modules/.bin/webpack && NODE_ENV=RELEASE ./node_modules/.bin/webpack --config webpack.embedded.config.js",
-    "watch": "gulp watch --require @babel/register --gulpfile tasks",
-    "embedded": "gulp buildEmbedded --require @babel/register --gulpfile tasks",
     "test": "mocha-phantomjs test/test.html",
     "test-embedded": "mocha-phantomjs test/embedded.html",
     "test-to-gh-pages": "gulp testsToGhPages --require @babel/register --gulpfile tasks",
-    "clean": "gulp clean --require @babel/register --gulpfile tasks",
     "locales:download": "LOCALES=DOWNLOAD node locales.js",
     "locales:upload": "LOCALES=UPLOAD node locales.js"
   },

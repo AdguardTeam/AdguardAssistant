@@ -4,9 +4,9 @@
   "description": "Compile source files to userscript form",
   "main": "tasks/index.js",
   "scripts": {
-    "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack",
-    "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack",
-    "release": "NODE_ENV=RELEASE ./node_modules/.bin/webpack",
+    "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
+    "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
+    "release": "NODE_ENV=RELEASE ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
     "watch": "gulp watch --require @babel/register --gulpfile tasks",
     "embedded": "gulp buildEmbedded --require @babel/register --gulpfile tasks",
     "test": "mocha-phantomjs test/test.html",

@@ -1,19 +1,15 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MetaDataPlugin = require('./metadata.plugin');
-const metaSettings = require('./meta.settings');
-
+const webpack = require('webpack');
 
 const BUILD_DIR = 'build';
 const SOURCE_DIR = 'src';
 const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
 const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
-const USERSCRIPT_NAME = 'assistant';
 
 const config = {
     mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
     entry: {
-        [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
+        embedded: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     },
     devtool: 'eval-source-map',
     output: {
@@ -51,15 +47,8 @@ const config = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin(),
-        new MetaDataPlugin({
-            filename: USERSCRIPT_NAME,
-            ...metaSettings.common,
-            ...(metaSettings[MODE] || {}),
-            fields: {
-                ...metaSettings.common.fields,
-                ...((metaSettings[MODE] && metaSettings[MODE].fields) || {}),
-            },
+        new webpack.DefinePlugin({
+            EMB: true,
         }),
     ],
 };

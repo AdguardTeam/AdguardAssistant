@@ -9,7 +9,8 @@ ADG_addRule,
 ADG_temporaryDontBlock,
 ADG_sendAbuse,
 ADG_isFiltered,
-ADG_changeFilteringState
+ADG_changeFilteringState,
+EMB
 */
 import protectedApi from './protectedApi';
 
@@ -86,7 +87,11 @@ function GM() {
         ADG_changeFilteringState,
     };
 }
+// eslint-disable-next-line import/no-mutable-exports
+let gm = {};
 
-const gm = new GM();
+if (typeof EMB === 'undefined') {
+    gm = new GM();
+}
 
 export default gm;

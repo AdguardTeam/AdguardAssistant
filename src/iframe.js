@@ -415,7 +415,9 @@ function IframeController() {
 
         // do not hide assistant div if the user wrote a rule
         // that blocks all div or iframe elements
-        iframeAnchor.style.setProperty('display', 'block', 'important');
+        if (iframeAnchor) {
+            iframeAnchor.style.setProperty('display', 'block', 'important');
+        }
         return undefined;
     };
 

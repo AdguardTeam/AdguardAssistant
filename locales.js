@@ -112,6 +112,9 @@ function saveFile(filePath, content) {
  */
 function download() {
     LOCALES.forEach((lang) => {
+        if (lang === BASE_LOCALE) {
+            return;
+        }
         CROWDIN_FILES.forEach(async (file) => {
             try {
                 const { data } = await axios.get(getDownloadlURL(lang, file));

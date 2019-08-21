@@ -17,6 +17,7 @@ const config = {
         [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
         embedded: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     },
+    devtool: 'eval-source-map',
     output: {
         path: path.resolve(__dirname, BUILD_DIR, MODE),
         filename: '[name].js',

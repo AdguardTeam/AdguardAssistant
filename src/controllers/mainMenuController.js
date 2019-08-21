@@ -108,21 +108,27 @@ export default function DetailedMenuController(iframe) {
         const wotData = wot.getWotData();
         const wotReputationSettings = getWotReputationSettings(wotData);
 
-        if (wotReputationSettings) {
-            const wotIndication = contentDocument.querySelector('#WotIndication');
-            const wotDescriptionText = contentDocument.querySelector('#WotDescriptionText');
-            const confidenceIndication = contentDocument.querySelector('#ConfidenceIndication');
-
-            contentDocument.getElementsByClassName('wot-indicator')[0].href = wot.getWotScorecardUrl(domain);
-            addClass(wotIndication, wotReputationSettings.class);
-            const wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
-            wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
-
-            const wotConfidenceClass = getWotConfidenceClass(wotData);
-            addClass(confidenceIndication, wotConfidenceClass);
-
-            removeClass(contentDocument.querySelectorAll('.wot-hide'), 'wot-hide');
+        if (!wotReputationSettings) {
+            return;
         }
+
+        const wotIndication = contentDocument.querySelector('#WotIndication');
+        addClass(wotIndication, wotReputationSettings.class);
+        wotIndication.dataset.title = localization.getMessage('menu_wot_reputation_indicator');
+
+        const wotDescriptionText = contentDocument.querySelector('#WotDescriptionText');
+        const wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
+        wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
+
+        const confidenceIndication = contentDocument.querySelector('#ConfidenceIndication');
+        const wotConfidenceClass = getWotConfidenceClass(wotData);
+        addClass(confidenceIndication, wotConfidenceClass);
+        wotIndication.dataset.title = localization.getMessage('menu_wot_reputation_confidence_level');
+
+        const wotLinkElem = contentDocument.querySelector('.wot-indicator');
+        wotLinkElem.href = wot.getWotScorecardUrl(domain);
+
+        removeClass(contentDocument.querySelectorAll('.wot-hide'), 'wot-hide');
     };
 
     const startAdSelector = () => {

@@ -1,5 +1,5 @@
 import { CSS, HTML } from './inline-resources';
-import Ioc from './ioc';
+import ioc from './ioc';
 import { objectAssign } from './utils/common-utils';
 import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile';
@@ -169,7 +169,7 @@ export default function IframeControllerMobile() {
 
     const startSelect = () => {
         hideIframe();
-        const controller = Ioc.get(SelectorMenuController);
+        const controller = new SelectorMenuController(ioc.get('iframeController'));
         controller.startSelector();
     };
 
@@ -229,7 +229,10 @@ export default function IframeControllerMobile() {
     });
 
     const showSliderMenu = (element) => {
-        const controller = Ioc.get(SliderMenuControllerMobile);
+        const controller = new SliderMenuControllerMobile(
+            ioc.get('addRule'),
+            ioc.get('iframeController')
+        );
         const options = {
             element,
         };

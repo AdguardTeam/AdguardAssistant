@@ -29,7 +29,7 @@ function Wot() {
     const registerWotEventHandler = () => {
         document.addEventListener('wot-score', (e) => {
             // eslint-disable-next-line prefer-destructuring
-            wotData = e.data.wotData;
+            wotData = e && e.data && e.data.wotData;
             fireEvent('wot-accepted', null);
         });
     };

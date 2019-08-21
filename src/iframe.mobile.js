@@ -8,6 +8,7 @@ import protectedApi from './protectedApi';
 import log from './log';
 import selector from './selector/adguard-selector';
 import localization from './localization';
+import { version } from '../package.json';
 
 /**
  * Manages iframe and it's content
@@ -219,9 +220,11 @@ export default function IframeControllerMobile() {
         init() {
             const startSelectMode = iframe.contentDocument.querySelector('.start-select-mode');
             const cancelSelectMode = iframe.contentDocument.querySelector('.cancel-select-mode');
+            const appVersionElem = iframe.contentDocument.querySelector('#appVersion');
 
             startSelectMode.addEventListener('click', startSelect);
             cancelSelectMode.addEventListener('click', removeIframe);
+            appVersionElem.innerText = `v${version}`;
         },
     });
 

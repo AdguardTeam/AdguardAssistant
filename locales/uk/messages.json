@@ -40,6 +40,12 @@
     "assistant_slider_explain": {
         "message": "Пересувайте повзунок, щоб змінити розмір блоку, для якого діятиме правило:"
     },
+    "assistant_slider_min": {
+        "message": "МІНІМУМ"
+    },
+    "assistant_slider_max": {
+        "message": "МАКСИМУМ"
+    },
     "assistant_extended_settings": {
         "message": "Розширені налаштування"
     },

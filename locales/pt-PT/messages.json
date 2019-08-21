@@ -1,4 +1,5 @@
 {
+    "settings_position_save": "Sites",
     "settings_position_save_all": "Todos os websites",
     "settings_position_save_this": "Este website",
     "assistant_select_element_start": "Iniciar",
@@ -38,6 +39,12 @@
     },
     "assistant_slider_explain": {
         "message": "Desloque o controlo deslizante para alterar o tamanho do quadro para o qual a nova regra irá funcionar:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
+    },
+    "assistant_slider_max": {
+        "message": "MAX"
     },
     "assistant_extended_settings": {
         "message": "Configurações avançadas"

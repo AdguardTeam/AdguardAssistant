@@ -2,6 +2,7 @@
     "settings_position_save": "Hjemmesider",
     "settings_position_save_all": "Alle hjemmesider",
     "settings_position_save_this": "Denne hjemmeside",
+    "assistant_select_element_start": "Start",
     "assistant_select_element_text": "Vælg et element på denne side som skal blokeres. Opdater siden for at annullere tilstanden for elementblokering.",
     "menu_filtration_status": {
         "message": "Filtrering på denne hjemmeside"
@@ -38,6 +39,12 @@
     },
     "assistant_slider_explain": {
         "message": "Flyt skyderen for at ændre størrelsen af den ramme, den nye regel vil fungere efter:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
+    },
+    "assistant_slider_max": {
+        "message": "MAKS"
     },
     "assistant_extended_settings": {
         "message": "Avancerede indstillinger"
@@ -101,6 +108,9 @@
     },
     "settings_big": {
         "message": "Stor"
+    },
+    "settings_position": {
+        "message": "Position:"
     },
     "settings_left_top": {
         "message": "Øverst til venstre"

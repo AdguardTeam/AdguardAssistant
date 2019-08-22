@@ -41,7 +41,7 @@ export const removeClass = (elem, className) => {
 export const hasClass = (elem, className) => {
     const elems = toArray(elem);
     const [target] = elems;
-    return target.classList !== undefined && target.classList.contains(className);
+    return !!(target.classList && target.classList.contains(className));
 };
 
 /**

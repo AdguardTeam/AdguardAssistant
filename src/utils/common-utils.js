@@ -92,7 +92,7 @@ export const objectAssign = (...args) => {
 };
 
 /**
- * Multiplue event handler helper.
+ * Multiple event handler helper.
  * @param {Object}  elements  element or nodeList.
  * @param {String}  events    multiple events divided by space.
  * @param {Function}  eventHandler   event handler.

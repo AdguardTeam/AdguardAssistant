@@ -1,5 +1,4 @@
 import { reloadPageBypassCache } from '../utils/common-utils';
-import { format } from '../utils/string-utils';
 import { addClass, removeClass, toArray } from '../utils/dom-utils';
 import protectedApi from '../protectedApi';
 import log from '../log';
@@ -152,7 +151,7 @@ export default function DetailedMenuController(iframe) {
     };
 
     const goToSiteReport = () => {
-        const url = format(settings.Constants.REPORT_URL, domain);
+        const url = settings.Constants.REPORT_URL.replace('{0}', domain);
         window.open(url, '_blank');
     };
 

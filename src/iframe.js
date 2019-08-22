@@ -2,7 +2,6 @@ import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
 import { bypassCache } from './utils/common-utils';
 import ioc from './ioc';
-import { format } from './utils/string-utils';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuController from './controllers/sliderMenuController';
@@ -231,7 +230,7 @@ function IframeController() {
     };
 
     const showMenuItem = (viewName, controller, width, height, options) => {
-        log.debug(format('Showing menu item: {0}', viewName));
+        log.debug(`Showing menu item: ${viewName}`);
         if (currentItem === viewName) {
             return;
         }

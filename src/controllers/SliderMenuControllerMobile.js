@@ -1,5 +1,4 @@
-import { getAllChildren, getParentsLevel } from '../utils/common-utils';
-import { toArray } from '../utils/dom-utils';
+import { toArray, getAllChildren, getParentsLevel } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
 import adguardRulesConstructor from '../adguard-rules-constructor';
 

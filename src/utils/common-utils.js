@@ -1,41 +1,3 @@
-export const getNodeName = element => (element && element.nodeName ? element.nodeName.toUpperCase() : '');
-
-export const getParentsLevel = (element) => {
-    let parent = element;
-    const parentArr = [];
-    // eslint-disable-next-line no-cond-assign
-    while ((parent = parent.parentNode) && getNodeName(parent) !== 'BODY') {
-        parentArr.push(parent);
-    }
-    return parentArr;
-};
-
-// eslint-disable-next-line consistent-return
-export const getSingleChildren = (element) => {
-    const children = element.childNodes;
-    if (children) {
-        let count = 0;
-        let child;
-        for (let i = 0; i < children.length; i += 1) {
-            if (children[i].nodeType === 1) {
-                child = children[i];
-                count += 1;
-            }
-        }
-        return count === 1 ? child : null;
-    }
-};
-
-export const getAllChildren = (element) => {
-    const childArray = [];
-    let child = element;
-    // eslint-disable-next-line no-cond-assign
-    while ((child = getSingleChildren(child))) {
-        childArray.push(child);
-    }
-    return childArray;
-};
-
 export const cropDomain = domain => domain.replace('www.', '').replace(/:\d+/, '');
 
 /**
@@ -150,21 +112,15 @@ export const events = {
 
 /**
  * Common utils
- *
- * TODO: remove this object when refactor all files
  * @type {{
- * getParentsLevel: Function,
- * getNodeName: Function,
- * getAllChilds: Function,
- * getSingleChildren: Function,
- * cropDomain: Function
+ * cropDomain: Function,
+ * bypassCache: Function,
+ * reloadPageBypassCache: Function,
+ * objectAssign: Function,
+ * events: Object
  * }}
  */
 const CommonUtils = {
-    getNodeName,
-    getParentsLevel,
-    getSingleChildren,
-    getAllChildren,
     cropDomain,
     bypassCache,
     reloadPageBypassCache,

@@ -1,4 +1,60 @@
 /**
+ * Returns tag name for passed element
+ * @param {Element} element target element
+ */
+export const getNodeName = element => (
+    element && element.nodeName ? element.nodeName.toUpperCase() : ''
+);
+
+/**
+ * Returns arrays of parents for passed element
+ * @param {Element} element target element
+ */
+export const getParentsLevel = (element) => {
+    let parent = element;
+    const parentArr = [];
+    // eslint-disable-next-line no-cond-assign
+    while ((parent = parent.parentNode) && getNodeName(parent) !== 'BODY') {
+        parentArr.push(parent);
+    }
+    return parentArr;
+};
+
+/**
+ * Returns child element if it only one ELEMENT_NODE child
+ * @param {Element} element target element
+ */
+// eslint-disable-next-line consistent-return
+export const getSingleChildren = (element) => {
+    const children = element.childNodes;
+    if (children) {
+        let count = 0;
+        let child;
+        for (let i = 0; i < children.length; i += 1) {
+            if (children[i].nodeType === 1) {
+                child = children[i];
+                count += 1;
+            }
+        }
+        return count === 1 ? child : null;
+    }
+};
+
+/**
+ * Returns all children for target element
+ * @param {Element} element target element
+ */
+export const getAllChildren = (element) => {
+    const childArray = [];
+    let child = element;
+    // eslint-disable-next-line no-cond-assign
+    while ((child = getSingleChildren(child))) {
+        childArray.push(child);
+    }
+    return childArray;
+};
+
+/**
  * Converts passed argument to array
  * Usually used for transformatin NodeList to simple Array
  * @param {any} elems

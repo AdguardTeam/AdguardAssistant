@@ -1,4 +1,4 @@
-import { getParentsLevel, getAllChildren, events } from '../utils/common-utils';
+import { events } from '../utils/common-utils';
 import {
     hasClass,
     addClass,
@@ -6,6 +6,8 @@ import {
     show,
     hide,
     toArray,
+    getParentsLevel,
+    getAllChildren,
 } from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
 import sliderWidget from '../slider-widget';

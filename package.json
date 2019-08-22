@@ -9,8 +9,6 @@
     "release": "NODE_ENV=RELEASE ./node_modules/.bin/webpack && NODE_ENV=RELEASE ./node_modules/.bin/webpack --config webpack.embedded.config.js",
     "test:build": "./node_modules/.bin/webpack --config tests/webpack.test.config.js",
     "test": "yarn test:build && node tests/puppeteer.js",
-    "test-embedded": "./node_modules/.bin/mocha-phantomjs test/embedded.html",
-    "test-to-gh-pages": "gulp testsToGhPages --require @babel/register --gulpfile tasks",
     "locales:download": "LOCALES=DOWNLOAD node locales.js",
     "locales:upload": "LOCALES=UPLOAD node locales.js"
   },
@@ -24,6 +22,7 @@
     "concat": "^1.0.3",
     "copy-webpack-plugin": "^5.0.3",
     "cp-file": "^7.0.0",
+    "create-file-webpack": "^1.0.2",
     "css-loader": "^3.2.0",
     "eslint": "^6.0.1",
     "eslint-config-airbnb": "^17.1.1",

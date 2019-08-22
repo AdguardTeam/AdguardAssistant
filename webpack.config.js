@@ -1,14 +1,16 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CreateFileWebpack = require('create-file-webpack');
 const MetaDataPlugin = require('./metadata.plugin');
 const metaSettings = require('./meta.settings');
-
+const pkg = require('./package.json');
 
 const BUILD_DIR = 'build';
 const SOURCE_DIR = 'src';
 const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
 const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
 const USERSCRIPT_NAME = 'assistant';
+const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, MODE);
 
 const config = {
     mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
@@ -17,7 +19,7 @@ const config = {
     },
     devtool: 'eval-source-map',
     output: {
-        path: path.resolve(__dirname, BUILD_DIR, MODE),
+        path: OUTPUT_PATH,
         filename: '[name].js',
     },
     optimization: {
@@ -52,6 +54,11 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new CreateFileWebpack({
+            path: OUTPUT_PATH,
+            fileName: 'build.txt',
+            content: `version=${pkg.version}`,
+        }),
         new MetaDataPlugin({
             filename: USERSCRIPT_NAME,
             ...metaSettings.common,

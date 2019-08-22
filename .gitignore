@@ -8,6 +8,7 @@ less/node_modules
 less/skin
 beta.bat
 replace.py
+dist
 
 .keys*
 

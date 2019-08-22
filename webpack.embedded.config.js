@@ -49,6 +49,7 @@ const config = {
     plugins: [
         new webpack.DefinePlugin({
             EMB: true,
+            DEBUG: MODE === MODE_TYPES.DEV,
         }),
     ],
 };

@@ -1,19 +1,16 @@
+/* global DEBUG */
 /**
  * Simple logger with log levels
- * @returns {{warn: warn, info: info, debug: debug, error: error}}
+ * @returns {{
+ *  warn: warn,
+ *  info: info,
+ *  debug: debug,
+ *  error: error
+ * }}
  * @constructor
  */
 function Log() {
-    let currentLevel = null;
-
-    // gulp preprocess condition
-    // @if DEBUG
-    currentLevel = 'DEBUG';
-    // @endif
-
-    // @if !DEBUG
-    currentLevel = 'ERROR';
-    // @endif
+    const currentLevel = DEBUG ? 'DEBUG' : 'ERROR';
 
     const LogLevels = {
         ERROR: 1,

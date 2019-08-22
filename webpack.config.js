@@ -1,6 +1,8 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CreateFileWebpack = require('create-file-webpack');
+const webpack = require('webpack');
+
 const MetaDataPlugin = require('./metadata.plugin');
 const metaSettings = require('./meta.settings');
 const pkg = require('./package.json');
@@ -58,6 +60,9 @@ const config = {
             path: OUTPUT_PATH,
             fileName: 'build.txt',
             content: `version=${pkg.version}`,
+        }),
+        new webpack.DefinePlugin({
+            DEBUG: MODE === MODE_TYPES.DEV,
         }),
         new MetaDataPlugin({
             filename: USERSCRIPT_NAME,

@@ -35,7 +35,8 @@ class UpgradeHelper {
         }
     }
 
-    static upgradeGmStorage(settings, version) {
+    // eslint-disable-next-line class-methods-use-this
+    upgradeGmStorage(settings, version) {
         settings.personal = {};
         settings.scriptVersion = version;
         settings.personalConfig = true;

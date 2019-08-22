@@ -1,5 +1,3 @@
-
-
 import { hasClass, addClass } from './utils/dom-utils';
 import { HTML, CSS } from './inline-resources';
 import protectedApi from './protectedApi';
@@ -32,13 +30,11 @@ function UIButton() {
 
     const isButtonAlreadyInDOM = () => {
         const alert = document.querySelector('.adguard-alert');
-        const already = alert !== null;
-
-        if (already) {
+        if (alert) {
             log.error('Assistant button is already in DOM');
             return true;
         }
-        return undefined;
+        return false;
     };
 
     /**

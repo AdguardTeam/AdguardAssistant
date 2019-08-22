@@ -231,7 +231,7 @@ export default function IframeControllerMobile() {
     const showSliderMenu = (element) => {
         const controller = new SliderMenuControllerMobile(
             ioc.get('addRule'),
-            ioc.get('iframeController')
+            ioc.get('iframeController'),
         );
         const options = {
             element,

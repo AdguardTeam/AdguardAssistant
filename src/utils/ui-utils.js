@@ -4,7 +4,13 @@ import protectedApi from '../protectedApi';
 
 /**
  * UI utils
- * @returns {{makeElementDraggable: Function, makeIframeDraggable: Function}}
+ * @returns {{
+ *  makeElementDraggable: Function,
+ *  makeIframeDraggable: Function,
+ *  moveElementTo: Function,
+`*  setAnchorPosition: Function,
+ *  checkElementPosition: Function,
+ * }}
  * @constructor
  */
 function UIUtils() {
@@ -20,7 +26,7 @@ function UIUtils() {
      * Get original event object for touch
      * devices to getting current coordinates
      * @param {Object}
-     * @return {Object}
+     * @returns {Object}
      */
     const getOriginalEvent = e => (e.targetTouches ? e.targetTouches[0] : e);
 

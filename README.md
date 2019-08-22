@@ -61,3 +61,4 @@ This will open `http://localhost:3000` in browser for debugging with extensions 
 - fix tests running
 - rename files in according to what it export
 - site report link does not work
+- figure out how to test it

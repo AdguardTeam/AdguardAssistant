@@ -10,6 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'bundle.test.js',
     },
+    devtool: 'inline-source-map',
     optimization: {
         minimize: false,
     },
@@ -31,10 +32,6 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin([
-            {
-                from: 'build/release/assistant.user.js',
-                to: '.',
-            },
             {
                 from: 'node_modules/qunit/qunit/qunit.js',
                 to: '.',

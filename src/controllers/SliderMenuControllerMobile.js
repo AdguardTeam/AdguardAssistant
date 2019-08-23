@@ -11,6 +11,7 @@ import adguardRulesConstructor from '../adguard-rules-constructor';
 /**
  * Slider menu controller mobile
  * @param addRule
+ * @param iframe
  * @returns {{init: init}}
  * @constructor
  */

@@ -5,6 +5,7 @@ import selector from '../selector/adguard-selector';
 /**
  * Block preview controller
  * @param addRule
+ * @param iframe
  * @returns {{init: init}}
  * @constructor
  */

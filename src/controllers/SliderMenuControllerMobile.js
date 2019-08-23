@@ -1,4 +1,10 @@
-import { toArray, getAllChildren, getParentsLevel } from '../utils/dom-utils';
+import {
+    toArray,
+    getAllChildren,
+    getParentsLevel,
+    removeClass,
+    addClass,
+} from '../utils/dom-utils';
 import selector from '../selector/adguard-selector';
 import adguardRulesConstructor from '../adguard-rules-constructor';
 
@@ -23,15 +29,15 @@ export default function SliderMenuControllerMobile(addRule, iframe) {
         selector.reset();
 
         if (this.classList.contains('active')) {
-            selectedElement.classList.remove('sg_hide_element');
-            this.classList.remove('active');
+            removeClass(selectedElement, 'sg_hide_element');
+            removeClass(this, 'active');
             selector.selectElement(selectedElement);
             contentDocument.querySelector('.adg-plus').removeAttribute('disabled');
             contentDocument.querySelector('.adg-minus').removeAttribute('disabled');
             contentDocument.querySelector('.adg-close').removeAttribute('disabled');
         } else {
-            selectedElement.classList.add('sg_hide_element');
-            this.classList.add('active');
+            addClass(selectedElement, 'sg_hide_element');
+            addClass(this, 'active');
             contentDocument.querySelector('.adg-plus').setAttribute('disabled', 'disabled');
             contentDocument.querySelector('.adg-minus').setAttribute('disabled', 'disabled');
             contentDocument.querySelector('.adg-close').setAttribute('disabled', 'disabled');

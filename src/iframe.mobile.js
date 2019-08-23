@@ -2,7 +2,7 @@ import { CSS, HTML } from './inline-resources';
 import ioc from './ioc';
 import { objectAssign } from './utils/common-utils';
 import SelectorMenuController from './controllers/selectorMenuController';
-import SliderMenuControllerMobile from './controllers/SliderMenuControllerMobile';
+import SliderMenuControllerMobile from './controllers/sliderMenuControllerMobile';
 import CustomEvent from './event';
 import protectedApi from './protectedApi';
 import log from './log';

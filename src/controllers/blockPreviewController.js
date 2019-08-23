@@ -13,7 +13,6 @@ export default function BlockPreviewController(addRule, iframe) {
     let currentElement = null;
     let selectedElement = null;
     let selectedPath = null;
-    // let iframeAnchor = null;
     let optionsState = null;
     const iframeCtrl = iframe;
     const previewStyleID = 'ag-preview-style-id';
@@ -74,7 +73,6 @@ export default function BlockPreviewController(addRule, iframe) {
         currentElement = options.currentElement;
         // eslint-disable-next-line prefer-destructuring
         contentDocument = iframe.contentDocument;
-        // iframeAnchor = options.iframeAnchor;
         optionsState = options.options;
         selector.reset();
         bindEvents();

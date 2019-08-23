@@ -18,6 +18,14 @@ export default function DetailedMenuController(iframe) {
     const iframeCtrl = iframe;
     let domain = null;
     const FILTERING_STATE_LS_PROPERTY = '__adfstate';
+    const CONFIDENCE_LEVEL = {
+        ZERO: { from: 0, to: 5 },
+        ONE: { from: 6, to: 11 },
+        TWO: { from: 12, to: 22 },
+        THREE: { from: 23, to: 33 },
+        FOUR: { from: 34, to: 44 },
+        FIVE: { from: 45, to: Infinity },
+    };
 
     const setDomain = () => {
         domain = decodeURIComponent(window.location.hostname);
@@ -82,23 +90,25 @@ export default function DetailedMenuController(iframe) {
             return null;
         }
         const prefix = 'adg-wot-confidence-';
+        const isThisLevel = (num, level) => (num >= level.from && num <= level.to);
         const confidenceWot = wotData.confidence;
-        if (confidenceWot >= 0 && confidenceWot < 6) {
+
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.ZERO)) {
             return `${prefix}0`;
         }
-        if (confidenceWot >= 6 && confidenceWot < 12) {
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.ONE)) {
             return `${prefix}1`;
         }
-        if (confidenceWot >= 12 && confidenceWot < 23) {
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.TWO)) {
             return `${prefix}2`;
         }
-        if (confidenceWot >= 23 && confidenceWot < 34) {
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.THREE)) {
             return `${prefix}3`;
         }
-        if (confidenceWot >= 34 && confidenceWot < 45) {
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.FOUR)) {
             return `${prefix}4`;
         }
-        if (confidenceWot >= 45) {
+        if (isThisLevel(confidenceWot, CONFIDENCE_LEVEL.FIVE)) {
             return `${prefix}5`;
         }
         return undefined;

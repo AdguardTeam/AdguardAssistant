@@ -22,35 +22,13 @@ export const bypassCache = (callback) => {
     xhr.send();
 };
 
+/**
+ * Reload page after bypassing cache
+ */
 export const reloadPageBypassCache = () => {
     bypassCache(() => {
         window.location.reload(true);
     });
-};
-
-/**
- * TODO: Replace with Object.assign everywhere
- * Function as like Object.assign()
- */
-export const objectAssign = (...args) => {
-    let from;
-    const to = {};
-
-    for (let s = 0; s < args.length; s += 1) {
-        // eslint-disable-next-line prefer-rest-params
-        from = Object(args[s]);
-
-        if (from != null) {
-            // eslint-disable-next-line no-restricted-syntax
-            for (const key in from) {
-                if (hasOwnProperty.call(from, key)) {
-                    to[key] = from[key];
-                }
-            }
-        }
-    }
-
-    return to;
 };
 
 /**
@@ -116,7 +94,6 @@ export const events = {
  * cropDomain: Function,
  * bypassCache: Function,
  * reloadPageBypassCache: Function,
- * objectAssign: Function,
  * events: Object
  * }}
  */
@@ -124,7 +101,6 @@ const CommonUtils = {
     cropDomain,
     bypassCache,
     reloadPageBypassCache,
-    objectAssign,
     events,
 };
 

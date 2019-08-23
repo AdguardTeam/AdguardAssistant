@@ -1,6 +1,5 @@
 import { CSS, HTML } from './inline-resources';
 import ioc from './ioc';
-import { objectAssign } from './utils/common-utils';
 import SelectorMenuController from './controllers/selectorMenuController';
 import SliderMenuControllerMobile from './controllers/sliderMenuControllerMobile';
 import CustomEvent from './event';
@@ -51,7 +50,7 @@ export default function IframeControllerMobile() {
         iframe.removeAttribute('style');
         iframe.removeAttribute('height');
 
-        const attributes = objectAssign(defaultAttributes, attrs);
+        const attributes = { ...defaultAttributes, ...attrs };
 
         Object.keys(attributes).forEach((item) => {
             iframe.setAttribute(item, attributes[item]);
@@ -59,7 +58,7 @@ export default function IframeControllerMobile() {
     };
 
     const updateIframeStyles = (styles) => {
-        const css = objectAssign(defaultCSS, styles);
+        const css = { ...defaultCSS, ...styles };
 
         Object.keys(css).forEach((item) => {
             iframe.style[item] = css[item];

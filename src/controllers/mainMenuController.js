@@ -9,6 +9,7 @@ import localization from '../localization';
 
 /**
  * Main menu controller
+ * @param iframe
  * @returns {{init: init}}
  * @constructor
  */

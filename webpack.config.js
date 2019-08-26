@@ -19,7 +19,7 @@ const config = {
     entry: {
         [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
     },
-    devtool: 'eval-source-map',
+    devtool: MODE === MODE_TYPES.DEV ? 'eval-source-map' : false,
     output: {
         path: OUTPUT_PATH,
         filename: '[name].js',

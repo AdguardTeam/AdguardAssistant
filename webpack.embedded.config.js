@@ -11,13 +11,13 @@ const config = {
     entry: {
         embedded: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     },
-    devtool: 'eval-source-map',
+    devtool: MODE === MODE_TYPES.DEV ? 'eval-source-map' : false,
     output: {
         path: path.resolve(__dirname, BUILD_DIR, MODE),
         filename: '[name].js',
     },
     optimization: {
-        minimize: MODE === MODE_TYPES.RELEASE || MODE === MODE_TYPES.BETA,
+        minimize: false,
     },
     module: {
         rules: [
@@ -47,8 +47,11 @@ const config = {
         ],
     },
     plugins: [
+        new webpack.NormalModuleReplacementPlugin(
+            /src\/gm\.js/,
+            'gm-empty.js',
+        ),
         new webpack.DefinePlugin({
-            EMB: true,
             DEBUG: MODE === MODE_TYPES.DEV,
         }),
     ],

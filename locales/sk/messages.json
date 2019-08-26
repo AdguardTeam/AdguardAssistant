@@ -1,0 +1,127 @@
+{
+    "settings_position_save": "Webové stránky",
+    "settings_position_save_all": "Všetky stránky",
+    "settings_position_save_this": "Táto stránka",
+    "assistant_select_element_start": "Štart",
+    "assistant_select_element_text": "Vyberte prvok na stránke, ktorý chcete zablokovať. Obnovte stránku pre zrušenie režimu blokovania prvkov.",
+    "menu_filtration_status": {
+        "message": "Filtrácia na tejto stránke"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Nefiltrovať počas 30 sekúnd"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blokovať reklamy na tejto stránke"
+    },
+    "menu_report_abuse": {
+        "message": "Nahlásiť stránku"
+    },
+    "menu_site_report": {
+        "message": "Bezpečnostná správa o stránke"
+    },
+    "menu_settings": {
+        "message": "Nastavenia asistenta"
+    },
+    "assistant_select_element": {
+        "message": "Blokovanie prvku"
+    },
+    "assistant_select_element_ext": {
+        "message": "Vyberte prvok stránky, ktorý sa má blokovať"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Zrušiť"
+    },
+    "assistant_block_element": {
+        "message": "Blokovanie prvku"
+    },
+    "assistant_block_element_explain": {
+        "message": "Upraviť pravidlo blokovania prvku"
+    },
+    "assistant_slider_explain": {
+        "message": "Použite posuvník pre zmenu veľkosti rámu pre nové pravidlo, ktoré bude použité na:"
+    },
+    "assistant_extended_settings": {
+        "message": "Pokročilé nastavenia"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Použiť pravidlo na všetky stránky"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokovať referenčným odkazom"
+    },
+    "assistant_block_similar": {
+        "message": "Blokovať podobné"
+    },
+    "assistant_another_element": {
+        "message": "Zvoliť iný prvok"
+    },
+    "assistant_preview": {
+        "message": "Náhľad"
+    },
+    "assistant_block": {
+        "message": "Blokovať"
+    },
+    "assistant_settings": {
+        "message": "Nastavenia asistenta"
+    },
+    "assistant_preview_header": {
+        "message": "Blokovanie prvku - náhľad"
+    },
+    "assistant_preview_header_info": {
+        "message": "Uistite sa, že prvok je blokovaný podľa Vašich predstáv"
+    },
+    "assistant_preview_end": {
+        "message": "Ukončenie náhľadu"
+    },
+    "wot_unknown_description": {
+        "message": "Reputácia tejto webovej stránky nie je v $1 definovaná"
+    },
+    "wot_bad_description": {
+        "message": "Táto stránka má podľa $1\nveľmi zlú reputáciu"
+    },
+    "wot_poor_description": {
+        "message": "Táto stránka má podľa $1\nzlú reputáciu"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Táto stránka má podľa $1\nslabú reputáciu"
+    },
+    "wot_good_description": {
+        "message": "Táto stránka má podľa $1\ndobrú reputáciu"
+    },
+    "wot_excellent_description": {
+        "message": "Táto stránka má podľa $1\nvýbornú reputáciu"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Prispôsobiť veľkosť a polohu AdGuard asistenta"
+    },
+    "settings_icon_size": {
+        "message": "Veľkosť ikony:"
+    },
+    "settings_small": {
+        "message": "Malá"
+    },
+    "settings_big": {
+        "message": "Veľká"
+    },
+    "settings_position": {
+        "message": "Poloha:"
+    },
+    "settings_left_top": {
+        "message": "Vľavo hore"
+    },
+    "settings_right_top": {
+        "message": "Vpravo hore"
+    },
+    "settings_left_bottom": {
+        "message": "Vľavo dole"
+    },
+    "settings_right_bottom": {
+        "message": "Vpravo dole"
+    },
+    "settings_cancel": {
+        "message": "Zrušiť"
+    },
+    "settings_save": {
+        "message": "Uložiť zmeny"
+    }
+}

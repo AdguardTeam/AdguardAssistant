@@ -1,59 +1,40 @@
+import { toArray } from '../utils/dom-utils';
+import settings from '../settings';
+import button from '../button';
+
 /**
  * Settings menu controller
- * @param $
- * @param settings
- * @param button
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc */
-var SettingsMenuController = function ($, settings, button) { // jshint ignore:line
-    var contentDocument = null;
-    var iframeCtrl = Ioc.get('iframeController');
-    var buttonSides = {
-        'position-bottom-right': {top: false, left: false},
-        'position-bottom-left': {top: false, left: true},
-        'position-top-right': {top: true, left: false},
-        'position-top-left': {top: true, left: true}
+export default function SettingsMenuController(iframe) {
+    let contentDocument = null;
+    const iframeCtrl = iframe;
+    const buttonSides = {
+        'position-bottom-right': { top: false, left: false },
+        'position-bottom-left': { top: false, left: true },
+        'position-top-right': { top: true, left: false },
+        'position-top-left': { top: true, left: true },
     };
 
-    /*
-     Called from IframeController._showMenuItem to initialize view
-     */
-    var init = function (iframe) {
-        contentDocument = iframe.contentDocument;
-        bindEvents();
-        setDefaultSettings();
-    };
 
-    var close = function () {
+    const close = () => {
         iframeCtrl.removeIframe();
     };
 
-    var bindEvents = function () {
-        var menuEvents = {
-            '.close': close,
-            '#cancel': iframeCtrl.showDetailedMenu,
-            '#save-settings': saveSettings
-        };
-        Object.keys(menuEvents).forEach(function (item) {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
-        });
-    };
-
-    var setIconSize = function () {
-        var smallIcon = contentDocument.getElementById('size-small').checked;
+    const setIconSize = () => {
+        const smallIcon = contentDocument.getElementById('size-small').checked;
         settings.setIconSize(smallIcon);
     };
 
-    var setPersonalParam = function () {
-        var personalConfig = contentDocument.getElementById('this-site').checked;
+    const setPersonalParam = () => {
+        const personalConfig = contentDocument.getElementById('this-site').checked;
         settings.setPersonalParam(personalConfig);
     };
 
-    var setButtonSide = function () {
-        var sideItem = null;
-        Object.keys(buttonSides).forEach(function (item) {
+    const setButtonSide = () => {
+        let sideItem = null;
+        Object.keys(buttonSides).forEach((item) => {
             if (contentDocument.getElementById(item).checked) {
                 sideItem = item;
             }
@@ -64,17 +45,7 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
         }
     };
 
-    var saveSettings = function () {
-        setPersonalParam();
-        setIconSize();
-        setButtonSide();
-        settings.saveSettings();
-        close();
-        button.remove();
-        button.show();
-    };
-
-    var setDefaultSettings = function () {
+    const setDefaultSettings = () => {
         if (settings.getIconSize()) {
             contentDocument.getElementById('size-small').checked = true;
         } else {
@@ -87,21 +58,55 @@ var SettingsMenuController = function ($, settings, button) { // jshint ignore:l
             contentDocument.getElementById('all-site').checked = true;
         }
 
-        var position = settings.getUserPositionForButton();
+        const position = settings.getUserPositionForButton();
         if (position) {
             return;
         }
-        var sideFromSettings = settings.getButtonSide();
+        const sideFromSettings = settings.getButtonSide();
 
-        Object.keys(buttonSides).forEach(function (item) {
-            var sideItem = buttonSides[item];
-            if ((sideItem.left === sideFromSettings.left) && (sideItem.top === sideFromSettings.top)) {
+        Object.keys(buttonSides).forEach((item) => {
+            const sideItem = buttonSides[item];
+            if ((sideItem.left === sideFromSettings.left)
+                && (sideItem.top === sideFromSettings.top)) {
                 contentDocument.getElementById(item).checked = true;
             }
         });
     };
 
-    return {
-        init: init
+    const saveSettings = () => {
+        setPersonalParam();
+        setIconSize();
+        setButtonSide();
+        settings.saveSettings();
+        close();
+        button.remove();
+        button.show();
     };
-};
+
+    const bindEvents = () => {
+        const menuEvents = {
+            '.close': close,
+            '#cancel': iframeCtrl.showDetailedMenu,
+            '#save-settings': saveSettings,
+        };
+        Object.keys(menuEvents).forEach((item) => {
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
+        });
+    };
+
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
+    // eslint-disable-next-line no-shadow
+    const init = (iframe) => {
+        // eslint-disable-next-line prefer-destructuring
+        contentDocument = iframe.contentDocument;
+        bindEvents();
+        setDefaultSettings();
+    };
+
+    return {
+        init,
+    };
+}

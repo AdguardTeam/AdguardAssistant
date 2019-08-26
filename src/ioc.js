@@ -1,23 +1,46 @@
-/**
- * Simple ioc implementation
- * @type {{add, get}}
- */
-var Ioc = (function () { // jshint ignore:line
-    var dependencies = {};
 
-    var register = function (qualifier, obj) {
-        dependencies[qualifier] = obj;
-    };
+const getArguments = (func) => {
+    // This regex is from require.js
+    const FN_ARGS = /^function\s*[^(]*\(\s*([^)]*)\)/m;
+    const args = func.toString().match(FN_ARGS)[1].split(',');
+    if (args[0] === '') {
+        return [];
+    }
+    return args;
+};
 
-    var get = function (func) {
+class Ioc {
+    constructor() {
+        this.dependencies = {};
+    }
+
+    resolveDependencies(func) {
+        const args = getArguments(func);
+        const resolved = [];
+        for (let i = 0; i < args.length; i += 1) {
+            const depName = args[i].trim();
+            const dep = this.dependencies[depName];
+            if (!dep) {
+                throw new Error(`Can't find dependency: ${depName}`);
+            }
+            resolved.push(this.dependencies[depName]);
+        }
+        return resolved;
+    }
+
+    register(qualifier, obj) {
+        this.dependencies[qualifier] = obj;
+    }
+
+    get(func) {
         if (typeof func === 'string') {
-            var resolved = dependencies[func];
+            const resolved = this.dependencies[func];
             if (!resolved) {
-                throw "Can't resolve " + func;
+                throw new Error(`Can't resolve ${func}`);
             }
             return resolved;
         }
-        var resolvedDependencies = resolveDependencies(func);
+        const resolvedDependencies = this.resolveDependencies(func);
 
         function FuncWrapper() {
             return func.apply(func, resolvedDependencies);
@@ -25,35 +48,9 @@ var Ioc = (function () { // jshint ignore:line
 
         FuncWrapper.prototype = func.prototype;
         return new FuncWrapper();
-    };
+    }
+}
 
-    var resolveDependencies = function (func) {
-        var args = getArguments(func);
-        var resolved = [];
-        for (var i = 0; i < args.length; i++) {
-            var depName = args[i].trim();
-            var dep = dependencies[depName];
-            if (!dep) {
-                throw  "Can't find dependency: " + depName;
-            }
-            resolved.push(dependencies[depName]);
-        }
-        return resolved;
-    };
+const ioc = new Ioc();
 
-    var getArguments = function (func) {
-        //This regex is from require.js
-        var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
-        var args = func.toString().match(FN_ARGS)[1].split(',');
-        if (args[0] === "") {
-            return [];
-        }
-        return args;
-    };
-
-    return {
-        register: register,
-        get: get
-    };
-
-})();
+export default ioc;

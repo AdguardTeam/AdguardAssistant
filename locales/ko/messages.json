@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "웹사이트",
+    "settings_position_save_all": "모든 웹사이트",
+    "settings_position_save_this": "이 웹사이트",
+    "assistant_select_element_start": "시작",
+    "assistant_select_element_text": "페이지에서 차단할 요소를 선택하세요. 요소 차단 모드를 취소하려면 페이지를 새로 고침하세요.",
+    "menu_filtration_status": {
+        "message": "이 웹사이트에서의 보호"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "30초 동안 차단 일시정지"
+    },
+    "menu_block_ad_on_site": {
+        "message": "이 웹사이트에서 광고 차단"
+    },
+    "menu_report_abuse": {
+        "message": "이 웹사이트에 관한 불만 사항 제출"
+    },
+    "menu_site_report": {
+        "message": "웹사이트 보안 보고"
+    },
+    "menu_settings": {
+        "message": "AdGuard 설정"
+    },
+    "assistant_select_element": {
+        "message": "선택 모드"
+    },
+    "assistant_select_element_ext": {
+        "message": "페이지에서 아무 요소나 클릭하거나"
+    },
+    "assistant_select_element_cancel": {
+        "message": "선택 모드 취소"
+    },
+    "assistant_block_element": {
+        "message": "요소 차단"
+    },
+    "assistant_block_element_explain": {
+        "message": "요소 차단 규칙 설정"
+    },
+    "assistant_slider_explain": {
+        "message": "슬라이더로 차단할 요소의 범위를 지정하세요."
+    },
+    "assistant_slider_min": {
+        "message": "작게"
+    },
+    "assistant_slider_max": {
+        "message": "크게"
+    },
+    "assistant_extended_settings": {
+        "message": "고급 설정..."
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "모든 웹사이트에 이 규칙 적용"
+    },
+    "assistant_block_by_reference": {
+        "message": "참조 링크가 차단"
+    },
+    "assistant_block_similar": {
+        "message": "유사한 요소 차단"
+    },
+    "assistant_another_element": {
+        "message": "다른 요소 선택"
+    },
+    "assistant_preview": {
+        "message": "미리 보기"
+    },
+    "assistant_block": {
+        "message": "차단"
+    },
+    "assistant_settings": {
+        "message": "도우미 설정"
+    },
+    "assistant_preview_header": {
+        "message": "요소 차단 - 미리 보기"
+    },
+    "assistant_preview_header_info": {
+        "message": "의도한 대로 요소가 차단되었는지 확인하세요."
+    },
+    "assistant_preview_end": {
+        "message": "미리 보기 종료"
+    },
+    "wot_unknown_description": {
+        "message": "평판이 등록되지 않았습니다."
+    },
+    "wot_bad_description": {
+        "message": "이 웹사이트는 아주 나쁜 평판을 갖고 있습니다.\n제공 "
+    },
+    "wot_poor_description": {
+        "message": "이 웹사이트는 나쁜 평판을 갖고 있습니다.\n제공 "
+    },
+    "wot_unsatisfactory_description": {
+        "message": "이 웹사이트는 좋지 않은 평판을 갖고 있습니다.\n제공 "
+    },
+    "wot_good_description": {
+        "message": "이 웹사이트는 좋은 평판을 갖고 있습니다.\n제공 "
+    },
+    "wot_excellent_description": {
+        "message": "이 웹사이트는 아주 좋은 평판을 갖고 있습니다.\n제공 "
+    },
+    "settings_choose_size_and_position": {
+        "message": "AdGuard 도우미의 크기와 위치를 조정합니다."
+    },
+    "settings_icon_size": {
+        "message": "아이콘 크기:"
+    },
+    "settings_small": {
+        "message": "작게"
+    },
+    "settings_big": {
+        "message": "크게"
+    },
+    "settings_position": {
+        "message": "위치:"
+    },
+    "settings_left_top": {
+        "message": "왼쪽 위"
+    },
+    "settings_right_top": {
+        "message": "오른쪽 위"
+    },
+    "settings_left_bottom": {
+        "message": "왼쪽 아래"
+    },
+    "settings_right_bottom": {
+        "message": "오른쪽 아래"
+    },
+    "settings_cancel": {
+        "message": "취소"
+    },
+    "settings_save": {
+        "message": "저장"
+    }
+}

@@ -1,0 +1,127 @@
+{
+    "settings_position_save": "Сайты",
+    "settings_position_save_all": "На всех",
+    "settings_position_save_this": "Только на этом",
+    "assistant_select_element_start": "Начать",
+    "assistant_select_element_text": "Выберите на странице элемент для блокирования. Обновите страницу, чтобы отменить режим блокировки элементов.",
+    "menu_filtration_status": {
+        "message": "Фильтрация на этом сайте"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Не фильтровать 30 секунд"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Заблокировать рекламу на сайте"
+    },
+    "menu_report_abuse": {
+        "message": "Пожаловаться на сайт"
+    },
+    "menu_site_report": {
+        "message": "Отчёт о безопасности сайта"
+    },
+    "menu_settings": {
+        "message": "Настроить помощник"
+    },
+    "assistant_select_element": {
+        "message": " Блокировка элемента"
+    },
+    "assistant_select_element_ext": {
+        "message": "Выберите на странице элемент, который надо заблокировать"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Отмена"
+    },
+    "assistant_block_element": {
+        "message": "Блокировка элемента"
+    },
+    "assistant_block_element_explain": {
+        "message": "Настройте правило блокирования элемента"
+    },
+    "assistant_slider_explain": {
+        "message": "Перемещайте бегунок, чтобы изменить размер блока, для которого будет действовать правило:"
+    },
+    "assistant_extended_settings": {
+        "message": "Расширенные настройки"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Применить правило для всех сайтов"
+    },
+    "assistant_block_by_reference": {
+        "message": "Блокировать по ссылке"
+    },
+    "assistant_block_similar": {
+        "message": "Блокировать похожие"
+    },
+    "assistant_another_element": {
+        "message": "Выбрать другой элемент"
+    },
+    "assistant_preview": {
+        "message": "Предпросмотр"
+    },
+    "assistant_block": {
+        "message": "Заблокировать"
+    },
+    "assistant_settings": {
+        "message": "Настройка помощника"
+    },
+    "assistant_preview_header": {
+        "message": "Блокировка элемента - предпросмотр"
+    },
+    "assistant_preview_header_info": {
+        "message": "Убедитесь, что элемент заблокирован как задумано"
+    },
+    "assistant_preview_end": {
+        "message": "Закончить предпросмотр"
+    },
+    "wot_unknown_description": {
+        "message": "Репутация не определена расширением $1"
+    },
+    "wot_bad_description": {
+        "message": "У сайта очень плохая репутация по данным $1"
+    },
+    "wot_poor_description": {
+        "message": "У сайта плохая репутация по данным $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "У сайта неудовлетворительная репутация по данным $1"
+    },
+    "wot_good_description": {
+        "message": "У сайта хорошая репутация по данным $1"
+    },
+    "wot_excellent_description": {
+        "message": "У сайта отличная реутация по данным $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Настройте размер и положение помощника AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "Размер иконки:"
+    },
+    "settings_small": {
+        "message": "Маленькая"
+    },
+    "settings_big": {
+        "message": "Большая"
+    },
+    "settings_position": {
+        "message": "Расположение:"
+    },
+    "settings_left_top": {
+        "message": "Вверху слева"
+    },
+    "settings_right_top": {
+        "message": "Вверху справа"
+    },
+    "settings_left_bottom": {
+        "message": "Внизу слева"
+    },
+    "settings_right_bottom": {
+        "message": "Внизу справа"
+    },
+    "settings_cancel": {
+        "message": "Отмена"
+    },
+    "settings_save": {
+        "message": "Сохранить настройки"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard-assistent",
+            "description": "Tilbyr en enkel og praktisk måte å administrere filtrering rett fra nettleseren"
+        }
+    }
+}

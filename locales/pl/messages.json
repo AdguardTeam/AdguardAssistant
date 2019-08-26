@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Strony internetowe",
+    "settings_position_save_all": "Wszystkie strony internetowe",
+    "settings_position_save_this": "Ta strona internetowa",
+    "assistant_select_element_start": "Rozpocznij",
+    "assistant_select_element_text": "Wybierz element na stronie do zablokowania. Odśwież stronę, aby anulować tryb blokowania elementu.",
+    "menu_filtration_status": {
+        "message": "Filtrowanie na tej stronie internetowej"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Nie filtruj przez 30 sekund"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Zablokuj reklamę na tej stronie internetowej"
+    },
+    "menu_report_abuse": {
+        "message": "Raportuj stronę internetową"
+    },
+    "menu_site_report": {
+        "message": "Raport bezpieczeństwa strony internetowej"
+    },
+    "menu_settings": {
+        "message": "Ustawienia Asystenta"
+    },
+    "assistant_select_element": {
+        "message": "Blokowanie elementów"
+    },
+    "assistant_select_element_ext": {
+        "message": "Wybierz element na stronie by zablokować"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Anuluj"
+    },
+    "assistant_block_element": {
+        "message": "Blokowanie elementów"
+    },
+    "assistant_block_element_explain": {
+        "message": "Dostosuj regułę blokowania elementów"
+    },
+    "assistant_slider_explain": {
+        "message": "Przesuń suwak by zmienić rozmiar ramki, dla której będzie obowiązywać nowa reguła:"
+    },
+    "assistant_slider_min": {
+        "message": "Minimum"
+    },
+    "assistant_slider_max": {
+        "message": "Maksimum"
+    },
+    "assistant_extended_settings": {
+        "message": "Ustawienia zaawansowane"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Zastosuj regułę dla wszystkich stron internetowych"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokuj używając linka referencyjnego"
+    },
+    "assistant_block_similar": {
+        "message": "Blokuj podobne"
+    },
+    "assistant_another_element": {
+        "message": "Wybierz inny element"
+    },
+    "assistant_preview": {
+        "message": "Podgląd"
+    },
+    "assistant_block": {
+        "message": "Blokuj"
+    },
+    "assistant_settings": {
+        "message": "Ustawienia Asystenta"
+    },
+    "assistant_preview_header": {
+        "message": "Blokowanie elementów - podgląd"
+    },
+    "assistant_preview_header_info": {
+        "message": "Upewnij się, że element jest blokowany jak zamierzono"
+    },
+    "assistant_preview_end": {
+        "message": "Zamknij podgląd"
+    },
+    "wot_unknown_description": {
+        "message": "Reputacja nie jest zdefiniowana"
+    },
+    "wot_bad_description": {
+        "message": "Ta strona internetowa ma bardzo złą reputację zgodnie z $1"
+    },
+    "wot_poor_description": {
+        "message": "Ta strona internetowa ma złą reputację zgodnie z $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Ta strona internetowa ma słabą reputację zgodnie z $1"
+    },
+    "wot_good_description": {
+        "message": "Ta strona internetowa ma dobrą reputację zgodnie z $1"
+    },
+    "wot_excellent_description": {
+        "message": "Ta strona internetowa ma doskonałą reputację zgodnie z $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Dostosuj rozmiar i pozycję Asystenta AdGuarda"
+    },
+    "settings_icon_size": {
+        "message": "Rozmiar ikony:"
+    },
+    "settings_small": {
+        "message": "Mały"
+    },
+    "settings_big": {
+        "message": "Duży"
+    },
+    "settings_position": {
+        "message": "Pozycja:"
+    },
+    "settings_left_top": {
+        "message": "Lewy górny"
+    },
+    "settings_right_top": {
+        "message": "Prawy górny"
+    },
+    "settings_left_bottom": {
+        "message": "Na dole po lewej"
+    },
+    "settings_right_bottom": {
+        "message": "Na dole po prawej"
+    },
+    "settings_cancel": {
+        "message": "Anuluj"
+    },
+    "settings_save": {
+        "message": "Zapisz zmiany"
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "אתרי אינטרנט",
+    "settings_position_save_all": "כל האתרים",
+    "settings_position_save_this": "האתר הזה",
+    "assistant_select_element_start": "התחל",
+    "assistant_select_element_text": ".בחר אלמנט בדף לחסימה .רענן את הדף כדי לבטל את מצב חסימת האלמנטים",
+    "menu_filtration_status": {
+        "message": "סינון באתר זה"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "אל תסנן כ- 30 שניות"
+    },
+    "menu_block_ad_on_site": {
+        "message": "חסום פרסומת באתר זה"
+    },
+    "menu_report_abuse": {
+        "message": "דווח על האתר"
+    },
+    "menu_site_report": {
+        "message": "דיווח אבטחת אתר"
+    },
+    "menu_settings": {
+        "message": "הגדרות העוזר האישי"
+    },
+    "assistant_select_element": {
+        "message": "חוסם אלמנט"
+    },
+    "assistant_select_element_ext": {
+        "message": "בחר אלמנט בדף לחסימה"
+    },
+    "assistant_select_element_cancel": {
+        "message": "בטל"
+    },
+    "assistant_block_element": {
+        "message": "חסימת אלמנט"
+    },
+    "assistant_block_element_explain": {
+        "message": "התאם כלל חסימת אלמנט"
+    },
+    "assistant_slider_explain": {
+        "message": ":הזז את המחוון כדי לשנות את גודל המסגרת בה יעבוד הכלל החדש"
+    },
+    "assistant_slider_min": {
+        "message": "מינימום"
+    },
+    "assistant_slider_max": {
+        "message": "מקסימום"
+    },
+    "assistant_extended_settings": {
+        "message": "הגדרות מתקדמות"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "החל את הכלל על כל האתרים"
+    },
+    "assistant_block_by_reference": {
+        "message": "חסום הפניית קישור"
+    },
+    "assistant_block_similar": {
+        "message": "חסום דומה"
+    },
+    "assistant_another_element": {
+        "message": "בחר אלמנט אחר"
+    },
+    "assistant_preview": {
+        "message": "תצוגה מקדימה"
+    },
+    "assistant_block": {
+        "message": "חסום"
+    },
+    "assistant_settings": {
+        "message": "הגדרות העוזר האישי"
+    },
+    "assistant_preview_header": {
+        "message": "תצוגה מקדימה - חסימת אלמנט"
+    },
+    "assistant_preview_header_info": {
+        "message": "ודא כי אלמנט זה חסום בכוונה"
+    },
+    "assistant_preview_end": {
+        "message": "צא מתצוגה מקדימה"
+    },
+    "wot_unknown_description": {
+        "message": "מוניטין אינו מוגדר"
+    },
+    "wot_bad_description": {
+        "message": "לאתר זה יש מוניטין רע מאוד על פי"
+    },
+    "wot_poor_description": {
+        "message": "לאתר זה יש מוניטין רע על פי"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "לאתר זה יש מוניטין דל על פי"
+    },
+    "wot_good_description": {
+        "message": "לאתר זה יש מוניטין טוב על פי"
+    },
+    "wot_excellent_description": {
+        "message": "לאתר זה יש מוניטין מעולה על פי"
+    },
+    "settings_choose_size_and_position": {
+        "message": "התאם גודל ומיקום של העוזר האישי של אדגארד"
+    },
+    "settings_icon_size": {
+        "message": ":גודל צלמית"
+    },
+    "settings_small": {
+        "message": "קטן"
+    },
+    "settings_big": {
+        "message": "גדול"
+    },
+    "settings_position": {
+        "message": ":מיקום"
+    },
+    "settings_left_top": {
+        "message": "בחלק העליון משמאל"
+    },
+    "settings_right_top": {
+        "message": "בחלק העליון מימין"
+    },
+    "settings_left_bottom": {
+        "message": "צד שמאל למטה"
+    },
+    "settings_right_bottom": {
+        "message": "צד ימין למטה"
+    },
+    "settings_cancel": {
+        "message": "בטל"
+    },
+    "settings_save": {
+        "message": "שמור שינויים"
+    }
+}

@@ -1,63 +1,66 @@
+import { addStyle, addClass } from './utils/dom-utils';
+import protectedApi from './protectedApi';
+
 /**
  * Slider widget
  * @type {Function}
  */
-var SliderWidget = (function(api, $, protectedApi) { // jshint ignore:line
-    var PLACEHOLDER_CLASS = "adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all";
-    var HANDLE_CLASS = "ui-slider-handle";
-    var HANDLE_FULL_CLASS = "ui-slider-handle ui-state-default ui-corner-all";
-    var TICK_CLASS = "tick";
-    var TICK_FULL_CLASS = "tick ui-widget-content";
-    var TICK_LEFT_COLOR = "#36BA53";
-    var TICK_RIGHT_COLOR = "#E0DFDB";
+function SliderWidget(api = {}) {
+    const PLACEHOLDER_CLASS = 'adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all';
+    const HANDLE_CLASS = 'ui-slider-handle';
+    const HANDLE_FULL_CLASS = 'ui-slider-handle ui-state-default ui-corner-all';
+    const TICK_CLASS = 'tick';
+    const TICK_FULL_CLASS = 'tick ui-widget-content';
+    const TICK_LEFT_COLOR = '#36BA53';
+    const TICK_RIGHT_COLOR = '#E0DFDB';
 
-    var placeholder = null;
+    let placeholder = null;
 
-    var min = 0;
-    var max = 1;
-    var value = 0;
-    var sliderArea = null;
-    var onValueChanged = null;
+    let min = 0;
+    let max = 1;
+    let value = 0;
+    let sliderArea = null;
+    let onValueChanged = null;
 
-    var refresh = function() {
-        var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
-        $(handle).css('left', (value - 1) * 100 / (max - min) + "%");
+    const refresh = () => {
+        const handle = placeholder.querySelectorAll(`.${HANDLE_CLASS}`);
+        addStyle(handle, 'left', `${(value - 1) * 100 / (max - min)}%`);
 
-        var ticks = placeholder.querySelectorAll("." + TICK_CLASS);
-        for (var i = 0; i < ticks.length; i++) {
+        const ticks = placeholder.querySelectorAll(`.${TICK_CLASS}`);
+        for (let i = 0; i < ticks.length; i += 1) {
             if (i + 1 < value) {
-                $(ticks[i]).css('background-color', TICK_LEFT_COLOR);
+                addStyle(ticks[i], 'background-color', TICK_LEFT_COLOR);
             } else {
-                $(ticks[i]).css('background-color', TICK_RIGHT_COLOR);
+                addStyle(ticks[i], 'background-color', TICK_RIGHT_COLOR);
             }
         }
     };
 
-    var render = function() {
-        $(placeholder).addClass(PLACEHOLDER_CLASS);
+    const render = () => {
+        addClass(placeholder, PLACEHOLDER_CLASS);
 
-        var handle = protectedApi.createElement('span');
+        const handle = protectedApi.createElement('span');
         handle.setAttribute('class', HANDLE_FULL_CLASS);
         placeholder.appendChild(handle);
 
-        var count = max - min;
-        var prepare = function(i) {
-            var tick = protectedApi.createElement('div');
+        const count = max - min;
+        const prepare = (i) => {
+            const tick = protectedApi.createElement('div');
             tick.setAttribute('class', TICK_FULL_CLASS);
-            tick.style.left = (100 / count * i) + '%';
-            tick.style.width = (100 / count) + '%';
+            tick.style.left = `${100 / count * i}%`;
+            tick.style.width = `${100 / count}%`;
 
             placeholder.appendChild(tick);
         };
 
-        for (var i = 0; i < count; i++) {
+        for (let i = 0; i < count; i += 1) {
             prepare(i);
         }
 
         refresh();
     };
 
-    var setValue = function(v) {
+    const setValue = (v) => {
         if (v < min) {
             value = min;
         } else if (v > max) {
@@ -71,68 +74,74 @@ var SliderWidget = (function(api, $, protectedApi) { // jshint ignore:line
         onValueChanged(value);
     };
 
-    var bindEvents = function() {
-        var $placeholder = $(placeholder);
-        var handle = placeholder.querySelectorAll("." + HANDLE_CLASS);
-        var $handle = $(handle);
-        var $sliderArea = $(sliderArea);
+    const bindEvents = () => {
+        const rect = placeholder.getBoundingClientRect();
+        const sliderWidth = rect.width;
+        const offsetLeft = rect.left + document.body.scrollLeft;
 
-        $(document).on('mouseup touchend pointerup', function() {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        const getSliderValue = pageX => Math.round(
+            (max - min) / sliderWidth * (pageX - offsetLeft) + min,
+        );
 
-        var rect = placeholder.getBoundingClientRect();
-        var sliderWidth = rect.width;
-        var offsetLeft = rect.left + document.body.scrollLeft;
-
-        var getSliderValue = function(pageX) {
-            return Math.round((max - min) / sliderWidth * (pageX - offsetLeft) + min);
+        const onMouseMove = (e) => {
+            // calculate the correct position of the slider set the value
+            const val = getSliderValue(e.pageX);
+            setValue(val);
         };
 
-        var onClick = function(e) {
-            //calculate the correct position of the slider set the value
-            var value = getSliderValue(e.pageX);
-            setValue(value);
+        const onClick = (e) => {
+            // calculate the correct position of the slider set the value
+            const val = getSliderValue(e.pageX);
+            setValue(val);
         };
 
-        var onMouseMove = function(e) {
-            //calculate the correct position of the slider set the value
-            var value = getSliderValue(e.pageX);
-            setValue(value);
-        };
-
-        var onMouseDown = function(e) {
+        const onMouseDown = (e) => {
             e.stopPropagation();
             e.preventDefault();
             e.cancelBubble = true;
             e.returnValue = false;
 
-            $sliderArea.on('mousemove touchmove pointermove', onMouseMove);
+            sliderArea.addEventListener('mousemove', onMouseMove);
+            sliderArea.addEventListener('touchmove', onMouseMove);
+            sliderArea.addEventListener('pointermove', onMouseMove);
         };
 
-        $placeholder.on('click', onClick);
-        $placeholder.on('mousedown touchstart', onMouseDown);
+        const sliderAreaRemoveListeners = () => {
+            sliderArea.removeEventListener('mousemove', onMouseMove);
+            sliderArea.removeEventListener('touchmove', onMouseMove);
+            sliderArea.removeEventListener('pointermove', onMouseMove);
+        };
 
-        $sliderArea.on('mouseup touchend pointerup', function() {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        document.addEventListener('mouseup', sliderAreaRemoveListeners);
+        document.addEventListener('touchend', sliderAreaRemoveListeners);
+        document.addEventListener('pointerup', sliderAreaRemoveListeners);
 
-        $sliderArea.on('mouseleave', function() {
-            $sliderArea.off('mousemove touchmove pointermove', onMouseMove);
-        });
+        placeholder.addEventListener('click', onClick);
+        placeholder.addEventListener('mousedown', onMouseDown);
+        placeholder.addEventListener('touchstart', onMouseDown);
+
+        sliderArea.addEventListener('mouseup', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('touchend', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('pointerup', sliderAreaRemoveListeners);
+        sliderArea.addEventListener('mouseleave', sliderAreaRemoveListeners);
     };
 
     /**
      * @param placeholderElement
      * @param options
      */
-    api.init = function(placeholderElement, options) {
+    // eslint-disable-next-line no-param-reassign
+    api.init = (placeholderElement, options) => {
         placeholder = placeholderElement;
-
+        // eslint-disable-next-line prefer-destructuring
         min = options.min;
+        // eslint-disable-next-line prefer-destructuring
         max = options.max;
+        // eslint-disable-next-line prefer-destructuring
         value = options.value;
+        // eslint-disable-next-line prefer-destructuring
         onValueChanged = options.onValueChanged;
+        // eslint-disable-next-line prefer-destructuring
         sliderArea = options.sliderArea;
 
         render();
@@ -140,4 +149,8 @@ var SliderWidget = (function(api, $, protectedApi) { // jshint ignore:line
     };
 
     return api;
-});
+}
+
+const sliderWidget = new SliderWidget();
+
+export default sliderWidget;

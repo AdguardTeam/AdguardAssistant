@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "网站",
+    "settings_position_save_all": "所有网站",
+    "settings_position_save_this": "此网站",
+    "assistant_select_element_start": "开始",
+    "assistant_select_element_text": "选择要拦截的网页元素。要取消元素拦截模式，请刷新网页。",
+    "menu_filtration_status": {
+        "message": "对此网站进行过滤"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "暂停过滤 30 秒"
+    },
+    "menu_block_ad_on_site": {
+        "message": "拦截此网站上的广告"
+    },
+    "menu_report_abuse": {
+        "message": "报告此网站"
+    },
+    "menu_site_report": {
+        "message": "网站安全报告"
+    },
+    "menu_settings": {
+        "message": "助手设置"
+    },
+    "assistant_select_element": {
+        "message": "拦截元素"
+    },
+    "assistant_select_element_ext": {
+        "message": "选择此页面上需要拦截的元素"
+    },
+    "assistant_select_element_cancel": {
+        "message": "取消"
+    },
+    "assistant_block_element": {
+        "message": "拦截元素"
+    },
+    "assistant_block_element_explain": {
+        "message": "调整元素拦截规则"
+    },
+    "assistant_slider_explain": {
+        "message": "使用滑块改变要由新规则将要拦截的框架大小："
+    },
+    "assistant_slider_min": {
+        "message": "最小"
+    },
+    "assistant_slider_max": {
+        "message": "最大"
+    },
+    "assistant_extended_settings": {
+        "message": "高级设置"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "应用规则至所有网站"
+    },
+    "assistant_block_by_reference": {
+        "message": "通过参考链接进行拦截"
+    },
+    "assistant_block_similar": {
+        "message": "拦截类似元素"
+    },
+    "assistant_another_element": {
+        "message": "选择其它元素"
+    },
+    "assistant_preview": {
+        "message": "预览"
+    },
+    "assistant_block": {
+        "message": "拦截"
+    },
+    "assistant_settings": {
+        "message": "AdGuard 助手设置"
+    },
+    "assistant_preview_header": {
+        "message": "元素拦截 - 预览"
+    },
+    "assistant_preview_header_info": {
+        "message": "请确保元素拦截方式符合预期"
+    },
+    "assistant_preview_end": {
+        "message": "退出预览"
+    },
+    "wot_unknown_description": {
+        "message": "声望尚未定义"
+    },
+    "wot_bad_description": {
+        "message": "此网站在以下数据库中声望极低"
+    },
+    "wot_poor_description": {
+        "message": "此网站在以下数据库中声望低下 "
+    },
+    "wot_unsatisfactory_description": {
+        "message": "此网站在以下数据库中声望不佳 "
+    },
+    "wot_good_description": {
+        "message": "此网站在以下数据库中声望良好 "
+    },
+    "wot_excellent_description": {
+        "message": "此网站在以下数据库中声望极佳 "
+    },
+    "settings_choose_size_and_position": {
+        "message": "调整 AdGuard 助手的大小与位置"
+    },
+    "settings_icon_size": {
+        "message": "图标大小："
+    },
+    "settings_small": {
+        "message": "小"
+    },
+    "settings_big": {
+        "message": "大"
+    },
+    "settings_position": {
+        "message": "位置："
+    },
+    "settings_left_top": {
+        "message": "左上角"
+    },
+    "settings_right_top": {
+        "message": "右上角"
+    },
+    "settings_left_bottom": {
+        "message": "左下角"
+    },
+    "settings_right_bottom": {
+        "message": "右下角"
+    },
+    "settings_cancel": {
+        "message": "取消"
+    },
+    "settings_save": {
+        "message": "保存更改"
+    }
+}

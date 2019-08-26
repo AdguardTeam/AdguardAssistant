@@ -1,44 +1,49 @@
 /**
  * Object that manages wot data
- * @returns {{registerWotEventHandler: Function, getWotData: Function, getWotScorecardUrl: Function, WOT_URL: string}}
+ * @returns {{
+ * registerWotEventHandler: Function,
+ * getWotData: Function,
+ * getWotScorecardUrl: Function,
+ * WOT_URL: string
+ * }}
  * @constructor
  */
-/* global StringUtils */
-var Wot = function () { // jshint ignore:line
-    var wotUrlScorecardTemplate = 'http://adguard.com/wot-scorecard.html?domain={0}';
-    var WOT_URL = 'http://adguard.com/wot.html';
-    var wotData = null;
+function Wot() {
+    const wotUrlScorecardTemplate = 'http://adguard.com/wot-scorecard.html?domain=';
+    const WOT_URL = 'http://adguard.com/wot.html';
+    let wotData = null;
 
-    /*
-     Waiting for event from wot extension. Send event back to stop
-     firing wot extension events
-     */
-    var registerWotEventHandler = function () {
-        document.addEventListener('wot-score', function (e) {
-            wotData = e.data.wotData;
-            fireEvent('wot-accepted', null);
-        });
-    };
 
-    var getWotData = function () {
-        return wotData;
-    };
-
-    var getWotScorecardUrl = function (url) {
-        return StringUtils.format(wotUrlScorecardTemplate, url);
-    };
-
-    var fireEvent = function (name, data) {
-        var event = document.createEvent("Events");
+    const fireEvent = (name, data) => {
+        const event = document.createEvent('Events');
         event.initEvent(name, true, true);
         event.data = data;
         document.dispatchEvent(event);
     };
+    /*
+     Waiting for event from wot extension. Send event back to stop
+     firing wot extension events
+     */
+    const registerWotEventHandler = () => {
+        document.addEventListener('wot-score', (e) => {
+            // eslint-disable-next-line prefer-destructuring
+            wotData = e && e.data && e.data.wotData;
+            fireEvent('wot-accepted', null);
+        });
+    };
+
+    const getWotData = () => wotData;
+
+    const getWotScorecardUrl = url => `${wotUrlScorecardTemplate}${url}`;
 
     return {
-        registerWotEventHandler: registerWotEventHandler,
-        getWotData: getWotData,
-        getWotScorecardUrl: getWotScorecardUrl,
-        WOT_URL: WOT_URL
+        registerWotEventHandler,
+        getWotData,
+        getWotScorecardUrl,
+        WOT_URL,
     };
-};
+}
+
+const wot = new Wot();
+
+export default wot;

@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "وبسایت",
+    "settings_position_save_all": "همه وبسایت ها",
+    "settings_position_save_this": "این وبسایت",
+    "assistant_select_element_start": "شروع",
+    "assistant_select_element_text": "عنصری در صفحه برای مسدودسازی انتخاب کنید. برای لغو،صفحه را رفرش کنید.",
+    "menu_filtration_status": {
+        "message": "فیلترینگ در این وبسایت"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "به مدت 30 ثانیه فیلتر نکن"
+    },
+    "menu_block_ad_on_site": {
+        "message": "مسدودسازی تبلیغ در این وبسایت"
+    },
+    "menu_report_abuse": {
+        "message": "گزارش وبسایت"
+    },
+    "menu_site_report": {
+        "message": "گزارش امنیتی وبسایت"
+    },
+    "menu_settings": {
+        "message": "تنظیمات دستیار"
+    },
+    "assistant_select_element": {
+        "message": "مسدودسازی عنصر"
+    },
+    "assistant_select_element_ext": {
+        "message": "عنصری در صفحه برای مسدودسازی انتخاب کنید"
+    },
+    "assistant_select_element_cancel": {
+        "message": "لغو"
+    },
+    "assistant_block_element": {
+        "message": "مسدودسازی عنصر"
+    },
+    "assistant_block_element_explain": {
+        "message": "تنظیم دستور مسدودسازی عنصر"
+    },
+    "assistant_slider_explain": {
+        "message": "جابجایی لغزنده برای تغییر اندازه فریم که دستور جدیدی کار خواهد کرد:"
+    },
+    "assistant_slider_min": {
+        "message": "حداقل"
+    },
+    "assistant_slider_max": {
+        "message": "حداکثر"
+    },
+    "assistant_extended_settings": {
+        "message": "تنظیمات پیشرفته"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "اِعمال دستور در همه وبسایت ها"
+    },
+    "assistant_block_by_reference": {
+        "message": "مسدودسازی با لینک مرجع"
+    },
+    "assistant_block_similar": {
+        "message": "مسدودسازی مشابه"
+    },
+    "assistant_another_element": {
+        "message": "عنصر دیگری انتخاب کنید"
+    },
+    "assistant_preview": {
+        "message": "پیشنمایش"
+    },
+    "assistant_block": {
+        "message": "مسدود"
+    },
+    "assistant_settings": {
+        "message": "تنظیمات دستیار"
+    },
+    "assistant_preview_header": {
+        "message": "مسدودسازی عنصر - پیشنمایش"
+    },
+    "assistant_preview_header_info": {
+        "message": "مطمئن شوید عنصر به شکل دلخواه مسدود شود"
+    },
+    "assistant_preview_end": {
+        "message": "خروج از پیشنمایش"
+    },
+    "wot_unknown_description": {
+        "message": "اعتبار تعریف نشده است"
+    },
+    "wot_bad_description": {
+        "message": "این وبسایت اعتبار خیلی بدی دارد\nبر طبق "
+    },
+    "wot_poor_description": {
+        "message": "این وبسایت اعتبار بدی دارد\nبر طبق "
+    },
+    "wot_unsatisfactory_description": {
+        "message": "این وبسایت اعتبار کمی دارد\nبر طبق "
+    },
+    "wot_good_description": {
+        "message": "این وبسایت اعتبار خوبی دارد\nبر طبق "
+    },
+    "wot_excellent_description": {
+        "message": "این وبسایت اعتبار عالی دارد\nبر طبق "
+    },
+    "settings_choose_size_and_position": {
+        "message": "تنظیم اندازه و موقعیت دستیار AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "اندازه آیکون:"
+    },
+    "settings_small": {
+        "message": "کوچک"
+    },
+    "settings_big": {
+        "message": "بزرگ"
+    },
+    "settings_position": {
+        "message": "موقعیت:"
+    },
+    "settings_left_top": {
+        "message": "بالا سمت چپ"
+    },
+    "settings_right_top": {
+        "message": "بالا سمت راست"
+    },
+    "settings_left_bottom": {
+        "message": "پایین سمت چپ"
+    },
+    "settings_right_bottom": {
+        "message": "پایین سمت راست"
+    },
+    "settings_cancel": {
+        "message": "لغو"
+    },
+    "settings_save": {
+        "message": "ذخیره تغییرات"
+    }
+}

@@ -1,25 +1,52 @@
+import { bypassCache } from './utils/common-utils';
+import protectedApi from './protectedApi';
+import log from './log';
+import upgradeHelper from './upgradeHelper';
+import gm from './gm';
+
 /**
  * Object that manages user settings.
- * @param log
- * @param gmApi
- * @param UpgradeHelper // backward compatibility class
- * @returns {{Constants: {MINIMUM_IE_SUPPORTED_VERSION: number, MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number, BUTTON_POSITION_ITEM_NAME: string, IFRAME_ID: string}, MenuItemsNames: {DetailedMenu: string, SelectorMenu: string, SliderMenu: string, BlockPreview: string, SettingsMenu: string}, getSettings: getSettings, loadSettings: loadSettings, getWotData: getWotData, setWotData: setWotData, saveSettings: saveSettings, getUserPositionForButton: getUserPositionForButton, removeUserPositionForButton: removeUserPositionForButton, selectedElement: *, setAdguardSettings: setAdguardSettings, getAdguardSettings: getAdguardSettings}}
+ * @returns {{
+ * Constants: {
+ *  MINIMUM_IE_SUPPORTED_VERSION: number,
+ *  MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number,
+ *  BUTTON_POSITION_ITEM_NAME: string,
+ *  IFRAME_ID: string
+ * },
+ * MenuItemsNames: {
+ *  DetailedMenu: string,
+ *  SelectorMenu: string,
+ *  SliderMenu: string,
+ *  BlockPreview: string,
+ *  SettingsMenu: string
+ * },
+ * getSettings: getSettings,
+ * loadSettings: loadSettings,
+ * getWotData: getWotData,
+ * setWotData: setWotData,
+ * saveSettings: saveSettings,
+ * getUserPositionForButton: getUserPositionForButton,
+ * removeUserPositionForButton: removeUserPositionForButton,
+ * selectedElement: *,
+ * setAdguardSettings: setAdguardSettings,
+ * getAdguardSettings: getAdguardSettings
+ * }}
  * @constructor
  */
-var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ignore:line
-    var Constants = {
+function Settings() {
+    const Constants = {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         IFRAME_ID: 'adguard-assistant-dialog',
-        REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html'
+        REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html',
     };
 
-    var MenuItemsNames = {
+    const MenuItemsNames = {
         DetailedMenu: 'mainMenu.html',
         SelectorMenu: 'selectorMenu.html',
         SliderMenu: 'sliderMenu.html',
         BlockPreview: 'blockPreview.html',
-        SettingsMenu: 'settingsMenu.html'
+        SettingsMenu: 'settingsMenu.html',
     };
 
     /**
@@ -28,34 +55,80 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
      * @property {boolean} buttonPositionTop - Static button position from top.
      * @property {boolean} buttonPositionLeft - Static button position from left.
      * @property {boolean} smallIcon - Button size. true - small, false - large.
-     * @property {boolean} personalConfig - Is the settings save for all sites or for each site individually.
+     * @property {boolean} personalConfig - Is the settings save for all
+     * sites or for each site individually.
      * @property {number} scriptVersion - Version of scheme. 2 is set since assistant version 4.2.
-     * @property {object} personal - Object config that may includes the same properties, except `scriptVersion`, but for each site individually.
+     * @property {object} personal - Object config that may includes the same properties,
+     * except `scriptVersion`, but for each site individually.
      */
-    var DefaultConfig = {
+    const DefaultConfig = {
         buttonPositionTop: false,
         buttonPositionLeft: false,
         smallIcon: false,
         personalConfig: true,
         scriptVersion: 2,
-        personal: {}
+        personal: {},
     };
 
-    var wotData = null;
+    let wotData = null;
 
-    var Config = null;
-    var adguardSettings = null;
+    let Config = null;
+    let adguardSettings = null;
 
-    var SITENAME = window.location.host;
+    const SITENAME = window.location.host;
 
-    var loadSettings = function (showButton) {
+    const getSettings = () => gm.getValue('settings')
+        .then((config) => {
+            try {
+                return config && protectedApi.json.parse(config);
+            } catch (ex) {
+                log.error(ex);
+                return null;
+            }
+        });
+
+    const validateSettings = (settings) => {
+        if (!settings) {
+            log.error('Invalid settings object');
+            return false;
+        }
+        // eslint-disable-next-line no-restricted-syntax, prefer-const
+        for (let prop in settings) {
+            // eslint-disable-next-line no-prototype-builtins
+            if (!settings.hasOwnProperty(prop)) {
+                // eslint-disable-next-line no-continue
+                continue;
+            }
+            const property = DefaultConfig[prop];
+            if (property && typeof property !== typeof settings[prop]) {
+                log.error('Invalid settings object');
+                return false;
+            }
+        }
+        if (settings.scriptVersion > DefaultConfig.scriptVersion) {
+            log.error('Invalid settings object');
+            return false;
+        }
+        if (settings.scriptVersion < DefaultConfig.scriptVersion) {
+            log.info('Settings object is outdated. Updating...');
+            // eslint-disable-next-line no-param-reassign
+            settings = upgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
+        }
+
+        // save to gm store position data from localStorage
+        // eslint-disable-next-line no-param-reassign
+        settings = upgradeHelper.upgradeLocalStorage(settings, SITENAME);
+
+        return settings;
+    };
+
+    const loadSettings = (showButton) => {
         log.debug('Trying to get settings');
-        var settings;
 
         // getting config from gm storage
-        getSettings().then(function (config) {
+        getSettings().then((config) => {
             // check and validate config data for prevent errors and backward compatibility
-            var checkedConfig = config && validateSettings(config);
+            const checkedConfig = config && validateSettings(config);
             if (checkedConfig) {
                 // saving existing settings to Config variable in the gm storage
                 Config = checkedConfig;
@@ -69,49 +142,34 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         });
     };
 
-    var saveSettings = function (config) {
+    const saveSettings = (config) => {
         if (config) {
             Config = config;
         }
         log.debug('Update settings...');
         log.debug(Config);
-        gmApi.setValue('settings', Config);
-        CommonUtils.bypassCache();
+        gm.setValue('settings', Config);
+        bypassCache();
     };
 
-    var getSettings = function () {
-        return gmApi.getValue('settings').then(function (config) {
-            try {
-                return config && protectedApi.json.parse(config);
-            } catch (ex) {
-                log.error(ex);
-                return null;
-            }
-        });
-    };
+    const getWotData = wotData;
 
-    var getWotData = function () {
-        return wotData;
-    };
-
-    var setWotData = function (data) {
+    const setWotData = (data) => {
         wotData = data;
     };
 
-    var setAdguardSettings = function (settings) {
-        if (typeof settings === undefined) {
+    const setAdguardSettings = (settings) => {
+        if (typeof settings === 'undefined') {
             log.info('No Adguard API Found');
             return;
         }
         adguardSettings = settings;
     };
 
-    var getAdguardSettings = function () {
-        return adguardSettings;
-    };
+    const getAdguardSettings = () => adguardSettings;
 
-    var getUserPositionForButton = function () {
-        var userPosition;
+    const getUserPositionForButton = () => {
+        let userPosition;
 
         if (Config.personalConfig) {
             if (Config.personal && Config.personal[SITENAME]) {
@@ -128,7 +186,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         return null;
     };
 
-    var setUserPositionForButton = function (position) {
+    const setUserPositionForButton = (position) => {
         if (Config.personalConfig) {
             if (!Config.personal[SITENAME]) {
                 Config.personal[SITENAME] = {};
@@ -141,7 +199,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         saveSettings(Config);
     };
 
-    var setIconSize = function (smallIcon) {
+    const setIconSize = (smallIcon) => {
         if (Config.personalConfig) {
             Config.personal[SITENAME].smallIcon = smallIcon;
         } else {
@@ -149,19 +207,18 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
         }
     };
 
-    var getIconSize = function () {
+    const getIconSize = () => {
         if (Config.personalConfig && Config.personal && Config.personal[SITENAME]) {
             return Config.personal[SITENAME].smallIcon;
-        } else {
-            return Config.smallIcon;
         }
+        return Config.smallIcon;
     };
 
     /**
      * Set the parameters to which corner of the browser
      * window the button position is placed by option (not drag)
      */
-    var setButtonSide = function (buttonSides) {
+    const setButtonSide = (buttonSides) => {
         if (Config.personalConfig) {
             delete Config.personal[SITENAME].position;
             Config.personal[SITENAME].buttonPositionTop = buttonSides.top;
@@ -176,7 +233,7 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
     /**
      * Save a setting that specifies how to save button settings: for all sites or only on this
      */
-    var setPersonalParam = function (personalConfig) {
+    const setPersonalParam = (personalConfig) => {
         Config.personalConfig = personalConfig;
 
         if (Config.personalConfig && !Config.personal) {
@@ -197,76 +254,47 @@ var Settings = function (log, gmApi, UpgradeHelper, protectedApi) { // jshint ig
     /**
      * Get config that specifies how to save button settings: for all sites or only on this
      */
-    var getPersonalConfig = function () {
-        return Config.personalConfig;
-    };
+    const getPersonalConfig = () => Config.personalConfig;
 
     /**
      * Get the option to which corner of the browser window the button position is placed
      * @return {Object}
      */
-    var getButtonSide = function () {
-        var config = Config;
+    const getButtonSide = () => {
+        const config = Config;
         if (config.personalConfig && config.personal && config.personal[SITENAME]) {
             return {
                 top: config.personal[SITENAME].buttonPositionTop,
-                left: config.personal[SITENAME].buttonPositionLeft
-            };
-        } else {
-            return {
-                top: config.buttonPositionTop,
-                left: config.buttonPositionLeft
+                left: config.personal[SITENAME].buttonPositionLeft,
             };
         }
-    };
-
-    var validateSettings = function (settings) {
-        if (!settings) {
-            log.error('Invalid settings object');
-            return false;
-        }
-        for (var prop in settings) {
-            if (!settings.hasOwnProperty(prop)) {
-                continue;
-            }
-            var property = DefaultConfig[prop];
-            if (property && typeof property !== typeof settings[prop]) {
-                log.error('Invalid settings object');
-                return false;
-            }
-        }
-        if (settings.scriptVersion > DefaultConfig.scriptVersion) {
-            log.error('Invalid settings object');
-            return false;
-        }
-        if (settings.scriptVersion < DefaultConfig.scriptVersion) {
-            log.info('Settings object is outdated. Updating...');
-            settings = UpgradeHelper.upgradeGmStorage(settings, DefaultConfig.scriptVersion);
-        }
-
-        // save to gm store position data from localStorage
-        settings = UpgradeHelper.upgradeLocalStorage(settings, SITENAME);
-
-        return settings;
+        return {
+            top: config.buttonPositionTop,
+            left: config.buttonPositionLeft,
+        };
     };
 
     return {
-        Constants: Constants,
-        MenuItemsNames: MenuItemsNames,
-        getSettings: getSettings,
-        loadSettings: loadSettings,
-        getWotData: getWotData,
-        setWotData: setWotData,
-        saveSettings: saveSettings,
-        getUserPositionForButton: getUserPositionForButton,
-        getButtonSide: getButtonSide,
-        setIconSize: setIconSize,
-        setUserPositionForButton: setUserPositionForButton,
-        setAdguardSettings: setAdguardSettings,
-        setPersonalParam: setPersonalParam,
-        setButtonSide: setButtonSide,
-        getAdguardSettings: getAdguardSettings,
-        getIconSize: getIconSize,
-        getPersonalConfig: getPersonalConfig
+        Constants,
+        MenuItemsNames,
+        getSettings,
+        loadSettings,
+        getWotData,
+        setWotData,
+        saveSettings,
+        getUserPositionForButton,
+        getButtonSide,
+        setIconSize,
+        setUserPositionForButton,
+        setAdguardSettings,
+        setPersonalParam,
+        setButtonSide,
+        getAdguardSettings,
+        getIconSize,
+        getPersonalConfig,
     };
-};
+}
+
+const settings = new Settings();
+
+export default settings;

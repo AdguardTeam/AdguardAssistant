@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "使用 AdGuard 助手",
+            "description": "提供简单方便的方法来管理浏览器筛选"
+        }
+    }
+}

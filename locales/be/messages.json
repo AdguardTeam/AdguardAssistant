@@ -1,0 +1,127 @@
+{
+    "settings_position_save": "Сайты",
+    "settings_position_save_all": "На ўсіх",
+    "settings_position_save_this": "Толькі на гэтым",
+    "assistant_select_element_start": "Пачаць",
+    "assistant_select_element_text": "Абярыце на старонцы элемент для блакавання. Абнавіце старонку, каб скасаваць рэжым блакавання элементаў.",
+    "menu_filtration_status": {
+        "message": "Фільтрацыя на гэтым сайце"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Не фільтраваць 30 секундаў"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Заблакаваць рэкламу на сайце"
+    },
+    "menu_report_abuse": {
+        "message": "Паскардзіцца на сайт"
+    },
+    "menu_site_report": {
+        "message": "Справаздача пра бяспеку сайта"
+    },
+    "menu_settings": {
+        "message": "Наладзіць памочнік"
+    },
+    "assistant_select_element": {
+        "message": "Блакаванне элемента"
+    },
+    "assistant_select_element_ext": {
+        "message": "Абярыце на старонцы элемент, які трэба заблакаваць"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Скасаванне"
+    },
+    "assistant_block_element": {
+        "message": "Блакаванне элемента"
+    },
+    "assistant_block_element_explain": {
+        "message": "Наладзьце правіла блакавання элемента"
+    },
+    "assistant_slider_explain": {
+        "message": "Перасоўвайце бегунок, каб змяніць памер блока, для якога будзе дзейнічаць правіла:"
+    },
+    "assistant_extended_settings": {
+        "message": "Пашыраныя налады"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Ужыць правіла для ўсіх сайтаў"
+    },
+    "assistant_block_by_reference": {
+        "message": "Блакаваць па спасылцы"
+    },
+    "assistant_block_similar": {
+        "message": "Блакаваць падобныя"
+    },
+    "assistant_another_element": {
+        "message": "Абраць іншы элемент"
+    },
+    "assistant_preview": {
+        "message": "Перадпрагляд"
+    },
+    "assistant_block": {
+        "message": "Заблакаваць"
+    },
+    "assistant_settings": {
+        "message": "Налада памочніка"
+    },
+    "assistant_preview_header": {
+        "message": "Блакаванне элемента - перадпрагляд"
+    },
+    "assistant_preview_header_info": {
+        "message": "Пераканаецеся, што элемент заблакаваны як задумана"
+    },
+    "assistant_preview_end": {
+        "message": "Скончыць перадпрагляд"
+    },
+    "wot_unknown_description": {
+        "message": "Рэпутацыя не вызначана"
+    },
+    "wot_bad_description": {
+        "message": "У сайта вельмі дрэнная рэпутацыя па дадзеных $1"
+    },
+    "wot_poor_description": {
+        "message": "У сайта дрэнная рэпутацыя па дадзеных $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "У сайта нездавальняльная рэпутацыя па дадзеных $1"
+    },
+    "wot_good_description": {
+        "message": "У сайта добрая рэпутацыя па дадзеных $1"
+    },
+    "wot_excellent_description": {
+        "message": "У сайта выдатная рэпутацыя па дадзеных $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Наладзьце памер і становішча памочніка AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "Памер іконкі:"
+    },
+    "settings_small": {
+        "message": "Маленькая"
+    },
+    "settings_big": {
+        "message": "Вялікая"
+    },
+    "settings_position": {
+        "message": "Месцаванне:"
+    },
+    "settings_left_top": {
+        "message": "Уверсе злева"
+    },
+    "settings_right_top": {
+        "message": "Уверсе справа"
+    },
+    "settings_left_bottom": {
+        "message": "Унізе злева"
+    },
+    "settings_right_bottom": {
+        "message": "Унізе справа"
+    },
+    "settings_cancel": {
+        "message": "Скасаваць"
+    },
+    "settings_save": {
+        "message": "Захаваць налады"
+    }
+}

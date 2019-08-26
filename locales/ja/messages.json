@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "ウェブサイト",
+    "settings_position_save_all": "すべてのウェブサイト",
+    "settings_position_save_this": "このウェブサイト",
+    "assistant_select_element_start": "開始",
+    "assistant_select_element_text": "ブロックするページ上の要素を選択してください。 ページを更新し要素のブロックモードを解除します。",
+    "menu_filtration_status": {
+        "message": "このウェブサイトをフィルタリング"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "30秒間フィルタリングを行わない"
+    },
+    "menu_block_ad_on_site": {
+        "message": "このウェブサイトの広告をブロック"
+    },
+    "menu_report_abuse": {
+        "message": "このウェブサイトを報告"
+    },
+    "menu_site_report": {
+        "message": "ウェブサイトのセキュリティレポート"
+    },
+    "menu_settings": {
+        "message": "アシスタントの設定"
+    },
+    "assistant_select_element": {
+        "message": "要素をブロック"
+    },
+    "assistant_select_element_ext": {
+        "message": "ブロックする要素を選択"
+    },
+    "assistant_select_element_cancel": {
+        "message": "キャンセル"
+    },
+    "assistant_block_element": {
+        "message": "要素をブロック"
+    },
+    "assistant_block_element_explain": {
+        "message": "要素のブロックルールを調整する"
+    },
+    "assistant_slider_explain": {
+        "message": "スライダーを動かすと、ブロックするフレームのサイズを変更できます:"
+    },
+    "assistant_slider_min": {
+        "message": "最小"
+    },
+    "assistant_slider_max": {
+        "message": "最大"
+    },
+    "assistant_extended_settings": {
+        "message": "高度な設定"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "全てのウェブサイトにこのルールを適用"
+    },
+    "assistant_block_by_reference": {
+        "message": "参照リンクによるブロック"
+    },
+    "assistant_block_similar": {
+        "message": "類似項目をブロック"
+    },
+    "assistant_another_element": {
+        "message": "他の要素を選択"
+    },
+    "assistant_preview": {
+        "message": "プレビュー"
+    },
+    "assistant_block": {
+        "message": "ブロック"
+    },
+    "assistant_settings": {
+        "message": "アシスタントの設定"
+    },
+    "assistant_preview_header": {
+        "message": "要素のブロック - プレビュー"
+    },
+    "assistant_preview_header_info": {
+        "message": "要素が意図したとおりにブロックされていることを確認します"
+    },
+    "assistant_preview_end": {
+        "message": "プレビューを終了"
+    },
+    "wot_unknown_description": {
+        "message": "評判が定義されていません"
+    },
+    "wot_bad_description": {
+        "message": "このウェブサイトは非常に評判が悪いです: "
+    },
+    "wot_poor_description": {
+        "message": "このウェブサイトは評判が悪いです: "
+    },
+    "wot_unsatisfactory_description": {
+        "message": "このウェブサイトは評判がやや悪いです: "
+    },
+    "wot_good_description": {
+        "message": "このウェブサイトは評判が良いです: "
+    },
+    "wot_excellent_description": {
+        "message": "このウェブサイトはとても評判が良いです: "
+    },
+    "settings_choose_size_and_position": {
+        "message": "AdGuardアシスタントのサイズと位置を調整する"
+    },
+    "settings_icon_size": {
+        "message": "アイコンの大きさ:"
+    },
+    "settings_small": {
+        "message": "小"
+    },
+    "settings_big": {
+        "message": "大"
+    },
+    "settings_position": {
+        "message": "位置:"
+    },
+    "settings_left_top": {
+        "message": "左上"
+    },
+    "settings_right_top": {
+        "message": "右上"
+    },
+    "settings_left_bottom": {
+        "message": "左下"
+    },
+    "settings_right_bottom": {
+        "message": "右下"
+    },
+    "settings_cancel": {
+        "message": "キャンセル"
+    },
+    "settings_save": {
+        "message": "設定を保存"
+    }
+}

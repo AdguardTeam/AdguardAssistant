@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Сайти",
+    "settings_position_save_all": "На всіх",
+    "settings_position_save_this": "Тільки на даному",
+    "assistant_select_element_start": "Почати",
+    "assistant_select_element_text": "Виберіть элемент на сторінці, який треба заблокувати. Оновіть сторінку, щоб скасувати режим блокування.",
+    "menu_filtration_status": {
+        "message": "Фільтрація на даному сайті"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Не фільтрувати 30 секунд"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Заблокувати рекламу на даному сайті"
+    },
+    "menu_report_abuse": {
+        "message": "Повідомити про сайт"
+    },
+    "menu_site_report": {
+        "message": "Звіт про безпеку сайту"
+    },
+    "menu_settings": {
+        "message": "Налаштування помічника"
+    },
+    "assistant_select_element": {
+        "message": "Блокування елементу"
+    },
+    "assistant_select_element_ext": {
+        "message": "Виберіть элемент на сторінці, який треба заблокувати"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Скасувати"
+    },
+    "assistant_block_element": {
+        "message": "Блокування елементу"
+    },
+    "assistant_block_element_explain": {
+        "message": "Налаштуйте правило блокування елементу"
+    },
+    "assistant_slider_explain": {
+        "message": "Пересувайте повзунок, щоб змінити розмір блоку, для якого діятиме правило:"
+    },
+    "assistant_slider_min": {
+        "message": "МІНІМУМ"
+    },
+    "assistant_slider_max": {
+        "message": "МАКСИМУМ"
+    },
+    "assistant_extended_settings": {
+        "message": "Розширені налаштування"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Застосувати правило до всіх веб-сайтів"
+    },
+    "assistant_block_by_reference": {
+        "message": "Блокувати за посиланням"
+    },
+    "assistant_block_similar": {
+        "message": "Блокувати схожі елементи"
+    },
+    "assistant_another_element": {
+        "message": "Вибрати інший елемент"
+    },
+    "assistant_preview": {
+        "message": "Попередній перегляд"
+    },
+    "assistant_block": {
+        "message": "Заблокувати"
+    },
+    "assistant_settings": {
+        "message": "Налаштування помічника"
+    },
+    "assistant_preview_header": {
+        "message": "Блокування елементу - попередній перегляд"
+    },
+    "assistant_preview_header_info": {
+        "message": "Переконайтеся, що елемент заблокований як слід"
+    },
+    "assistant_preview_end": {
+        "message": "Закінчити попередній перегляд"
+    },
+    "wot_unknown_description": {
+        "message": "Репутація цього веб-сайту не визначена"
+    },
+    "wot_bad_description": {
+        "message": "Цей сайт має дуже погану репутацію\nза версією $1"
+    },
+    "wot_poor_description": {
+        "message": "Цей сайт має погану репутацію\nза версією $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Цей сайт має незадовільну репутацію\nза версією $1"
+    },
+    "wot_good_description": {
+        "message": "Цей сайт має добру репутацію\nза версією $1"
+    },
+    "wot_excellent_description": {
+        "message": "Цей сайт має дуже відмінну репутацію\nза версією $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Налаштуйте розмір і положення помічника AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "Розмір іконки:"
+    },
+    "settings_small": {
+        "message": "Маленька"
+    },
+    "settings_big": {
+        "message": "Велика"
+    },
+    "settings_position": {
+        "message": "Позиція:"
+    },
+    "settings_left_top": {
+        "message": "Зверху зліва"
+    },
+    "settings_right_top": {
+        "message": "Зверху справа"
+    },
+    "settings_left_bottom": {
+        "message": "Внизу зліва"
+    },
+    "settings_right_bottom": {
+        "message": "Внизу справа"
+    },
+    "settings_cancel": {
+        "message": "Скасувати"
+    },
+    "settings_save": {
+        "message": "Зберегти зміни"
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "مواقع الويب",
+    "settings_position_save_all": "كافة مواقع الويب",
+    "settings_position_save_this": "هذا الموقع",
+    "assistant_select_element_start": "بدء",
+    "assistant_select_element_text": "اختر عنصرا في الصفحة للحظرقم بتحديث الصفحة لالغاء وضع حظر العنصر",
+    "menu_filtration_status": {
+        "message": "تفعيل الفلترةعلى هذا الموقع"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "عدم الفلترة لمده 30 ثانيه"
+    },
+    "menu_block_ad_on_site": {
+        "message": "منع الإعلان على هذا الموقع"
+    },
+    "menu_report_abuse": {
+        "message": "الإبلاغ عن هذا الموقع"
+    },
+    "menu_site_report": {
+        "message": "تقرير أمن الموقع"
+    },
+    "menu_settings": {
+        "message": "إعدادات المساعد"
+    },
+    "assistant_select_element": {
+        "message": "حظر العنصر"
+    },
+    "assistant_select_element_ext": {
+        "message": "اختر عنصرا في الصفحة للحظر"
+    },
+    "assistant_select_element_cancel": {
+        "message": "الغاء"
+    },
+    "assistant_block_element": {
+        "message": "حظر العنصر"
+    },
+    "assistant_block_element_explain": {
+        "message": "ضبط قاعدة حظر العنصر"
+    },
+    "assistant_slider_explain": {
+        "message": "حرك شريط التمرير لتغيير حجم الإطار الذي ستعمل عليه القاعدة الجديدة:"
+    },
+    "assistant_slider_min": {
+        "message": "حد ادني"
+    },
+    "assistant_slider_max": {
+        "message": "كحد أقصى"
+    },
+    "assistant_extended_settings": {
+        "message": "إعدادات متقدمة"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "تطبيق القاعدة علي كافة مواقع الويب"
+    },
+    "assistant_block_by_reference": {
+        "message": "حظر حسب الارتباط المرجعي"
+    },
+    "assistant_block_similar": {
+        "message": "حظر عنصر مما ثل"
+    },
+    "assistant_another_element": {
+        "message": "حدد عنصرًا مختلفًا"
+    },
+    "assistant_preview": {
+        "message": "المعاينه"
+    },
+    "assistant_block": {
+        "message": "حظر"
+    },
+    "assistant_settings": {
+        "message": "إعدادات المساعد"
+    },
+    "assistant_preview_header": {
+        "message": "حجب عنصر--معاينه"
+    },
+    "assistant_preview_header_info": {
+        "message": "تاكد من حظر هذا العنصر كما هو مقصود"
+    },
+    "assistant_preview_end": {
+        "message": "إنهاء المعاينة"
+    },
+    "wot_unknown_description": {
+        "message": "$1 لم يتم تعريف سمعه هذا الموقع من قبل"
+    },
+    "wot_bad_description": {
+        "message": "$1هذا الموقع لديه سمعة سيئة للغاية \nوفقاً لـ"
+    },
+    "wot_poor_description": {
+        "message": "$1 هذا الموقع له سمعة سيئة \nوفقا لـ"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "$1هذا الموقع له سمعة سيئة\nوفقا لـ"
+    },
+    "wot_good_description": {
+        "message": "$1يتمتع هذا الموقع بسمعة طيبة\nوفقا لـ"
+    },
+    "wot_excellent_description": {
+        "message": "$1هذا الموقع يتمتع بسمعة ممتازة\nوفقاً لـ"
+    },
+    "settings_choose_size_and_position": {
+        "message": "وموضعه AdGuard ضبط حجم مساعد"
+    },
+    "settings_icon_size": {
+        "message": ":حجم الرمز"
+    },
+    "settings_small": {
+        "message": "صغير"
+    },
+    "settings_big": {
+        "message": "كبير"
+    },
+    "settings_position": {
+        "message": "وضع"
+    },
+    "settings_left_top": {
+        "message": "اعلي اليسار"
+    },
+    "settings_right_top": {
+        "message": "اعلي اليمين"
+    },
+    "settings_left_bottom": {
+        "message": "أسفل لليسار"
+    },
+    "settings_right_bottom": {
+        "message": "أسفل لليمين"
+    },
+    "settings_cancel": {
+        "message": "الغاء"
+    },
+    "settings_save": {
+        "message": "حفظ التغييرات"
+    }
+}

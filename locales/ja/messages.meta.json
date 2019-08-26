@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuardアシスタント",
+            "description": "ブラウザから簡単にフィルタリングを管理する便利な機能を提供します。"
+        }
+    }
+}

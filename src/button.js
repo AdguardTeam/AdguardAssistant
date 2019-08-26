@@ -1,72 +1,47 @@
+import { hasClass, addClass } from './utils/dom-utils';
+import { HTML, CSS } from './inline-resources';
+import protectedApi from './protectedApi';
+import log from './log';
+import settings from './settings';
+import uiValidationUtils from './utils/ui-validation-utils';
+import uiUtils from './utils/ui-utils';
+import ioc from './ioc';
+
 /**
  * Adguard assistant button
- * @param log Logger
- * @param settings User settings
- * @param uiValidationUtils Validation utils
- * @param $ balalaika
- * @param gmApi Gm API impl
- * @param uiUtils UI Utils
- * @param iframeController Iframe controller
  * @returns {{show: show, remove: remove}}
  * @constructor
  */
-var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, iframeController, protectedApi) { // jshint ignore:line
-    var button = null;
-    var buttonElement = null;
-    var isFullScreenEventsRegistered = false;
+function UIButton() {
+    let button = null;
+    let buttonElement = null;
+    let isFullScreenEventsRegistered = false;
+    let iframeController = null;
 
     // Important attribute for all inline stylesheets.
     // It needs for Content-Security-Policy.
-    var getStyleNonce = function () {
-        var adgSettings = settings.getAdguardSettings();
+    const getStyleNonce = () => {
+        const adgSettings = settings.getAdguardSettings();
         if (adgSettings === null) {
             return '';
         }
         return adgSettings.nonce;
     };
 
-    /**
-     * Shows Adguard initial button
-     */
-    var show = function () {
-        if (!checkRequirements()) {
-            log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
-            return;
+    const isButtonAlreadyInDOM = () => {
+        const alert = document.querySelector('.adguard-alert');
+        if (alert) {
+            log.error('Assistant button is already in DOM');
+            return true;
         }
-        if (button) {
-            return;
-        }
-        log.debug('Requirements checked, all ok');
-
-        buttonElement = protectedApi.createElement('div');
-        buttonElement.innerHTML = HTML.button;
-        button = buttonElement.firstChild;
-        var adgStylesButton;
-        if (protectedApi.checkShadowDomSupport()) {
-            var shadowbuttonElement = buttonElement.attachShadow({ mode: 'closed' });
-            adgStylesButton = protectedApi.createStylesElement(CSS.common + CSS.button, getStyleNonce());
-            shadowbuttonElement.appendChild(adgStylesButton);
-            shadowbuttonElement.appendChild(button);
-            document.documentElement.appendChild(buttonElement);
-        } else {
-            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
-            if (adgStylesButton) {
-                document.documentElement.appendChild(adgStylesButton);
-            }
-
-            document.documentElement.appendChild(button);
-            buttonElement = button;
-        }
-
-        setPositionSettingsToButton(button);
-        registerEvents(button);
+        return false;
     };
 
     /**
      * Checking browser and other requirements.
      * @private
      */
-    var checkRequirements = function () {
+    const checkRequirements = () => {
         if (!uiValidationUtils.validateBrowser()) {
             return false;
         }
@@ -85,53 +60,52 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         return true;
     };
 
-    var isButtonAlreadyInDOM = function () {
-        var already = $('.adguard-alert').length > 0;
+    /**
+     * Set a special classes for the pages on which
+     * under the button there are important elements
+     * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
+     */
+    const respectPageElements = (btn) => {
+        const buttonInRightBottom = hasClass(btn, 'adguard-assistant-button-bottom')
+            && hasClass(btn, 'adguard-assistant-button-right');
 
-        if (already) {
-            log.error('Assistant button is already in DOM');
-            return true;
+        if (buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
+            addClass(btn, 'adguard-assistant-button-respect adguard-assistant-button-respect-vk');
         }
+        if (buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
+            addClass(btn, 'adguard-assistant-button-respect adguard-assistant-button-respect-fb');
+        }
+        return false;
     };
 
-    var setPositionSettingsToButton = function (button) {
-        var position = settings.getUserPositionForButton();
+    const setPositionSettingsToButton = (btn) => {
+        const position = settings.getUserPositionForButton();
         if (settings.getIconSize()) {
-            $(button).addClass('logo-small');
+            addClass(btn, 'logo-small');
         }
 
-        // The anchor determines from which side of the browser the positions of `position.x`, `position.y`.
-        // If `position` parameter is not defined, so the position of the button is set in the corners of the browser
+        // The anchor determines from which side of the
+        // browser the positions of `position.x`, `position.y`.
+        // If `position` parameter is not defined,
+        // so the position of the button is set in the corners of the browser
         if (position && position.storedAnchor) {
-            uiUtils.setAnchorPosition.positionY(button, position.storedAnchor.top);
-            uiUtils.setAnchorPosition.positionX(button, position.storedAnchor.left);
-            uiUtils.moveElementTo(button, position.x, position.y);
-            uiUtils.checkElementPosition(button, position);
+            uiUtils.setAnchorPosition.positionY(btn, position.storedAnchor.top);
+            uiUtils.setAnchorPosition.positionX(btn, position.storedAnchor.left);
+            uiUtils.moveElementTo(btn, position.x, position.y);
+            uiUtils.checkElementPosition(btn, position);
             return false;
         }
 
         // Getting the corner of the browser where the button is placed
-        var side = settings.getButtonSide();
+        const side = settings.getButtonSide();
 
         if (side) {
-            uiUtils.setAnchorPosition.positionY(button, side.top);
-            uiUtils.setAnchorPosition.positionX(button, side.left);
-            respectPageElements(button);
+            uiUtils.setAnchorPosition.positionY(btn, side.top);
+            uiUtils.setAnchorPosition.positionX(btn, side.left);
+            respectPageElements(btn);
         }
-    };
 
-    var registerEvents = function (button) {
-        var onDragEnd = function (data) {
-            settings.setUserPositionForButton(data);
-        };
-
-        var openMenu = function () {
-            iframeController.setButtonPosition(getButtonPosition(button));
-            iframeController.showDetailedMenu();
-        };
-
-        uiUtils.makeElementDraggable(button, onDragEnd, openMenu);
-        hideRestoreOnFullScreen();
+        return undefined;
     };
 
     /**
@@ -139,22 +113,35 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
      * @returns {{left: *, top: *}}
      * @private
      */
-    var getButtonPosition = function (button) {
-        var box = button.getBoundingClientRect();
+    const getButtonPosition = (btn) => {
+        const box = btn.getBoundingClientRect();
         return {
-            top: box.top + button.offsetHeight / 2,
-            left: box.left + button.offsetWidth / 2
+            top: box.top + btn.offsetHeight / 2,
+            left: box.left + btn.offsetWidth / 2,
         };
     };
 
-    var hideRestoreOnFullScreen = function () {
+    const hideButton = () => {
+        if (!button) {
+            return;
+        }
+        button.style.setProperty('display', 'none', 'important');
+    };
+
+    const showButton = () => {
+        if (!button) {
+            return;
+        }
+        button.style.setProperty('display', 'block', 'important');
+    };
+
+    const hideRestoreOnFullScreen = () => {
         if (isFullScreenEventsRegistered) {
             return;
         }
 
-        var isFullScreen = false;
-
-        $(document).on('webkitfullscreenchange mozfullscreenchange fullscreenchange', function () {
+        let isFullScreen = false;
+        const onFullScreen = () => {
             if (!isFullScreen) {
                 hideButton();
                 isFullScreen = true;
@@ -162,26 +149,74 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
                 showButton();
                 isFullScreen = false;
             }
-        });
+        };
+        document.addEventListener('webkitfullscreenchange', onFullScreen);
+        document.addEventListener('mozfullscreenchange', onFullScreen);
+        document.addEventListener('fullscreenchange', onFullScreen);
 
         isFullScreenEventsRegistered = true;
     };
 
-    var hideButton = function () {
-        if (!button) {
-            return;
-        }
-        button.style.setProperty('display', 'none', 'important');
+    const registerEvents = (btn) => {
+        const onDragEnd = (data) => {
+            settings.setUserPositionForButton(data);
+        };
+
+        const openMenu = () => {
+            iframeController.setButtonPosition(getButtonPosition(btn));
+            iframeController.showDetailedMenu();
+        };
+
+        uiUtils.makeElementDraggable(btn, onDragEnd, openMenu);
+        hideRestoreOnFullScreen();
     };
 
-    var showButton = function () {
-        if (!button) {
+    /**
+     * Shows Adguard initial button
+     */
+    const show = () => {
+        // TODO: get rid of it
+        iframeController = ioc.get('iframeController');
+        iframeController.onCloseMenu.attach(showButton);
+        iframeController.onShowMenuItem.attach(hideButton);
+
+        if (!checkRequirements()) {
+            log.info('Environment doesn\'t satisfy requirements, so don\'t show Adguard');
             return;
         }
-        button.style.setProperty('display', 'block', 'important');
+        if (button) {
+            return;
+        }
+        log.debug('Requirements checked, all ok');
+
+        buttonElement = protectedApi.createElement('div');
+        buttonElement.innerHTML = HTML.button;
+        button = buttonElement.firstChild;
+        let adgStylesButton;
+        if (protectedApi.checkShadowDomSupport()) {
+            const shadowbuttonElement = buttonElement.attachShadow({ mode: 'closed' });
+            adgStylesButton = protectedApi.createStylesElement(
+                CSS.common + CSS.button,
+                getStyleNonce(),
+            );
+            shadowbuttonElement.appendChild(adgStylesButton);
+            shadowbuttonElement.appendChild(button);
+            document.documentElement.appendChild(buttonElement);
+        } else {
+            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
+            if (adgStylesButton) {
+                document.documentElement.appendChild(adgStylesButton);
+            }
+
+            document.documentElement.appendChild(button);
+            buttonElement = button;
+        }
+
+        setPositionSettingsToButton(button);
+        registerEvents(button);
     };
 
-    var removeButton = function () {
+    const removeButton = () => {
         if (!button) {
             return;
         }
@@ -189,30 +224,12 @@ var UIButton = function (log, settings, uiValidationUtils, $, gmApi, uiUtils, if
         button = null;
     };
 
-    /**
-     * Set a special classes for the pages on which
-     * under the button there are important elements
-     * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
-     */
-    var respectPageElements = function (element) {
-        var buttonInRightBottom =
-            $(element).hasClass('adguard-assistant-button-bottom') &&
-            $(element).hasClass('adguard-assistant-button-right');
-
-        if (buttonInRightBottom && document.location.hostname.indexOf('vk.com') >= 0) {
-            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-vk');
-        }
-        if (buttonInRightBottom && document.location.hostname.indexOf('facebook.com') >= 0) {
-            $(element).addClass('adguard-assistant-button-respect adguard-assistant-button-respect-fb');
-        }
-        return false;
-    };
-
-    iframeController.onCloseMenu.attach(showButton);
-    iframeController.onShowMenuItem.attach(hideButton);
-
     return {
-        show: show,
-        remove: removeButton
+        show,
+        remove: removeButton,
     };
-};
+}
+
+const button = new UIButton();
+
+export default button;

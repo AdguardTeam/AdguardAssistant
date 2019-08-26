@@ -18,58 +18,31 @@ To see the 'big picture', to watch current progress and to get an idea of approx
 
 You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam/AdguardAssistant/releases
 
-### Development build
+### How to build
 
-Built automatically on every new commit:
+`yarn install`
 
-Version to be used as userscript:
+| Command           | Output Dir    |
+|-------------------|---------------|
+| `yarn dev`        | build/dev     |
+| `yarn beta`       | build/beta    |
+| `yarn release`    | build/release |
 
-[assistant.user.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js) -- AdGuard Assistant userscript
+Each command builds next files inside directory:
+- `assistant.meta.js` - meta information for userscript
+- `assistant.user.js` - userscript code
+- `embedded.js` - code for embedding in another projects (it has functionality for selection of DOM nodes and rules building)
+- `build.txt` - bamboo environment variables
 
-Version to be used in the browser extension:
-
-[assistant.embed.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.js) -- Embedded version of AdGuard Assistant. We use it to provide Assistant's features in browser extensions.
-
-[assistant.embed.min.js](https://AdguardTeam.github.io/AdguardAssistant/assistant.embedded.min.js) -- Minified version of AdGuard Assistant.
 
 Embedded version run as:
 
-    adguardAssistant().start(null, callback);
+```
+adguardAssistant().start(null, callback);
+```
 
 Сallback returns a rule string.
 
-Unit test page for dev build is [here](https://AdguardTeam.github.io/AdguardAssistant/test/).
+## Todo
 
-### How to build
-
-For development build run:
-
-    $ yarn dev
-
-This will compile `assistant.user.js` file without minification.
-
-
-For development build with watcher on file changes and debugging from local server run:
-
-    $ yarn watch
-
-This will open `http://localhost:3000` in browser for debugging with extensions (e.g. [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)). Local server will serve from `build` directory. To apply the script, you must specify the script in the address, e.g. `http://localhost:3000/assistant.user.js`.
-
-To run the task of downloading the localization files, put the `.keys.json` configuration file in the `config` directory.
-
-The configuration file looks like:
-
-    {
-        "url": "url of localizations",
-        "projectId": "some id",
-        "secretKey": "some key",
-        "apiKey": "some api key"
-    }
-
-For security reasons, this file is ignored by .gitignore settings.
-
-To download and append localizations run:
-
-    $ yarn download-locales
-
-Localization list is in options in `tasks/index.js`.
+- write tests

@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard 助理",
+            "description": "提供簡單的且方便的方法以直接地從該瀏覽器管理過濾"
+        }
+    }
+}

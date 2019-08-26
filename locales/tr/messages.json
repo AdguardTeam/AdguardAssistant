@@ -1,0 +1,130 @@
+{
+    "settings_position_save": "Siteler",
+    "settings_position_save_all": "Tüm siteler",
+    "settings_position_save_this": "Bu site",
+    "assistant_select_element_start": "Başla",
+    "assistant_select_element_text": "Engellemek için sayfada bir öğe seçin. Öğe engelleme modunu iptal etmek için sayfayı yenileyin.",
+    "menu_filtration_status": {
+        "message": "Bu sitedeki filtreleme"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "30 saniye boyunca filtreleme yapma"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Bu sitede reklam engelle"
+    },
+    "menu_report_abuse": {
+        "message": "Bu siteyi rapor et"
+    },
+    "menu_site_report": {
+        "message": "Sitenin güvenlik raporu"
+    },
+    "menu_settings": {
+        "message": "Assistant ayarları"
+    },
+    "assistant_select_element": {
+        "message": "Öğe engelleme"
+    },
+    "assistant_select_element_ext": {
+        "message": "Bu sitede engellemek için bir öğe seçin"
+    },
+    "assistant_select_element_cancel": {
+        "message": "İptal"
+    },
+    "assistant_block_element": {
+        "message": "Öğe engelleme"
+    },
+    "assistant_block_element_explain": {
+        "message": "Öğe engelleme kuralını ayarla"
+    },
+    "assistant_slider_explain": {
+        "message": "Yeni kuralın çalışacağı çerçevenin boyutunu değiştirmek için kayar düğmeyi hareket ettirin"
+    },
+    "assistant_slider_max": {
+        "message": "MAKS"
+    },
+    "assistant_extended_settings": {
+        "message": "Gelişmiş ayarlar"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Tüm sitelerde bu kuralı uygula"
+    },
+    "assistant_block_by_reference": {
+        "message": "Referans bağlantı ile engelle"
+    },
+    "assistant_block_similar": {
+        "message": "Benzerlerini engelle"
+    },
+    "assistant_another_element": {
+        "message": "Farklı bir öğe seç"
+    },
+    "assistant_preview": {
+        "message": "Önizleme"
+    },
+    "assistant_block": {
+        "message": "Engelle"
+    },
+    "assistant_settings": {
+        "message": "Assistant ayarları"
+    },
+    "assistant_preview_header": {
+        "message": "Öğe engelleme - önizleme"
+    },
+    "assistant_preview_header_info": {
+        "message": "Öğenin istediğiniz gibi engellendiğinden emin olun"
+    },
+    "assistant_preview_end": {
+        "message": "Önizlemeden çık"
+    },
+    "wot_unknown_description": {
+        "message": "Bu sitenin itibarı $1 tarafından henüz belirlenmemiş"
+    },
+    "wot_bad_description": {
+        "message": "Bu site $1 değerlendirmesine göre\nçok kötü bir itibara sahip"
+    },
+    "wot_poor_description": {
+        "message": "Bu site $1 değerlendirmesine göre\nkötü bir itibara sahip"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Bu site $1 değerlendirmesine göre\nzayıf bir itibara sahip"
+    },
+    "wot_good_description": {
+        "message": "Bu site $1 değerlendirmesine göre\niyi bir itibara sahip"
+    },
+    "wot_excellent_description": {
+        "message": "Bu site $1 değerlendirmesine göre\nmükemmel bir itibara sahip"
+    },
+    "settings_choose_size_and_position": {
+        "message": "AdGuard Assistant'ın eklentisi boyut ve konumunu ayarla"
+    },
+    "settings_icon_size": {
+        "message": "Simge boyutu:"
+    },
+    "settings_small": {
+        "message": "Küçük"
+    },
+    "settings_big": {
+        "message": "Büyük"
+    },
+    "settings_position": {
+        "message": "Konum:"
+    },
+    "settings_left_top": {
+        "message": "Sol üst"
+    },
+    "settings_right_top": {
+        "message": "Sağ üst"
+    },
+    "settings_left_bottom": {
+        "message": "Sol alt"
+    },
+    "settings_right_bottom": {
+        "message": "Sağ alt"
+    },
+    "settings_cancel": {
+        "message": "İptal"
+    },
+    "settings_save": {
+        "message": "Değişiklikleri kaydet"
+    }
+}

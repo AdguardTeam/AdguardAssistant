@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Sites Web",
+    "settings_position_save_all": "Tous les sites Web",
+    "settings_position_save_this": "Ce site Web",
+    "assistant_select_element_start": "Démarrer",
+    "assistant_select_element_text": "Choisissez un élément de la page à bloquer. Pour afficher l'élément de nouveau, rafraîchissez la page.",
+    "menu_filtration_status": {
+        "message": "Filtrages sur ce site"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Ne pas filtrer pendant 30 secondes "
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blocage des annonces sur ce site "
+    },
+    "menu_report_abuse": {
+        "message": "Signaler le site"
+    },
+    "menu_site_report": {
+        "message": "Rapport de sécurité du site"
+    },
+    "menu_settings": {
+        "message": "Réglages de l'Assistant AdGuard"
+    },
+    "assistant_select_element": {
+        "message": "Blocage d'éléments "
+    },
+    "assistant_select_element_ext": {
+        "message": "Choisir un élément de la page à bloquer "
+    },
+    "assistant_select_element_cancel": {
+        "message": "Annuler"
+    },
+    "assistant_block_element": {
+        "message": "Blocage d'éléments "
+    },
+    "assistant_block_element_explain": {
+        "message": "Affiner la règle de blocage d'elements"
+    },
+    "assistant_slider_explain": {
+        "message": "Déplacez le curseur pour modifier la taille du cadre de travail de la nouvelle règle"
+    },
+    "assistant_slider_min": {
+        "message": "Minimum"
+    },
+    "assistant_slider_max": {
+        "message": "Maximum"
+    },
+    "assistant_extended_settings": {
+        "message": "Paramétrages avancés "
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Appliquer la règle à tous les sites"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blocage par liens de reference"
+    },
+    "assistant_block_similar": {
+        "message": "Blocage des objets similaires "
+    },
+    "assistant_another_element": {
+        "message": "Sélectionner un élément différent"
+    },
+    "assistant_preview": {
+        "message": "Previsualisation "
+    },
+    "assistant_block": {
+        "message": "Blocage "
+    },
+    "assistant_settings": {
+        "message": "Réglages de l'Assistant AdGuard"
+    },
+    "assistant_preview_header": {
+        "message": "Blocage d'éléments - Previsualisation "
+    },
+    "assistant_preview_header_info": {
+        "message": "Assurez-vous que l'élément est bloqué comme prévu"
+    },
+    "assistant_preview_end": {
+        "message": "Sortir de la previsualisation "
+    },
+    "wot_unknown_description": {
+        "message": "La définition de la réputation de ce site web n'est pas définie par $1"
+    },
+    "wot_bad_description": {
+        "message": "Ce site web a très mauvaise réputation selon $1"
+    },
+    "wot_poor_description": {
+        "message": "Ce site web a mauvaise réputation selon $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Ce site web a une reputation médiocre selon $1"
+    },
+    "wot_good_description": {
+        "message": "Ce site a bonne réputation selon $1"
+    },
+    "wot_excellent_description": {
+        "message": "Ce site a une réputation excellente selon $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Affiner la taille et la position de l'assistant AdGuard "
+    },
+    "settings_icon_size": {
+        "message": "Taille de l'icone"
+    },
+    "settings_small": {
+        "message": "Petite"
+    },
+    "settings_big": {
+        "message": "Grande"
+    },
+    "settings_position": {
+        "message": "Positionnement"
+    },
+    "settings_left_top": {
+        "message": "En haut à gauche"
+    },
+    "settings_right_top": {
+        "message": "En haut à droite"
+    },
+    "settings_left_bottom": {
+        "message": "En bas à gauche"
+    },
+    "settings_right_bottom": {
+        "message": "En bas à droite "
+    },
+    "settings_cancel": {
+        "message": "Annuler"
+    },
+    "settings_save": {
+        "message": "Sauvegarder les modifications "
+    }
+}

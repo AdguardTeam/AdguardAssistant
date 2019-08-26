@@ -1,0 +1,126 @@
+{
+    "settings_position_save": "Webbplatser",
+    "settings_position_save_all": "Alla webbplatser",
+    "settings_position_save_this": "Den här webbplatsen",
+    "assistant_select_element_text": "Välj ett element sidan att blockera. Återladda sidan för att återställa elementblockeringsläget.",
+    "menu_filtration_status": {
+        "message": "Webbplatsens filtrering"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Pausa filtrering 30 sekunder"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blockera annons på den här webbplatsen"
+    },
+    "menu_report_abuse": {
+        "message": "Rapportera webbplatsen"
+    },
+    "menu_site_report": {
+        "message": "Säkerhetsrapport för webbplatsen"
+    },
+    "menu_settings": {
+        "message": "Assistentinställningar"
+    },
+    "assistant_select_element": {
+        "message": "Blockering av annonselement"
+    },
+    "assistant_select_element_ext": {
+        "message": "Välj ett annonselement för blockering"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Avbryt"
+    },
+    "assistant_block_element": {
+        "message": "Blockering av annonselement"
+    },
+    "assistant_block_element_explain": {
+        "message": "Anpassa blockeringsregeln för annonselementet"
+    },
+    "assistant_slider_explain": {
+        "message": "Justera storleken på annonselementet som den nya blockeringsregeln skall avse:"
+    },
+    "assistant_extended_settings": {
+        "message": "Avancerade val"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Tillämpa regelns på alla webbplatster"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blockera med referenslänk"
+    },
+    "assistant_block_similar": {
+        "message": "Blockera liknande"
+    },
+    "assistant_another_element": {
+        "message": "Markera ett annat annonselement"
+    },
+    "assistant_preview": {
+        "message": "Förhandsgranska"
+    },
+    "assistant_block": {
+        "message": "Blockera"
+    },
+    "assistant_settings": {
+        "message": "Assistentval"
+    },
+    "assistant_preview_header": {
+        "message": "Förhandsgranskning av elementblockeringen"
+    },
+    "assistant_preview_header_info": {
+        "message": "Kontrollera att elementet blockerats som avsett"
+    },
+    "assistant_preview_end": {
+        "message": "Avsluta förhandsgranskningen"
+    },
+    "wot_unknown_description": {
+        "message": "Den här sajtens anseende är inte klarlagd av $1"
+    },
+    "wot_bad_description": {
+        "message": "Webbplatsen har ett mycket dåligt anseende\nenligt $1"
+    },
+    "wot_poor_description": {
+        "message": "Webbplatsen har dåligt anseende\nenligt $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Webbplatsen har tveksamt anseende\nenligt $1"
+    },
+    "wot_good_description": {
+        "message": "Webbplatsen har gott anseende\nenligt $1"
+    },
+    "wot_excellent_description": {
+        "message": "Webbplatsen har ett mycket gott anseende\nenligt $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Anpassas storlek och läge för AdGuardassistenten"
+    },
+    "settings_icon_size": {
+        "message": "Ikonstorlek"
+    },
+    "settings_small": {
+        "message": "Liten"
+    },
+    "settings_big": {
+        "message": "Stor"
+    },
+    "settings_position": {
+        "message": "Läge:"
+    },
+    "settings_left_top": {
+        "message": "Ovan vänster"
+    },
+    "settings_right_top": {
+        "message": "Ovan höger"
+    },
+    "settings_left_bottom": {
+        "message": "Nedan vänster"
+    },
+    "settings_right_bottom": {
+        "message": "Nedan höger"
+    },
+    "settings_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_save": {
+        "message": "Spara ändringar"
+    }
+}

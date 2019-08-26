@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>QUnit extension boilerplate</title>
+    <link rel="stylesheet" href="qunit.css">
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script>
+        window.GM_getValue = function() {return false;};
+        window.GM_setValue = function() {return false;};
+        window.GM_getResourceText = function() {return false;};
+        window.GM_addStyle = function() {return false;};
+    </script>
+    <script src="qunit.js"></script>
+    <script src="assistant.user.js"></script>
+</body>
+
+</html>

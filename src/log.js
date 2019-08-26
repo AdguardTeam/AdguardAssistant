@@ -1,71 +1,74 @@
+/* global DEBUG */
 /**
  * Simple logger with log levels
- * @returns {{warn: warn, info: info, debug: debug, error: error}}
+ * @returns {{
+ *  warn: warn,
+ *  info: info,
+ *  debug: debug,
+ *  error: error
+ * }}
  * @constructor
  */
-var Log = function () { // jshint ignore:line
-    var currentLevel;
-    // gulp preprocess condition
-    // @if DEBUG
-    currentLevel = 'DEBUG';
-    // @endif
+function Log() {
+    const currentLevel = DEBUG ? 'DEBUG' : 'ERROR';
 
-    // @if !DEBUG
-    currentLevel = 'ERROR';
-    // @endif
-
-    var LogLevels = {
+    const LogLevels = {
         ERROR: 1,
         WARN: 2,
         INFO: 3,
-        DEBUG: 4
+        DEBUG: 4,
     };
 
-    var print = function (level, method, args) {
-        //check log level
+    const print = (level, method, args) => {
+        // check log level
         if (LogLevels[currentLevel] < LogLevels[level]) {
             return;
         }
         if (!args || args.length === 0 || !args[0]) {
             return;
         }
-        var formatted;
+        let formatted;
         if (typeof args[0] === 'object') {
+            // eslint-disable-next-line prefer-destructuring
             formatted = args[0];
         } else {
-            var str = args[0] + '';
+            const str = `${args[0]}`;
+            // eslint-disable-next-line no-param-reassign
             args = Array.prototype.slice.call(args, 1);
-            formatted = str.replace(/{(\d+)}/g, function (match, number) {
-                return typeof  args[number] !== 'undefined' ? args[number] : match;
-            });
+            formatted = str.replace(
+                /{(\d+)}/g,
+                (match, number) => (typeof args[number] !== 'undefined' ? args[number] : match),
+            );
             if (LogLevels[level] >= LogLevels[currentLevel]) {
-                var now = new Date();
-                formatted = now.toISOString() + ': ' + formatted;
+                const now = new Date();
+                formatted = `${now.toISOString()}: ${formatted}`;
             }
         }
+        // eslint-disable-next-line no-console
         console[method](formatted);
     };
 
-    var debug = function () {
-        print('DEBUG', 'log', arguments);
+    const debug = (...args) => {
+        print('DEBUG', 'log', args);
     };
 
-    var info = function () {
-        print('INFO', 'info', arguments);
+    const info = (...args) => {
+        print('INFO', 'info', args);
     };
 
-    var warn = function () {
-        print('WARN', 'info', arguments);
+    const warn = (...args) => {
+        print('WARN', 'info', args);
     };
 
-    var error = function () {
-        print('ERROR', 'error', arguments);
+    const error = (...args) => {
+        print('ERROR', 'error', args);
     };
 
     return {
-        warn: warn,
-        info: info,
-        debug: debug,
-        error: error
+        debug, info, warn, error,
     };
-};
+}
+
+const log = new Log();
+
+export default log;

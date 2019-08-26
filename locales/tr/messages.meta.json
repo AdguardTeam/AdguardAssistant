@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard Assistant eklentisi",
+            "description": "Filtrelemeyi, tarayıcıdan doğrudan kolayca yönetmenizi sağlar."
+        }
+    }
+}

@@ -1,0 +1,129 @@
+{
+    "settings_position_save": "Nettsider",
+    "settings_position_save_all": "Alle nettsider",
+    "settings_position_save_this": "Denne nettsiden",
+    "assistant_select_element_text": "Velg et element på siden som skal blokkeres. Oppdater siden for å avbryte elementblokkeringsmodusen.",
+    "menu_filtration_status": {
+        "message": "Filtrering på denne nettsiden"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Ikke filtrer i 30 sekunder"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blokker annonse på denne nettsiden"
+    },
+    "menu_report_abuse": {
+        "message": "Rapporter denne nettsiden"
+    },
+    "menu_site_report": {
+        "message": "Nettsidens sikkerhetsrapport"
+    },
+    "menu_settings": {
+        "message": "Assistentinnstillinger"
+    },
+    "assistant_select_element": {
+        "message": "Elementblokkering"
+    },
+    "assistant_select_element_ext": {
+        "message": "Velg et element på siden som skal blokkeres"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Avbryt"
+    },
+    "assistant_block_element": {
+        "message": "Elementblokkering"
+    },
+    "assistant_block_element_explain": {
+        "message": "Juster elementblokkeringsregel"
+    },
+    "assistant_slider_explain": {
+        "message": "Flytt glidebryteren for å endre størrelsen på rammen den nye regelen vil fungere for:"
+    },
+    "assistant_slider_max": {
+        "message": "MAKS"
+    },
+    "assistant_extended_settings": {
+        "message": "Avanserte innstillinger"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Bruk regelen for alle nettsider"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokker med referanselenke"
+    },
+    "assistant_block_similar": {
+        "message": "Blokker lignende"
+    },
+    "assistant_another_element": {
+        "message": "Velg et annet element"
+    },
+    "assistant_preview": {
+        "message": "Forhåndsvisning"
+    },
+    "assistant_block": {
+        "message": "Blokker"
+    },
+    "assistant_settings": {
+        "message": "Assistentinnstillinger"
+    },
+    "assistant_preview_header": {
+        "message": "Elementblokkering - forhåndsvisning"
+    },
+    "assistant_preview_header_info": {
+        "message": "Kontroller at elementet er blokkert som det skal"
+    },
+    "assistant_preview_end": {
+        "message": "Avslutt forhåndsvisning"
+    },
+    "wot_unknown_description": {
+        "message": "Rykte er ikke definert"
+    },
+    "wot_bad_description": {
+        "message": "Denne nettsiden har et veldig dårlig rykte\ni følge $1"
+    },
+    "wot_poor_description": {
+        "message": "Denne nettsiden har et dårlig rykte\ni følge $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Denne nettsiden har et dårlig rykte\ni følge $1"
+    },
+    "wot_good_description": {
+        "message": "Denne nettsiden har et godt rykte\ni følge $1"
+    },
+    "wot_excellent_description": {
+        "message": "Denne nettsiden har et utmerket rykte\ni følge $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Juster størrelsen og posisjonen til AdGuard-assistent"
+    },
+    "settings_icon_size": {
+        "message": "Ikonstørrelse:"
+    },
+    "settings_small": {
+        "message": "Liten"
+    },
+    "settings_big": {
+        "message": "Stor"
+    },
+    "settings_position": {
+        "message": "Posisjoner:"
+    },
+    "settings_left_top": {
+        "message": "Øverst til venstre"
+    },
+    "settings_right_top": {
+        "message": "Øverst til høyre"
+    },
+    "settings_left_bottom": {
+        "message": "Nederst til venstre"
+    },
+    "settings_right_bottom": {
+        "message": "Nederst til høyre"
+    },
+    "settings_cancel": {
+        "message": "Avbryt"
+    },
+    "settings_save": {
+        "message": "Lagre endringer"
+    }
+}

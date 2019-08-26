@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "網站",
+    "settings_position_save_all": "所有的網站",
+    "settings_position_save_this": "該網站",
+    "assistant_select_element_start": "開始",
+    "assistant_select_element_text": "選擇於該頁面上之元件以封鎖。重新整理該頁面以取消元件封鎖模式。",
+    "menu_filtration_status": {
+        "message": "於該網站上之過濾"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "計 30 秒不過濾"
+    },
+    "menu_block_ad_on_site": {
+        "message": "封鎖於該網站上之廣告"
+    },
+    "menu_report_abuse": {
+        "message": "報告該網站"
+    },
+    "menu_site_report": {
+        "message": "網站安全性報告"
+    },
+    "menu_settings": {
+        "message": "助理設定"
+    },
+    "assistant_select_element": {
+        "message": "元件封鎖"
+    },
+    "assistant_select_element_ext": {
+        "message": "選擇於該頁面上之元件以封鎖"
+    },
+    "assistant_select_element_cancel": {
+        "message": "取消"
+    },
+    "assistant_block_element": {
+        "message": "元件封鎖"
+    },
+    "assistant_block_element_explain": {
+        "message": "調整元件封鎖規則"
+    },
+    "assistant_slider_explain": {
+        "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
+    },
+    "assistant_slider_min": {
+        "message": "最小"
+    },
+    "assistant_slider_max": {
+        "message": "最大"
+    },
+    "assistant_extended_settings": {
+        "message": "進階的設定"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "對所有的網站套用該規則"
+    },
+    "assistant_block_by_reference": {
+        "message": "按照參考連結封鎖"
+    },
+    "assistant_block_similar": {
+        "message": "封鎖相似之物"
+    },
+    "assistant_another_element": {
+        "message": "選擇不同的元件"
+    },
+    "assistant_preview": {
+        "message": "預覽"
+    },
+    "assistant_block": {
+        "message": "封鎖"
+    },
+    "assistant_settings": {
+        "message": "助理設定"
+    },
+    "assistant_preview_header": {
+        "message": "元件封鎖 - 預覽"
+    },
+    "assistant_preview_header_info": {
+        "message": "確定元件如預期的被封鎖"
+    },
+    "assistant_preview_end": {
+        "message": "離開預覽"
+    },
+    "wot_unknown_description": {
+        "message": "該網站的信譽未被 $1 界定"
+    },
+    "wot_bad_description": {
+        "message": "根據 $1，\n該網站有非常壞的信譽"
+    },
+    "wot_poor_description": {
+        "message": "根據 $1，\n該網站有壞的信譽"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "根據 $1，\n該網站有不好的信譽"
+    },
+    "wot_good_description": {
+        "message": "根據 $1，\n該網站有好的信譽"
+    },
+    "wot_excellent_description": {
+        "message": "根據 $1，\n該網站有極好的信譽"
+    },
+    "settings_choose_size_and_position": {
+        "message": "調整 AdGuard 助理尺寸和位置"
+    },
+    "settings_icon_size": {
+        "message": "圖示尺寸："
+    },
+    "settings_small": {
+        "message": "小的"
+    },
+    "settings_big": {
+        "message": "大的"
+    },
+    "settings_position": {
+        "message": "位置："
+    },
+    "settings_left_top": {
+        "message": "左上角"
+    },
+    "settings_right_top": {
+        "message": "右上角"
+    },
+    "settings_left_bottom": {
+        "message": "左下角"
+    },
+    "settings_right_bottom": {
+        "message": "右下角"
+    },
+    "settings_cancel": {
+        "message": "取消"
+    },
+    "settings_save": {
+        "message": "儲存更改"
+    }
+}

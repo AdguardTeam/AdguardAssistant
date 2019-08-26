@@ -1,63 +1,140 @@
+import { events } from '../utils/common-utils';
+import {
+    hasClass,
+    addClass,
+    removeClass,
+    show,
+    hide,
+    toArray,
+    getParentsLevel,
+    getAllChildren,
+} from '../utils/dom-utils';
+import selector from '../adguard-selector';
+import sliderWidget from '../slider-widget';
+import adguardRulesConstructor from '../adguard-rules-constructor';
+
 /**
  * Slider menu controller
- * @param $
- * @param selector
- * @param sliderWidget
- * @param settings
- * @param adguardRulesConstructor
- * @param localization
- * @param gmApi
  * @param addRule
  * @returns {{init: init}}
  * @constructor
  */
-/* global Ioc, CommonUtils */
-var SliderMenuController = function ($, selector, sliderWidget, settings, adguardRulesConstructor, localization, gmApi, addRule) { // jshint ignore:line
-    var contentDocument = null;
-    var selectedElement = null;
-    var startElement = null;
-    var currentElement = null;
-    var iframeCtrl = Ioc.get('iframeController');
+export default function SliderMenuController(addRule, iframe) {
+    let contentDocument = null;
+    let selectedElement = null;
+    let startElement = null;
+    let currentElement = null;
+    const iframeCtrl = iframe;
 
-    /*
-     Called from IframeController._showMenuItem to initialize view
-     */
-    var init = function (iframe, options) {
-        selectedElement = options.element;
-        startElement = selectedElement;
-        contentDocument = iframe.contentDocument;
-        currentElement = options.currentElement;
-        bindEvents();
-        createSlider(currentElement);
-        onScopeChange();
-        selector.selectElement(selectedElement);
+    const getFilterRuleInputText = () => contentDocument.getElementById('filter-rule').value;
 
-        // select current element after returning from preview mode
-        if (currentElement) {
-            onSliderMove(currentElement);
-        }
-
-        // make input clickable with right mouse button for text editing
-        CommonUtils.events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', function(e) {
-            e.stopPropagation();
-        });
-
-        if (options.path) {
-            setFilterRuleInputText(options.path);
-            expandAdvanced();
-        }
-
-        if (options.options) {
-            makeDefaultCheckboxesForDetailedMenu(options.options);
-        }
-    };
-
-    var close = function () {
+    const close = () => {
         iframeCtrl.removeIframe();
     };
 
-    var bindEvents = function () {
-        var menuEvents = {
+    const expandAdvanced = () => {
+        const advancedSettings = contentDocument.querySelector('#advanced-settings');
+        const extendedSettingsText = contentDocument.querySelector('#ExtendedSettingsText');
+        const hidden = !hasClass(advancedSettings, 'open');
+        if (hidden) {
+            addClass(advancedSettings, 'open');
+            addClass(extendedSettingsText, 'active');
+            iframeCtrl.resizeSliderMenuToAdvanced();
+        } else {
+            removeClass(advancedSettings, 'open');
+            removeClass(extendedSettingsText, 'active');
+            iframeCtrl.resizeSliderMenuToNormal();
+        }
+    };
+
+    const showPreview = () => {
+        const options = {
+            isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
+            isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
+            isBlockOneDomain: contentDocument.getElementById('one-domain-checkbox').checked,
+        };
+
+        iframeCtrl.showBlockPreview(
+            selectedElement,
+            getFilterRuleInputText(),
+            startElement,
+            options,
+        );
+    };
+
+    const blockElement = () => {
+        const path = getFilterRuleInputText();
+        iframeCtrl.blockElement(path, addRule);
+    };
+
+    const handleShowBlockSettings = (showBlockByUrl, showBlockSimilar) => {
+        const blockByUrlBlock = contentDocument.querySelector('#block-by-url-checkbox-block');
+        const blockSimilarBlock = contentDocument.querySelector('#block-similar-checkbox-block');
+        if (showBlockByUrl) {
+            show(blockByUrlBlock);
+        } else {
+            contentDocument.getElementById('block-by-url-checkbox').checked = false;
+            hide(blockByUrlBlock);
+        }
+        if (showBlockSimilar) {
+            show(blockSimilarBlock);
+        } else {
+            contentDocument.getElementById('block-similar-checkbox').checked = false;
+            hide(blockSimilarBlock);
+        }
+    };
+
+    const getUrlBlockAttribute = (element) => {
+        const urlBlockAttributes = ['src', 'data'];
+        for (let i = 0; i < urlBlockAttributes.length; i += 1) {
+            const attr = urlBlockAttributes[i];
+            const value = element.getAttribute(attr);
+            if (value) {
+                return value;
+            }
+        }
+        return null;
+    };
+
+    const haveUrlBlockParameter = (element) => {
+        const value = getUrlBlockAttribute(element);
+        return value && value !== '';
+    };
+
+    const haveClassAttribute = (element) => {
+        const { className } = element;
+        return className && typeof className === 'string' && className.trim() !== '';
+    };
+
+    const setFilterRuleInputText = (ruleText) => {
+        contentDocument.getElementById('filter-rule').value = ruleText;
+    };
+
+    const onScopeChange = () => {
+        const isBlockByUrl = contentDocument.getElementById('block-by-url-checkbox').checked;
+        const isBlockSimilar = contentDocument.getElementById('block-similar-checkbox').checked;
+        const isBlockOneDomain = contentDocument.getElementById('one-domain-checkbox').checked;
+
+        handleShowBlockSettings(
+            haveUrlBlockParameter(selectedElement) && !isBlockSimilar,
+            haveClassAttribute(selectedElement) && !isBlockByUrl,
+        );
+
+        const options = {
+            urlMask: getUrlBlockAttribute(selectedElement),
+            cssSelectorType: isBlockSimilar ? 'SIMILAR' : 'STRICT_FULL',
+            isBlockOneDomain,
+            url: document.location,
+            ruleType: isBlockByUrl ? 'URL' : 'CSS',
+        };
+
+        const ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);
+        setFilterRuleInputText(ruleText);
+        iframeCtrl.resizeIframe();
+    };
+
+    const bindEvents = () => {
+        const menuEvents = {
             '.close': close,
             '#ExtendedSettingsText': expandAdvanced,
             '#adg-cancel': iframeCtrl.showSelectorMenu,
@@ -65,62 +142,55 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             '#adg-accept': blockElement,
             '#block-by-url-checkbox-block': onScopeChange,
             '#one-domain-checkbox-block': onScopeChange,
-            '#block-similar-checkbox-block': onScopeChange
+            '#block-similar-checkbox-block': onScopeChange,
         };
-        Object.keys(menuEvents).forEach(function (item) {
-            $(contentDocument.querySelectorAll(item)).on('click', menuEvents[item]);
+        Object.keys(menuEvents).forEach((item) => {
+            const elems = contentDocument.querySelectorAll(item);
+            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
         });
     };
 
-    var blockElement = function () {
-        var path = getFilterRuleInputText();
-        iframeCtrl.blockElement(path, addRule);
-    };
 
-    var expandAdvanced = function () {
-        var hidden = !$(contentDocument.getElementById('advanced-settings')).hasClass("open");
-        if (hidden) {
-            $(contentDocument.getElementById('advanced-settings')).addClass('open');
-            $(contentDocument.getElementById('ExtendedSettingsText')).addClass('active');
-            iframeCtrl.resizeSliderMenuToAdvanced();
-        } else {
-            $(contentDocument.getElementById('advanced-settings')).removeClass('open');
-            $(contentDocument.getElementById('ExtendedSettingsText')).removeClass('active');
-            iframeCtrl.resizeSliderMenuToNormal();
+    const makeDefaultCheckboxesForDetailedMenu = (options) => {
+        contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
+        contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;
+        contentDocument.getElementById('one-domain-checkbox').checked = options && options.isBlockOneDomain;
+
+        if (options && (options.isBlockByUrl || options.isBlockSimilar)) {
+            handleShowBlockSettings(options.isBlockByUrl, options.isBlockSimilar);
         }
     };
 
-    var showPreview = function () {
-        var options = {
-            isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
-            isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
-            isBlockOneDomain: contentDocument.getElementById('one-domain-checkbox').checked
-        };
+    const onSliderMove = (element) => {
+        selectedElement = element;
+        selector.selectElement(element);
 
-        iframeCtrl.showBlockPreview(selectedElement, getFilterRuleInputText(), startElement, options);
+        makeDefaultCheckboxesForDetailedMenu();
+        onScopeChange();
+        handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
     };
 
-    var createSlider = function (setElement) {
-        var parents = CommonUtils.getParentsLevel(selectedElement);
-        var children = CommonUtils.getAllChildren(selectedElement);
+    const createSlider = (setElement) => {
+        const parents = getParentsLevel(selectedElement);
+        const children = getAllChildren(selectedElement);
 
-        var value = Math.abs(parents.length + 1);
-        var max = parents.length + children.length + 1;
+        const value = Math.abs(parents.length + 1);
+        const max = parents.length + children.length + 1;
 
-        var min = 1;
-        var options = {value: value, min: min, max: max};
-        var slider = contentDocument.getElementById('slider');
-        var sliderArea = contentDocument.getElementById('slider-area');
+        const min = 1;
+        const options = { value, min, max };
+        const slider = contentDocument.querySelector('#slider');
+        const sliderArea = contentDocument.querySelector('#slider-area');
 
         if (min === max) {
-            //hide slider text
-            $(slider).hide();
-            $(contentDocument.getElementsByClassName('element-rule_text')).hide();
+            // hide slider text
+            hide(slider);
+            hide(contentDocument.querySelectorAll('.element-rule_text'));
             expandAdvanced();
         }
 
-        options.onSliderMove = function (delta) {
-            var elem;
+        options.onSliderMove = (delta) => {
+            let elem;
             if (delta > 0) {
                 elem = parents[delta - 1];
             }
@@ -134,11 +204,11 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             onSliderMove(elem);
         };
 
-        var currentVal = options.value;
+        let currentVal = options.value;
 
         // set slider position on current element after returning from preview mode
         if (setElement) {
-            var setElementparents = CommonUtils.getParentsLevel(setElement);
+            const setElementparents = getParentsLevel(setElement);
             currentVal = setElementparents.length + 1;
         }
 
@@ -146,102 +216,52 @@ var SliderMenuController = function ($, selector, sliderWidget, settings, adguar
             min: options.min,
             max: options.max,
             value: currentVal,
-            onValueChanged: function (value) {
-                var delta = options.value - value;
+            // eslint-disable-next-line no-shadow
+            onValueChanged(value) {
+                const delta = options.value - value;
                 options.onSliderMove(delta);
             },
-            sliderArea: sliderArea
+            sliderArea,
         });
     };
 
-    var onSliderMove = function (element) {
-        selectedElement = element;
-        selector.selectElement(element);
-
-        makeDefaultCheckboxesForDetailedMenu();
+    /*
+     Called from IframeController._showMenuItem to initialize view
+     */
+    // eslint-disable-next-line no-shadow
+    const init = (iframe, options) => {
+        selectedElement = options.element;
+        startElement = selectedElement;
+        // eslint-disable-next-line prefer-destructuring
+        contentDocument = iframe.contentDocument;
+        // eslint-disable-next-line prefer-destructuring
+        currentElement = options.currentElement;
+        bindEvents();
+        createSlider(currentElement);
         onScopeChange();
-        handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
-    };
+        selector.selectElement(selectedElement);
 
-    var makeDefaultCheckboxesForDetailedMenu = function (options) {
-        contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
-        contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;
-        contentDocument.getElementById('one-domain-checkbox').checked = options && options.isBlockOneDomain;
-
-        if (options && (options.isBlockByUrl || options.isBlockSimilar)) {
-            handleShowBlockSettings(options.isBlockByUrl, options.isBlockSimilar);
+        // select current element after returning from preview mode
+        if (currentElement) {
+            onSliderMove(currentElement);
         }
-    };
 
-    var onScopeChange = function () {
+        // make input clickable with right mouse button for text editing
+        events.add(contentDocument.getElementById('filter-rule'), 'contextmenu', (e) => {
+            e.stopPropagation();
+        });
 
-        var isBlockByUrl = contentDocument.getElementById('block-by-url-checkbox').checked;
-        var isBlockSimilar = contentDocument.getElementById('block-similar-checkbox').checked;
-        var isBlockOneDomain = contentDocument.getElementById('one-domain-checkbox').checked;
-
-        handleShowBlockSettings(haveUrlBlockParameter(selectedElement) && !isBlockSimilar, haveClassAttribute(selectedElement) && !isBlockByUrl);
-
-        var options = {
-            urlMask: getUrlBlockAttribute(selectedElement),
-            cssSelectorType: isBlockSimilar ? "SIMILAR" : "STRICT_FULL",
-            isBlockOneDomain: isBlockOneDomain,
-            url: document.location,
-            ruleType: isBlockByUrl ? "URL" : "CSS"
-        };
-
-        var ruleText = adguardRulesConstructor.constructRuleText(selectedElement, options);
-        setFilterRuleInputText(ruleText);
-        iframeCtrl.resizeIframe();
-    };
-
-    var haveUrlBlockParameter = function (element) {
-        var value = getUrlBlockAttribute(element);
-        return value && value !== '';
-    };
-
-    var getUrlBlockAttribute = function (element) {
-        var urlBlockAttributes = ["src", "data"];
-        for (var i = 0; i < urlBlockAttributes.length; i++) {
-            var attr = urlBlockAttributes[i];
-            var value = element.getAttribute(attr);
-            if (value) {
-                return value;
-            }
+        if (options.path) {
+            setFilterRuleInputText(options.path);
+            expandAdvanced();
         }
-        return null;
-    };
 
-    var haveClassAttribute = function (element) {
-        var className = element.className;
-        return className && typeof className === 'string' && className.trim() !== '';
-    };
-
-    var handleShowBlockSettings = function (showBlockByUrl, showBlockSimilar) {
-        var blockByUrlBlock = $(contentDocument.getElementById('block-by-url-checkbox-block'));
-        var blockSimilarBlock = $(contentDocument.getElementById('block-similar-checkbox-block'));
-        if (showBlockByUrl) {
-            blockByUrlBlock.show();
-        } else {
-            contentDocument.getElementById('block-by-url-checkbox').checked = false;
-            blockByUrlBlock.hide();
+        if (options.options) {
+            makeDefaultCheckboxesForDetailedMenu(options.options);
         }
-        if (showBlockSimilar) {
-            blockSimilarBlock.show();
-        } else {
-            contentDocument.getElementById('block-similar-checkbox').checked = false;
-            blockSimilarBlock.hide();
-        }
-    };
-
-    var setFilterRuleInputText = function (ruleText) {
-        contentDocument.getElementById('filter-rule').value = ruleText;
-    };
-
-    var getFilterRuleInputText = function () {
-        return contentDocument.getElementById('filter-rule').value;
     };
 
     return {
-        init: init
+        init,
     };
-};
+}

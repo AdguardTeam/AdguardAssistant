@@ -1,44 +1,51 @@
+import protectedApi from './protectedApi';
+import log from './log';
+
+/* eslint-disable no-param-reassign */
 /**
  * Helper for backward compatibility
  * @returns {{}}
  * @constructor
  */
-var UpgradeHelper = function (log, protectedApi) {
-    var Constants = {
-        BUTTON_POSITION_ITEM_NAME: '__adbpos'
-    };
+class UpgradeHelper {
+    constructor() {
+        this.Constants = {
+            BUTTON_POSITION_ITEM_NAME: '__adbpos',
+        };
+    }
 
-    var getButtonPositionData = function () {
+    getButtonPositionData() {
         try {
-            userPosition = localStorage.getItem(Constants.BUTTON_POSITION_ITEM_NAME);
+            const userPosition = localStorage.getItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
             if (userPosition) {
                 return protectedApi.json.parse(userPosition);
             }
+            return undefined;
         } catch (ex) {
             log.error(ex);
-            return null;
+            return undefined;
         }
-    };
+    }
 
-    var removeUserPositionForButton = function () {
+    removeUserPositionForButton() {
         try {
-            localStorage.removeItem(Constants.BUTTON_POSITION_ITEM_NAME);
+            localStorage.removeItem(this.Constants.BUTTON_POSITION_ITEM_NAME);
         } catch (ex) {
             log.error(ex);
-            return null;
         }
-    };
+    }
 
-    var upgradeGmStorage = function (settings, version) {
+    // eslint-disable-next-line class-methods-use-this
+    upgradeGmStorage(settings, version) {
         settings.personal = {};
         settings.scriptVersion = version;
         settings.personalConfig = true;
         return settings;
-    };
+    }
 
     // Helper for assistant update from 4.1 to 4.2
-    var upgradeLocalStorage = function (settings, sitename) {
-        var position = getButtonPositionData();
+    upgradeLocalStorage(settings, sitename) {
+        const position = this.getButtonPositionData();
         if (position) {
             if (!settings.personal[sitename]) {
                 settings.personal[sitename] = {};
@@ -46,12 +53,11 @@ var UpgradeHelper = function (log, protectedApi) {
             settings.personal[sitename].position = position;
             settings.personal[sitename].largeIcon = settings.largeIcon;
         }
-        removeUserPositionForButton();
+        this.removeUserPositionForButton();
         return settings;
-    };
+    }
+}
 
-    return {
-        upgradeGmStorage: upgradeGmStorage,
-        upgradeLocalStorage: upgradeLocalStorage
-    };
-};
+const upgradeHelper = new UpgradeHelper();
+
+export default upgradeHelper;

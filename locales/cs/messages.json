@@ -1,0 +1,126 @@
+{
+    "settings_position_save": "Webové stránky",
+    "settings_position_save_all": "Všechny webové stránky",
+    "settings_position_save_this": "Tato webová stránka",
+    "assistant_select_element_text": "Vyberte prvek na stránce, který chcete zablokovat. Obnovte stránku pro zrušení režimu blokování prvků.",
+    "menu_filtration_status": {
+        "message": "Filtrování na těchto webových stránkách"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Nefiltrovat po dobu 30 sekund"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blokovat reklamy na této webové stránce"
+    },
+    "menu_report_abuse": {
+        "message": "Nahlásit webovou stránku"
+    },
+    "menu_site_report": {
+        "message": "Zpráva o bezpečnosti webové stránky"
+    },
+    "menu_settings": {
+        "message": "Nastavení asistenta"
+    },
+    "assistant_select_element": {
+        "message": "Blokování prvku"
+    },
+    "assistant_select_element_ext": {
+        "message": "Vyberte prvek na stránce, který chcete zablokovat"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Zrušit"
+    },
+    "assistant_block_element": {
+        "message": "Blokování prvku"
+    },
+    "assistant_block_element_explain": {
+        "message": "Upravit pravidlo blokování prvku"
+    },
+    "assistant_slider_explain": {
+        "message": "Přesunutím posuvníku změňte velikost rámce, pro který bude nové pravidlo fungovat:"
+    },
+    "assistant_extended_settings": {
+        "message": "Pokročilá nastavení"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Použít pravidlo pro všechny webové stránky"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokovat referenčním odkazem"
+    },
+    "assistant_block_similar": {
+        "message": "Blokovat podobné"
+    },
+    "assistant_another_element": {
+        "message": "Vyber jiný prvek"
+    },
+    "assistant_preview": {
+        "message": "Náhled"
+    },
+    "assistant_block": {
+        "message": "Blokovat"
+    },
+    "assistant_settings": {
+        "message": "Nastavení asistenta"
+    },
+    "assistant_preview_header": {
+        "message": "Blokování prvku - náhled"
+    },
+    "assistant_preview_header_info": {
+        "message": "Ujistěte se, že je prvek zablokován podle určení"
+    },
+    "assistant_preview_end": {
+        "message": "Ukončit náhled"
+    },
+    "wot_unknown_description": {
+        "message": "Pověst této webové stránky není definována podle $1"
+    },
+    "wot_bad_description": {
+        "message": "Tato webová stránka má velmi špatnou pověst \npodle $1"
+    },
+    "wot_poor_description": {
+        "message": "Tato webová stránka má špatnou pověst \npodle $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Tato webová stránka má špatnou pověst \npodle $1"
+    },
+    "wot_good_description": {
+        "message": "Tato webová stránka má dobrou pověst \npodle $1"
+    },
+    "wot_excellent_description": {
+        "message": "Tato webová stránka má výbornou pověst \npodle $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Upravit velikost a pozici AdGuard Asistenta"
+    },
+    "settings_icon_size": {
+        "message": "Velikost ikony:"
+    },
+    "settings_small": {
+        "message": "Malá"
+    },
+    "settings_big": {
+        "message": "Velká"
+    },
+    "settings_position": {
+        "message": "Pozice:"
+    },
+    "settings_left_top": {
+        "message": "Vlevo nahoře"
+    },
+    "settings_right_top": {
+        "message": "Vpravo nahoře"
+    },
+    "settings_left_bottom": {
+        "message": "Vlevo dole"
+    },
+    "settings_right_bottom": {
+        "message": "Vpravo dole"
+    },
+    "settings_cancel": {
+        "message": "Zrušit"
+    },
+    "settings_save": {
+        "message": "Uložit změny"
+    }
+}

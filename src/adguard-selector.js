@@ -6,16 +6,14 @@ import {
     hide,
     toArray,
     show,
-} from '../utils/dom-utils';
-import protectedApi from '../protectedApi';
+} from './utils/dom-utils';
+import protectedApi from './protectedApi';
 
 /**
- * Adguard selector library
- * TODO: why this in separated directory?
- * TODO: rename it
+ * Adguard selector
  * @type {Function}
  */
-function AdguardSelectorLib(api = {}) {
+function AdguardSelector(api = {}) {
     const PLACEHOLDER_PREFIX = 'adguard-placeholder';
     let placeholdedElements = null;
     let transparentPlaceholdedElement = null;
@@ -679,6 +677,6 @@ function AdguardSelectorLib(api = {}) {
     return api;
 }
 
-const selector = new AdguardSelectorLib();
+const selector = new AdguardSelector();
 
 export default selector;

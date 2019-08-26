@@ -5,7 +5,7 @@ import SliderMenuControllerMobile from './controllers/sliderMenuControllerMobile
 import CustomEvent from './event';
 import protectedApi from './protectedApi';
 import log from './log';
-import selector from './selector/adguard-selector';
+import selector from './adguard-selector';
 import localization from './localization';
 import { version } from '../package.json';
 

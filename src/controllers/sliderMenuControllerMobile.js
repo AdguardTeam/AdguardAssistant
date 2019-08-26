@@ -5,7 +5,7 @@ import {
     removeClass,
     addClass,
 } from '../utils/dom-utils';
-import selector from '../selector/adguard-selector';
+import selector from '../adguard-selector';
 import adguardRulesConstructor from '../adguard-rules-constructor';
 
 /**

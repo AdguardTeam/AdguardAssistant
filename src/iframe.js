@@ -12,7 +12,7 @@ import log from './log';
 import settings from './settings';
 import gm from './gm';
 import uiValidationUtils from './utils/ui-validation-utils';
-import selector from './selector/adguard-selector';
+import selector from './adguard-selector';
 import uiUtils from './utils/ui-utils';
 import localization from './localization';
 

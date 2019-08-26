@@ -1,6 +1,6 @@
 import log from '../log';
 import { toArray } from '../utils/dom-utils';
-import selector from '../selector/adguard-selector';
+import selector from '../adguard-selector';
 
 /**
  * Block preview controller

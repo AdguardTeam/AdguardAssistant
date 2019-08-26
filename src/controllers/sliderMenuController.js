@@ -9,7 +9,7 @@ import {
     getParentsLevel,
     getAllChildren,
 } from '../utils/dom-utils';
-import selector from '../selector/adguard-selector';
+import selector from '../adguard-selector';
 import sliderWidget from '../slider-widget';
 import adguardRulesConstructor from '../adguard-rules-constructor';
 

@@ -1,5 +1,5 @@
 import { toArray } from '../utils/dom-utils';
-import selector from '../selector/adguard-selector';
+import selector from '../adguard-selector';
 
 /**
  * Selector menu controller

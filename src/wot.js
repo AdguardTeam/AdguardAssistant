@@ -13,23 +13,15 @@ function Wot() {
     const WOT_URL = 'http://adguard.com/wot.html';
     let wotData = null;
 
-
-    const fireEvent = (name, data) => {
-        const event = document.createEvent('Events');
-        event.initEvent(name, true, true);
-        event.data = data;
-        document.dispatchEvent(event);
-    };
-    /*
-     Waiting for event from wot extension. Send event back to stop
-     firing wot extension events
-     */
     const registerWotEventHandler = () => {
-        document.addEventListener('wot-score', (e) => {
-            // eslint-disable-next-line prefer-destructuring
-            wotData = e && e.data && e.data.wotData;
-            fireEvent('wot-accepted', null);
-        });
+        const wotDataCb = (data) => {
+            wotData = data;
+        };
+        if (window.WotData) {
+            wotData = window.WotData;
+        } else {
+            window.WotData = wotDataCb;
+        }
     };
 
     const getWotData = () => wotData;

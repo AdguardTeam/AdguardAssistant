@@ -31,7 +31,7 @@ You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam
 Each command builds next files inside directory:
 - `assistant.meta.js` - meta information for userscript
 - `assistant.user.js` - userscript code
-- `embedded.js` - code for embedding in another projects (it has functionality for selection of DOM nodes and rules building)
+- `assistant.embedded.js` - code for embedding in another projects (it has functionality for selection of DOM nodes and rules building)
 - `build.txt` - bamboo environment variables
 
 

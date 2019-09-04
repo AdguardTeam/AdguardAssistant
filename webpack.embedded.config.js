@@ -8,13 +8,11 @@ const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
 
 const config = {
     mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
-    entry: {
-        embedded: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
-    },
+    entry: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     devtool: MODE === MODE_TYPES.DEV ? 'eval-source-map' : false,
     output: {
         path: path.resolve(__dirname, BUILD_DIR, MODE),
-        filename: '[name].js',
+        filename: 'assistant.embedded.js',
     },
     optimization: {
         minimize: false,

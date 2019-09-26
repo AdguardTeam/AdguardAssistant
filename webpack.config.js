@@ -19,7 +19,6 @@ const config = {
     entry: {
         [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
     },
-    devtool: MODE === MODE_TYPES.DEV,
     output: {
         path: OUTPUT_PATH,
         filename: '[name].js',

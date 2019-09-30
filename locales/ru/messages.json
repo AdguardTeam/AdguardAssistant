@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Настроить помощник"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Индикатор репутации сайта"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Уровень доверия к репутации"
+    },
     "assistant_select_element": {
         "message": " Блокировка элемента"
     },
@@ -39,6 +45,12 @@
     },
     "assistant_slider_explain": {
         "message": "Перемещайте бегунок, чтобы изменить размер блока, для которого будет действовать правило:"
+    },
+    "assistant_slider_min": {
+        "message": "Минимум"
+    },
+    "assistant_slider_max": {
+        "message": "Максимум"
     },
     "assistant_extended_settings": {
         "message": "Расширенные настройки"

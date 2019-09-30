@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "助手设置"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "网站声誉指标"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "声望置信度"
+    },
     "assistant_select_element": {
         "message": "拦截元素"
     },

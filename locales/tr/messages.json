@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Assistant ayarları"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Site itibarı göstergesi"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "İtibarın Güven Seviyesi"
+    },
     "assistant_select_element": {
         "message": "Öğe engelleme"
     },
@@ -39,6 +45,9 @@
     },
     "assistant_slider_explain": {
         "message": "Yeni kuralın çalışacağı çerçevenin boyutunu değiştirmek için kayar düğmeyi hareket ettirin"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
     },
     "assistant_slider_max": {
         "message": "MAKS"

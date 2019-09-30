@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "إعدادات المساعد"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "مؤشر سمعة الموقع"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "مستوى الثقة في السمعة"
+    },
     "assistant_select_element": {
         "message": "حظر العنصر"
     },

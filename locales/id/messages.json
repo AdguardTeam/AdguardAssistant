@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Pengaturan Asisten"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikator reputasi situs"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Tingkat Keyakinan Reputasi"
+    },
     "assistant_select_element": {
         "message": "Blok Elemen"
     },
@@ -39,6 +45,9 @@
     },
     "assistant_slider_explain": {
         "message": "Pindahkan slider untuk mengatur ukuran frame dimana aturan baru akan aktif:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
     },
     "assistant_slider_max": {
         "message": "MAKS"

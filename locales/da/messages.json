@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Assistent indstillinger"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikator for hjemmesidens omdømme"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Omdømmets tillidsniveau"
+    },
     "assistant_select_element": {
         "message": "Element blokering"
     },

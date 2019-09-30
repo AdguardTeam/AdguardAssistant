@@ -1,6 +1,6 @@
 {
   "name": "assistant-compiler",
-  "version": "4.3.20",
+  "version": "4.3.21",
   "description": "Compile source files to userscript form",
   "main": "tasks/index.js",
   "scripts": {

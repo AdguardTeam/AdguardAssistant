@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "הגדרות העוזר האישי"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "אינדיקטור למוניטין של אתרים"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "רמת אמון מוניטין"
+    },
     "assistant_select_element": {
         "message": "חוסם אלמנט"
     },

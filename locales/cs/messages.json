@@ -2,6 +2,7 @@
     "settings_position_save": "Webové stránky",
     "settings_position_save_all": "Všechny webové stránky",
     "settings_position_save_this": "Tato webová stránka",
+    "assistant_select_element_start": "Spustit",
     "assistant_select_element_text": "Vyberte prvek na stránce, který chcete zablokovat. Obnovte stránku pro zrušení režimu blokování prvků.",
     "menu_filtration_status": {
         "message": "Filtrování na těchto webových stránkách"
@@ -21,6 +22,12 @@
     "menu_settings": {
         "message": "Nastavení asistenta"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikátor reputace webu"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Úroveň důvěryhodnosti reputace"
+    },
     "assistant_select_element": {
         "message": "Blokování prvku"
     },
@@ -38,6 +45,12 @@
     },
     "assistant_slider_explain": {
         "message": "Přesunutím posuvníku změňte velikost rámce, pro který bude nové pravidlo fungovat:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
+    },
+    "assistant_slider_max": {
+        "message": "MAX"
     },
     "assistant_extended_settings": {
         "message": "Pokročilá nastavení"

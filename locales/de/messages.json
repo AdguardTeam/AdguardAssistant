@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Assistenten-Einstellungen"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Website-Reputations-Indikator"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Reputationsvertrauensgrad"
+    },
     "assistant_select_element": {
         "message": "Element-Blockierung"
     },
@@ -39,6 +45,12 @@
     },
     "assistant_slider_explain": {
         "message": "Bewegen Sie den Schieberegler, um die Ausmaßgröße der neuen Regeln zu ändern:"
+    },
+    "assistant_slider_min": {
+        "message": "Minimal"
+    },
+    "assistant_slider_max": {
+        "message": "Maximal"
     },
     "assistant_extended_settings": {
         "message": "Erweiterte Einstellungen"
@@ -102,6 +114,9 @@
     },
     "settings_big": {
         "message": "Groß"
+    },
+    "settings_position": {
+        "message": "Position:"
     },
     "settings_left_top": {
         "message": "Oben links"

@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "تنظیمات دستیار"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "نشانگر اعتبار سایت"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "سطح اعتبار"
+    },
     "assistant_select_element": {
         "message": "مسدودسازی عنصر"
     },

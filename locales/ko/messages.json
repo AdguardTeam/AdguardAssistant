@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "AdGuard 설정"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "웹사이트 평판 표시기"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "평판 신뢰 수준"
+    },
     "assistant_select_element": {
         "message": "선택 모드"
     },

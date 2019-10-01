@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Réglages de l'Assistant AdGuard"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indice de réputation du site"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Niveau de confiance"
+    },
     "assistant_select_element": {
         "message": "Blocage d'éléments "
     },

@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Nastavitve Pomočnika"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Kazalnik ugleda spletnestrani"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Raven ugleda zaupanja"
+    },
     "assistant_select_element": {
         "message": "Blokiranje elementa"
     },

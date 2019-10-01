@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "助理設定"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "網站信譽指標"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "信譽信賴等級"
+    },
     "assistant_select_element": {
         "message": "元件封鎖"
     },

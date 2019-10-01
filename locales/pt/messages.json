@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Configurações do assistente"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indicador de reputação do site"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Nível de confiança de reputação"
+    },
     "assistant_select_element": {
         "message": "Bloqueio de elemento"
     },

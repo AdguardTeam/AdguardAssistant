@@ -13,6 +13,7 @@ import it from './it/messages.json';
 import ja from './ja/messages.json';
 import ko from './ko/messages.json';
 import no from './no/messages.json';
+import lt from './lt/messages.json';
 import pl from './pl/messages.json';
 import pt from './pt/messages.json';
 import ptPT from './pt-PT/messages.json';
@@ -42,6 +43,7 @@ const locales = {
     ja,
     ko,
     no,
+    lt,
     pl,
     pt,
     'pt-PT': ptPT,

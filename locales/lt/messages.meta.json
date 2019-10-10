@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard Assistentas",
+            "description": "Suteikia lengvą ir patogų būdą valdyti filtravimą tiesiai iš naršyklės"
+        }
+    }
+}

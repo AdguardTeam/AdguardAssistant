@@ -3,7 +3,7 @@
     "settings_position_save_all": "Vse pletne strani",
     "settings_position_save_this": "To spletno stran",
     "assistant_select_element_start": "Začni",
-    "assistant_select_element_text": "Izberite element na strani, ki jo želite blokirati. Osvežite stran, da prekličete način blokiranja elementa.",
+    "assistant_select_element_text": "Izberite element na strani, ki jo želite onemogočiti. Osvežite stran, da prekličete način zaviranja elementa.",
     "menu_filtration_status": {
         "message": "Filtriranje na tej spletni strani"
     },
@@ -11,7 +11,7 @@
         "message": "Ne filtriraj 30 sekund"
     },
     "menu_block_ad_on_site": {
-        "message": "Blokiraj oglas na tej spletni strani"
+        "message": "Onemogoči oglas na tej spletni strani"
     },
     "menu_report_abuse": {
         "message": "Prijavi spletno stran"
@@ -29,19 +29,19 @@
         "message": "Raven ugleda zaupanja"
     },
     "assistant_select_element": {
-        "message": "Blokiranje elementa"
+        "message": "Onemogočanje elementa"
     },
     "assistant_select_element_ext": {
-        "message": "Izberite element na strani, ki jo želite blokirati"
+        "message": "Izberite element na strani, ki ga želite onemogočiti"
     },
     "assistant_select_element_cancel": {
         "message": "Prekliči"
     },
     "assistant_block_element": {
-        "message": "Blokiranje elementa"
+        "message": "Onemogočanje elementa"
     },
     "assistant_block_element_explain": {
-        "message": "Prilagodite pravilo za blokiranju elementa"
+        "message": "Prilagodite pravilo za onemogočanje elementa"
     },
     "assistant_slider_explain": {
         "message": "Premaknite drsnik, da spremenite velikost okvirja, za katerega bo delovalo novo pravilo:"
@@ -59,10 +59,10 @@
         "message": "Uporabi pravilo za vse spletne strani"
     },
     "assistant_block_by_reference": {
-        "message": "Blokiraj z napotitveno povezavo"
+        "message": "Onemogočij z napotitveno povezavo"
     },
     "assistant_block_similar": {
-        "message": "Blokiraj podobno"
+        "message": "Onemogoči podobno"
     },
     "assistant_another_element": {
         "message": "Izberi drug element"
@@ -71,16 +71,16 @@
         "message": "Predogled"
     },
     "assistant_block": {
-        "message": "Blokiraj"
+        "message": "Onemogoči"
     },
     "assistant_settings": {
         "message": "Nastavitve Pomočnika"
     },
     "assistant_preview_header": {
-        "message": "Blokiranje elementa - predogled"
+        "message": "Onemogočanje elementa - predogled"
     },
     "assistant_preview_header_info": {
-        "message": "Poskrbi, da je element blokiran, kot je bilo predvideno"
+        "message": "Prepričajte se, da je element bil onemogočen, kot je bilo predvideno"
     },
     "assistant_preview_end": {
         "message": "Zapusti predogled"

@@ -101,7 +101,7 @@
         "message": "$1يتمتع هذا الموقع بسمعة طيبة\nوفقا لـ"
     },
     "wot_excellent_description": {
-        "message": "$1هذا الموقع يتمتع بسمعة ممتازة\nوفقاً لـ"
+        "message": "هذا الموقع يتمتع بسمعة ممتازة\nوفقاً لـ $1"
     },
     "settings_choose_size_and_position": {
         "message": "وموضعه AdGuard ضبط حجم مساعد"

@@ -1,4 +1,4 @@
-# Adguard Assistant [![Build Status](https://travis-ci.org/AdguardTeam/AdguardAssistant.svg?branch=master)](https://travis-ci.org/AdguardTeam/AdguardAssistant)
+# Adguard Assistant [![Build Status](https://travis-ci.com/AdguardTeam/AdguardAssistant.svg?branch=master)](https://travis-ci.com/AdguardTeam/AdguardAssistant)
 > ### Disclaimer
 > * We believe that all free products should be open source, and AdGuard Assistant is not an exception. Its code can be found in this repository.
 

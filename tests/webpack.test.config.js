@@ -17,6 +17,24 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.svg$/,
+                exclude: /node_modules/,
+                loader: 'url-loader',
+            },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: 'html-loader',
+                options: {
+                    minimize: true,
+                },
+            },
+            {
+                test: /\.less$/,
+                exclude: /node_modules/,
+                use: ['to-string-loader', 'css-loader', 'less-loader'],
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {

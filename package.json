@@ -1,6 +1,6 @@
 {
   "name": "assistant-compiler",
-  "version": "4.3.22",
+  "version": "4.3.23",
   "description": "Compile source files to userscript form",
   "main": "tasks/index.js",
   "scripts": {
@@ -46,5 +46,8 @@
     "url-loader": "^2.1.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "promise-polyfill": "^8.1.3"
   }
 }

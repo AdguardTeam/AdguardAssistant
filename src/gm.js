@@ -11,6 +11,7 @@ ADG_sendAbuse,
 ADG_isFiltered,
 ADG_changeFilteringState,
 */
+import Promise from 'promise-polyfill';
 import protectedApi from './protectedApi';
 
 /**

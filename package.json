@@ -46,5 +46,8 @@
     "url-loader": "^2.1.0",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
+  },
+  "dependencies": {
+    "core-js-pure": "^3.4.8"
   }
 }

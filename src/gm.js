@@ -11,7 +11,7 @@ ADG_sendAbuse,
 ADG_isFiltered,
 ADG_changeFilteringState,
 */
-import Promise from 'core-js-pure/features/promise';
+import Promise from 'promise-polyfill';
 import protectedApi from './protectedApi';
 
 /**

@@ -14,8 +14,6 @@ ADG_changeFilteringState,
 
 import protectedApi from './protectedApi';
 
-const { Promise } = require('es6-promise');
-
 /**
  * Gm api wrapper
  * @returns {{

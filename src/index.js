@@ -4,9 +4,13 @@ const mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blaze
 
 // eslint-disable-next-line func-names
 (function (base) {
-    if (mobileReg.test(navigator.userAgent)) {
+    const ua = navigator.userAgent;
+    if (mobileReg.test(ua)) {
         // eslint-disable-next-line no-param-reassign
         base.adguardAssistant = adguardAssistantMini;
+    } else if (ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1) {
+        // https://github.com/AdguardTeam/AdguardAssistant/issues/317#issuecomment-564502254
+        // DO NOTHING
     } else {
         adguardAssistantExtended();
     }

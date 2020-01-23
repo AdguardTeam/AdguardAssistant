@@ -2,7 +2,7 @@
   "name": "assistant-compiler",
   "version": "4.3.25",
   "description": "Compile source files to userscript form",
-  "main": "tasks/index.js",
+  "main": "dist/assistant.embedded.js",
   "scripts": {
     "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
     "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack && NODE_ENV=BETA ./node_modules/.bin/webpack --config webpack.embedded.config.js",
@@ -30,6 +30,7 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
+    "filemanager-webpack-plugin": "^2.0.5",
     "form-data": "^2.5.0",
     "fs-extra": "^8.1.0",
     "html-loader": "^0.5.5",

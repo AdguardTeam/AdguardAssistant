@@ -1,13 +1,14 @@
 {
-  "name": "assistant-compiler",
+  "name": "adguard-assistant",
   "version": "4.3.25",
   "description": "Compile source files to userscript form",
   "main": "dist/assistant.embedded.js",
   "scripts": {
-    "dev": "NODE_ENV=DEV ./node_modules/.bin/webpack && ./node_modules/.bin/webpack --config webpack.embedded.config.js",
-    "beta": "NODE_ENV=BETA ./node_modules/.bin/webpack && NODE_ENV=BETA ./node_modules/.bin/webpack --config webpack.embedded.config.js",
-    "release": "NODE_ENV=RELEASE ./node_modules/.bin/webpack && NODE_ENV=RELEASE ./node_modules/.bin/webpack --config webpack.embedded.config.js",
+    "dev": "export NODE_ENV=DEV; webpack && yarn build:embed",
+    "beta": "export NODE_ENV=BETA; webpack && yarn build:embed",
+    "release": "export NODE_ENV=RELEASE; webpack && yarn build:embed",
     "lint": "eslint ./src",
+    "build:embed": "webpack --config webpack.embedded.config.js",
     "test:build": "./node_modules/.bin/webpack --config tests/webpack.test.config.js",
     "test": "yarn test:build && node tests/puppeteer.js",
     "locales:download": "LOCALES=DOWNLOAD node locales.js",

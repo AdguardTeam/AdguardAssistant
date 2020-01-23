@@ -6,15 +6,19 @@ const BUILD_DIR = 'build';
 const DIST_DIR = 'dist';
 const SOURCE_DIR = 'src';
 const FILENAME = 'assistant.embedded.js';
-const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
-const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
+const NODE_ENVS = {
+    DEV: 'dev',
+    BETA: 'beta',
+    RELEASE: 'release',
+};
+const NODE_ENV = NODE_ENVS[process.env.NODE_ENV] || NODE_ENVS.DEV;
 
 const config = {
-    mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
+    mode: NODE_ENV === NODE_ENVS.DEV ? 'development' : 'production',
     entry: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
-    devtool: MODE === MODE_TYPES.DEV ? 'eval-source-map' : false,
+    devtool: NODE_ENV === NODE_ENVS.DEV ? 'eval-source-map' : false,
     output: {
-        path: path.resolve(__dirname, BUILD_DIR, MODE),
+        path: path.resolve(__dirname, BUILD_DIR, NODE_ENV),
         filename: FILENAME,
         libraryExport: 'default',
     },
@@ -49,23 +53,29 @@ const config = {
         ],
     },
     plugins: [
-        MODE === MODE_TYPES.RELEASE && new FileManagerPlugin({
-            onEnd: {
-                copy: [
-                    {
-                        source: path.resolve(__dirname, BUILD_DIR, MODE_TYPES.RELEASE, FILENAME),
-                        destination: path.resolve(__dirname, DIST_DIR),
-                    }],
-            },
-        }),
         new webpack.NormalModuleReplacementPlugin(
             /src\/gm\.js/,
             'gm-empty.js',
         ),
         new webpack.DefinePlugin({
-            DEBUG: MODE === MODE_TYPES.DEV,
+            DEBUG: NODE_ENV === NODE_ENVS.DEV,
         }),
-    ].filter(Boolean),
+    ],
 };
+
+const fileManagerPlugin = new FileManagerPlugin({
+    onEnd: {
+        copy: [
+            {
+                source: path.resolve(__dirname, BUILD_DIR, NODE_ENVS.RELEASE, FILENAME),
+                destination: path.resolve(__dirname, DIST_DIR),
+            }],
+    },
+});
+
+if (NODE_ENV === NODE_ENVS.RELEASE) {
+    config.plugins.unshift(fileManagerPlugin);
+    console.log(`\n${FILENAME} created at ${path.resolve(__dirname, DIST_DIR)}\n`);
+}
 
 module.exports = config;

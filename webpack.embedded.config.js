@@ -75,7 +75,6 @@ const fileManagerPlugin = new FileManagerPlugin({
 
 if (NODE_ENV === NODE_ENVS.RELEASE) {
     config.plugins.unshift(fileManagerPlugin);
-    console.log(`\n${FILENAME} created in ${path.resolve(__dirname, DIST_DIR)}\n`);
 }
 
 module.exports = config;

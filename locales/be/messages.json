@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Наладзіць памочнік"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Індыкатар рэпутацыі сайта"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Узровень верагоднасці рэпутацыі"
+    },
     "assistant_select_element": {
         "message": "Блакаванне элемента"
     },
@@ -39,6 +45,12 @@
     },
     "assistant_slider_explain": {
         "message": "Перасоўвайце бегунок, каб змяніць памер блока, для якога будзе дзейнічаць правіла:"
+    },
+    "assistant_slider_min": {
+        "message": "Мінімум"
+    },
+    "assistant_slider_max": {
+        "message": "Максімум"
     },
     "assistant_extended_settings": {
         "message": "Пашыраныя налады"

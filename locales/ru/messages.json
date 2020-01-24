@@ -101,7 +101,7 @@
         "message": "У сайта хорошая репутация по данным $1"
     },
     "wot_excellent_description": {
-        "message": "У сайта отличная реутация по данным $1"
+        "message": "У сайта отличная репутация по данным $1"
     },
     "settings_choose_size_and_position": {
         "message": "Настройте размер и положение помощника AdGuard"

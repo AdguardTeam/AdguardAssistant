@@ -1,11 +1,11 @@
 {
     "settings_position_save": "Sitios web",
-    "settings_position_save_all": "Todos sitios web",
+    "settings_position_save_all": "Todos los sitios web",
     "settings_position_save_this": "Este sitio web",
     "assistant_select_element_start": "Empezar",
     "assistant_select_element_text": "Elija un elemento en la página para bloquear. Actualice la página para cancelar el bloqueo de elementos.",
     "menu_filtration_status": {
-        "message": "Filtraje en este sitio web"
+        "message": "Filtrado en este sitio web"
     },
     "menu_do_not_filter_30_sec": {
         "message": "No filtrar durante 30 segundos"
@@ -14,13 +14,13 @@
         "message": "Bloquear anuncios en este sitio web"
     },
     "menu_report_abuse": {
-        "message": "Reporte el sitio web"
+        "message": "Reportar el sitio web"
     },
     "menu_site_report": {
         "message": "Informe de seguridad del sitio web"
     },
     "menu_settings": {
-        "message": "Configuración de asistente"
+        "message": "Configuración del asistente"
     },
     "menu_wot_reputation_indicator": {
         "message": "Indicador de reputación del sitio"
@@ -47,13 +47,13 @@
         "message": "Mueva el control deslizante para cambiar el tamaño del marco para el que funcionará la nueva regla:"
     },
     "assistant_slider_min": {
-        "message": "Min"
+        "message": "Mín."
     },
     "assistant_slider_max": {
-        "message": "Max"
+        "message": "Máx."
     },
     "assistant_extended_settings": {
-        "message": "Ajustes avanzados"
+        "message": "Configuración avanzada"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "Aplicar la regla a todos los sitios web"
@@ -107,7 +107,7 @@
         "message": "Ajuste el tamaño y la posición del Asistente de AdGuard"
     },
     "settings_icon_size": {
-        "message": "Tamaño de ícono:"
+        "message": "Tamaño del icono:"
     },
     "settings_small": {
         "message": "Pequeño"

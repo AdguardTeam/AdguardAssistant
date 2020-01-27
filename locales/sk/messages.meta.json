@@ -1,7 +1,7 @@
 {
     "extension": {
         "assistant": {
-            "name": "",
+            "name": "AdGuard Asistent",
             "description": "Poskytuje jednoduchý a pohodlný spôsob manažmentu filtrov priamo z prehliadača"
         }
     }

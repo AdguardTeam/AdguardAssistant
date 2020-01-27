@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Nastavenia asistenta"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikátor reputácie stránok"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Úroveň spoľahlivosti reputácie"
+    },
     "assistant_select_element": {
         "message": "Blokovanie prvku"
     },
@@ -39,6 +45,12 @@
     },
     "assistant_slider_explain": {
         "message": "Použite posuvník pre zmenu veľkosti rámu pre nové pravidlo, ktoré bude použité na:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
+    },
+    "assistant_slider_max": {
+        "message": "MAX"
     },
     "assistant_extended_settings": {
         "message": "Pokročilé nastavenia"

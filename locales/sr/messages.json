@@ -1,4 +1,9 @@
 {
+    "settings_position_save": "Sajtovi",
+    "settings_position_save_all": "Svi sajtovi",
+    "settings_position_save_this": "Ovaj sajt",
+    "assistant_select_element_start": "Započni",
+    "assistant_select_element_text": "Izaberite element na stranici koji želite da blokirate. Osvežite stranicu da otkažete blokiranje elemenata.",
     "menu_filtration_status": {
         "message": "Filtriranje na ovom sajtu"
     },
@@ -16,6 +21,12 @@
     },
     "menu_settings": {
         "message": "Postavke pomoćnika"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikator reputacije sajta"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Nivo poverljivosti reputacije"
     },
     "assistant_select_element": {
         "message": "Blokiranje elementa"

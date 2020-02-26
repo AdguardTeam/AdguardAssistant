@@ -1,18 +1,26 @@
 const path = require('path');
 const webpack = require('webpack');
+const FileManagerPlugin = require('filemanager-webpack-plugin');
 
 const BUILD_DIR = 'build';
+const DIST_DIR = 'dist';
 const SOURCE_DIR = 'src';
-const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
-const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
+const FILENAME = 'assistant.embedded.js';
+const NODE_ENVS = {
+    DEV: 'dev',
+    BETA: 'beta',
+    RELEASE: 'release',
+};
+const NODE_ENV = NODE_ENVS[process.env.NODE_ENV] || NODE_ENVS.DEV;
 
 const config = {
-    mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
+    mode: NODE_ENV === NODE_ENVS.DEV ? 'development' : 'production',
     entry: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
-    devtool: MODE === MODE_TYPES.DEV ? 'eval-source-map' : false,
+    devtool: NODE_ENV === NODE_ENVS.DEV ? 'eval-source-map' : false,
     output: {
-        path: path.resolve(__dirname, BUILD_DIR, MODE),
-        filename: 'assistant.embedded.js',
+        path: path.resolve(__dirname, BUILD_DIR, NODE_ENV),
+        filename: FILENAME,
+        libraryExport: 'default',
     },
     optimization: {
         minimize: false,
@@ -50,9 +58,23 @@ const config = {
             'gm-empty.js',
         ),
         new webpack.DefinePlugin({
-            DEBUG: MODE === MODE_TYPES.DEV,
+            DEBUG: NODE_ENV === NODE_ENVS.DEV,
         }),
     ],
 };
+
+const fileManagerPlugin = new FileManagerPlugin({
+    onEnd: {
+        copy: [
+            {
+                source: path.resolve(__dirname, BUILD_DIR, NODE_ENVS.RELEASE, FILENAME),
+                destination: path.resolve(__dirname, DIST_DIR),
+            }],
+    },
+});
+
+if (NODE_ENV === NODE_ENVS.RELEASE) {
+    config.plugins.unshift(fileManagerPlugin);
+}
 
 module.exports = config;

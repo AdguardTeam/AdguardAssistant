@@ -1,7 +1,7 @@
 {
-    "settings_position_save": "Sites Web",
-    "settings_position_save_all": "Tous les sites Web",
-    "settings_position_save_this": "Ce site Web",
+    "settings_position_save": "Sites web",
+    "settings_position_save_all": "Tous les sites web",
+    "settings_position_save_this": "Ce site web",
     "assistant_select_element_start": "Démarrer",
     "assistant_select_element_text": "Choisissez un élément de la page à bloquer. Pour afficher l'élément de nouveau, rafraîchissez la page.",
     "menu_filtration_status": {

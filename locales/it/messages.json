@@ -25,6 +25,9 @@
     "menu_wot_reputation_indicator": {
         "message": "Indicatore reputazione sito"
     },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Livello della reputazione"
+    },
     "assistant_select_element": {
         "message": "Bloccaggio elemento"
     },

@@ -1,6 +1,4 @@
-# Adguard Assistant [![Build Status](https://travis-ci.com/AdguardTeam/AdguardAssistant.svg?branch=master)](https://travis-ci.com/AdguardTeam/AdguardAssistant)
-> ### Disclaimer
-> * We believe that all free products should be open source, and AdGuard Assistant is not an exception. Its code can be found in this repository.
+# AdGuard Assistant [![Build Status](https://travis-ci.com/AdguardTeam/AdguardAssistant.svg?branch=master)](https://travis-ci.com/AdguardTeam/AdguardAssistant)
 
 AdGuard Assistant is a userscript that helps you manage filtering right from the browser. With its aid you are able to manually block any element, whitelist or report the page, or see the website's security report — all without having to leave the current page.
 

@@ -19,7 +19,7 @@ const CROWDIN_PROJECT = twoskyConfig.project_id;
 const LOCALES = Object.keys(twoskyConfig.languages);
 // Crowdin files for downloading/uploading
 const CROWDIN_FILES = twoskyConfig.localizable_files
-    .map(pathToFile => pathToFile.split('/').pop());
+    .map((pathToFile) => pathToFile.split('/').pop());
 
 /**
  * Users locale may be defined with only two chars (language code)
@@ -73,7 +73,7 @@ const removeEmptyStrings = (data) => {
  * Returns equivalent of specified locale code
  * @param {string} locale locale
  */
-const getEquivalent = locale => LOCALES_EQUIVALENTS_MAP[locale] || locale;
+const getEquivalent = (locale) => LOCALES_EQUIVALENTS_MAP[locale] || locale;
 
 /**
  * Build form data for uploading tranlation
@@ -158,3 +158,7 @@ if (process.env.LOCALES === 'DOWNLOAD') {
 } else {
     console.log('Option DOWNLOAD/UPLOAD locales is not set');
 }
+
+module.exports = {
+    getEquivalent,
+};

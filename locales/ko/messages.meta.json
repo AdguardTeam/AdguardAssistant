@@ -1,7 +1,7 @@
 {
     "extension": {
         "assistant": {
-            "name": "AdGuard 도우미",
+            "name": "AdGuard 어시스턴트",
             "description": "브라우저에서 바로 필터링 관리를 쉽고 간편하게 할 수 있도록 도와줍니다."
         }
     }

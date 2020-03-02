@@ -30,7 +30,9 @@
             "tr": "Turkish",
             "uk": "Ukrainian",
             "zh-CN": "Chinese Simplified (mainland China)",
-            "zh-TW": "Chinese Traditional (Taiwan)"
+            "zh-TW": "Chinese Traditional (Taiwan)",
+            "hi": "Hindi",
+            "hr": "Croatian"
         },
         "localizable_files": [
             "locales/en/messages.json",

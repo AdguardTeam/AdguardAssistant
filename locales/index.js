@@ -1,11 +1,8 @@
-const twoskyConfig = require('../.twosky.json');
-const { getEquivalent } = require('../locales.js');
+const { LOCALES_EQUIVALENTS_MAP, LANGUAGES } = require('../consts');
 
-const [{ languages }] = twoskyConfig;
-
-const locales = Object.keys(languages)
+const locales = Object.keys(LANGUAGES)
     .reduce((acc, language) => {
-        const resultLocale = getEquivalent(language);
+        const resultLocale = LOCALES_EQUIVALENTS_MAP[language] || language;
         // eslint-disable-next-line global-require,import/no-dynamic-require
         const dictionary = require(`./${resultLocale}/messages.json`);
         acc[language] = dictionary;

@@ -3,7 +3,13 @@ const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
 const FormData = require('form-data');
-const twoskyConfig = require('./.twosky.json')[0];
+const {
+    BASE_LOCALE,
+    PROJECT_ID,
+    LANGUAGES,
+    LOCALIZABLE_FILES,
+    LOCALES_EQUIVALENTS_MAP,
+} = require('./consts');
 
 // URLs
 const BASE_URL = 'https://twosky.adtidy.org/api/v1';
@@ -11,24 +17,11 @@ const BASE_DOWNLOAD_URL = `${BASE_URL}/download`;
 const BASE_UPLOAD_URL = `${BASE_URL}/upload`;
 // Directory where locales should be stored
 const LOCALES_DIR = './locales';
-// Base locale
-const BASE_LOCALE = twoskyConfig.base_locale;
-// Twosky project see mapping https://twosky.adtidy.org/api/v1/mapping
-const CROWDIN_PROJECT = twoskyConfig.project_id;
-// Available translations list
-const LOCALES = Object.keys(twoskyConfig.languages);
-// Crowdin files for downloading/uploading
-const CROWDIN_FILES = twoskyConfig.localizable_files
-    .map(pathToFile => pathToFile.split('/').pop());
-
-/**
- * Users locale may be defined with only two chars (language code)
- * Here we provide a map of equivalent translation for such locales
- */
-const LOCALES_EQUIVALENTS_MAP = {
-    'pt-BR': 'pt',
-    'zh-CN': 'zh',
-};
+const CROWDIN_PROJECT = PROJECT_ID;
+const LOCALES = Object.keys(LANGUAGES);
+const CROWDIN_FILES = LOCALIZABLE_FILES
+    .map((pathToFile) => pathToFile.split('/')
+        .pop());
 
 /**
  * Build query string for downloading tranlations
@@ -54,18 +47,19 @@ const getQueryString = (lang, file) => {
  */
 const removeEmptyStrings = (data) => {
     const result = {};
-    Object.entries(data).forEach(([key, value]) => {
-        if (typeof value === 'string') {
-            if (value !== '') {
-                result[key] = value;
+    Object.entries(data)
+        .forEach(([key, value]) => {
+            if (typeof value === 'string') {
+                if (value !== '') {
+                    result[key] = value;
+                }
+            } else if (typeof value === 'object') {
+                // eslint-disable-next-line dot-notation
+                if (value['message'] !== '') {
+                    result[key] = value;
+                }
             }
-        } else if (typeof value === 'object') {
-            // eslint-disable-next-line dot-notation
-            if (value['message'] !== '') {
-                result[key] = value;
-            }
-        }
-    });
+        });
     return result;
 };
 
@@ -73,7 +67,7 @@ const removeEmptyStrings = (data) => {
  * Returns equivalent of specified locale code
  * @param {string} locale locale
  */
-const getEquivalent = locale => LOCALES_EQUIVALENTS_MAP[locale] || locale;
+const getEquivalent = (locale) => LOCALES_EQUIVALENTS_MAP[locale] || locale;
 
 /**
  * Build form data for uploading tranlation

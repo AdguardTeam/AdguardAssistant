@@ -20,7 +20,7 @@
         "message": "웹사이트 보안 보고"
     },
     "menu_settings": {
-        "message": "AdGuard 설정"
+        "message": "어시스턴트 설정"
     },
     "menu_wot_reputation_indicator": {
         "message": "웹사이트 평판 표시기"
@@ -53,7 +53,7 @@
         "message": "크게"
     },
     "assistant_extended_settings": {
-        "message": "고급 설정..."
+        "message": "고급 설정"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "모든 웹사이트에 이 규칙 적용"
@@ -74,7 +74,7 @@
         "message": "차단"
     },
     "assistant_settings": {
-        "message": "도우미 설정"
+        "message": "어시스턴트 설정"
     },
     "assistant_preview_header": {
         "message": "요소 차단 - 미리 보기"
@@ -104,7 +104,7 @@
         "message": "이 웹사이트는 아주 좋은 평판을 갖고 있습니다.\n제공 "
     },
     "settings_choose_size_and_position": {
-        "message": "AdGuard 도우미의 크기와 위치를 조정합니다."
+        "message": "AdGuard 어시스턴트 크기와 위치를 조정합니다"
     },
     "settings_icon_size": {
         "message": "아이콘 크기:"

@@ -91,7 +91,7 @@ export default function SettingsMenuController(iframe) {
         };
         Object.keys(menuEvents).forEach((item) => {
             const elems = contentDocument.querySelectorAll(item);
-            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
+            toArray(elems).forEach((elem) => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

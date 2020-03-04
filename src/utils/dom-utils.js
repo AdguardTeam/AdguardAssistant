@@ -2,7 +2,7 @@
  * Returns tag name for passed element
  * @param {Element} element target element
  */
-export const getNodeName = element => (
+export const getNodeName = (element) => (
     element && element.nodeName ? element.nodeName.toUpperCase() : ''
 );
 
@@ -59,7 +59,7 @@ export const getAllChildren = (element) => {
  * Usually used for transformatin NodeList to simple Array
  * @param {any} elems
  */
-export const toArray = elems => (elems && elems.length !== undefined
+export const toArray = (elems) => (elems && elems.length !== undefined
     ? Array.prototype.slice.call(elems)
     : [elems]);
 

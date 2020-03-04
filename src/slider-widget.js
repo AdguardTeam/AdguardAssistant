@@ -24,7 +24,7 @@ function SliderWidget(api = {}) {
 
     const refresh = () => {
         const handle = placeholder.querySelectorAll(`.${HANDLE_CLASS}`);
-        addStyle(handle, 'left', `${(value - 1) * 100 / (max - min)}%`);
+        addStyle(handle, 'left', `${((value - 1) * 100) / (max - min)}%`);
 
         const ticks = placeholder.querySelectorAll(`.${TICK_CLASS}`);
         for (let i = 0; i < ticks.length; i += 1) {
@@ -47,7 +47,7 @@ function SliderWidget(api = {}) {
         const prepare = (i) => {
             const tick = protectedApi.createElement('div');
             tick.setAttribute('class', TICK_FULL_CLASS);
-            tick.style.left = `${100 / count * i}%`;
+            tick.style.left = `${(100 / count) * i}%`;
             tick.style.width = `${100 / count}%`;
 
             placeholder.appendChild(tick);
@@ -79,8 +79,8 @@ function SliderWidget(api = {}) {
         const sliderWidth = rect.width;
         const offsetLeft = rect.left + document.body.scrollLeft;
 
-        const getSliderValue = pageX => Math.round(
-            (max - min) / sliderWidth * (pageX - offsetLeft) + min,
+        const getSliderValue = (pageX) => Math.round(
+            ((max - min) / sliderWidth) * (pageX - offsetLeft) + min,
         );
 
         const onMouseMove = (e) => {

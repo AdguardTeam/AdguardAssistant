@@ -66,7 +66,7 @@ function GM() {
             if (callback) callback();
         };
 
-    const getValue = value => new Promise(((resolve) => {
+    const getValue = (value) => new Promise(((resolve) => {
         resolve(GM_getValue(value));
     }));
 

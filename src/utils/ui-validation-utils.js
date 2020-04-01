@@ -58,7 +58,6 @@ function UIValidationUtils() {
     const validatePage = () => {
         // Assistant do not work in iframes
         if (window.window !== window.top) {
-            log.error(`Page is iframe: ${window.location.href}`);
             return false;
         }
         return true;

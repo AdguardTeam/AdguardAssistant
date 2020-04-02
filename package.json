@@ -4,9 +4,9 @@
   "description": "Compile source files to userscript form",
   "main": "dist/assistant.embedded.js",
   "scripts": {
-    "dev": "export NODE_ENV=DEV; webpack && yarn build:embedded",
-    "beta": "export NODE_ENV=BETA; webpack && yarn build:embedded",
-    "release": "export NODE_ENV=RELEASE; webpack && yarn build:embedded",
+    "dev": "export CHANNEL_ENV=DEV; webpack && yarn build:embedded",
+    "beta": "export CHANNEL_ENV=BETA; webpack && yarn build:embedded",
+    "release": "export CHANNEL_ENV=RELEASE; webpack && yarn build:embedded",
     "lint": "eslint ./src",
     "build:embedded": "webpack --config webpack.embedded.config.js",
     "test:build": "webpack --config tests/webpack.test.config.js",

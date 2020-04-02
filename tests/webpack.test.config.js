@@ -27,6 +27,7 @@ module.exports = {
                 loader: 'html-loader',
                 options: {
                     minimize: true,
+                    attributes: false,
                 },
             },
             {
@@ -43,7 +44,8 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],
+                exclude: /node_modules/,
+                loader: 'css-loader',
             },
         ],
     },

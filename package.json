@@ -9,7 +9,7 @@
     "release": "export NODE_ENV=RELEASE; webpack && yarn build:embedded",
     "lint": "eslint ./src",
     "build:embedded": "webpack --config webpack.embedded.config.js",
-    "test:build": "./node_modules/.bin/webpack --config tests/webpack.test.config.js",
+    "test:build": "webpack --config tests/webpack.test.config.js",
     "test": "yarn test:build && node tests/puppeteer.js",
     "locales:download": "LOCALES=DOWNLOAD node locales.js",
     "locales:upload": "LOCALES=UPLOAD node locales.js"
@@ -34,7 +34,7 @@
     "filemanager-webpack-plugin": "^2.0.5",
     "form-data": "^3.0.0",
     "fs-extra": "^9.0.0",
-    "html-loader": "^1.0.0",
+    "html-loader": "^1.1.0",
     "html-webpack-plugin": "^4.0.4",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",

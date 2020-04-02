@@ -26,6 +26,7 @@ const config = {
     optimization: {
         minimize: MODE === MODE_TYPES.RELEASE || MODE === MODE_TYPES.BETA,
     },
+    performance: { hints: false },
     module: {
         rules: [
             {

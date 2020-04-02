@@ -236,49 +236,73 @@ __webpack_require__.r(__webpack_exports__);
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"adguard-alert adguard-assistant-button-fixed adguard-assistant-button-main-logo\"></div> ";
+// Module
+var code = "<div class=\"adguard-alert adguard-assistant-button-fixed adguard-assistant-button-main-logo\"></div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=main> <div class=close></div> <div class=menu-head> <div class=menu-head_title> <span class=menu-head_name></span> <div class=\"confidence-indication wot-hide\"> <a class=\"wot-indicator wot-hide\" target=_blank href=\"http://adguard.com/wot-scorecard.html?domain=habrahabr.ru\"> <i id=WotIndication class=\"adg-wot tooltip\" data-title=\"Site reputation indicator\"></i> </a> <i id=ConfidenceIndication class=\"adg-wot-confidence tooltip\" data-title=\"Reputation Confidence Level\"></i> </div> </div> <div class=\"menu-head_text wot-hide\" id=WotDescriptionText></div> </div> <div class=menu-filter> <div i18n=menu_filtration_status class=menu-filter_lbl> </div> <div class=menu-filter_val> <input type=checkbox class=menu-filter_input id=is-filter> <label for=is-filter class=menu-filter_label></label> </div> </div> <div class=menu> <div id=do-not-block-30-sec class=\"menu__btn menu__btn--clock\" i18n=menu_do_not_filter_30_sec></div> <div id=block-ad class=\"menu__btn menu__btn--landscape\" i18n=menu_block_ad_on_site></div> <div id=report-abuse class=\"menu__btn menu__btn--report\" i18n=menu_report_abuse></div> <div id=site-report class=\"menu__btn menu__btn--security\" i18n=menu_site_report></div> <div id=assistant-settings class=\"menu__btn menu__btn--settings\" i18n=menu_settings></div> </div> </div> ";
+// Module
+var code = "<div class=main> <div class=close></div> <div class=menu-head> <div class=menu-head_title> <span class=menu-head_name></span> <div class=\"confidence-indication wot-hide\"> <a class=\"wot-indicator wot-hide\" target=_blank href=\"http://adguard.com/wot-scorecard.html?domain=habrahabr.ru\"> <i id=WotIndication class=\"adg-wot tooltip\" data-title=\"Site reputation indicator\"></i> </a> <i id=ConfidenceIndication class=\"adg-wot-confidence tooltip\" data-title=\"Reputation Confidence Level\"></i> </div> </div> <div class=\"menu-head_text wot-hide\" id=WotDescriptionText></div> </div> <div class=menu-filter> <div i18n=menu_filtration_status class=menu-filter_lbl> </div> <div class=menu-filter_val> <input type=checkbox class=menu-filter_input id=is-filter> <label for=is-filter class=menu-filter_label></label> </div> </div> <div class=menu> <div id=do-not-block-30-sec class=\"menu__btn menu__btn--clock\" i18n=menu_do_not_filter_30_sec></div> <div id=block-ad class=\"menu__btn menu__btn--landscape\" i18n=menu_block_ad_on_site></div> <div id=report-abuse class=\"menu__btn menu__btn--report\" i18n=menu_report_abuse></div> <div id=site-report class=\"menu__btn menu__btn--security\" i18n=menu_site_report></div> <div id=assistant-settings class=\"menu__btn menu__btn--settings\" i18n=menu_settings></div> </div> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main adguard_sg_ignore\"> <div class=\"close adg-close\" id=close-button></div> <div class=head id=drag-handle> <div i18n=assistant_select_element class=head_title></div> <div i18n=assistant_select_element_ext class=head_text></div> </div> <div class=foot> <button i18n=assistant_select_element_cancel type=button class=\"btn btn-default\" id=cancel-select-mode></button> </div> </div> ";
+// Module
+var code = "<div class=\"main adguard_sg_ignore\"> <div class=\"close adg-close\" id=close-button></div> <div class=head id=drag-handle> <div i18n=assistant_select_element class=head_title></div> <div i18n=assistant_select_element_ext class=head_text></div> </div> <div class=foot> <button i18n=assistant_select_element_cancel type=button class=\"btn btn-default\" id=cancel-select-mode></button> </div> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=main> <div class=close></div> <div class=head> <div i18n=assistant_settings class=head_title></div> <div i18n=settings_choose_size_and_position class=\"head_text head_text--mobile-h\"></div> </div> <div class=content> <div class=\"settings settings__horizontal\"> <div class=settings_fieldset> <div i18n=settings_position_save class=settings_fieldset_lbl></div> <div class=settings_fieldset_val> <div class=position-save> <div class=position-save_group> <div class=position-save_field> <input class=form-ui-control id=all-site type=radio name=position-save> <label class=form-ui for=all-site> <span i18n=settings_position_save_all class=form-ui-txt></span> </label> </div> <div class=position-save_field> <input class=form-ui-control id=this-site type=radio name=position-save> <label class=form-ui for=this-site> <span i18n=settings_position_save_this class=form-ui-txt></span> </label> </div> </div> </div> </div> </div> <div class=settings_fieldset> <div i18n=settings_icon_size class=settings_fieldset_lbl></div> <div class=settings_fieldset_val> <div class=choice-size> <div class=choice-size_group> <div class=choice-size_field> <input class=\"choice-size_input form-ui-control\" id=size-small type=radio name=radio> <label class=form-ui for=size-small> <span i18n=settings_small class=form-ui-txt></span> </label> <div class=\"adguard-assistant-button-main-logo choice-size_logo logo__small\"></div> </div> <div class=choice-size_field> <input class=\"choice-size_input form-ui-control\" id=size-big type=radio name=radio> <label class=form-ui for=size-big> <span i18n=settings_big class=form-ui-txt></span> </label> <div class=\"adguard-assistant-button-main-logo choice-size_logo\"></div> </div> </div> </div> </div> </div> <div class=settings_fieldset> <div i18n=settings_position class=\"settings_fieldset_lbl settings_fieldset_lbl__pos\"></div> <div class=settings_fieldset_val> <div class=change-position> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-top-left> <label class=change-position_label for=position-top-left> <span class=s-position-arr-top-left></span> </label> <div i18n=settings_left_top class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-top-right> <label class=change-position_label for=position-top-right> <span class=s-position-arr-top-right></span> </label> <div i18n=settings_right_top class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-bottom-left> <label class=change-position_label for=position-bottom-left> <span class=s-position-arr-bottom-left></span> </label> <div i18n=settings_left_bottom class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-bottom-right> <label class=change-position_label for=position-bottom-right> <span class=s-position-arr-bottom-right></span> </label> <div i18n=settings_right_bottom class=change-position_val></div> </div> </div> </div> </div> </div> </div> <div class=foot> <div class=foot_action> <div class=foot_action_btn> <button i18n=settings_cancel class=\"btn btn-default\" type=button id=cancel></button> <button i18n=settings_save class=\"btn btn-primary\" type=button id=save-settings></button> </div> </div> <div class=cf></div> </div> </div> ";
+// Module
+var code = "<div class=main> <div class=close></div> <div class=head> <div i18n=assistant_settings class=head_title></div> <div i18n=settings_choose_size_and_position class=\"head_text head_text--mobile-h\"></div> </div> <div class=content> <div class=\"settings settings__horizontal\"> <div class=settings_fieldset> <div i18n=settings_position_save class=settings_fieldset_lbl></div> <div class=settings_fieldset_val> <div class=position-save> <div class=position-save_group> <div class=position-save_field> <input class=form-ui-control id=all-site type=radio name=position-save> <label class=form-ui for=all-site> <span i18n=settings_position_save_all class=form-ui-txt></span> </label> </div> <div class=position-save_field> <input class=form-ui-control id=this-site type=radio name=position-save> <label class=form-ui for=this-site> <span i18n=settings_position_save_this class=form-ui-txt></span> </label> </div> </div> </div> </div> </div> <div class=settings_fieldset> <div i18n=settings_icon_size class=settings_fieldset_lbl></div> <div class=settings_fieldset_val> <div class=choice-size> <div class=choice-size_group> <div class=choice-size_field> <input class=\"choice-size_input form-ui-control\" id=size-small type=radio name=radio> <label class=form-ui for=size-small> <span i18n=settings_small class=form-ui-txt></span> </label> <div class=\"adguard-assistant-button-main-logo choice-size_logo logo__small\"></div> </div> <div class=choice-size_field> <input class=\"choice-size_input form-ui-control\" id=size-big type=radio name=radio> <label class=form-ui for=size-big> <span i18n=settings_big class=form-ui-txt></span> </label> <div class=\"adguard-assistant-button-main-logo choice-size_logo\"></div> </div> </div> </div> </div> </div> <div class=settings_fieldset> <div i18n=settings_position class=\"settings_fieldset_lbl settings_fieldset_lbl__pos\"></div> <div class=settings_fieldset_val> <div class=change-position> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-top-left> <label class=change-position_label for=position-top-left> <span class=s-position-arr-top-left></span> </label> <div i18n=settings_left_top class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-top-right> <label class=change-position_label for=position-top-right> <span class=s-position-arr-top-right></span> </label> <div i18n=settings_right_top class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-bottom-left> <label class=change-position_label for=position-bottom-left> <span class=s-position-arr-bottom-left></span> </label> <div i18n=settings_left_bottom class=change-position_val></div> </div> <div class=change-position_i> <input type=radio name=position class=change-position_input id=position-bottom-right> <label class=change-position_label for=position-bottom-right> <span class=s-position-arr-bottom-right></span> </label> <div i18n=settings_right_bottom class=change-position_val></div> </div> </div> </div> </div> </div> </div> <div class=foot> <div class=foot_action> <div class=foot_action_btn> <button i18n=settings_cancel class=\"btn btn-default\" type=button id=cancel></button> <button i18n=settings_save class=\"btn btn-primary\" type=button id=save-settings></button> </div> </div> <div class=cf></div> </div> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=main> <div class=\"close adg-close\"></div> <div class=\"head head--slider\"> <div class=\"head_in head_in--slider\"> <div i18n=assistant_block_element class=\"head_title head_title--slider\" id=head_title></div> <div class=\"element-rule_more element-rule_more--mobile\"> <span class=element-rule_expand-link id=ExtendedSettingsText></span> <button i18n=assistant_block type=button class=\"btn btn-cancel\" id=adg-accept></button> <button i18n=assistant_another_element type=button class=\"btn btn-default\" id=adg-cancel></button> </div> </div> <div class=adg-slide-btns> <div class=\"adg-slide-btn adg-slide-btn--minus\"></div> <div class=\"adg-slide-btn adg-slide-btn--plus\"></div> </div> <div i18n=assistant_block_element_explain class=\"head_text head_text--mobile-h\" id=head_text></div> </div> <div class=content id=slider-area> <div class=\"element-rule element-rule--slider\"> <div i18n=assistant_slider_explain class=\"element-rule_text element-rule_text--slider\"></div> <div class=element-rule_slider> <div class=adg-slide id=slider> <div i18n=assistant_slider_max class=adg-slide-clue-max></div> <div i18n=assistant_slider_min class=adg-slide-clue-min></div> </div> </div> <div class=element-rule_more> <span class=element-rule_expand-link id=ExtendedSettingsText> <span i18n=assistant_extended_settings class=element-rule_expand-link_txt></span> <span class=element-rule_expand-link_arr></span> </span> </div> <div class=element-rule_form id=advanced-settings> <div class=element-rule_form-cont> <div class=element-rule_fieldset id=one-domain-checkbox-block> <input class=form-ui-control id=one-domain-checkbox type=checkbox /> <label for=one-domain-checkbox class=form-ui> <span i18n=assistant_apply_rule_to_all_sites class=form-ui-txt></span> </label> </div> <div style=display:none class=element-rule_fieldset id=block-by-url-checkbox-block> <input class=form-ui-control id=block-by-url-checkbox type=checkbox /> <label for=block-by-url-checkbox class=form-ui> <span i18n=assistant_block_by_reference class=form-ui-txt></span> </label> </div> <div style=display:none class=element-rule_fieldset id=block-similar-checkbox-block> <input class=form-ui-control id=block-similar-checkbox type=checkbox /> <label for=block-similar-checkbox class=form-ui> <span i18n=assistant_block_similar class=form-ui-txt></span> </label> </div> <div class=element-rule_fieldset> <input class=form-control id=filter-rule type=text /> </div> </div> </div> </div> </div> <div class=\"foot foot--slider\"> <button i18n=assistant_another_element type=button class=\"btn btn-default btn-another-el\" id=adg-cancel></button> <div class=foot_action> <div class=foot_action_btn> <button i18n=assistant_preview type=button class=\"btn btn-primary\" id=adg-preview></button> <button i18n=assistant_block type=button class=\"btn btn-cancel\" id=adg-accept></button> </div> </div> </div> </div> ";
+// Module
+var code = "<div class=main> <div class=\"close adg-close\"></div> <div class=\"head head--slider\"> <div class=\"head_in head_in--slider\"> <div i18n=assistant_block_element class=\"head_title head_title--slider\" id=head_title></div> <div class=\"element-rule_more element-rule_more--mobile\"> <span class=element-rule_expand-link id=ExtendedSettingsText></span> <button i18n=assistant_block type=button class=\"btn btn-cancel\" id=adg-accept></button> <button i18n=assistant_another_element type=button class=\"btn btn-default\" id=adg-cancel></button> </div> </div> <div class=adg-slide-btns> <div class=\"adg-slide-btn adg-slide-btn--minus\"></div> <div class=\"adg-slide-btn adg-slide-btn--plus\"></div> </div> <div i18n=assistant_block_element_explain class=\"head_text head_text--mobile-h\" id=head_text></div> </div> <div class=content id=slider-area> <div class=\"element-rule element-rule--slider\"> <div i18n=assistant_slider_explain class=\"element-rule_text element-rule_text--slider\"></div> <div class=element-rule_slider> <div class=adg-slide id=slider> <div i18n=assistant_slider_max class=adg-slide-clue-max></div> <div i18n=assistant_slider_min class=adg-slide-clue-min></div> </div> </div> <div class=element-rule_more> <span class=element-rule_expand-link id=ExtendedSettingsText> <span i18n=assistant_extended_settings class=element-rule_expand-link_txt></span> <span class=element-rule_expand-link_arr></span> </span> </div> <div class=element-rule_form id=advanced-settings> <div class=element-rule_form-cont> <div class=element-rule_fieldset id=one-domain-checkbox-block> <input class=form-ui-control id=one-domain-checkbox type=checkbox /> <label for=one-domain-checkbox class=form-ui> <span i18n=assistant_apply_rule_to_all_sites class=form-ui-txt></span> </label> </div> <div style=display:none class=element-rule_fieldset id=block-by-url-checkbox-block> <input class=form-ui-control id=block-by-url-checkbox type=checkbox /> <label for=block-by-url-checkbox class=form-ui> <span i18n=assistant_block_by_reference class=form-ui-txt></span> </label> </div> <div style=display:none class=element-rule_fieldset id=block-similar-checkbox-block> <input class=form-ui-control id=block-similar-checkbox type=checkbox /> <label for=block-similar-checkbox class=form-ui> <span i18n=assistant_block_similar class=form-ui-txt></span> </label> </div> <div class=element-rule_fieldset> <input class=form-control id=filter-rule type=text /> </div> </div> </div> </div> </div> <div class=\"foot foot--slider\"> <button i18n=assistant_another_element type=button class=\"btn btn-default btn-another-el\" id=adg-cancel></button> <div class=foot_action> <div class=foot_action_btn> <button i18n=assistant_preview type=button class=\"btn btn-primary\" id=adg-preview></button> <button i18n=assistant_block type=button class=\"btn btn-cancel\" id=adg-accept></button> </div> </div> </div> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=main> <div class=close></div> <div class=head> <div i18n=assistant_preview_header class=head_title> </div> <div i18n=assistant_preview_header_info class=head_text> </div> </div> <div class=foot> <button i18n=assistant_another_element class=\"btn btn-default\" id=select-another-element type=button></button> <div class=foot_action> <div class=foot_action_btn> <button i18n=assistant_preview_end class=\"btn btn-primary\" id=end-preview type=button></button> <button i18n=assistant_block class=\"btn btn-cancel\" id=block-element type=button></button> </div> </div> </div> </div>";
+// Module
+var code = "<div class=main> <div class=close></div> <div class=head> <div i18n=assistant_preview_header class=head_title> </div> <div i18n=assistant_preview_header_info class=head_text> </div> </div> <div class=foot> <button i18n=assistant_another_element class=\"btn btn-default\" id=select-another-element type=button></button> <div class=foot_action> <div class=foot_action_btn> <button i18n=assistant_preview_end class=\"btn btn-primary\" id=end-preview type=button></button> <button i18n=assistant_block class=\"btn btn-cancel\" id=block-element type=button></button> </div> </div> </div> </div>";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main mobile main-popup\"> <div class=\"main-popup__logo adguard-assistant-button-main-logo\"></div> <h2 class=\"mobile-title main-popup__title\" i18n=assistant_select_element></h2> <div class=\"content main-popup__content\" i18n=assistant_select_element_text></div> <div class=footer> <button i18n=assistant_select_element_start class=\"btn btn-active start-select-mode main-popup__btn main-popup__btn--green\"></button> <button i18n=assistant_select_element_cancel class=\"btn cancel-select-mode main-popup__btn\"></button> </div> <i class=main-version id=appVersion></i> </div> ";
+// Module
+var code = "<div class=\"main mobile main-popup\"> <div class=\"main-popup__logo adguard-assistant-button-main-logo\"></div> <h2 class=\"mobile-title main-popup__title\" i18n=assistant_select_element></h2> <div class=\"content main-popup__content\" i18n=assistant_select_element_text></div> <div class=footer> <button i18n=assistant_select_element_start class=\"btn btn-active start-select-mode main-popup__btn main-popup__btn--green\"></button> <button i18n=assistant_select_element_cancel class=\"btn cancel-select-mode main-popup__btn\"></button> </div> <i class=main-version id=appVersion></i> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main mobile main-menu\"> <button i18n-title=assistant_block class=\"adg-accept main-menu__btn main-menu__btn--accept\">accept</button> <button i18n-title=assistant_preview class=\"adg-preview main-menu__btn main-menu__btn--preview\">preview</button> <button i18n-title=plus class=\"adg-plus main-menu__btn main-menu__btn--plus\">plus</button> <button i18n-title=minus class=\"adg-minus main-menu__btn main-menu__btn--minus\">minus</button> <button i18n-title=close class=\"adg-close main-menu__btn main-menu__btn--close\">close</button> </div> ";
+// Module
+var code = "<div class=\"main mobile main-menu\"> <button i18n-title=assistant_block class=\"adg-accept main-menu__btn main-menu__btn--accept\">accept</button> <button i18n-title=assistant_preview class=\"adg-preview main-menu__btn main-menu__btn--preview\">preview</button> <button i18n-title=plus class=\"adg-plus main-menu__btn main-menu__btn--plus\">plus</button> <button i18n-title=minus class=\"adg-minus main-menu__btn main-menu__btn--minus\">minus</button> <button i18n-title=close class=\"adg-close main-menu__btn main-menu__btn--close\">close</button> </div> ";
+// Exports
+module.exports = code;
 
 /***/ }),
 /* 11 */
@@ -354,7 +378,7 @@ module.exports = "<div class=\"main mobile main-menu\"> <button i18n-title=assis
 /* 16 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.3.26\"}");
+module.exports = JSON.parse("{\"a\":\"4.3.27\"}");
 
 /***/ }),
 /* 17 */
@@ -652,11 +676,15 @@ __webpack_require__.r(__webpack_exports__);
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -1918,21 +1946,25 @@ function CustomEvent() {
   };
 }
 // CONCATENATED MODULE: ./src/utils/dom-utils.js
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 /**
  * Returns tag name for passed element
@@ -3558,8 +3590,8 @@ function AdguardRulesConstructorLib() {
         classList = _options.classList,
         excludeTagName = _options.excludeTagName,
         excludeId = _options.excludeId;
-    var excludeTagNameOverride = 'excludeTagName' in options;
-    var excludeIdOverride = 'excludeId' in options;
+    var excludeTagNameOverride = ('excludeTagName' in options);
+    var excludeIdOverride = ('excludeId' in options);
     var path = [];
     var el = element;
 
@@ -4325,7 +4357,6 @@ function UIValidationUtils() {
   var validatePage = function validatePage() {
     // Assistant do not work in iframes
     if (window.window !== window.top) {
-      src_log.error("Page is iframe: ".concat(window.location.href));
       return false;
     }
 

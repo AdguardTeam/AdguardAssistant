@@ -17,6 +17,7 @@ const config = {
     mode: NODE_ENV === NODE_ENVS.DEV ? 'development' : 'production',
     entry: path.resolve(__dirname, SOURCE_DIR, 'index-embedded.js'),
     devtool: NODE_ENV === NODE_ENVS.DEV ? 'eval-source-map' : false,
+    performance: { hints: false },
     output: {
         path: path.resolve(__dirname, BUILD_DIR, NODE_ENV),
         filename: FILENAME,

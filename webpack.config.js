@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 const BUILD_DIR = 'build';
 const SOURCE_DIR = 'src';
 const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
-const MODE = MODE_TYPES[process.env.NODE_ENV] || MODE_TYPES.DEV;
+const MODE = MODE_TYPES[process.env.CHANNEL_ENV] || MODE_TYPES.DEV;
 const USERSCRIPT_NAME = 'assistant';
 const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, MODE);
 
@@ -26,6 +26,7 @@ const config = {
     optimization: {
         minimize: MODE === MODE_TYPES.RELEASE || MODE === MODE_TYPES.BETA,
     },
+    performance: { hints: false },
     module: {
         rules: [
             {

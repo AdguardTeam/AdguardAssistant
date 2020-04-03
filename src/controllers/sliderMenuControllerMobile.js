@@ -113,7 +113,7 @@ export default function SliderMenuControllerMobile(addRule, iframe) {
         };
         Object.keys(menuEvents).forEach((item) => {
             const elems = contentDocument.querySelectorAll(item);
-            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
+            toArray(elems).forEach((elem) => elem.addEventListener('click', menuEvents[item]));
         });
 
         window.addEventListener('orientationchange', iframeCtrl.showSelectorMenu);

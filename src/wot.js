@@ -26,7 +26,7 @@ function Wot() {
 
     const getWotData = () => wotData;
 
-    const getWotScorecardUrl = url => `${wotUrlScorecardTemplate}${url}`;
+    const getWotScorecardUrl = (url) => `${wotUrlScorecardTemplate}${url}`;
 
     return {
         registerWotEventHandler,

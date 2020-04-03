@@ -28,7 +28,7 @@ function UIUtils() {
      * @param {Object}
      * @returns {Object}
      */
-    const getOriginalEvent = e => (e.targetTouches ? e.targetTouches[0] : e);
+    const getOriginalEvent = (e) => (e.targetTouches ? e.targetTouches[0] : e);
 
     const outsidePosition = {
         top(pos) {

@@ -626,7 +626,7 @@ function AdguardSelector(api = {}) {
         }
 
         restrictedElements = ['html', 'body', 'head', 'base']
-            .map(selector => document.querySelector(selector));
+            .map((selector) => document.querySelector(selector));
 
         selectionRenderer.init();
         setupEventHandlers();

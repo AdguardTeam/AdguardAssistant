@@ -3,7 +3,7 @@
     "env": {
         "browser": true,
         "node": true,
-        "mocha": true,
+        "mocha": true
     },
     "rules": {
         "indent": [
@@ -11,6 +11,6 @@
             4,
             { "SwitchCase": 1 }
         ],
-        "import/no-extraneous-dependencies": 0,
+        "import/no-extraneous-dependencies": 0
     }
 }

@@ -260,9 +260,9 @@ function AdguardRulesConstructorLib(api = {}) {
         return value && value !== '';
     };
 
-    const haveClassAttribute = element => element.classList && element.classList.length > 0;
+    const haveClassAttribute = (element) => element.classList && element.classList.length > 0;
 
-    const haveIdAttribute = element => element.id && element.id.trim() !== '';
+    const haveIdAttribute = (element) => element.id && element.id.trim() !== '';
 
     const getUrl = (url) => {
         const pattern = '^(([^:/\\?#]+):)?(//(([^:/\\?#]*)(?::([^/\\?#]*))?))?([^\\?#]*)(\\?([^#]*))?(#(.*))?$';

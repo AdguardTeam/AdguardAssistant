@@ -32,7 +32,7 @@ export default function DetailedMenuController(iframe) {
         contentDocument.getElementsByClassName('menu-head_name')[0].textContent = domain || 'unknown';
     };
 
-    const truncateDecimals = number => Math[number < 0 ? 'ceil' : 'floor'](number);
+    const truncateDecimals = (number) => Math[number < 0 ? 'ceil' : 'floor'](number);
 
     const getWotReputationSettings = (wotData) => {
         if (!wotData) {
@@ -220,7 +220,7 @@ export default function DetailedMenuController(iframe) {
         };
         Object.keys(menuEvents).forEach((item) => {
             const elems = contentDocument.querySelectorAll(item);
-            toArray(elems).forEach(elem => elem.addEventListener('click', menuEvents[item]));
+            toArray(elems).forEach((elem) => elem.addEventListener('click', menuEvents[item]));
         });
     };
 

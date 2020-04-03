@@ -1,4 +1,4 @@
-export const cropDomain = domain => domain.replace('www.', '').replace(/:\d+/, '');
+export const cropDomain = (domain) => domain.replace('www.', '').replace(/:\d+/, '');
 
 /**
  * Force clear the page cache

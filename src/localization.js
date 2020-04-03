@@ -2,13 +2,14 @@
 import locales from '../locales/index';
 import protectedApi from './protectedApi';
 
+const [{ base_locale: BASE_LOCALE }] = require('../.twosky.json');
+
 /**
  * Object that manages localizations
  * @returns {{getMessage: Function, translateElement: Function}}
  * @constructor
  */
 function Localization() {
-    const BASE_LOCALE = 'en';
     let currentLocale = null;
     let locale;
     const supportedLocales = { ...locales };

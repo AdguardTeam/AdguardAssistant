@@ -5,7 +5,7 @@ const locales = Object.keys(LANGUAGES)
         const resultLocale = LOCALES_EQUIVALENTS_MAP[language] || language;
         // eslint-disable-next-line global-require,import/no-dynamic-require
         const dictionary = require(`./${resultLocale}/messages.json`);
-        acc[language] = dictionary;
+        acc[resultLocale] = dictionary;
         return acc;
     }, {});
 

@@ -13,7 +13,7 @@
         "test": "yarn test:build && node tests/puppeteer.js",
         "locales:download": "LOCALES=DOWNLOAD node locales.js",
         "locales:upload": "LOCALES=UPLOAD node locales.js",
-        "ci:increment": "node tasks/increment.js"
+        "ci:increment": "yarn version --patch --no-git-tag-version"
     },
     "devDependencies": {
         "@babel/core": "^7.9.0",

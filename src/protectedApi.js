@@ -115,9 +115,11 @@ function ProtectedApi() {
      * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
      */
     const checkShadowDomSupport = () => {
-        const safari = /^((?!chrome|android).)*safari/i;
+        const SAFARI_UA_REGEX = /^((?!chrome|android).)*safari/i;
+        const isSafari = window.safari !== undefined
+            || SAFARI_UA_REGEX.test(navigator.userAgent);
 
-        return typeof originalAttachShadow !== 'undefined' && !safari.test(navigator.userAgent);
+        return typeof originalAttachShadow !== 'undefined' && !isSafari;
     };
 
     return {

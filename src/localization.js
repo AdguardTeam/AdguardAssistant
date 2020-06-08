@@ -12,7 +12,13 @@ const [{ base_locale: BASE_LOCALE }] = require('../.twosky.json');
 function Localization() {
     let currentLocale = null;
     let locale;
-    const supportedLocales = { ...locales };
+
+    // convert locales keys to lower case
+    const supportedLocales = Object.keys(locales).reduce((acc, key) => {
+        const lowerCasedKey = key.toLowerCase();
+        acc[lowerCasedKey] = locales[key];
+        return acc;
+    },{});
 
     /*
      * In Edge, there is undocumented behavior. When you run the script
@@ -40,6 +46,8 @@ function Localization() {
 
     if (supportedLocales[locale]) {
         currentLocale = locale;
+    } else if (supportedLocales[locale.toLowerCase()]) {
+        currentLocale = locale.toLowerCase();
     } else {
         const langSplit = locale.split('-')[0];
         if (supportedLocales[langSplit]) {

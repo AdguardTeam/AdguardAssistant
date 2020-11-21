@@ -2,6 +2,7 @@
     "settings_position_save": "Nettsider",
     "settings_position_save_all": "Alle nettsider",
     "settings_position_save_this": "Denne nettsiden",
+    "assistant_select_element_start": "Start",
     "assistant_select_element_text": "Velg et element på siden som skal blokkeres. Oppdater siden for å avbryte elementblokkeringsmodusen.",
     "menu_filtration_status": {
         "message": "Filtrering på denne nettsiden"
@@ -21,6 +22,12 @@
     "menu_settings": {
         "message": "Assistentinnstillinger"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Nettsteds-rykteindikator"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Ryktepålitelighetsnivå"
+    },
     "assistant_select_element": {
         "message": "Elementblokkering"
     },
@@ -38,6 +45,9 @@
     },
     "assistant_slider_explain": {
         "message": "Flytt glidebryteren for å endre størrelsen på rammen den nye regelen vil fungere for:"
+    },
+    "assistant_slider_min": {
+        "message": "MIN"
     },
     "assistant_slider_max": {
         "message": "MAKS"

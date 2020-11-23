@@ -1,5 +1,5 @@
 {
-    "settings_position_save": "אתרי אינטרנט",
+    "settings_position_save": "אתרים",
     "settings_position_save_all": "כל האתרים",
     "settings_position_save_this": "האתר הזה",
     "assistant_select_element_start": "התחל",
@@ -8,7 +8,7 @@
         "message": "סינון באתר זה"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "אל תסנן כ- 30 שניות"
+        "message": "אל תסנן למשך 30 שניות"
     },
     "menu_block_ad_on_site": {
         "message": "חסום פרסומת באתר זה"
@@ -17,19 +17,19 @@
         "message": "דווח על האתר"
     },
     "menu_site_report": {
-        "message": "דיווח אבטחת אתר"
+        "message": "דוח אבטחת אתר"
     },
     "menu_settings": {
-        "message": "הגדרות העוזר האישי"
+        "message": "הגדרות המסייע"
     },
     "menu_wot_reputation_indicator": {
-        "message": "אינדיקטור למוניטין של אתרים"
+        "message": "מד של מוניטין אתרים"
     },
     "menu_wot_reputation_confidence_level": {
         "message": "רמת אמון מוניטין"
     },
     "assistant_select_element": {
-        "message": "חוסם אלמנט"
+        "message": "חסימת אלמנט"
     },
     "assistant_select_element_ext": {
         "message": "בחר אלמנט בדף לחסימה"
@@ -41,25 +41,19 @@
         "message": "חסימת אלמנט"
     },
     "assistant_block_element_explain": {
-        "message": "התאם כלל חסימת אלמנט"
+        "message": "התאם כלל של חסימת אלמנט"
     },
     "assistant_slider_explain": {
-        "message": ":הזז את המחוון כדי לשנות את גודל המסגרת בה יעבוד הכלל החדש"
-    },
-    "assistant_slider_min": {
-        "message": "מינימום"
-    },
-    "assistant_slider_max": {
-        "message": "מקסימום"
+        "message": "הזז את המַחְלֵק כדי לשנות את גודל המסגרת שבה הכלל החדש יעבוד:"
     },
     "assistant_extended_settings": {
         "message": "הגדרות מתקדמות"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "החל את הכלל על כל האתרים"
+        "message": "החל את הכלל בכל האתרים"
     },
     "assistant_block_by_reference": {
-        "message": "חסום הפניית קישור"
+        "message": "חסום לפי קישור הפניה"
     },
     "assistant_block_similar": {
         "message": "חסום דומה"
@@ -68,46 +62,46 @@
         "message": "בחר אלמנט אחר"
     },
     "assistant_preview": {
-        "message": "תצוגה מקדימה"
+        "message": "הצג מראש"
     },
     "assistant_block": {
         "message": "חסום"
     },
     "assistant_settings": {
-        "message": "הגדרות העוזר האישי"
+        "message": "הגדרות המסייע"
     },
     "assistant_preview_header": {
-        "message": "תצוגה מקדימה - חסימת אלמנט"
+        "message": "חסימת אלמנט - תצוגה מקדימה"
     },
     "assistant_preview_header_info": {
-        "message": "ודא כי אלמנט זה חסום בכוונה"
+        "message": "ודא כי אלמנט זה חסום כמתוכנן"
     },
     "assistant_preview_end": {
         "message": "צא מתצוגה מקדימה"
     },
     "wot_unknown_description": {
-        "message": "מוניטין אינו מוגדר"
+        "message": "המוניטין של אתר זה אינו מוגדר על ידי $1"
     },
     "wot_bad_description": {
-        "message": "לאתר זה יש מוניטין רע מאוד על פי"
+        "message": "לאתר זה יש מוניטין רע מאוד\nעל פי $1"
     },
     "wot_poor_description": {
-        "message": "לאתר זה יש מוניטין רע על פי"
+        "message": "לאתר זה יש מוניטין רע \nעל פי $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "לאתר זה יש מוניטין דל על פי"
+        "message": "לאתר זה יש מוניטין ירוד\nעל פי $1"
     },
     "wot_good_description": {
-        "message": "לאתר זה יש מוניטין טוב על פי"
+        "message": "לאתר זה יש מוניטין טוב\nעל פי $1"
     },
     "wot_excellent_description": {
-        "message": "לאתר זה יש מוניטין מעולה על פי"
+        "message": "לאתר זה יש מוניטין מצויין\nעל פי $1"
     },
     "settings_choose_size_and_position": {
-        "message": "התאם גודל ומיקום של העוזר האישי של אדגארד"
+        "message": "התאם גודל ומיקום של מסייע AdGuard"
     },
     "settings_icon_size": {
-        "message": ":גודל צלמית"
+        "message": "גודל איקון:"
     },
     "settings_small": {
         "message": "קטן"
@@ -116,7 +110,7 @@
         "message": "גדול"
     },
     "settings_position": {
-        "message": ":מיקום"
+        "message": "מיקום:"
     },
     "settings_left_top": {
         "message": "בחלק העליון משמאל"

@@ -39,12 +39,6 @@
     "assistant_slider_explain": {
         "message": "Justera storleken på annonselementet som den nya blockeringsregeln skall avse:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
-    },
     "assistant_extended_settings": {
         "message": "Avancerade val"
     },

@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Pomerajte klizač kako bi ste promenili veličinu okvira po kom će pravilo raditi:"
     },
-    "assistant_slider_min": {
-        "message": "Minimum"
-    },
-    "assistant_slider_max": {
-        "message": "Maksimum"
-    },
     "assistant_extended_settings": {
         "message": "Napredne postavke"
     },

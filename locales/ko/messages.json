@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "슬라이더로 차단할 요소의 범위를 지정하세요."
     },
-    "assistant_slider_min": {
-        "message": "작게"
-    },
-    "assistant_slider_max": {
-        "message": "크게"
-    },
     "assistant_extended_settings": {
         "message": "고급 설정"
     },

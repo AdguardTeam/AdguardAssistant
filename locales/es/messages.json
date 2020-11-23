@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Mueva el control deslizante para cambiar el tamaño del marco para el que funcionará la nueva regla:"
     },
-    "assistant_slider_min": {
-        "message": "Mín."
-    },
-    "assistant_slider_max": {
-        "message": "Máx."
-    },
     "assistant_extended_settings": {
         "message": "Configuración avanzada"
     },
@@ -74,7 +68,7 @@
         "message": "Bloquear"
     },
     "assistant_settings": {
-        "message": "Configuración de asistente"
+        "message": "Configuración del asistente"
     },
     "assistant_preview_header": {
         "message": "Bloqueo de elementos - vista previa"

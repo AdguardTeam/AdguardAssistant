@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Muovi la barra per cambiare la grandezza del frame da per il quale la nuova regola funzionerà:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
-    },
     "assistant_extended_settings": {
         "message": "Impostazioni avanzate"
     },

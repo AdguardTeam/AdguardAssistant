@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "使用滑块改变要由新规则将要拦截的框架大小："
     },
-    "assistant_slider_min": {
-        "message": "最小"
-    },
-    "assistant_slider_max": {
-        "message": "最大"
-    },
     "assistant_extended_settings": {
         "message": "高级设置"
     },

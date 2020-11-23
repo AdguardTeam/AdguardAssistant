@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Použite posuvník pre zmenu veľkosti rámu pre nové pravidlo, ktoré bude použité na:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
-    },
     "assistant_extended_settings": {
         "message": "Pokročilé nastavenia"
     },

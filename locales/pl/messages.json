@@ -22,6 +22,12 @@
     "menu_settings": {
         "message": "Ustawienia Asystenta"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Wskaźnik reputacji witryny"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Poziom zaufania do reputacji"
+    },
     "assistant_select_element": {
         "message": "Blokowanie elementów"
     },
@@ -39,12 +45,6 @@
     },
     "assistant_slider_explain": {
         "message": "Przesuń suwak by zmienić rozmiar ramki, dla której będzie obowiązywać nowa reguła:"
-    },
-    "assistant_slider_min": {
-        "message": "Minimum"
-    },
-    "assistant_slider_max": {
-        "message": "Maksimum"
     },
     "assistant_extended_settings": {
         "message": "Ustawienia zaawansowane"

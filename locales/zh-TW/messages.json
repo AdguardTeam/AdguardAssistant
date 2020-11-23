@@ -5,13 +5,13 @@
     "assistant_select_element_start": "開始",
     "assistant_select_element_text": "選擇於該頁面上之元件以封鎖。重新整理該頁面以取消元件封鎖模式。",
     "menu_filtration_status": {
-        "message": "於該網站上之過濾"
+        "message": "對此網站之過濾"
     },
     "menu_do_not_filter_30_sec": {
         "message": "計 30 秒不過濾"
     },
     "menu_block_ad_on_site": {
-        "message": "封鎖於該網站上之廣告"
+        "message": "封鎖於此網站上之廣告"
     },
     "menu_report_abuse": {
         "message": "報告該網站"
@@ -45,12 +45,6 @@
     },
     "assistant_slider_explain": {
         "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
-    },
-    "assistant_slider_min": {
-        "message": "最小"
-    },
-    "assistant_slider_max": {
-        "message": "最大"
     },
     "assistant_extended_settings": {
         "message": "進階的設定"

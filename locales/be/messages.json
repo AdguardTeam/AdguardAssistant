@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Перасоўвайце бегунок, каб змяніць памер блока, для якога будзе дзейнічаць правіла:"
     },
-    "assistant_slider_min": {
-        "message": "Мінімум"
-    },
-    "assistant_slider_max": {
-        "message": "Максімум"
-    },
     "assistant_extended_settings": {
         "message": "Пашыраныя налады"
     },

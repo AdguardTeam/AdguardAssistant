@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
     },
-    "assistant_slider_min": {
-        "message": "最小"
-    },
-    "assistant_slider_max": {
-        "message": "最大"
-    },
     "assistant_extended_settings": {
         "message": "進階的設定"
     },

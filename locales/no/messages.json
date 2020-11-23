@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Flytt glidebryteren for å endre størrelsen på rammen den nye regelen vil fungere for:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAKS"
-    },
     "assistant_extended_settings": {
         "message": "Avanserte innstillinger"
     },

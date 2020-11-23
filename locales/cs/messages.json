@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Přesunutím posuvníku změňte velikost rámce, pro který bude nové pravidlo fungovat:"
     },
-    "assistant_slider_min": {
-        "message": "MIN"
-    },
-    "assistant_slider_max": {
-        "message": "MAX"
-    },
     "assistant_extended_settings": {
         "message": "Pokročilá nastavení"
     },

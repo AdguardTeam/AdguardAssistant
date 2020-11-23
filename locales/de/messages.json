@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Bewegen Sie den Schieberegler, um die Ausmaßgröße der neuen Regeln zu ändern:"
     },
-    "assistant_slider_min": {
-        "message": "Minimal"
-    },
-    "assistant_slider_max": {
-        "message": "Maximal"
-    },
     "assistant_extended_settings": {
         "message": "Erweiterte Einstellungen"
     },

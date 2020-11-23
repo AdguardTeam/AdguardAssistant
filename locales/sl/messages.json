@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "Premaknite drsnik, da spremenite velikost okvirja, za katerega bo delovalo novo pravilo:"
     },
-    "assistant_slider_min": {
-        "message": "NAJM"
-    },
-    "assistant_slider_max": {
-        "message": "NAJV"
-    },
     "assistant_extended_settings": {
         "message": "Napredne nastavitve"
     },

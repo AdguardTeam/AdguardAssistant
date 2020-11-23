@@ -40,12 +40,6 @@
     "assistant_slider_explain": {
         "message": "スライダーを動かすと、ブロックするフレームのサイズを変更できます:"
     },
-    "assistant_slider_min": {
-        "message": "最小"
-    },
-    "assistant_slider_max": {
-        "message": "最大"
-    },
     "assistant_extended_settings": {
         "message": "高度な設定"
     },

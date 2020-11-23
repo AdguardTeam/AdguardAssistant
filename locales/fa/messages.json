@@ -46,12 +46,6 @@
     "assistant_slider_explain": {
         "message": "جابجایی لغزنده برای تغییر اندازه فریم که دستور جدیدی کار خواهد کرد:"
     },
-    "assistant_slider_min": {
-        "message": "حداقل"
-    },
-    "assistant_slider_max": {
-        "message": "حداکثر"
-    },
     "assistant_extended_settings": {
         "message": "تنظیمات پیشرفته"
     },

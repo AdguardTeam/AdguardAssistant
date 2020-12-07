@@ -1,0 +1,102 @@
+@bg-color: #323232;
+@border-color: #444;
+@text-main-color: #ccc;
+@text-body-color: #ddd;
+
+@advanced-settings-title: #36ba53;
+@advanced-settings-title-hover: #257f39;
+@advanced-settings-bg: #555;
+@input-border: #666;
+
+@close-image: url("../img/close-white.svg");
+
+
+body {
+  color: @text-body-color;
+}
+
+.main {
+  background: @bg-color;
+}
+
+.head {
+  &_title {
+    color: @text-main-color;
+  }
+
+  &_text {
+    color: @text-main-color;
+  }
+}
+
+.element-rule{
+  &_expand-link{
+    &_txt{
+      color: @advanced-settings-title;
+      border-bottom: 1px solid @advanced-settings-title;
+    }
+    &:hover{
+      .element-rule_expand-link{
+        &_txt{
+          color: @advanced-settings-title-hover;
+          border-bottom-color: @advanced-settings-title-hover;
+        }
+      }
+    }
+  }
+  &_form-cont{
+    border-top: 1px solid @border-color;
+    background: @advanced-settings-bg;
+  }
+}
+
+.tick{
+  border: 20px solid @bg-color;
+  border-left: 1px solid @bg-color;
+  border-right: 1px solid @bg-color;
+}
+
+.close {
+  background: @close-image no-repeat 0 0 / cover;
+}
+
+.form-control {
+  color: @text-main-color;
+  background: @bg-color;
+  border: 1px solid @input-border;
+}
+
+input[type="checkbox"] {
+  & + .form-ui {
+    .form-ui-txt {
+      &:before {
+        border: 1px solid @input-border;
+        background: @bg-color;
+      }
+    }
+  }
+  &:checked {
+    & + .form-ui{
+      .form-ui-txt{
+        &:after{
+          border-bottom-color: @bg-color;
+          border-left-color: @bg-color;
+        }
+      }
+    }
+  }
+}
+
+.menu,
+.menu-filter,
+.content,
+.foot {
+  border-top: 1px solid @border-color;
+}
+
+.settings {
+  &_fieldset {
+    border-top: 1px solid @border-color;
+  }
+}
+

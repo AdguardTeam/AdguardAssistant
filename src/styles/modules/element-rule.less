@@ -19,8 +19,6 @@
         &_txt{
             display: inline-block;
             vertical-align: top;
-            color: @link-color;
-            border-bottom: 1px solid lighten(@link-color, 40%);
         }
         &_arr{
             display: inline-block;
@@ -32,14 +30,6 @@
             border-left: 1px solid #91a795;
             transform: rotate(-45deg);
             transition: .2s;
-        }
-        &:hover{
-            .element-rule_expand-link{
-                &_txt{
-                    color: @link-hover-color;
-                    border-bottom-color: lighten(@link-hover-color, 40%);
-                }
-            }
         }
         &.active{
             .element-rule_expand-link{
@@ -66,8 +56,6 @@
     &_form-cont{
         margin: 4px 0 0;
         padding: @base-offset;
-        border-top: 1px solid #e0dfdb;
-        background: #f4f4ef;
         @media (max-width: @mobile){
             margin-top: 0;
         }
@@ -199,8 +187,5 @@
 .tick{
     position: absolute;
     height: 44px;
-    border: 20px solid #fff;
-    border-left: 1px solid #fff;
-    border-right: 1px solid #fff;
 }
 // /slider

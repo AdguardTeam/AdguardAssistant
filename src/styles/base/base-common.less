@@ -8,3 +8,14 @@
 @import "fonts";
 @import "form-ui";
 @import "buttons";
+@import "mode-common";
+
+@media (prefers-color-scheme: light) {
+  @import "light-mode";
+}
+
+@media (prefers-color-scheme: dark) {
+  @import "dark-mode";
+}
+
+@import "mode-common";

@@ -3,11 +3,13 @@
 @text-main-color: #343434;
 @text-body-color: #282828;
 
+@basic-green: #36ba53;
 @advanced-settings-title: #36ba53;
 @advanced-settings-title-hover: #257f39;
 @advanced-settings-bg: #f4f4ef;
 @input-border: #cfcfcf;
 
+@btn-cancel-color: #f3523d;
 @close-image: url("../img/close.svg");
 
 
@@ -78,6 +80,16 @@ input[type="checkbox"] {
   &:checked {
     & + .form-ui{
       .form-ui-txt{
+        &:before{
+          border: 1px solid @basic-green;
+          background: @basic-green;
+        }
+      }
+    }
+  }
+  &:checked {
+    & + .form-ui{
+      .form-ui-txt{
         &:after{
           border-bottom-color: @bg-color;
           border-left-color: @bg-color;
@@ -100,3 +112,46 @@ input[type="checkbox"] {
   }
 }
 
+.btn-primary {
+  border-color: @basic-green;
+  background: @basic-green;
+  color: #fff;
+  &:hover{
+    border-color: darken(@basic-green, 5%);
+    background: darken(@basic-green, 5%);
+    color: #fff;
+  }
+  &.active, &:active{
+    border-color: darken(@basic-green, 5%);
+    background: darken(@basic-green, 5%);
+  }
+  &.disabled, &[disabled]{
+    border-color: @basic-green;
+    background: @basic-green;
+  }
+}
+
+.btn-cancel {
+  border-color: @btn-cancel-color;
+  background: @btn-cancel-color;
+  color: #fff;
+  &:hover{
+    border-color: darken(@btn-cancel-color, 10%);
+    background: darken(@btn-cancel-color, 10%);
+    color: #fff;
+  }
+  &.active, &:active{
+    border-color: darken(@btn-cancel-color, 10%);
+    background: darken(@btn-cancel-color, 10%);
+  }
+  &.disabled, &[disabled]{
+    border-color: @btn-cancel-color;
+    background: @btn-cancel-color;
+  }
+}
+
+.ui-slider-handle {
+  &:after{
+    background: @basic-green;
+  }
+}

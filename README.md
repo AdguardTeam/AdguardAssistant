@@ -1,4 +1,4 @@
-# AdGuard
+# AdGuard Assistant
 
 AdGuard Assistant is a userscript that helps you manage filtering right from the browser. With its aid you are able to manually block any element, whitelist or report the page, or see the website's security report — all without having to leave the current page.
 

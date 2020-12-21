@@ -156,3 +156,33 @@ input[type="checkbox"] {
     background: @basic-green;
   }
 }
+
+.change-position {
+  &_input {
+    &:checked {
+      & + .change-position_label {
+        border-color: @basic-green;
+        background: @basic-green;
+      }
+    }
+  }
+}
+
+input[type="radio"] {
+  & + .form-ui{
+    .form-ui-txt{
+      &:before{
+        background: @bg-color;
+      }
+    }
+  }
+  &:checked {
+    & + .form-ui{
+      .form-ui-txt{
+        &:after{
+          background: @basic-green;
+        }
+      }
+    }
+  }
+}

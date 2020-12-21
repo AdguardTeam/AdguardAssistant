@@ -51,7 +51,6 @@ input[type="radio"] {
             &:before{
                 border: 1px solid #cfcfcf;
                 border-radius: 50%;
-                background: #fff;
             }
             &:after{
                 top: 7px;
@@ -59,16 +58,6 @@ input[type="radio"] {
                 width: 8px;
                 height: 8px;
                 border-radius: 50%;
-            }
-        }
-    }
-
-    &:checked {
-        & + .form-ui{
-            .form-ui-txt{
-                &:after{
-                    background: @base-color;
-                }
             }
         }
     }

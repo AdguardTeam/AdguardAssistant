@@ -3,13 +3,17 @@
 @text-main-color: #ccc;
 @text-body-color: #ddd;
 
-@basic-green: #35822e;
-@advanced-settings-title: #35822e;
-@advanced-settings-title-hover: #257f39;
+@light-green: #67B279;
+@basic-green: #4D995F;
+@dark-green: #39774C;
+
+@light-red: #BF4829;
+@basic-red: #8E2C13;
+@dark-red: #732613;
+
 @advanced-settings-bg: #555;
 @input-border: #666;
 
-@btn-cancel-color: #9d3527;
 
 @close-image: url("../img/close-white.svg");
 
@@ -35,14 +39,14 @@ body {
 .element-rule{
   &_expand-link{
     &_txt{
-      color: @advanced-settings-title;
-      border-bottom: 1px solid @advanced-settings-title;
+      color: @light-green;
+      border-bottom: 1px solid @light-green;
     }
     &:hover{
       .element-rule_expand-link{
         &_txt{
-          color: @advanced-settings-title-hover;
-          border-bottom-color: @advanced-settings-title-hover;
+          color: @basic-green;
+          border-bottom-color: @basic-green;
         }
       }
     }
@@ -118,36 +122,36 @@ input[type="checkbox"] {
   background: @basic-green;
   color: #fff;
   &:hover{
-    border-color: darken(@basic-green, 5%);
-    background: darken(@basic-green, 5%);
+    border-color: @dark-green;
+    background: @dark-green;
     color: #fff;
   }
   &.active, &:active{
-    border-color: darken(@basic-green, 5%);
-    background: darken(@basic-green, 5%);
+    border-color: @dark-green;
+    background: @dark-green;
   }
   &.disabled, &[disabled]{
-    border-color: @basic-green;
-    background: @basic-green;
+    border-color: @dark-green;
+    background: @dark-green;
   }
 }
 
 .btn-cancel {
-  border-color: @btn-cancel-color;
-  background: @btn-cancel-color;
+  border-color: @basic-red;
+  background: @basic-red;
   color: #fff;
   &:hover{
-    border-color: darken(@btn-cancel-color, 10%);
-    background: darken(@btn-cancel-color, 10%);
+    border-color: @dark-red;
+    background: @dark-red;
     color: #fff;
   }
   &.active, &:active{
-    border-color: darken(@btn-cancel-color, 10%);
-    background: darken(@btn-cancel-color, 10%);
+    border-color: @dark-red;
+    background: @dark-red;
   }
   &.disabled, &[disabled]{
-    border-color: @btn-cancel-color;
-    background: @btn-cancel-color;
+    border-color: @dark-red;
+    background: @dark-red;
   }
 }
 

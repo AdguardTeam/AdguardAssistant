@@ -1,6 +1,10 @@
 import { addStyle, addClass } from './utils/dom-utils';
 import protectedApi from './protectedApi';
 
+const BASIC_GREEN_COLOR = '#67B279';
+const DARK_GREEN_COLOR = '#4D995F';
+const TICK_RIGHT_COLOR = '#E0DFDB';
+
 /**
  * Slider widget
  * @type {Function}
@@ -11,8 +15,7 @@ function SliderWidget(api = {}) {
     const HANDLE_FULL_CLASS = 'ui-slider-handle ui-state-default ui-corner-all';
     const TICK_CLASS = 'tick';
     const TICK_FULL_CLASS = 'tick ui-widget-content';
-    const TICK_LEFT_COLOR = '#36BA53';
-    const TICK_RIGHT_COLOR = '#E0DFDB';
+    let tickLeftColor = BASIC_GREEN_COLOR;
 
     let placeholder = null;
 
@@ -22,6 +25,10 @@ function SliderWidget(api = {}) {
     let sliderArea = null;
     let onValueChanged = null;
 
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        tickLeftColor = DARK_GREEN_COLOR;
+    }
+
     const refresh = () => {
         const handle = placeholder.querySelectorAll(`.${HANDLE_CLASS}`);
         addStyle(handle, 'left', `${((value - 1) * 100) / (max - min)}%`);
@@ -29,7 +36,7 @@ function SliderWidget(api = {}) {
         const ticks = placeholder.querySelectorAll(`.${TICK_CLASS}`);
         for (let i = 0; i < ticks.length; i += 1) {
             if (i + 1 < value) {
-                addStyle(ticks[i], 'background-color', TICK_LEFT_COLOR);
+                addStyle(ticks[i], 'background-color', tickLeftColor);
             } else {
                 addStyle(ticks[i], 'background-color', TICK_RIGHT_COLOR);
             }

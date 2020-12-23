@@ -4,8 +4,6 @@
 
 @base-offset: 20px;
 @mobile-base-offset: 10px 0 25px;
-@border-color: #e0dfdb;
-
 
 @import "sprite";
 @import "tooltip";
@@ -14,3 +12,11 @@
 @import "settings";
 @import "wot";
 @import "menu";
+
+@media (prefers-color-scheme: light) {
+  @import "../base/light-mode";
+}
+
+@media (prefers-color-scheme: dark) {
+  @import "../base/dark-mode";
+}

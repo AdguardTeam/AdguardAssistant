@@ -58,28 +58,6 @@
     }
 }
 
-
-
-
-.btn-primary {
-    border-color: @base-color;
-    background: @base-color;
-    color: #fff;
-    &:hover{
-        border-color: darken(@base-color, 5%);
-        background: darken(@base-color, 5%);
-        color: #fff;
-    }
-    &.active, &:active{
-        border-color: darken(@base-color, 5%);
-        background: darken(@base-color, 5%);
-    }
-    &.disabled, &[disabled]{
-        border-color: @base-color;
-        background: @base-color;
-    }
-}
-
 .btn-another-el {
     @media (max-width: @mobile){
         font-size: 9px;
@@ -93,29 +71,6 @@
             background: transparent;
             color: #000;
         }
-    }
-}
-
-
-
-@btn-cancel-color: #f3523d;
-
-.btn-cancel {
-    border-color: @btn-cancel-color;
-    background: @btn-cancel-color;
-    color: #fff;
-    &:hover{
-        border-color: darken(@btn-cancel-color, 10%);
-        background: darken(@btn-cancel-color, 10%);
-        color: #fff;
-    }
-    &.active, &:active{
-        border-color: darken(@btn-cancel-color, 10%);
-        background: darken(@btn-cancel-color, 10%);
-    }
-    &.disabled, &[disabled]{
-        border-color: @btn-cancel-color;
-        background: @btn-cancel-color;
     }
 }
 

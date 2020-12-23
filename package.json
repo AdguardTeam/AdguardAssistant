@@ -1,6 +1,6 @@
 {
     "name": "adguard-assistant",
-    "version": "4.3.39",
+    "version": "4.3.40",
     "description": "Compile source files to userscript form",
     "main": "dist/assistant.embedded.js",
     "scripts": {

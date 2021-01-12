@@ -1,4 +1,6 @@
 @bg-color: #fff;
+@bg-hover: #efefef;
+@bg-grey: #dfdfdf;
 @border-color: #e0dfdb;
 @text-main-color: #343434;
 @text-body-color: #282828;
@@ -21,6 +23,66 @@ body {
 
 .main {
   background: @bg-color;
+  &-popup {
+    &__btn {
+      background: @bg-color;
+      border: 1px solid @input-border;
+      &:hover {
+        background-color: @bg-hover;
+      }
+    }
+  }
+  &-menu {
+    &__btn {
+      background-color: @bg-color;
+      border: 1px solid @input-border;
+      &:hover {
+        background-color: @bg-hover;
+      }
+      &:disabled {
+        background-color: @bg-grey;
+        border: 1px solid @input-border;
+      }
+      &--accept {
+        background-image: url('../img/check.svg');
+      }
+
+      &--preview {
+        background-image: url('../img/eye-color.svg');
+
+        &:active, &.active {
+          background-image: url('../img/eye.svg');
+        }
+      }
+
+      &--plus {
+        background-image: url('../img/plus.svg');
+
+        &:active {
+          background-image: url('../img/plus.svg');
+        }
+      }
+
+      &--minus {
+        background-image: url('../img/minus.svg');
+
+        &:active {
+          background-image: url('../img/minus.svg');
+        }
+      }
+
+      &--close {
+        background-image: url('../img/cross-color.svg');
+
+        &:active {
+          background-image: url('../img/cross.svg');
+        }
+      }
+    }
+  }
+  &-version {
+    color: @bg-grey;
+  }
 }
 
 .head {
@@ -103,7 +165,6 @@ input[type="checkbox"] {
 
 .menu,
 .menu-filter,
-.content,
 .foot {
   border-top: 1px solid @border-color;
 }
@@ -185,5 +246,20 @@ input[type="radio"] {
         }
       }
     }
+  }
+}
+
+.menu-head {
+  &_title {
+    color: @text-main-color;
+  }
+  &_text {
+    color: @text-main-color;
+  }
+}
+
+.menu-filter {
+  &_handle {
+    background: @bg-color;
   }
 }

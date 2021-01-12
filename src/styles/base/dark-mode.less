@@ -1,4 +1,6 @@
 @bg-color: #323232;
+@bg-hover: #555555;
+@bg-grey: #666666;
 @border-color: #444;
 @text-main-color: #ccc;
 @text-body-color: #ddd;
@@ -24,6 +26,66 @@ body {
 
 .main {
   background: @bg-color;
+  &-popup {
+    &__btn {
+      background: @bg-color;
+      border: 1px solid @input-border;
+      &:hover {
+        background-color: @bg-hover;
+      }
+    }
+  }
+  &-menu {
+    &__btn {
+      background-color: @bg-color;
+      border: 1px solid @input-border;
+      &:hover {
+        background-color: @bg-hover;
+      }
+      &:disabled {
+        background-color: @bg-grey;
+        border: 1px solid @input-border;
+      }
+      &--accept {
+        background-image: url('../img/check-dark.svg');
+      }
+
+      &--preview {
+        background-image: url('../img/eye-dark.svg');
+
+        &:active, &.active {
+          background-image: url('../img/eye.svg');
+        }
+      }
+
+      &--plus {
+        background-image: url('../img/plus-dark.svg');
+
+        &:active {
+          background-image: url('../img/plus-dark.svg');
+        }
+      }
+
+      &--minus {
+        background-image: url('../img/minus-dark.svg');
+
+        &:active {
+          background-image: url('../img/minus-dark.svg');
+        }
+      }
+
+      &--close {
+        background-image: url('../img/cross-dark.svg');
+
+        &:active {
+          background-image: url('../img/cross.svg');
+        }
+      }
+    }
+  }
+  &-version {
+    color: @border-color;
+  }
 }
 
 .head {
@@ -188,5 +250,20 @@ input[type="radio"] {
         }
       }
     }
+  }
+}
+
+.menu-head {
+  &_title {
+    color: @text-main-color;
+  }
+  &_text {
+    color: @text-main-color;
+  }
+}
+
+.menu-filter {
+  &_handle {
+    background: @bg-color;
   }
 }

@@ -2,6 +2,12 @@
 @import "mixins/mixins";
 @import "modules/host";
 
+@import "./base/light-mode";
+
+@media (prefers-color-scheme: dark) {
+    @import "./base/dark-mode";
+}
+
 body {
     padding: 1vw;
     background: transparent;

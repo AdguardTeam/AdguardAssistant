@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="17px" viewBox="0 0 20 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-117.000000, -568.000000)">
+        <g id="Group" transform="translate(119.000000, 570.000000)" stroke="#aaa" stroke-width="1.8">
+            <path
+                d="M-0.423860131,6.17779517 C0.450400003,2.324936 3.88851808,-0.454193941 7.890625,-0.454193941 C11.8927319,-0.454193941 15.33085,2.324936 16.2051101,6.17779517 L16.2503015,6.37695313 L16.2051101,6.57611108 C15.33085,10.4289703 11.8927319,13.2081002 7.890625,13.2081002 C3.88851808,13.2081002 0.450400003,10.4289703 -0.423860131,6.57611108 L-0.46905147,6.37695313 L-0.423860131,6.17779517 Z"
+                id="Combined-Shape"></path>
+            <circle id="Oval-5" cx="7.890625" cy="6.37695312" r="2.54192017"></circle>
+        </g>
+    </g>
+</svg>

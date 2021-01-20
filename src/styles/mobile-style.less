@@ -2,6 +2,12 @@
 @import "mixins/mixins";
 @import "modules/host";
 
+@import "./base/light-mode";
+
+@media (prefers-color-scheme: dark) {
+    @import "./base/dark-mode";
+}
+
 body {
     padding: 1vw;
     background: transparent;
@@ -10,7 +16,6 @@ body {
 .main {
     position: relative;
     padding: 8vw 3vw;
-    background: #fff;
 
     .footer {
         letter-spacing: 3vw;
@@ -20,7 +25,6 @@ body {
         position: absolute;
         bottom: 0;
         right: 7px;
-        color: #eee;
         font-size: 5vw;
     }
 
@@ -51,19 +55,14 @@ body {
             font-size: 5vw;
             padding: 0 3vw;
             margin-bottom: 5vw;
+            border-top: none;
         }
 
         &__btn {
             font-size: 5vw;
             padding: 2vh 8vw;
-            border: 1px solid #dedede;
             border-radius: 3px;
-            background: #fff;
             letter-spacing: normal;
-
-            &:hover {
-                background-color: #f6f6f6;
-            }
 
             &--green {
                 color: #ffffff;
@@ -95,62 +94,18 @@ body {
             font-size: 0;
             width: 12vw;
             height: 12vw;
-            border: 1px solid #dedede;
             border-radius: 3px;
             background-repeat: no-repeat;
             background-position: 50%;
             background-size: 40%;
             position: relative;
-            background-color: #fff;
-
-            &:hover {
-                background-color: #d0f0d6;
-            }
 
             &:active, &.active {
                 background-color: #66B574;
                 box-shadow: inset 2px 2px 3px 0 rgba(92, 92, 92, 0.5);
             }
 
-            &--accept {
-                background-image: url('./img/check.svg');
-            }
-
-            &--preview {
-                background-image: url('./img/eye-color.svg');
-
-                &:active, &.active {
-                    background-image: url('./img/eye.svg');
-                }
-            }
-
-            &--plus {
-                background-image: url('./img/plus.svg');
-
-                &:active {
-                    background-image: url('./img/plus.svg');
-                }
-            }
-
-            &--minus {
-                background-image: url('./img/minus.svg');
-
-                &:active {
-                    background-image: url('./img/minus.svg');
-                }
-            }
-
-            &--close {
-                background-image: url('./img/cross-color.svg');
-
-                &:active {
-                    background-image: url('./img/cross.svg');
-                }
-            }
-
             &:disabled {
-                background-color: #efefef;
-
                 &:after, &:before {
                     opacity: .7;
                 }

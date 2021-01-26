@@ -496,7 +496,7 @@ module.exports = code;
 /* 31 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.3.41\"}");
+module.exports = JSON.parse("{\"a\":\"4.3.42\"}");
 
 /***/ }),
 /* 32 */

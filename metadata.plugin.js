@@ -3,7 +3,7 @@ const path = require('path');
 const glob = require('glob');
 const copyfile = require('cp-file');
 const replaceInFile = require('replace-in-file');
-const concat = require('concat');
+const fs = require('fs');
 
 const PLUGIN_NAME = 'MetaDataPlugin';
 const DEFAULT_METADATA_TEMPLATE = './meta.template.js';
@@ -13,10 +13,10 @@ const BASE_LOCALE = 'en';
 
 /**
  * Replace multiple strings in file
- * @param {Object} source object with interace`{ [key: string]: string }
+ * @param {Object} source object with interface`{ [key: string]: string }
  * @param {string} filePath path to file for replacing
  */
-function replaceWithMultipleSource(source, filePath) {
+const replaceWithMultipleSource = (source, filePath) => {
     const replaceOptions = Object.entries(source)
         .reduce((acc, [key, value]) => ({
             from: [...acc.from, `[${key}]`],
@@ -25,7 +25,7 @@ function replaceWithMultipleSource(source, filePath) {
 
     replaceOptions.files = filePath;
     replaceInFile.sync(replaceOptions);
-}
+};
 
 /**
  * Replace string with value in file
@@ -33,21 +33,90 @@ function replaceWithMultipleSource(source, filePath) {
  * @param {*} to result string
  * @param {*} filePath path to file for replacing
  */
-function replace(from, to, filePath) {
+const replace = (from, to, filePath) => {
     const replaceOptions = {
-        from, to,
+        from,
+        to,
         files: filePath,
     };
     replaceInFile.sync(replaceOptions);
+};
+
+/**
+ * Grab the language from path to translations file
+ * @param {string} str path to translations file
+ * @param {string} localesDir path to locales directory
+ * @example
+ * ```
+ * // './locales/en.json' => 'en'
+ * // './locales/en/messages.json' => 'en'
+ * ```
+ */
+const getLangFromPathString = (str, localesDir) => {
+    const regexp = new RegExp(`${localesDir}|messages|json|meta|\\.|\\/`, 'gi');
+    const lang = str.replace(regexp, '');
+    return lang;
+};
+
+/**
+ * Get value from translation file by key
+ * @param {string} messageKey the key from translation
+ * @param {Object} translation
+ */
+const getMessageValue = (messageKey, translation) => {
+    const arr = messageKey.split('.');
+    const lastKey = arr[arr.length - 1];
+    let resultObject = translation;
+
+    for (let i = 0; i < arr.length - 1; i += 1) {
+        if(typeof resultObject[arr[i]] === 'object') {
+            resultObject = resultObject[arr[i]];
+        } else {
+            resultObject = {};
+        }
+    }
+
+    if (typeof resultObject[lastKey] === 'object') {
+        return resultObject[lastKey]['message'];
+    }
+    return resultObject[lastKey];
 }
 
 /**
+ * Building value string from locales
+ * @param {Object} translation translation object
+ * @param {Object} fieldOptions object with options for metadata field
+ * @param {string} localesDir path to locales directory
+ * @param {string} postfix
+ * @example
+ * ```
+ * // example output: `// desctiption:ru Пример\n// desctiption:en Example\n`
+ * ```
+ */
+const getField = (translation, fieldOptions, localesDir, postfix) => {
+    const json = require(translation);
+    const { metaName, messageKey, usePostfix } = fieldOptions;
+    const value = getMessageValue(messageKey, json);
+    if (!value) {
+        return '';
+    }
+
+    // define lang for field
+    const lang = getLangFromPathString(translation, localesDir);
+    const langTxt = lang === BASE_LOCALE ? '' : `:${lang}`;
+    const post = usePostfix ? `${postfix}` : '';
+
+    // concat current field with already calculated fields
+    return [lang, `@${metaName}${langTxt} ${value} ${post}`];
+};
+
+/**
  * Generate metadata file
- * @param {Compilation} compilation webpack's compiler Compilation object
+ * @param {string} outputPath
  * @param {Function} callback function which should be executed in the end of the plugin's work
  * @param {Object} options passed to plugin constructor options
  */
-function createMetadata(compilation, callback, options) {
+const createMetadata = (outputPath, callback, options) => {
     const {
         filename,
         metadataTemplate = DEFAULT_METADATA_TEMPLATE,
@@ -57,8 +126,7 @@ function createMetadata(compilation, callback, options) {
     } = options;
 
     // Calculate result metadata file path
-    const metadataOutputPath = path.join(compilation.outputOptions.path, filename);
-
+    const metadataOutputPath = path.join(outputPath, filename);
     // Copy template file to output directory
     copyfile.sync(metadataTemplate, metadataOutputPath);
 
@@ -77,123 +145,48 @@ function createMetadata(compilation, callback, options) {
     replaceWithMultipleSource(singleFields, metadataOutputPath);
 
     // Get all locales paths
-    glob(`${localesDir}/**/*.meta.json`, (er, translations) => {
-        if (er) {
-            console.error(er);
-            throw new Error(er);
-        }
+    const translations = glob.sync(`${localesDir}/**/*.meta.json`);
 
-        /**
-         * Grab the language from path to translations file
-         * @param {string} str path to translations file
-         * @example
-         * ```
-         * // './locales/en.json' => 'en'
-         * // './locales/en/messages.json' => 'en'
-         * ```
-         */
-        const getLangFromPathString = (str) => {
-            const regexp = new RegExp(`${localesDir}|messages|json|meta|\\.|\\/`, 'gi');
-            let lang = str.replace(regexp, '');
-            return lang;
-        }
-
-        /**
-         * Get value from translation file by key
-         * @param {string} messageKey the key from translation
-         * @param {Object} translation 
-         */
-        const getMessageValue = (messageKey, translation) => {
-            const arr = messageKey.split('.');
-            const lastKey = arr[arr.length - 1];
-            let resultObject = translation;
-            
-            for (let i = 0; i < arr.length - 1; i += 1) {
-                if(typeof resultObject[arr[i]] === 'object') {
-                    resultObject = resultObject[arr[i]];
-                } else {
-                    resultObject = {};
+    // replace fields with multiple values from translations
+    Object.entries(multipleFields).forEach(([key, fieldOptions]) => {
+        const fieldsString = translations
+            .map(translation => getField(translation, fieldOptions, localesDir, postfix))
+            .filter(str => !!str)
+            .sort(([lang]) => lang === BASE_LOCALE ? -1 : 1)
+            .map(([lang, field], i, ar) => {
+                if (i !== 0) {
+                    field = `// ${field}`;
                 }
-            }
-
-            if (typeof resultObject[lastKey] === 'object') {
-                return resultObject[lastKey]['message'];
-            }
-            return resultObject[lastKey];
-        }
-
-        /**
-         * Building value string from locales
-         * @param {string} fields result string
-         * @param {Object} translation translation object
-         * @param {number} index current index
-         * @param {Object} fieldOptions object with options for metadata field
-         * @example
-         * ```
-         * // example output: `// desctiption:ru Пример\n// desctiption:en Example\n`
-         * ```
-         */
-        const getField = (translation, fieldOptions) => {
-            const json = require(translation);
-            const { metaName, messageKey, usePostfix } = fieldOptions;
-
-            const value = getMessageValue(messageKey, json);
-            if (!value) {
-                return '';
-            }
-
-            // define lang for field
-            const lang = getLangFromPathString(translation);
-            const langTxt = lang === BASE_LOCALE ? '' : `:${lang}`;
-            const post = usePostfix ? `${postfix}` : '';
-
-            // concat current field with already calculated fields
-            return [lang, `@${metaName}${langTxt} ${value} ${post}`];
-        }
-
-        // replace fields with multiple values from translations
-        Object.entries(multipleFields).forEach(([key, fieldOptions]) => {
-            const fieldsString = translations
-                .map(translation => getField(translation, fieldOptions))
-                .filter(str => !!str)
-                .sort(([lang]) => lang === BASE_LOCALE ? -1 : 1)
-                .map(([lang, field], i, ar) => {
-                    if (i !== 0) {
-                        field = `// ${field}`
-                    };
-                    if (i !== ar.length - 1) {
-                        field += '\n';
-                    }
-                    return field;
-                })
-                .join('');
-
-            // replace needed key with result string
-            replace(`[${key}]`, fieldsString, metadataOutputPath);
-        });
-
-        callback();
+                if (i !== ar.length - 1) {
+                    field += '\n';
+                }
+                return field;
+            })
+            .join('');
+        // replace needed key with result string
+        replace(`[${key}]`, fieldsString, metadataOutputPath);
     });
-}
+    callback();
+};
 
 /**
- * Concats result metadatafile with output code
- * @param {Object} compilation Webpack compilation object
+ * Concats result metadata file with output code
+ * @param {string} outputPath
+ * @param {string} userscriptName
  * @param {Object} options passed to plugin constructor options
+ * @param {Function} callback
  */
-function concatMetaWithOutput(compilation, options, callback) {
+const concatMetaWithOutput = (outputPath, userscriptName, options, callback) => {
     const { filename } = options;
-    const metadataOutputPath = path.join(compilation.outputOptions.path, filename);
+    const metadataOutputPath = path.join(outputPath, filename);
+    const chunkOutputPath = path.resolve(outputPath, userscriptName);
 
-    compilation.chunks.forEach(chunk => {
-        chunk.files.forEach(file => {
-            const chunkOutputPath = path.resolve(compilation.outputOptions.path, file);
-            concat([metadataOutputPath, chunkOutputPath], chunkOutputPath);
-        });
-    });
+    const meta = fs.readFileSync(metadataOutputPath).toString();
+    const chunk = fs.readFileSync(chunkOutputPath).toString();
 
+    fs.writeFileSync(path.resolve(chunkOutputPath), `${meta}${chunk}`);
     callback();
-}
+};
 
 /**
  * MetaDataPlugin
@@ -202,7 +195,7 @@ function concatMetaWithOutput(compilation, options, callback) {
 class MetaDataPlugin {
     /**
      * @param {Object} options
-     * @property {string} postfix string which will be added to field (need to set `usePostfix` for specifing the fields with postfix)
+     * @property {string} postfix string which will be added to field (need to set `usePostfix` for specifying the fields with postfix)
      * @property {string} metadataTemplate Default './meta.template.js' path to template file with meta.
      * @property {string} localesDir Default './locales'. path to locales directory.
      * @property {Object} fields object with key:value pairs where `key` means placeholder in template file,
@@ -237,16 +230,21 @@ class MetaDataPlugin {
         }
         this.options = {
             ...options,
-            filename: options.filename + '.meta.js'
+            filename: `${options.filename}.meta.js`,
         };
     }
 
     apply(compiler) {
         compiler.hooks.emit.tapAsync(PLUGIN_NAME,
-            (compilation, callback) => createMetadata(compilation, callback, this.options));
+            (compilation, callback) => createMetadata(compilation.outputOptions.path, callback, this.options));
 
         compiler.hooks.done.tapAsync(PLUGIN_NAME,
-            ({ compilation }, callback) => concatMetaWithOutput(compilation, this.options, callback));
+            ({ compilation }, callback) => concatMetaWithOutput(
+                compilation.outputOptions.path,
+                this.options.filename.replace('meta.js', 'user.js'),
+                this.options,
+                callback,
+            ));
     }
 }
 

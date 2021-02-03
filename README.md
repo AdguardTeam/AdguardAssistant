@@ -41,6 +41,24 @@ adguardAssistant().start(null, callback);
 
 Callback returns a rule string.
 
+## Usage
+### Installation
+#### Yarn
+```
+yarn add @adguard/assistant
+```
+
+#### NPM
+```
+npm install @adguard/assistant
+```
+
+### Usage of npm module
+```
+import { adguardAssistant } from '@adguard/assistant'
+adguardAssistant().start(null, callback);
+```
+
 ## Todo
 
 - write tests

@@ -1,20 +1,20 @@
 {
     "name": "@adguard/assistant",
     "version": "4.3.43",
-    "description": "Compile source files to userscript form",
-    "main": "dist/assistant.embedded.js",
-    "module": "dist/assistant.esm.js",
+    "description": "AdGuard Assistant helps you manage filtering right from the browser",
+    "main": "dist/assistant.js",
     "scripts": {
-        "dev": "export CHANNEL_ENV=DEV; webpack && yarn build:embedded",
-        "beta": "export CHANNEL_ENV=BETA; webpack && yarn build:embedded",
-        "release": "export CHANNEL_ENV=RELEASE; webpack && yarn build:embedded",
-        "lint": "eslint ./src",
-        "build:embedded": "webpack --config webpack.embedded.config.js",
-        "test:build": "webpack --config tests/webpack.test.config.js",
-        "test": "yarn test:build && node tests/puppeteer.js",
-        "locales:download": "LOCALES=DOWNLOAD node locales.js",
-        "locales:upload": "LOCALES=UPLOAD node locales.js",
-        "ci:increment": "yarn version --patch --no-git-tag-version"
+        "dev": "export CHANNEL_ENV=DEV; yarn build && yarn build:embedded",
+        "beta": "export CHANNEL_ENV=BETA; yarn build && yarn build:embedded",
+        "release": "export CHANNEL_ENV=RELEASE; yarn build && yarn build:embedded",
+        "lint": "eslint ./src ./tests",
+        "build": "webpack --config scripts/build/webpack.user.config.js",
+        "build:embedded": "webpack --config scripts/build/webpack.embedded.config.js",
+        "test": "yarn webpack --config tests/webpack.test.config.js && node tests/puppeteer.js",
+        "locales:download": "LOCALES=DOWNLOAD node scripts/locales/locales.js",
+        "locales:upload": "LOCALES=UPLOAD node scripts/locales/locales.js",
+        "ci:increment": "yarn version --patch --no-git-tag-version",
+        "prepublishOnly": "yarn release"
     },
     "devDependencies": {
         "@babel/core": "^7.9.0",
@@ -46,6 +46,8 @@
         "to-string-loader": "^1.1.6",
         "url-loader": "^4.0.0",
         "webpack": "^4.42.1",
-        "webpack-cli": "^3.3.11"
-    }
+        "webpack-cli": "^3.3.11",
+        "webpack-merge": "^5.7.3"
+    },
+    "dependencies": {}
 }

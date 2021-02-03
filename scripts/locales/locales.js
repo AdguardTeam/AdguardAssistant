@@ -90,7 +90,7 @@ const getFormData = (file) => {
  * @param {string} lang locale code
  * @param {string} file crowdin file name
  */
-const getDownloadlURL = (lang, file) => BASE_DOWNLOAD_URL + getQueryString(lang, file);
+const getDownloadURL = (lang, file) => BASE_DOWNLOAD_URL + getQueryString(lang, file);
 
 /**
  * Save file by path with passed content
@@ -111,13 +111,13 @@ function download() {
         }
         CROWDIN_FILES.forEach(async (file) => {
             try {
-                const { data } = await axios.get(getDownloadlURL(lang, file));
+                const { data } = await axios.get(getDownloadURL(lang, file));
                 const resultLocale = getEquivalent(lang);
                 const filePath = path.resolve(LOCALES_DIR, resultLocale, `${file}`);
                 const formatted = removeEmptyStrings(data);
                 saveFile(filePath, formatted);
             } catch (e) {
-                console.log(getDownloadlURL(lang, file));
+                console.log(getDownloadURL(lang, file));
                 console.log(e.message);
             }
         });

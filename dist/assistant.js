@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -496,7 +506,7 @@ module.exports = code;
 /* 31 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.3.42\"}");
+module.exports = JSON.parse("{\"a\":\"4.3.43\"}");
 
 /***/ }),
 /* 32 */
@@ -1080,6 +1090,9 @@ module.exports = JSON.parse("{\"settings_position_save\":\"网站\",\"settings_p
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "adguardAssistant", function() { return /* binding */ adguardAssistant; });
 
 // CONCATENATED MODULE: ./src/ioc.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6126,6 +6139,7 @@ function adguardAssistantExtended() {
   src_settings.setAdguardSettings(adguardSettings);
   var iframeController = new src_iframe();
   src_ioc.register('iframeController', iframeController);
+  console.log('extended');
   return {
     start: function start(element, callback) {
       src_ioc.register('addRule', src_protectedApi.functionBind.call(callback, this));
@@ -6165,19 +6179,16 @@ function adguardAssistantMini() {
     }
   };
 }
-// CONCATENATED MODULE: ./src/index-embedded.js
+// CONCATENATED MODULE: ./src/helpers.js
+var mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i;
+var isMobile = function isMobile(ua) {
+  return mobileReg.test(ua);
+};
+// CONCATENATED MODULE: ./src/index.js
 
-var mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i; // eslint-disable-next-line func-names
 
-(function (base) {
-  if (mobileReg.test(navigator.userAgent)) {
-    // eslint-disable-next-line no-param-reassign
-    base.adguardAssistant = adguardAssistantMini;
-  } else {
-    // eslint-disable-next-line no-param-reassign
-    base.adguardAssistant = adguardAssistantExtended;
-  }
-})(undefined || window);
+var adguardAssistant = isMobile(navigator.userAgent) ? adguardAssistantMini : adguardAssistantExtended;
 
 /***/ })
 /******/ ]);
+});

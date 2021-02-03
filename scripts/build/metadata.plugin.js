@@ -1,4 +1,4 @@
-/* eslint-disable */
+/* eslint-disable max-len,no-param-reassign,no-unused-vars */
 const path = require('path');
 const glob = require('glob');
 const copyfile = require('cp-file');
@@ -69,7 +69,7 @@ const getMessageValue = (messageKey, translation) => {
     let resultObject = translation;
 
     for (let i = 0; i < arr.length - 1; i += 1) {
-        if(typeof resultObject[arr[i]] === 'object') {
+        if (typeof resultObject[arr[i]] === 'object') {
             resultObject = resultObject[arr[i]];
         } else {
             resultObject = {};
@@ -77,10 +77,10 @@ const getMessageValue = (messageKey, translation) => {
     }
 
     if (typeof resultObject[lastKey] === 'object') {
-        return resultObject[lastKey]['message'];
+        return resultObject[lastKey].message;
     }
     return resultObject[lastKey];
-}
+};
 
 /**
  * Building value string from locales
@@ -94,6 +94,7 @@ const getMessageValue = (messageKey, translation) => {
  * ```
  */
 const getField = (translation, fieldOptions, localesDir, postfix) => {
+    // eslint-disable-next-line global-require,import/no-dynamic-require
     const json = require(translation);
     const { metaName, messageKey, usePostfix } = fieldOptions;
     const value = getMessageValue(messageKey, json);
@@ -117,18 +118,24 @@ const getField = (translation, fieldOptions, localesDir, postfix) => {
  * @param {Object} options passed to plugin constructor options
  */
 const createMetadata = (outputPath, callback, options) => {
+    let {
+        localesDir = DEFAULT_LOCALES_DIR,
+        metadataTemplate = DEFAULT_METADATA_TEMPLATE,
+    } = options;
+
     const {
         filename,
-        metadataTemplate = DEFAULT_METADATA_TEMPLATE,
-        localesDir = DEFAULT_LOCALES_DIR,
         postfix = DEFAULT_POSTFIX,
         fields = {},
     } = options;
 
+    localesDir = path.resolve(__dirname, localesDir);
+    metadataTemplate = path.resolve(__dirname, metadataTemplate);
+
     // Calculate result metadata file path
     const metadataOutputPath = path.join(outputPath, filename);
     // Copy template file to output directory
-    copyfile.sync(metadataTemplate, metadataOutputPath);
+    copyfile.sync(path.resolve(__dirname, metadataTemplate), metadataOutputPath);
 
     // Separate fields which have multiple translations and simple fields
     const multipleFields = {};
@@ -150,9 +157,9 @@ const createMetadata = (outputPath, callback, options) => {
     // replace fields with multiple values from translations
     Object.entries(multipleFields).forEach(([key, fieldOptions]) => {
         const fieldsString = translations
-            .map(translation => getField(translation, fieldOptions, localesDir, postfix))
-            .filter(str => !!str)
-            .sort(([lang]) => lang === BASE_LOCALE ? -1 : 1)
+            .map((translation) => getField(translation, fieldOptions, localesDir, postfix))
+            .filter((str) => !!str)
+            .sort(([lang]) => (lang === BASE_LOCALE ? -1 : 1))
             .map(([lang, field], i, ar) => {
                 if (i !== 0) {
                     field = `// ${field}`;

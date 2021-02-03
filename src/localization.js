@@ -18,7 +18,7 @@ function Localization() {
         const lowerCasedKey = key.toLowerCase();
         acc[lowerCasedKey] = locales[key];
         return acc;
-    },{});
+    }, {});
 
     /*
      * In Edge, there is undocumented behavior. When you run the script

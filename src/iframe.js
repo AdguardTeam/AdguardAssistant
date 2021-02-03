@@ -16,7 +16,6 @@ import selector from './adguard-selector';
 import uiUtils from './utils/ui-utils';
 import localization from './localization';
 
-
 /**
  * Manages iframe and it's content
  * @returns {{

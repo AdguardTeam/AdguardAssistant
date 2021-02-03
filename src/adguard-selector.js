@@ -136,7 +136,6 @@ function AdguardSelector(api = {}) {
         sgMousedownHandler.call(this, e);
     };
 
-
     const removeElementToPreventEvents = function () {
         if (!transparentPlaceholdedElement) {
             return false;
@@ -577,7 +576,6 @@ function AdguardSelector(api = {}) {
 
         return false;
     };
-
 
     const setupEventHandlers = function () {
         makeIFrameAndEmbeddedSelector();

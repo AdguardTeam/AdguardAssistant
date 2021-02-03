@@ -9,13 +9,13 @@ const pkg = require('./package.json');
 
 const BUILD_DIR = 'build';
 const SOURCE_DIR = 'src';
-const MODE_TYPES = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
-const MODE = MODE_TYPES[process.env.CHANNEL_ENV] || MODE_TYPES.DEV;
+const CHANNEL_ENVS = { DEV: 'dev', BETA: 'beta', RELEASE: 'release' };
+const CHANNEL = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 const USERSCRIPT_NAME = 'assistant';
-const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, MODE);
+const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, CHANNEL);
 
 const config = {
-    mode: MODE === MODE_TYPES.DEV ? 'development' : 'production',
+    mode: CHANNEL === CHANNEL_ENVS.DEV ? 'development' : 'production',
     entry: {
         [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
     },
@@ -24,7 +24,7 @@ const config = {
         filename: '[name].js',
     },
     optimization: {
-        minimize: MODE === MODE_TYPES.RELEASE || MODE === MODE_TYPES.BETA,
+        minimize: CHANNEL === CHANNEL_ENVS.RELEASE || CHANNEL === CHANNEL_ENVS.BETA,
     },
     performance: { hints: false },
     module: {
@@ -62,15 +62,15 @@ const config = {
             content: `version=${pkg.version}`,
         }),
         new webpack.DefinePlugin({
-            DEBUG: MODE === MODE_TYPES.DEV,
+            DEBUG: CHANNEL === CHANNEL_ENVS.DEV,
         }),
         new MetaDataPlugin({
             filename: USERSCRIPT_NAME,
             ...metaSettings.common,
-            ...(metaSettings[MODE] || {}),
+            ...(metaSettings[CHANNEL] || {}),
             fields: {
                 ...metaSettings.common.fields,
-                ...((metaSettings[MODE] && metaSettings[MODE].fields) || {}),
+                ...((metaSettings[CHANNEL] && metaSettings[CHANNEL].fields) || {}),
             },
         }),
     ],

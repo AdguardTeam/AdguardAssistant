@@ -1,4 +1,3 @@
-
 const getArguments = (func) => {
     // This regex is from require.js
     const FN_ARGS = /^function\s*[^(]*\(\s*([^)]*)\)/m;

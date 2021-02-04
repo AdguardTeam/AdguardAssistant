@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const { merge } = require('webpack-merge');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const commonConfig = require('./webpack.common.config');
 
@@ -11,6 +12,7 @@ const {
     BUILD_DIR,
     SOURCE_DIR,
     CHANNEL_ENVS,
+    TYPES_DIR,
 } = require('./constants');
 
 const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
@@ -34,6 +36,14 @@ const config = {
         new webpack.DefinePlugin({
             DEBUG: CHANNEL_ENV === CHANNEL_ENVS.DEV,
         }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, TYPES_DIR),
+                    to: path.resolve(__dirname, DIST_DIR),
+                },
+            ],
+        }),
     ],
 };
 
@@ -41,10 +51,10 @@ const fileManagerPlugin = new FileManagerPlugin({
     onEnd: {
         copy: [
             {
-                force: true,
                 source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, FILENAME),
                 destination: path.resolve(__dirname, DIST_DIR),
-            }],
+            },
+        ],
     },
 });
 

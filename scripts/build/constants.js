@@ -10,6 +10,7 @@ const DIST_DIR = '../../dist';
 const FILENAME = 'assistant.js';
 const USERSCRIPT_NAME = 'assistant';
 const LOCALES_DIR = '../../locales';
+const TYPES_DIR = '../../types';
 
 module.exports = {
     CHANNEL_ENVS,
@@ -19,4 +20,5 @@ module.exports = {
     FILENAME,
     USERSCRIPT_NAME,
     LOCALES_DIR,
+    TYPES_DIR,
 };

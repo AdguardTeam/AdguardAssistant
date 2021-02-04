@@ -3,6 +3,7 @@
     "version": "4.3.43",
     "description": "AdGuard Assistant helps you manage filtering right from the browser",
     "main": "dist/assistant.js",
+    "types": "dist/assistant.d.ts",
     "scripts": {
         "dev": "export CHANNEL_ENV=DEV; yarn build && yarn build:embedded",
         "beta": "export CHANNEL_ENV=BETA; yarn build && yarn build:embedded",
@@ -23,7 +24,7 @@
         "babel-loader": "^8.1.0",
         "chai": "^4.2.0",
         "clean-webpack-plugin": "^3.0.0",
-        "copy-webpack-plugin": "^5.1.1",
+        "copy-webpack-plugin": "^6",
         "cp-file": "^9.0.0",
         "create-file-webpack": "^1.0.2",
         "css-loader": "^3.4.2",

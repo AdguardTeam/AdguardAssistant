@@ -5,11 +5,11 @@
 @text-main-color: #343434;
 @text-body-color: #282828;
 
-@basic-green: #67B279;
-@dark-green: #4D995F;
+@basic-green: #36ba53;
+@dark-green: darken(@basic-green, 5%);
 
-@basic-red: #BF4829;
-@dark-red: #8E2C13;
+@basic-red: #f3523d;
+@dark-red: darken(@basic-red, 10%);
 
 @advanced-settings-bg: #f4f4ef;
 @input-border: #cfcfcf;
@@ -165,6 +165,7 @@ input[type="checkbox"] {
 
 .menu,
 .menu-filter,
+.content,
 .foot {
   border-top: 1px solid @border-color;
 }

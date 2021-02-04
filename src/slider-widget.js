@@ -1,7 +1,7 @@
 import { addStyle, addClass } from './utils/dom-utils';
 import protectedApi from './protectedApi';
 
-const BASIC_GREEN_COLOR = '#67B279';
+const BASIC_GREEN_COLOR = '#36BA53';
 const DARK_GREEN_COLOR = '#4D995F';
 const TICK_RIGHT_COLOR = '#E0DFDB';
 

@@ -192,7 +192,6 @@ export default function IframeControllerMobile() {
         showMenuItem('mobilePopup.html', mobilePopupButtonsInit(), null, styles);
     };
 
-
     // e.isTrusted checking for prevent programmatically events
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     const removeIframe = (e) => {

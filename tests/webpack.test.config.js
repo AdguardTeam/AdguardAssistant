@@ -46,16 +46,16 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: 'node_modules/qunit/qunit/qunit.js',
-                to: '.',
-            },
-            {
-                from: 'node_modules/qunit/qunit/qunit.css',
-                to: '.',
-            },
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'node_modules/qunit/qunit/qunit.js',
+                },
+                {
+                    from: 'node_modules/qunit/qunit/qunit.css',
+                },
+            ],
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'index.html'),
         }),

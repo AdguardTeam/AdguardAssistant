@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else {
+		var a = factory();
+		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
+	}
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -496,7 +506,7 @@ module.exports = code;
 /* 31 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.3.42\"}");
+module.exports = JSON.parse("{\"a\":\"4.3.43\"}");
 
 /***/ }),
 /* 32 */
@@ -803,7 +813,7 @@ function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArra
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -1080,6 +1090,9 @@ module.exports = JSON.parse("{\"settings_position_save\":\"网站\",\"settings_p
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "adguardAssistant", function() { return /* binding */ adguardAssistant; });
 
 // CONCATENATED MODULE: ./src/ioc.js
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2076,7 +2089,7 @@ function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableTo
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
 
@@ -2252,7 +2265,7 @@ function localization_slicedToArray(arr, i) { return localization_arrayWithHoles
 
 function localization_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function localization_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return localization_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return localization_arrayLikeToArray(o, minLen); }
+function localization_unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return localization_arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return localization_arrayLikeToArray(o, minLen); }
 
 function localization_arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
@@ -5901,7 +5914,7 @@ function IframeControllerMobile() {
     iframe.removeAttribute('style');
     iframe.removeAttribute('height');
 
-    var attributes = _objectSpread({}, defaultAttributes, {}, attrs);
+    var attributes = _objectSpread(_objectSpread({}, defaultAttributes), attrs);
 
     Object.keys(attributes).forEach(function (item) {
       iframe.setAttribute(item, attributes[item]);
@@ -5909,7 +5922,7 @@ function IframeControllerMobile() {
   };
 
   var updateIframeStyles = function updateIframeStyles(styles) {
-    var css = _objectSpread({}, defaultCSS, {}, styles);
+    var css = _objectSpread(_objectSpread({}, defaultCSS), styles);
 
     Object.keys(css).forEach(function (item) {
       iframe.style[item] = css[item];
@@ -6165,19 +6178,16 @@ function adguardAssistantMini() {
     }
   };
 }
-// CONCATENATED MODULE: ./src/index-embedded.js
+// CONCATENATED MODULE: ./src/helpers.js
+var mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i;
+var isMobile = function isMobile(ua) {
+  return mobileReg.test(ua);
+};
+// CONCATENATED MODULE: ./src/index.js
 
-var mobileReg = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i; // eslint-disable-next-line func-names
 
-(function (base) {
-  if (mobileReg.test(navigator.userAgent)) {
-    // eslint-disable-next-line no-param-reassign
-    base.adguardAssistant = adguardAssistantMini;
-  } else {
-    // eslint-disable-next-line no-param-reassign
-    base.adguardAssistant = adguardAssistantExtended;
-  }
-})(undefined || window);
+var adguardAssistant = isMobile(navigator.userAgent) ? adguardAssistantMini : adguardAssistantExtended;
 
 /***/ })
 /******/ ]);
+});

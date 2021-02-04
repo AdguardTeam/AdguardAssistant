@@ -150,7 +150,6 @@ export default function SliderMenuController(addRule, iframe) {
         });
     };
 
-
     const makeDefaultCheckboxesForDetailedMenu = (options) => {
         contentDocument.getElementById('block-by-url-checkbox').checked = options && options.isBlockByUrl;
         contentDocument.getElementById('block-similar-checkbox').checked = options && options.isBlockSimilar;

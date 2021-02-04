@@ -1,4 +1,4 @@
-const { LOCALES_EQUIVALENTS_MAP, LANGUAGES } = require('../consts');
+const { LOCALES_EQUIVALENTS_MAP, LANGUAGES } = require('../scripts/locales/consts');
 
 const locales = Object.keys(LANGUAGES)
     .reduce((acc, language) => {

@@ -17,7 +17,6 @@ export default function SettingsMenuController(iframe) {
         'position-top-left': { top: true, left: true },
     };
 
-
     const close = () => {
         iframeCtrl.removeIframe();
     };

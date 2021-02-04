@@ -7,7 +7,7 @@ const [{
     languages: LANGUAGES,
     // Crowdin files for downloading/uploading
     localizable_files: LOCALIZABLE_FILES,
-}] = require('./.twosky.json');
+}] = require('../../.twosky.json');
 
 /**
  * Users locale may be defined with only two chars (language code)

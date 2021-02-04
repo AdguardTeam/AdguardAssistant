@@ -44,7 +44,7 @@ const config = {
         }),
         new MetaDataPlugin({
             filename: USERSCRIPT_NAME,
-            locales: LOCALES_DIR,
+            localesDir: LOCALES_DIR,
             metadataTemplate: METADATA_TEMPLATE,
             ...metaSettings.common,
             ...(metaSettings[CHANNEL] || {}),

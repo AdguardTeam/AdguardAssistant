@@ -23,7 +23,7 @@ const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, CHANNEL);
 
 const config = {
     entry: {
-        [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
+        [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.user.js'),
     },
     output: {
         path: OUTPUT_PATH,

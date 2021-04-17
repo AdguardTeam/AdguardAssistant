@@ -39,7 +39,6 @@ Build:
 
             yarn install ${system.YARN_ARGS}
             yarn release
-
     - inject-variables:
         file: build/release/build.txt
         scope: RESULT

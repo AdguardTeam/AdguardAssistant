@@ -3,7 +3,7 @@ version: 2
 plan:
   project-key: ADGEXT
   key: LEGASSINCRSPECS
-  name: legacy assistant increment version
+  name: legacy assistant - increment version
 variables:
   dockerNode: node:15.14.0-buster-slim
 

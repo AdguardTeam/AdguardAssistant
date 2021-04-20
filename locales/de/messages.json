@@ -5,19 +5,19 @@
     "assistant_select_element_start": "Starten",
     "assistant_select_element_text": "Wählen Sie ein zu sperrenden Element auf der Seite aus. Laden Sie die Seite neu, um den Sperrmodus zu verlassen.",
     "menu_filtration_status": {
-        "message": "Auf dieser Webseite filtern"
+        "message": "Diese Webseite filtern"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Schutz für 30 Sekunden deaktivieren"
     },
     "menu_block_ad_on_site": {
-        "message": "Zu sperrendes Element dieser Webseite auswählen"
+        "message": "Werbung auf dieser Seite sperren"
     },
     "menu_report_abuse": {
         "message": "Diese Webseite melden"
     },
     "menu_site_report": {
-        "message": "Sicherheitsbericht dieser Webseite abrufen"
+        "message": "Sicherheitsbericht dieser Webseite"
     },
     "menu_settings": {
         "message": "Assistent-Einstellungen"
@@ -32,7 +32,7 @@
         "message": "Element sperren"
     },
     "assistant_select_element_ext": {
-        "message": "Wählen Sie ein zu sperrendes Element auf der Seite aus"
+        "message": "Zu sperrendes Element auf der Seite auswählen"
     },
     "assistant_select_element_cancel": {
         "message": "Abbrechen"

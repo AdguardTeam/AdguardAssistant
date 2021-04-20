@@ -3,9 +3,9 @@
     "settings_position_save_all": "На всіх",
     "settings_position_save_this": "Тільки на даному",
     "assistant_select_element_start": "Почати",
-    "assistant_select_element_text": "Виберіть элемент на сторінці, який треба заблокувати. Оновіть сторінку, щоб скасувати режим блокування.",
+    "assistant_select_element_text": "Виберіть елемент на сторінці, який треба заблокувати. Оновіть сторінку, щоб скасувати режим блокування.",
     "menu_filtration_status": {
-        "message": "Фільтрація на даному сайті"
+        "message": "Фільтрування на цьому сайті"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Не фільтрувати 30 секунд"
@@ -32,7 +32,7 @@
         "message": "Блокування елементу"
     },
     "assistant_select_element_ext": {
-        "message": "Виберіть элемент на сторінці, який треба заблокувати"
+        "message": "Виберіть елемент на сторінці, який треба заблокувати"
     },
     "assistant_select_element_cancel": {
         "message": "Скасувати"
@@ -50,7 +50,7 @@
         "message": "Розширені налаштування"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Застосувати правило до всіх веб-сайтів"
+        "message": "Застосувати правило до всіх вебсайтів"
     },
     "assistant_block_by_reference": {
         "message": "Блокувати за посиланням"
@@ -80,7 +80,7 @@
         "message": "Закінчити попередній перегляд"
     },
     "wot_unknown_description": {
-        "message": "Репутація цього веб-сайту не визначена"
+        "message": "Репутація цього вебсайту не визначена"
     },
     "wot_bad_description": {
         "message": "Цей сайт має дуже погану репутацію\nза версією $1"

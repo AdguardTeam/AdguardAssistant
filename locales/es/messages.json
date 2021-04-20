@@ -2,8 +2,8 @@
     "settings_position_save": "Sitios web",
     "settings_position_save_all": "Todos los sitios web",
     "settings_position_save_this": "Este sitio web",
-    "assistant_select_element_start": "Empezar",
-    "assistant_select_element_text": "Elija un elemento en la página para bloquear. Actualice la página para cancelar el bloqueo de elementos.",
+    "assistant_select_element_start": "Comenzar",
+    "assistant_select_element_text": "Elige un elemento en la página para bloquear. Actualiza la página para cancelar el bloqueo de elementos.",
     "menu_filtration_status": {
         "message": "Filtrado en este sitio web"
     },
@@ -32,7 +32,7 @@
         "message": "Bloqueo de elementos"
     },
     "assistant_select_element_ext": {
-        "message": "Elija un elemento en la página para bloquear"
+        "message": "Elige un elemento en la página para bloquear"
     },
     "assistant_select_element_cancel": {
         "message": "Cancelar"
@@ -44,7 +44,7 @@
         "message": "Ajustar la regla de bloqueo del elemento"
     },
     "assistant_slider_explain": {
-        "message": "Mueva el control deslizante para cambiar el tamaño del marco para el que funcionará la nueva regla:"
+        "message": "Mueve el control deslizante para cambiar el tamaño del marco para el que funcionará la nueva regla:"
     },
     "assistant_extended_settings": {
         "message": "Configuración avanzada"
@@ -74,13 +74,13 @@
         "message": "Bloqueo de elementos - vista previa"
     },
     "assistant_preview_header_info": {
-        "message": "Asegúrese de que el elemento esté bloqueado como se deseaba"
+        "message": "Asegúrate de que el elemento esté bloqueado como se deseaba"
     },
     "assistant_preview_end": {
         "message": "Salir de vista previa"
     },
     "wot_unknown_description": {
-        "message": "La reputación no está definida"
+        "message": "La reputación de este sitio web no está definida por $1"
     },
     "wot_bad_description": {
         "message": "Este sitio web tiene muy mala reputación\nde acuerdo a $1"
@@ -98,7 +98,7 @@
         "message": "Este sitio web tiene excelente reputación\nde acuerdo a $1"
     },
     "settings_choose_size_and_position": {
-        "message": "Ajuste el tamaño y la posición del Asistente de AdGuard"
+        "message": "Ajustar el tamaño y la posición del Asistente de AdGuard"
     },
     "settings_icon_size": {
         "message": "Tamaño del icono:"

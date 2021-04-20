@@ -1,23 +1,23 @@
 {
     "settings_position_save": "Siti",
     "settings_position_save_all": "Tutti i siti",
-    "settings_position_save_this": "Questo sito",
+    "settings_position_save_this": "Questo sito web",
     "assistant_select_element_start": "Inizio",
     "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per cancellare la modalità che blocca un elemento.",
     "menu_filtration_status": {
-        "message": "Filtraggio su questo sito"
+        "message": "Filtraggio su questo sito web"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Non filtrare per 30 secondi"
     },
     "menu_block_ad_on_site": {
-        "message": "Blocca annunci su questo sito"
+        "message": "Blocca annunci su questo sito web"
     },
     "menu_report_abuse": {
         "message": "Segnala il sito"
     },
     "menu_site_report": {
-        "message": "Rapporto di sicurezza del sito internet"
+        "message": "Rapporto di sicurezza del sito"
     },
     "menu_settings": {
         "message": "Impostazioni assistente"
@@ -83,19 +83,19 @@
         "message": "La reputazione di questo sito web non è definita da $1"
     },
     "wot_bad_description": {
-        "message": "Questo sito web ha una pessima reputazione secondo $1"
+        "message": "Questo sito web ha una pessima reputazione\nsecondo $1"
     },
     "wot_poor_description": {
-        "message": "Questo sito ha una reputazione cattiva secondo $1"
+        "message": "Questo sito web ha una brutta reputazione\nsecondo $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Questo sito web ha una reputazione mediocre secondo $1"
+        "message": "Questo sito web ha una mediocre reputazione\nsecondo $1"
     },
     "wot_good_description": {
-        "message": "Questo sito ha una buona reputazione secondo $1"
+        "message": "Questo sito web ha una buona reputazione\nsecondo $1"
     },
     "wot_excellent_description": {
-        "message": "Questo sito ha un'ottima reputazione secondo $1"
+        "message": "Questo sito web ha una eccellente reputazione\nsecondo $1"
     },
     "settings_choose_size_and_position": {
         "message": "Regola dimensione e posizione di Assistente AdGuard"

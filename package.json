@@ -14,7 +14,7 @@
         "test": "yarn webpack --config tests/webpack.test.config.js && node tests/puppeteer.js",
         "locales:download": "LOCALES=DOWNLOAD node scripts/locales/locales.js",
         "locales:upload": "LOCALES=UPLOAD node scripts/locales/locales.js",
-        "ci:increment": "yarn version --patch --no-git-tag-version",
+        "increment": "yarn version --patch --no-git-tag-version",
         "prepublishOnly": "yarn release"
     },
     "devDependencies": {

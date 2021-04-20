@@ -1,0 +1,68 @@
+---
+version: 2
+plan:
+  project-key: ADGEXT
+  key: LEGASSTESTSPECS
+  name: legacy assistant - test
+variables:
+  dockerNode: node:15.14.0-buster-slim
+
+stages:
+  - Test:
+      manual: 'false'
+      final: 'false'
+      jobs:
+        - Test
+
+Test:
+  key: TEST
+  other:
+    clean-working-dir: true
+  docker:
+    image: ${bamboo.dockerNode}
+    volumes:
+      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+  tasks:
+    - checkout:
+        force-clean-build: 'true'
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+            ls -alt
+
+            yarn install ${system.YARN_ARGS}
+            yarn dev
+            yarn test
+  artifacts:
+    - name: assistant.meta.js
+      location: build/dev
+      pattern: assistant.meta.js
+      shared: true
+      required: true
+    - name: assistant.js
+      location: build/dev
+      pattern: assistant.js
+      shared: true
+      required: true
+    - name: assistant.user.js
+      location: build/dev
+      pattern: assistant.user.js
+      shared: true
+      required: true
+  requirements:
+    - adg-docker: 'true'
+
+branches:
+  create: for-pull-request
+  delete:
+    after-deleted-days: '1'
+    after-inactive-days: '5'
+  link-to-jira: 'true'
+
+notifications: []
+labels: []
+other:
+  concurrent-build-plugin: system-default

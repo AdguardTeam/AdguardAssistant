@@ -5,7 +5,7 @@ plan:
   key: LEGASSTESTSPECS
   name: legacy assistant - test
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerPuppeteer: buildkite/puppeteer:8.0.0
 
 stages:
   - Test:
@@ -19,7 +19,7 @@ Test:
   other:
     clean-working-dir: true
   docker:
-    image: ${bamboo.dockerNode}
+    image: ${bamboo.dockerPuppeteer}
     volumes:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
   tasks:
@@ -33,6 +33,7 @@ Test:
             set -e
             ls -alt
 
+            export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
             yarn install ${system.YARN_ARGS}
             yarn dev
             yarn test

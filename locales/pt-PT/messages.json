@@ -11,7 +11,7 @@
         "message": "Não filtrar durante 30 segundos"
     },
     "menu_block_ad_on_site": {
-        "message": "Bloquear publicidade neste site"
+        "message": "Bloquear publicidade neste sítio"
     },
     "menu_report_abuse": {
         "message": "Denunciar o site"
@@ -47,7 +47,7 @@
         "message": "Desloque o controlo deslizante para alterar o tamanho do quadro para o qual a nova regra irá funcionar:"
     },
     "assistant_extended_settings": {
-        "message": "Configurações avançadas"
+        "message": "Definições avançadas"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "Aplicar a regra para todos os sites"

@@ -11,10 +11,10 @@
         "message": "30秒間フィルタリングを行わない"
     },
     "menu_block_ad_on_site": {
-        "message": "このウェブサイトの広告をブロック"
+        "message": "このサイトで広告を手動ブロックする"
     },
     "menu_report_abuse": {
-        "message": "このウェブサイトを報告"
+        "message": "このサイトの問題を報告する"
     },
     "menu_site_report": {
         "message": "ウェブサイトのセキュリティレポート"

@@ -1,7 +1,7 @@
 {
     "settings_position_save": "網站",
     "settings_position_save_all": "所有的網站",
-    "settings_position_save_this": "該網站",
+    "settings_position_save_this": "此網站",
     "assistant_select_element_start": "開始",
     "assistant_select_element_text": "選擇於該頁面上之元件以封鎖。重新整理該頁面以取消元件封鎖模式。",
     "menu_filtration_status": {
@@ -80,22 +80,22 @@
         "message": "離開預覽"
     },
     "wot_unknown_description": {
-        "message": "該網站的信譽未被 $1 界定"
+        "message": "此網站的信譽未被 $1 界定"
     },
     "wot_bad_description": {
-        "message": "根據 $1，\n該網站有非常壞的信譽"
+        "message": "根據 $1，\n此網站有非常壞的信譽"
     },
     "wot_poor_description": {
-        "message": "根據 $1，\n該網站有壞的信譽"
+        "message": "根據 $1，\n此網站有壞的信譽"
     },
     "wot_unsatisfactory_description": {
-        "message": "根據 $1，\n該網站有不好的信譽"
+        "message": "根據 $1，\n此網站有不好的信譽"
     },
     "wot_good_description": {
-        "message": "根據 $1，\n該網站有好的信譽"
+        "message": "根據 $1，\n此網站有好的信譽"
     },
     "wot_excellent_description": {
-        "message": "根據 $1，\n該網站有極好的信譽"
+        "message": "根據 $1，\n此網站有極好的信譽"
     },
     "settings_choose_size_and_position": {
         "message": "調整 AdGuard 助理尺寸和位置"

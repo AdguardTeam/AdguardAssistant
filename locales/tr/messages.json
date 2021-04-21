@@ -14,13 +14,13 @@
         "message": "Bu sitede reklam engelle"
     },
     "menu_report_abuse": {
-        "message": "Bu siteyi rapor et"
+        "message": "Siteyi bildir"
     },
     "menu_site_report": {
         "message": "Sitenin güvenlik raporu"
     },
     "menu_settings": {
-        "message": "Assistant ayarları"
+        "message": "Asistan ayarları"
     },
     "menu_wot_reputation_indicator": {
         "message": "Site itibarı göstergesi"
@@ -68,7 +68,7 @@
         "message": "Engelle"
     },
     "assistant_settings": {
-        "message": "Assistant ayarları"
+        "message": "Asistan ayarları"
     },
     "assistant_preview_header": {
         "message": "Öğe engelleme - önizleme"
@@ -98,7 +98,7 @@
         "message": "Bu site $1 değerlendirmesine göre\nmükemmel bir itibara sahip"
     },
     "settings_choose_size_and_position": {
-        "message": "AdGuard Assistant'ın eklentisi boyut ve konumunu ayarla"
+        "message": "AdGuard Asistanın boyutunu ve konumunu ayarlayın"
     },
     "settings_icon_size": {
         "message": "Simge boyutu:"

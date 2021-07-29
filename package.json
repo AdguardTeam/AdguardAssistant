@@ -17,6 +17,16 @@
         "increment": "yarn version --patch --no-git-tag-version",
         "prepublishOnly": "yarn release"
     },
+    "author": "AdGuard",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AdguardTeam/AdguardAssistant.git"
+    },
+    "bugs": {
+        "url": "https://github.com/AdguardTeam/AdguardAssistant/issues"
+      },
+    "homepage": "https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant",
     "devDependencies": {
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",

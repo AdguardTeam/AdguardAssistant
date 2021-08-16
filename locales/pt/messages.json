@@ -62,7 +62,7 @@
         "message": "Selecione um elemento diferente"
     },
     "assistant_preview": {
-        "message": "Ver prévia"
+        "message": "Pré-visualização"
     },
     "assistant_block": {
         "message": "Bloquear"
@@ -71,13 +71,13 @@
         "message": "Configurações do assistente"
     },
     "assistant_preview_header": {
-        "message": "Bloqueio de elemento - Prévia"
+        "message": "Bloqueio de elemento - pré-visualização"
     },
     "assistant_preview_header_info": {
         "message": "Certifique-se de que o elemento esteja bloqueado como desejado"
     },
     "assistant_preview_end": {
-        "message": "Sair da prévia"
+        "message": "Sair da pré-visualização"
     },
     "wot_unknown_description": {
         "message": "A reputação deste site ainda não foi definida por $1"

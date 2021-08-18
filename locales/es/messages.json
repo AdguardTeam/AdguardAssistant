@@ -89,7 +89,7 @@
         "message": "Este sitio web tiene mala reputación\nde acuerdo a $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Este sitio web tiene mala reputación\nde acuerdo a $1"
+        "message": "Este sitio web tiene pobre reputación\nde acuerdo a $1"
     },
     "wot_good_description": {
         "message": "Este sitio web tiene buena reputación\nde acuerdo a $1"

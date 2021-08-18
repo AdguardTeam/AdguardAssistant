@@ -1,11 +1,11 @@
 {
-    "settings_position_save": "Sites",
-    "settings_position_save_all": "Todos os websites",
-    "settings_position_save_this": "Este website",
+    "settings_position_save": "Sítios",
+    "settings_position_save_all": "Todos os sítios",
+    "settings_position_save_this": "Este sítio",
     "assistant_select_element_start": "Iniciar",
-    "assistant_select_element_text": "Escolha um elemento na página para bloquear. Actualize a página para cancelar o bloqueio do elemento.",
+    "assistant_select_element_text": "Escolha um elemento na página para bloquear. Atualize a página para cancelar o bloqueio do elemento.",
     "menu_filtration_status": {
-        "message": "A filtrar este site"
+        "message": "A filtrar este sítio"
     },
     "menu_do_not_filter_30_sec": {
         "message": "Não filtrar durante 30 segundos"
@@ -14,16 +14,16 @@
         "message": "Bloquear publicidade neste sítio"
     },
     "menu_report_abuse": {
-        "message": "Denunciar o site"
+        "message": "Denunciar o sítio"
     },
     "menu_site_report": {
-        "message": "Relatório de segurança do site"
+        "message": "Relatório de segurança do sítio"
     },
     "menu_settings": {
         "message": "Configurações do assistente"
     },
     "menu_wot_reputation_indicator": {
-        "message": "Indicador de reputação do site"
+        "message": "Indicador de reputação do sítio"
     },
     "menu_wot_reputation_confidence_level": {
         "message": "Nível de Confiança de Reputação"
@@ -50,7 +50,7 @@
         "message": "Definições avançadas"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Aplicar a regra para todos os sites"
+        "message": "Aplicar a regra para todos os sítios"
     },
     "assistant_block_by_reference": {
         "message": "Bloquear por link de referência"
@@ -59,10 +59,10 @@
         "message": "Bloquear semelhante"
     },
     "assistant_another_element": {
-        "message": "Seleccionar um elemento diferente"
+        "message": "Selecionar um elemento diferente"
     },
     "assistant_preview": {
-        "message": "Previsualização"
+        "message": "Pré-visualização"
     },
     "assistant_block": {
         "message": "Bloquear"
@@ -71,7 +71,7 @@
         "message": "Configurações do assistente"
     },
     "assistant_preview_header": {
-        "message": "Bloquear elemento - Previsualizar"
+        "message": "Bloquear elemento - pré-visualização"
     },
     "assistant_preview_header_info": {
         "message": "Certifique-se de que o elemento está bloqueado como pretendido"
@@ -80,22 +80,22 @@
         "message": "Sair da previsualização"
     },
     "wot_unknown_description": {
-        "message": "A reputação deste site não está definida por $1"
+        "message": "A reputação deste sítio não está definida por $1"
     },
     "wot_bad_description": {
-        "message": "Este site tem uma péssima reputação\nde acordo com $1"
+        "message": "Este sítio tem uma péssima reputação\nde acordo com $1"
     },
     "wot_poor_description": {
-        "message": "Este site tem uma má reputação\nde acordo com $1"
+        "message": "Este sítio tem uma má reputação\nde acordo com $1"
     },
     "wot_unsatisfactory_description": {
-        "message": "Este site tem uma frágil reputação\nde acordo com $1"
+        "message": "Este sítio tem uma frágil reputação\nde acordo com $1"
     },
     "wot_good_description": {
-        "message": "Este site tem uma boa reputação\nde acordo com $1"
+        "message": "Este sítio tem uma boa reputação\nde acordo com $1"
     },
     "wot_excellent_description": {
-        "message": "Este site tem uma excelente reputação\nde acordo com $1"
+        "message": "Este sítio tem uma excelente reputação\nde acordo com $1"
     },
     "settings_choose_size_and_position": {
         "message": "Ajustar o tamanho e a posição do Assistente do AdGuard"

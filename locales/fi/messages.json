@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Verkkosivustot",
+    "settings_position_save_all": "Kaikki sivustot",
+    "settings_position_save_this": "Tämä sivusto",
+    "assistant_select_element_start": "Aloita",
+    "assistant_select_element_text": "Valitse sivulta estettävä elementti. Päivitä sivu poistuaksesi elementtien estotilasta.",
+    "menu_filtration_status": {
+        "message": "Tämän sivuston suodatus"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Pysäytä suodatus 30 sekunnin ajaksi"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Estä mainos tältä sivustolta"
+    },
+    "menu_report_abuse": {
+        "message": "Ilmoita ongelmasta"
+    },
+    "menu_site_report": {
+        "message": "Sivuston suojausraportti"
+    },
+    "menu_settings": {
+        "message": "Apurin asetukset"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Sivuston maine"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Mainearvion luotettavuus"
+    },
+    "assistant_select_element": {
+        "message": "Elementin esto"
+    },
+    "assistant_select_element_ext": {
+        "message": "Valitse sivulta estettävä elementti"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Peruuta"
+    },
+    "assistant_block_element": {
+        "message": "Elementin esto"
+    },
+    "assistant_block_element_explain": {
+        "message": "Muokkaa elementin estosääntöä"
+    },
+    "assistant_slider_explain": {
+        "message": "Siirrä liukukytkintä muuttaaksesi sen kehyksen kokoa, johon tämä sääntö vaikuttaa:"
+    },
+    "assistant_extended_settings": {
+        "message": "Lisäasetukset"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Käytä sääntöä kaikilla sivustoilla"
+    },
+    "assistant_block_by_reference": {
+        "message": "Estä viitelinkillä"
+    },
+    "assistant_block_similar": {
+        "message": "Estä samankaltaiset"
+    },
+    "assistant_another_element": {
+        "message": "Valitse eri elementti"
+    },
+    "assistant_preview": {
+        "message": "Esikatsele"
+    },
+    "assistant_block": {
+        "message": "Estä"
+    },
+    "assistant_settings": {
+        "message": "Apurin asetukset"
+    },
+    "assistant_preview_header": {
+        "message": "Elementin estosäännön esikatselu"
+    },
+    "assistant_preview_header_info": {
+        "message": "Varmista, että elementti estetään tarkoituksenmukaisesti"
+    },
+    "assistant_preview_end": {
+        "message": "Sulje esikatselu"
+    },
+    "wot_unknown_description": {
+        "message": "$1 ei tarjoa sivustolle mainearviointia"
+    },
+    "wot_bad_description": {
+        "message": "$1 arvioinnin mukaan sivustolla on erittäin huono maine"
+    },
+    "wot_poor_description": {
+        "message": "$1 arvioinnin mukaan sivustolla on huono maine"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "$1 arvioinnin mukaan sivustolla on heikko maine"
+    },
+    "wot_good_description": {
+        "message": "$1 arvioinnin mukaan sivustolla on hyvä maine"
+    },
+    "wot_excellent_description": {
+        "message": "$1 arvioinnin mukaan sivustolla on erinomainen maine"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Säädä AdGuard Avustajan kokoa ja sijaintia"
+    },
+    "settings_icon_size": {
+        "message": "Kuvakkeen koko:"
+    },
+    "settings_small": {
+        "message": "Pieni"
+    },
+    "settings_big": {
+        "message": "Suuri"
+    },
+    "settings_position": {
+        "message": "Sijainti:"
+    },
+    "settings_left_top": {
+        "message": "Ylhäällä vasemmalla"
+    },
+    "settings_right_top": {
+        "message": "Ylhäällä oikealla"
+    },
+    "settings_left_bottom": {
+        "message": "Alhaalla vasemmalla"
+    },
+    "settings_right_bottom": {
+        "message": "Alhaalla oikealla"
+    },
+    "settings_cancel": {
+        "message": "Peruuta"
+    },
+    "settings_save": {
+        "message": "Tallenna muutokset"
+    }
+}

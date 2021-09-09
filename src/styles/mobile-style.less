@@ -94,20 +94,47 @@ body {
             font-size: 0;
             width: 12vw;
             height: 12vw;
-            border-radius: 3px;
+            border-radius: 4px;
             background-repeat: no-repeat;
             background-position: 50%;
             background-size: 40%;
             position: relative;
 
-            &:active, &.active {
-                background-color: #66B574;
-                box-shadow: inset 2px 2px 3px 0 rgba(92, 92, 92, 0.5);
-            }
-
             &:disabled {
                 &:after, &:before {
                     opacity: .7;
+                }
+            }
+
+            &--accept {
+                background-image: url('./img/check.svg');
+            }
+
+            &--preview {
+                background-image: url('./img/eye-opened.svg');
+
+                &:active, &.active {
+                    background-image: url('./img/eye-closed.svg');
+                }
+            }
+
+            &--plus {
+                background-image: url('./img/plus.svg');
+            }
+
+            &--minus {
+                background-image: url('./img/minus-dark.svg');
+
+                &:active {
+                    background-image: url('./img/minus-dark.svg');
+                }
+            }
+
+            &--close {
+                background-image: url('./img/cross-dark.svg');
+
+                &:active {
+                    background-image: url('./img/cross.svg');
                 }
             }
         }

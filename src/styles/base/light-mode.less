@@ -1,5 +1,6 @@
 @bg-color: #ffffff;
 @bg-hover: #efefef;
+@bg-active: #f3f3f3;
 @bg-grey: #dfdfdf;
 @border-color: #e0dfdb;
 @text-main-color: #343434;
@@ -35,48 +36,11 @@ body {
   &-menu {
     &__btn {
       background-color: @bg-color;
-      border: 1px solid @input-border;
       &:hover {
         background-color: @bg-hover;
       }
-      &:disabled {
-        background-color: @bg-grey;
-        border: 1px solid @input-border;
-      }
-      &--accept {
-        background-image: url('../img/check.svg');
-      }
-
-      &--preview {
-        background-image: url('../img/eye-color.svg');
-
-        &:active, &.active {
-          background-image: url('../img/eye.svg');
-        }
-      }
-
-      &--plus {
-        background-image: url('../img/plus.svg');
-
-        &:active {
-          background-image: url('../img/plus.svg');
-        }
-      }
-
-      &--minus {
-        background-image: url('../img/minus.svg');
-
-        &:active {
-          background-image: url('../img/minus.svg');
-        }
-      }
-
-      &--close {
-        background-image: url('../img/cross-color.svg');
-
-        &:active {
-          background-image: url('../img/cross.svg');
-        }
+      &:active, &.active {
+        background-color: @bg-active;
       }
     }
   }

@@ -1,9 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-276.000000, -570.000000)" stroke-linecap="round">
-        <g id="Group-2" transform="translate(275.000000, 570.000000)" stroke="#FFFFFF" stroke-width="1.8">
-            <path d="M7.2364156,-0.830419873 L7.2364156,13.5737944" id="Line-3" transform="translate(7.236416, 6.371687) rotate(-315.000000) translate(-7.236416, -6.371687) "></path>
-            <path d="M14.1389546,6.24760208 L-0.26525972,6.24760208" id="Line-3" transform="translate(6.936847, 6.671255) rotate(-315.000000) translate(-6.936847, -6.671255) "></path>
-        </g>
-    </g>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.42857 6.42857L17.6043 17.6043" stroke="#A4A4A4" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M6.42773 17.5714L17.6035 6.39563" stroke="#A4A4A4" stroke-width="1.5" stroke-linecap="round"/>
 </svg>

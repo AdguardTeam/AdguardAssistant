@@ -107,9 +107,8 @@ body {
             position: relative;
 
             &:disabled {
-                &:after, &:before {
-                    opacity: .7;
-                }
+                opacity: 0.5;
+                pointer-events: none;
             }
 
             &--accept {
@@ -130,10 +129,6 @@ body {
 
             &--minus {
                 background-image: url('./img/minus.svg');
-
-                &:active {
-                    background-image: url('./img/minus.svg');
-                }
             }
 
             &--close {

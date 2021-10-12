@@ -34,7 +34,7 @@ Test:
             ls -alt
 
             export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn dev
             yarn test
   artifacts:

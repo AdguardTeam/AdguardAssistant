@@ -33,7 +33,7 @@ Build:
             set -e
             ls -alt
 
-            yarn install ${system.YARN_ARGS}
+            yarn install ${bamboo.varsYarn}
             yarn beta
     - inject-variables:
         file: build/beta/build.txt

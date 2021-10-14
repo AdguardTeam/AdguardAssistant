@@ -35,6 +35,7 @@ Build:
 
             yarn install ${bamboo.varsYarn}
             yarn beta
+            rm -rf node_modules
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT

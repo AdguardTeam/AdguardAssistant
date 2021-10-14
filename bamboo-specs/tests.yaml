@@ -37,6 +37,7 @@ Test:
             yarn install ${bamboo.varsYarn}
             yarn dev
             yarn test
+            rm -rf node_modules
   artifacts:
     - name: assistant.meta.js
       location: build/dev

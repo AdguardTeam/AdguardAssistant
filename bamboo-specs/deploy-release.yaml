@@ -59,7 +59,7 @@ npmjs:
             ls -la
 
             export NPM_TOKEN=${bamboo.npmSecretToken}
-            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}\nunsafe-perm = true" > .npmrc
             npm publish --access public
 
             # cleanup

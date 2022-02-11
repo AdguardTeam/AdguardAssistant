@@ -16,14 +16,14 @@ const releaseChannels = {
         },
     },
     dev: {
-        postfix: 'Dev',
+        postfix: '(Dev)',
         fields: {
             DOWNLOAD_URL: 'https://AdguardTeam.github.io/AdguardAssistant/assistant.user.js',
             UPDATE_URL: 'https://AdguardTeam.github.io/AdguardAssistant/assistant.meta.js',
         },
     },
     beta: {
-        postfix: 'Beta',
+        postfix: '(Beta)',
         fields: {
             DOWNLOAD_URL: 'https://userscripts.adtidy.org/beta/assistant/4.3/assistant.user.js',
             UPDATE_URL: 'https://userscripts.adtidy.org/beta/assistant/4.3/assistant.meta.js',

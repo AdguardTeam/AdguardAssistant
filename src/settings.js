@@ -38,7 +38,7 @@ function Settings() {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         IFRAME_ID: 'adguard-assistant-dialog',
-        REPORT_URL: 'https://adguard.com/adguard-report/{0}/report.html',
+        REPORT_URL: 'https://link.adtidy.org/forward.html?action=site_report_page&domain={0}&from=main_menu&app=assistant',
     };
 
     const MenuItemsNames = {

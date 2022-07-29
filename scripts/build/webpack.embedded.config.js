@@ -6,6 +6,8 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const commonConfig = require('./webpack.common.config');
 
+const pkg = require('../../package.json');
+
 const {
     DIST_DIR,
     FILENAME,
@@ -16,6 +18,10 @@ const {
 } = require('./constants');
 
 const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
+
+const banner = `AdGuard Assistant - v${pkg.version} - ${new Date().toDateString()}
+${pkg.homepage ? `${pkg.homepage}` : ''}
+Copyright (c) ${new Date().getFullYear()} ${pkg.author}. Licensed ${pkg.license}`;
 
 const config = {
     entry: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
@@ -29,6 +35,7 @@ const config = {
         minimize: false,
     },
     plugins: [
+        new webpack.BannerPlugin(banner),
         new webpack.NormalModuleReplacementPlugin(
             /src\/gm\.js/,
             'gm-empty.js',

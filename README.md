@@ -2,8 +2,6 @@
 
 AdGuard Assistant is a userscript that helps you manage filtering right from the browser. With its aid you are able to manually block any element, whitelist or report the page, or see the website's security report — all without having to leave the current page.
 
-To get more information on AdGuard Assistant, visit our website [https://adguard.com/](https://adguard.com/adguard-assistant/overview.html#overview).
-
 ### How to report an issue?
 
 GitHub can be used to report a bug or to submit a feature request. To do so, go to [this page](https://github.com/AdguardTeam/AdguardAssistant/issues) and click the *New issue* button.

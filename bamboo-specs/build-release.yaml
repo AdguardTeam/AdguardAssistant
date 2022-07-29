@@ -45,6 +45,12 @@ Build:
         scope: RESULT
         namespace: userscriptMeta
     - any-task:
+        plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.commit
+        configuration:
+          # do not change commitMessage as it does not trigger increment after deploy
+          commitMessage: 'deploy: update dist v${bamboo.userscriptMeta.version}'
+          selectedRepository: defaultRepository
+    - any-task:
         plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.tagging
         configuration:
           selectedRepository: defaultRepository

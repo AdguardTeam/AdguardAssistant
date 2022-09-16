@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard 小助手",
+            "description": "在瀏覽器中提供了簡易且直覺的管理過濾方式"
+        }
+    }
+}

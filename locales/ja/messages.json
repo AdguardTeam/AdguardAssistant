@@ -8,7 +8,7 @@
         "message": "このウェブサイトをフィルタリング"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "30秒間フィルタリングを行わない"
+        "message": "30秒間フィルタリングしない"
     },
     "menu_block_ad_on_site": {
         "message": "このサイトで広告を手動ブロックする"

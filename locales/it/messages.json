@@ -3,7 +3,7 @@
     "settings_position_save_all": "Tutti i siti",
     "settings_position_save_this": "Questo sito web",
     "assistant_select_element_start": "Inizio",
-    "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per cancellare la modalità che blocca un elemento.",
+    "assistant_select_element_text": "Seleziona un elemento nella pagina per bloccarlo. Ricarica la pagina per annullare la modalità di blocco di un elemento.",
     "menu_filtration_status": {
         "message": "Filtraggio su questo sito web"
     },
@@ -20,7 +20,7 @@
         "message": "Rapporto di sicurezza del sito"
     },
     "menu_settings": {
-        "message": "Impostazioni assistente"
+        "message": "Impostazioni di Assistant"
     },
     "menu_wot_reputation_indicator": {
         "message": "Indicatore reputazione sito"
@@ -29,7 +29,7 @@
         "message": "Livello della reputazione"
     },
     "assistant_select_element": {
-        "message": "Bloccaggio elemento"
+        "message": "Blocca elemento"
     },
     "assistant_select_element_ext": {
         "message": "Scegli un elemento da bloccare sulla pagina"
@@ -38,10 +38,10 @@
         "message": "Annulla"
     },
     "assistant_block_element": {
-        "message": "Bloccaggio elemento"
+        "message": "Blocca elemento"
     },
     "assistant_block_element_explain": {
-        "message": "Modifica la regola di bloccaggio elemento"
+        "message": "Modifica la regola di blocco di un elemento"
     },
     "assistant_slider_explain": {
         "message": "Muovi la barra per cambiare la grandezza del frame da per il quale la nuova regola funzionerà:"
@@ -53,7 +53,7 @@
         "message": "Applica la regola a tutti i siti"
     },
     "assistant_block_by_reference": {
-        "message": "Blocca tramite link di referenza"
+        "message": "Blocco mediante indirizzo di riferimento"
     },
     "assistant_block_similar": {
         "message": "Blocca simile"
@@ -68,10 +68,10 @@
         "message": "Blocca"
     },
     "assistant_settings": {
-        "message": "Impostazioni assistente"
+        "message": "Impostazioni di Assistant"
     },
     "assistant_preview_header": {
-        "message": "Bloccaggio elemento - anteprima"
+        "message": "Blocco elemento - anteprima"
     },
     "assistant_preview_header_info": {
         "message": "Assicurati che l'elemento è bloccato come richiesto"
@@ -98,7 +98,7 @@
         "message": "Questo sito web ha una eccellente reputazione\nsecondo $1"
     },
     "settings_choose_size_and_position": {
-        "message": "Regola dimensione e posizione di Assistente AdGuard"
+        "message": "Regola dimensione e posizione di AdGuard Assistant"
     },
     "settings_icon_size": {
         "message": "Grandezza dell'icona:"

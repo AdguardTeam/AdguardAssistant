@@ -50,7 +50,7 @@
         "message": "Розширені налаштування"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Застосувати правило до всіх вебсайтів"
+        "message": "Застосувати правило для всіх сайтів"
     },
     "assistant_block_by_reference": {
         "message": "Блокувати за посиланням"

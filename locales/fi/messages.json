@@ -41,7 +41,7 @@
         "message": "Elementin esto"
     },
     "assistant_block_element_explain": {
-        "message": "Muokkaa elementin estosääntöä"
+        "message": "Muokkaa elementinestosääntöä"
     },
     "assistant_slider_explain": {
         "message": "Siirrä liukukytkintä muuttaaksesi sen kehyksen kokoa, johon tämä sääntö vaikuttaa:"

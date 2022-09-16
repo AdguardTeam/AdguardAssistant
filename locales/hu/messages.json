@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Weboldalak",
+    "settings_position_save_all": "Minden weboldal",
+    "settings_position_save_this": "Ez a weboldal",
+    "assistant_select_element_start": "Indítás",
+    "assistant_select_element_text": "Válassza ki az elemet az oldalon, amit blokkolni szeretne. Frissítse az oldalt, hogy kilépjen az elemblokkoló módból.",
+    "menu_filtration_status": {
+        "message": "Szűrés ezen a weboldalon"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Szüneteltetés 30 másodpercig"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Hirdetés blokkolása ezen a weboldalon"
+    },
+    "menu_report_abuse": {
+        "message": "Weboldal jelentése"
+    },
+    "menu_site_report": {
+        "message": "Weboldal biztonsági jelentése"
+    },
+    "menu_settings": {
+        "message": "Asszisztens beállításai"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "A webhely hírnevének mutatója"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "A hírnév bizalmi szintje"
+    },
+    "assistant_select_element": {
+        "message": "Elem blokkolása"
+    },
+    "assistant_select_element_ext": {
+        "message": "Válassza ki az elemet az oldalon, amit blokkolni szeretne"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Mégse"
+    },
+    "assistant_block_element": {
+        "message": "Elem blokkolása"
+    },
+    "assistant_block_element_explain": {
+        "message": "Állítsa be az elemet blokkoló szabályt"
+    },
+    "assistant_slider_explain": {
+        "message": "Mozgassa a csúszkát a keret méretének megváltoztatásához, amelyre az új szabály működni fog:"
+    },
+    "assistant_extended_settings": {
+        "message": "Haladó beállítások"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Szabály alkalmazása az összes weboldalra"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokkolás link alapján"
+    },
+    "assistant_block_similar": {
+        "message": "Hasonlók blokkolása"
+    },
+    "assistant_another_element": {
+        "message": "Másik elem választása"
+    },
+    "assistant_preview": {
+        "message": "Előnézet"
+    },
+    "assistant_block": {
+        "message": "Blokkolás"
+    },
+    "assistant_settings": {
+        "message": "Asszisztens beállításai"
+    },
+    "assistant_preview_header": {
+        "message": "Elem blokkolása - előnézet"
+    },
+    "assistant_preview_header_info": {
+        "message": "Ellenőrizze, hogy az elem blokkolva van-e a tervezett módon"
+    },
+    "assistant_preview_end": {
+        "message": "Kilépés az előnézetből"
+    },
+    "wot_unknown_description": {
+        "message": "Ez a weboldal nincs nyilvántartva a $1 alapján"
+    },
+    "wot_bad_description": {
+        "message": "Ennek a weboldalnak nagyon rossz a megítélése a $1 alapján"
+    },
+    "wot_poor_description": {
+        "message": "Ennek a weboldalnak rossz a megítélése a $1 alapján"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Ennek a weboldalnak gyenge a megítélése a $1 alapján"
+    },
+    "wot_good_description": {
+        "message": "Ennek a weboldalnak jó a megítélése a $1 alapján"
+    },
+    "wot_excellent_description": {
+        "message": "Ennek a weboldalnak kitűnő a megítélése a $1 alapján"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Állítsa be az AdGuard Assistant méretét és pozícióját"
+    },
+    "settings_icon_size": {
+        "message": "Ikon mérete:"
+    },
+    "settings_small": {
+        "message": "Kicsi"
+    },
+    "settings_big": {
+        "message": "Nagy"
+    },
+    "settings_position": {
+        "message": "Pozíció:"
+    },
+    "settings_left_top": {
+        "message": "Bal felül"
+    },
+    "settings_right_top": {
+        "message": "Jobb felül"
+    },
+    "settings_left_bottom": {
+        "message": "Bal alul"
+    },
+    "settings_right_bottom": {
+        "message": "Jobb alul"
+    },
+    "settings_cancel": {
+        "message": "Mégse"
+    },
+    "settings_save": {
+        "message": "Változások mentése"
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Trang Web",
+    "settings_position_save_all": "Tất cả trang web",
+    "settings_position_save_this": "Chỉ trang web này",
+    "assistant_select_element_start": "Bắt đầu",
+    "assistant_select_element_text": "Chọn một thành phần trên trang để chặn. Làm mới trang web để hủy bỏ chế độ chặn thành phần.",
+    "menu_filtration_status": {
+        "message": "Lọc trên website này"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Không lọc trong 30 giây"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Chặn quảng cáo đối với trang web này"
+    },
+    "menu_report_abuse": {
+        "message": "Báo cáo trang web này"
+    },
+    "menu_site_report": {
+        "message": "Báo cáo bảo mật website"
+    },
+    "menu_settings": {
+        "message": "Cài đặt trợ lý"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Chỉ số danh tiếng của trang Web"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Mức độ đáng tin của danh tiếng"
+    },
+    "assistant_select_element": {
+        "message": "Chặn thành phần"
+    },
+    "assistant_select_element_ext": {
+        "message": "Chọn một thành phần trên trang để chặn"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Hủy bỏ"
+    },
+    "assistant_block_element": {
+        "message": "Chặn thành phần"
+    },
+    "assistant_block_element_explain": {
+        "message": "Điều chỉnh quy tắc chặn phần tử"
+    },
+    "assistant_slider_explain": {
+        "message": "Di chuyển thanh trượt để thay đổi kích thước của khung, quy tắc mới sẽ hoạt động cho:"
+    },
+    "assistant_extended_settings": {
+        "message": "Cài đặt nâng cao"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Áp dụng tất cả các điều luật đối với mọi trang web"
+    },
+    "assistant_block_by_reference": {
+        "message": "Chặn theo liên kết tham chiếu"
+    },
+    "assistant_block_similar": {
+        "message": "Chặn tương tự"
+    },
+    "assistant_another_element": {
+        "message": "Chọn một phần tử khác"
+    },
+    "assistant_preview": {
+        "message": "Xem trước"
+    },
+    "assistant_block": {
+        "message": "Chặn"
+    },
+    "assistant_settings": {
+        "message": "Cài đặt trợ lý"
+    },
+    "assistant_preview_header": {
+        "message": "Element blocking-xem trước"
+    },
+    "assistant_preview_header_info": {
+        "message": "Đảm bảo rằng thành phần đó bị chặn như dự định"
+    },
+    "assistant_preview_end": {
+        "message": "Thoát xem trước"
+    },
+    "wot_unknown_description": {
+        "message": "Website này danh tiếng chưa được xác định bởi $1"
+    },
+    "wot_bad_description": {
+        "message": "Website này có danh tiếng cực xấu dựa theo $1"
+    },
+    "wot_poor_description": {
+        "message": "Website này có danh tiếng xấu dựa theo $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Website này có danh tiếng không tốt dựa theo $1"
+    },
+    "wot_good_description": {
+        "message": "Website này có danh tiếng tốt dựa theo $1"
+    },
+    "wot_excellent_description": {
+        "message": "Website này có danh tiếng tuyệt vời dựa theo $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Điều chỉnh kích thước và vị trí của Trợ Lý AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "Kích thước biểu tượng:"
+    },
+    "settings_small": {
+        "message": "Nhỏ"
+    },
+    "settings_big": {
+        "message": "Lớn"
+    },
+    "settings_position": {
+        "message": "Vị trí:"
+    },
+    "settings_left_top": {
+        "message": "Trên cùng bên trái"
+    },
+    "settings_right_top": {
+        "message": "Trên cùng bên phải"
+    },
+    "settings_left_bottom": {
+        "message": "Dưới cùng bên trái"
+    },
+    "settings_right_bottom": {
+        "message": "Dưới cùng bên phải"
+    },
+    "settings_cancel": {
+        "message": "Hủy bỏ"
+    },
+    "settings_save": {
+        "message": "Lưu các thay đổi"
+    }
+}

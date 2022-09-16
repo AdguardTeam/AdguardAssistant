@@ -47,7 +47,7 @@
         "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
     },
     "assistant_extended_settings": {
-        "message": "進階的設定"
+        "message": "進階設定"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "對所有的網站套用該規則"

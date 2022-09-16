@@ -74,7 +74,7 @@
         "message": "Vorschau der zu sperrenden Elemente"
     },
     "assistant_preview_header_info": {
-        "message": "Prüfen Sie, ob das Element blockiert ist"
+        "message": "Prüfen Sie, ob das Element wie vorgesehen gesperrt wurde."
     },
     "assistant_preview_end": {
         "message": "Vorschau beenden"

@@ -1,0 +1,8 @@
+{
+    "extension": {
+        "assistant": {
+            "name": "AdGuard Assistent",
+            "description": "Biedt een gemakkelijke en handige manier om filters rechtstreeks vanuit de browser te beheren"
+        }
+    }
+}

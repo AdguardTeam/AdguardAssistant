@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Ιστοσελίδες",
+    "settings_position_save_all": "Όλοι οι ιστότοποι",
+    "settings_position_save_this": "Αυτός ο ιστότοπος",
+    "assistant_select_element_start": "Εκκίνηση",
+    "assistant_select_element_text": "Επιλέξτε ένα στοιχείο στη σελίδα για αποκλεισμό. Ανανεώστε τη σελίδα για να ακυρώσετε τη λειτουργία αποκλεισμού στοιχείων.",
+    "menu_filtration_status": {
+        "message": "Φιλτράρισμα σε αυτόν τον ιστότοπο"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Παύση φιλτραρίσματος για 30 δευτερόλεπτα"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Αποκλεισμός διαφήμισης σε αυτόν τον ιστότοπο"
+    },
+    "menu_report_abuse": {
+        "message": "Αναφέρετε αυτόν τον ιστότοπο"
+    },
+    "menu_site_report": {
+        "message": "Αναφορά ασφάλειας ιστότοπου"
+    },
+    "menu_settings": {
+        "message": "Ρυθμίσεις βοηθού"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Δείκτης φήμης ιστότοπου"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Επίπεδο εμπιστοσύνης φήμης"
+    },
+    "assistant_select_element": {
+        "message": "Αποκλεισμός στοιχείου"
+    },
+    "assistant_select_element_ext": {
+        "message": "Επιλέξτε ένα στοιχείο στη σελίδα για αποκλεισμό"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Άκυρο"
+    },
+    "assistant_block_element": {
+        "message": "Αποκλεισμός στοιχείου"
+    },
+    "assistant_block_element_explain": {
+        "message": "Προσαρμόστε τον κανόνα αποκλεισμού στοιχείου"
+    },
+    "assistant_slider_explain": {
+        "message": "Μετακινήστε το ρυθμιστικό για να αλλάξετε το μέγεθος του πλαισίου για τον οποίο θα λειτουργεί ο νέος κανόνας:"
+    },
+    "assistant_extended_settings": {
+        "message": "Προηγμένες ρυθμίσεις"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Εφαρμογή του κανόνα σε όλες τις ιστοσελίδες"
+    },
+    "assistant_block_by_reference": {
+        "message": "Αποκλεισμός μέσω συνδέσμου αναφοράς"
+    },
+    "assistant_block_similar": {
+        "message": "Αποκλεισμός παρόμοιου"
+    },
+    "assistant_another_element": {
+        "message": "Επιλέξτε ένα διαφορετικό στοιχείο"
+    },
+    "assistant_preview": {
+        "message": "Προεπισκόπηση"
+    },
+    "assistant_block": {
+        "message": "Αποκλεισμός"
+    },
+    "assistant_settings": {
+        "message": "Ρυθμίσεις βοηθού"
+    },
+    "assistant_preview_header": {
+        "message": "Αποκλεισμός στοιχείου - προεπισκόπηση"
+    },
+    "assistant_preview_header_info": {
+        "message": "Βεβαιωθείτε ότι το στοιχείο είναι μπλοκαρισμένο όπως προορίζεται"
+    },
+    "assistant_preview_end": {
+        "message": "Έξοδος προεπισκόπησης"
+    },
+    "wot_unknown_description": {
+        "message": "Η φήμη αυτού του ιστότοπου δεν έχει καθοριστεί από το $1"
+    },
+    "wot_bad_description": {
+        "message": "Αυτός ο ιστότοπος έχει πολύ κακή φήμη\nσύμφωνα με το $1"
+    },
+    "wot_poor_description": {
+        "message": "Αυτός ο ιστότοπος έχει κακή φήμη\nσύμφωνα με το $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Αυτός ο ιστότοπος έχει κακή φήμη\nσύμφωνα με το $1"
+    },
+    "wot_good_description": {
+        "message": "Αυτός ο ιστότοπος έχει καλή φήμη\nσύμφωνα με το $1"
+    },
+    "wot_excellent_description": {
+        "message": "Αυτός ο ιστότοπος έχει εξαιρετική φήμη\nσύμφωνα με το $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Προσαρμόστε το μέγεθος και τη θέση του Βοηθού AdGuard"
+    },
+    "settings_icon_size": {
+        "message": "Μέγεθος εικονιδίου:"
+    },
+    "settings_small": {
+        "message": "Μικρό"
+    },
+    "settings_big": {
+        "message": "Μεγάλο"
+    },
+    "settings_position": {
+        "message": "Θέση:"
+    },
+    "settings_left_top": {
+        "message": "Πάνω αριστερά"
+    },
+    "settings_right_top": {
+        "message": "Πάνω δεξιά"
+    },
+    "settings_left_bottom": {
+        "message": "Κάτω αριστερά"
+    },
+    "settings_right_bottom": {
+        "message": "Κάτω δεξιά"
+    },
+    "settings_cancel": {
+        "message": "Άκυρο"
+    },
+    "settings_save": {
+        "message": "Αποθήκευση αλλαγών"
+    }
+}

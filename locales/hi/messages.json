@@ -1,4 +1,10 @@
 {
+    "assistant_extended_settings": {
+        "message": "उन्नत सेटिंग"
+    },
+    "assistant_block": {
+        "message": "अवरुद्ध"
+    },
     "settings_icon_size": {
         "message": "आइकन का आकार:"
     },

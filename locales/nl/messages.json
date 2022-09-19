@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "Alle websites",
+    "settings_position_save_this": "Deze website",
+    "assistant_select_element_start": "Starten",
+    "assistant_select_element_text": "Kies een element op deze webpagina om te blokkeren. Herlaad de pagina om het blokkeren van het element te stoppen.",
+    "menu_filtration_status": {
+        "message": "Filteren op deze website"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Niet filtreren voor 30 seconden"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Blokkeer ad op deze website"
+    },
+    "menu_report_abuse": {
+        "message": "Rapporteer de website"
+    },
+    "menu_site_report": {
+        "message": "Beveiligingsrapport van website"
+    },
+    "menu_settings": {
+        "message": "Instelling van de assistent"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Website reputatie indicator"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Vertrouwensniveau reputatie"
+    },
+    "assistant_select_element": {
+        "message": "Element blokkeren"
+    },
+    "assistant_select_element_ext": {
+        "message": "Kies een element op deze pagina dat je wil blokkeren"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Annuleren"
+    },
+    "assistant_block_element": {
+        "message": "Element blokkeren"
+    },
+    "assistant_block_element_explain": {
+        "message": "Pas de Element blokkeren regel aan"
+    },
+    "assistant_slider_explain": {
+        "message": "Beweeg de schuifregelaar om de grootte van het frame te wijzigen waarvoor de nieuwe regel werkt:"
+    },
+    "assistant_extended_settings": {
+        "message": "Geavanceerde instellingen"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Regel toepassen op alle websites"
+    },
+    "assistant_block_by_reference": {
+        "message": "Blokkeren via referentielink"
+    },
+    "assistant_block_similar": {
+        "message": "Blokkeer vergelijkbare"
+    },
+    "assistant_another_element": {
+        "message": "Een ander element selecteren"
+    },
+    "assistant_preview": {
+        "message": "Voorbeeldweergave"
+    },
+    "assistant_block": {
+        "message": "Blokkeren"
+    },
+    "assistant_settings": {
+        "message": "Assistent instellingen"
+    },
+    "assistant_preview_header": {
+        "message": "Elementblokkering - voorbeeld"
+    },
+    "assistant_preview_header_info": {
+        "message": "Zorg ervoor dat het element wordt geblokkeerd zoals bedoeld"
+    },
+    "assistant_preview_end": {
+        "message": "Voorbeeldweergave afsluiten"
+    },
+    "wot_unknown_description": {
+        "message": "De reputatie van deze website wordt niet bepaald door $1"
+    },
+    "wot_bad_description": {
+        "message": "Deze website heeft een zeer slechte reputatie\nvolgens $1"
+    },
+    "wot_poor_description": {
+        "message": "Deze website heeft een slechte reputatie\nvolgens $ 1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Deze website heeft een slechte reputatie volgens $1"
+    },
+    "wot_good_description": {
+        "message": "Deze website heeft een goede reputatie volgens $1"
+    },
+    "wot_excellent_description": {
+        "message": "Deze website heeft een uitstekende reputatie volgens $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Grootte en positie van AdGuard Assistent aanpassen"
+    },
+    "settings_icon_size": {
+        "message": "Grootte pictogram:"
+    },
+    "settings_small": {
+        "message": "Klein"
+    },
+    "settings_big": {
+        "message": "Groot"
+    },
+    "settings_position": {
+        "message": "Positie:"
+    },
+    "settings_left_top": {
+        "message": "Linksboven"
+    },
+    "settings_right_top": {
+        "message": "Rechtsboven"
+    },
+    "settings_left_bottom": {
+        "message": "Linksonder"
+    },
+    "settings_right_bottom": {
+        "message": "Rechtsonder"
+    },
+    "settings_cancel": {
+        "message": "Annuleren"
+    },
+    "settings_save": {
+        "message": "Wijzigingen opslaan"
+    }
+}

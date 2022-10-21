@@ -1,7 +1,7 @@
 const [{
     // Base locale
     base_locale: BASE_LOCALE,
-    // Twosky project see mapping https://twosky.adtidy.org/api/v1/mapping
+    // Twosky project see mapping https://twosky.int.agrd.dev/api/v1/mapping
     project_id: PROJECT_ID,
     // Available translations list
     languages: LANGUAGES,

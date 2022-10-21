@@ -12,7 +12,7 @@ const {
 } = require('./consts');
 
 // URLs
-const BASE_URL = 'https://twosky.adtidy.org/api/v1';
+const BASE_URL = 'https://twosky.int.agrd.dev/api/v1';
 const BASE_DOWNLOAD_URL = `${BASE_URL}/download`;
 const BASE_UPLOAD_URL = `${BASE_URL}/upload`;
 // Directory where locales should be stored

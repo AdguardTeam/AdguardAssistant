@@ -1,5 +1,5 @@
 /*!
- * AdGuard Assistant - v4.3.65 - Thu Nov 10 2022
+ * AdGuard Assistant - v4.3.65 - Fri Nov 25 2022
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2022 AdGuard. Licensed GPL-3.0
  */
@@ -4334,7 +4334,8 @@ function BlockPreviewController(addRule, iframe) {
     iframeCtrl.showSelectorMenu();
   };
 
-  var blockElement = function blockElement() {
+  var blockElement = function blockElement(e) {
+    e.stopPropagation();
     iframeCtrl.blockElement(selectedPath, addRule);
   };
 

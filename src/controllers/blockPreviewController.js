@@ -32,7 +32,8 @@ export default function BlockPreviewController(addRule, iframe) {
         iframeCtrl.showSelectorMenu();
     };
 
-    const blockElement = () => {
+    const blockElement = (e) => {
+        e.stopPropagation();
         iframeCtrl.blockElement(selectedPath, addRule);
     };
 

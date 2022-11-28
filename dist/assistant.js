@@ -1,5 +1,5 @@
 /*!
- * AdGuard Assistant - v4.3.65 - Fri Nov 25 2022
+ * AdGuard Assistant - v4.3.66 - Mon Nov 28 2022
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2022 AdGuard. Licensed GPL-3.0
  */
@@ -415,7 +415,7 @@ module.exports = code;
 /* 19 */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"a\":\"4.3.65\"}");
+module.exports = JSON.parse("{\"a\":\"4.3.66\"}");
 
 /***/ }),
 /* 20 */

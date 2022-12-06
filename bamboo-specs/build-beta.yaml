@@ -5,7 +5,7 @@ plan:
   key: LEGASSBETASPECS
   name: legacy assistant - build beta
 variables:
-  dockerNode: node:15.14.0-buster-slim
+  dockerNode: adguard/node-ssh:16.17--1
 
 stages:
   - Build:

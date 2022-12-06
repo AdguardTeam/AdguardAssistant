@@ -5,7 +5,7 @@ plan:
   key: LEGASSTESTSPECS
   name: legacy assistant - test
 variables:
-  dockerPuppeteer: buildkite/puppeteer:8.0.0
+  dockerPuppeteer: adguard/puppeteer-runner:8.0--1
 
 stages:
   - Test:

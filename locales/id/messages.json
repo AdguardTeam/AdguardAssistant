@@ -1,7 +1,7 @@
 {
-    "settings_position_save": "Situs",
-    "settings_position_save_all": "Semua situs",
-    "settings_position_save_this": "Situs ini",
+    "settings_position_save": "Situs web",
+    "settings_position_save_all": "Semua situs web",
+    "settings_position_save_this": "Situs web ini",
     "assistant_select_element_start": "Mulai",
     "assistant_select_element_text": "Pilih elemen di halaman untuk diblokir. Segarkan halaman untuk membatalkan mode pemblokiran elemen.",
     "menu_filtration_status": {
@@ -65,7 +65,7 @@
         "message": "Pratinjau"
     },
     "assistant_block": {
-        "message": "Blok"
+        "message": "Blokir"
     },
     "assistant_settings": {
         "message": "Pengaturan Asisten"

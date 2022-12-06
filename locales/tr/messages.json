@@ -8,7 +8,7 @@
         "message": "Bu sitedeki filtreleme"
     },
     "menu_do_not_filter_30_sec": {
-        "message": "30 saniye boyunca filtreleme yapma"
+        "message": "30 saniyeliğine filtreleme yapma"
     },
     "menu_block_ad_on_site": {
         "message": "Bu sitede reklam engelle"
@@ -32,7 +32,7 @@
         "message": "Öğe engelleme"
     },
     "assistant_select_element_ext": {
-        "message": "Bu sitede engellemek için bir öğe seçin"
+        "message": "Sayfada engellenecek bir öğe seçin"
     },
     "assistant_select_element_cancel": {
         "message": "İptal"
@@ -50,7 +50,7 @@
         "message": "Gelişmiş ayarlar"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Tüm sitelerde bu kuralı uygula"
+        "message": "Kuralı tüm sitelerde uygula"
     },
     "assistant_block_by_reference": {
         "message": "Referans bağlantı ile engelle"
@@ -71,7 +71,7 @@
         "message": "Asistan ayarları"
     },
     "assistant_preview_header": {
-        "message": "Öğe engelleme - önizleme"
+        "message": "Öğe engelleme - ön izleme"
     },
     "assistant_preview_header_info": {
         "message": "Öğenin istediğiniz gibi engellendiğinden emin olun"
@@ -83,19 +83,19 @@
         "message": "Bu sitenin itibarı $1 tarafından henüz belirlenmemiş"
     },
     "wot_bad_description": {
-        "message": "Bu site $1 değerlendirmesine göre\nçok kötü bir itibara sahip"
+        "message": "1$'a göre bu site çok kötü \nbir itibara sahip"
     },
     "wot_poor_description": {
-        "message": "Bu site $1 değerlendirmesine göre\nkötü bir itibara sahip"
+        "message": "1$'a göre bu site kötü \nbir itibara sahip"
     },
     "wot_unsatisfactory_description": {
-        "message": "Bu site $1 değerlendirmesine göre\nzayıf bir itibara sahip"
+        "message": "1$'a göre bu site zayıf\nbir itibara sahip"
     },
     "wot_good_description": {
-        "message": "Bu site $1 değerlendirmesine göre\niyi bir itibara sahip"
+        "message": "1$'a göre bu site iyi\nbir itibara sahip"
     },
     "wot_excellent_description": {
-        "message": "Bu site $1 değerlendirmesine göre\nmükemmel bir itibara sahip"
+        "message": "1$'a göre bu site mükemmel\nbir itibara sahip"
     },
     "settings_choose_size_and_position": {
         "message": "AdGuard Asistanın boyutunu ve konumunu ayarlayın"

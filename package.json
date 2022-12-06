@@ -41,6 +41,7 @@
         "eslint-config-airbnb-base": "14.2.1",
         "eslint-plugin-import": "^2.22.1",
         "filemanager-webpack-plugin": "^2.0.5",
+        "fs-extra": "^11.1.0",
         "html-loader": "^1.1.0",
         "html-webpack-plugin": "^5.5.0",
         "less": "^3.11.1",

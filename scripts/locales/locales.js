@@ -2,7 +2,6 @@
 const fs = require('fs-extra');
 const path = require('path');
 const axios = require('axios');
-const FormData = require('form-data');
 const {
     BASE_LOCALE,
     PROJECT_ID,
@@ -104,24 +103,26 @@ function saveFile(filePath, content) {
 /**
  * Entry point for downloading translations
  */
-function download() {
-    LOCALES.forEach((lang) => {
-        if (lang === BASE_LOCALE) {
-            return;
-        }
-        CROWDIN_FILES.forEach(async (file) => {
+async function download() {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const lang of LOCALES) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const file of CROWDIN_FILES) {
+            const url = getDownloadURL(lang, file);
             try {
-                const { data } = await axios.get(getDownloadURL(lang, file));
+                console.log('Downloading:', url);
+                // eslint-disable-next-line no-await-in-loop
+                const { data } = await axios.get(url);
                 const resultLocale = getEquivalent(lang);
                 const filePath = path.resolve(LOCALES_DIR, resultLocale, `${file}`);
                 const formatted = removeEmptyStrings(data);
                 saveFile(filePath, formatted);
             } catch (e) {
-                console.log(getDownloadURL(lang, file));
+                console.log('Error on downloading url:', url);
                 console.log(e.message);
             }
-        });
-    });
+        }
+    }
 }
 
 /**
@@ -146,7 +147,10 @@ function upload() {
  * You need set environment variable LOCALES=DOWNLOAD|UPLOAD when run the script
  */
 if (process.env.LOCALES === 'DOWNLOAD') {
-    download();
+    download().catch((e) => {
+        console.log(e);
+        process.exit(1);
+    });
 } else if (process.env.LOCALES === 'UPLOAD') {
     upload();
 } else {

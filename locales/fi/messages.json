@@ -47,10 +47,10 @@
         "message": "Siirrä liukukytkintä muuttaaksesi sen kehyksen kokoa, johon tämä sääntö vaikuttaa:"
     },
     "assistant_extended_settings": {
-        "message": "Lisäasetukset"
+        "message": "Edistyneet lisäasetukset"
     },
     "assistant_apply_rule_to_all_sites": {
-        "message": "Käytä sääntöä kaikilla sivustoilla"
+        "message": "Käytä kaikilla sivustoilla"
     },
     "assistant_block_by_reference": {
         "message": "Estä viitelinkillä"

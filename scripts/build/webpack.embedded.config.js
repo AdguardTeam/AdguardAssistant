@@ -25,7 +25,7 @@ Copyright (c) ${new Date().getFullYear()} ${pkg.author}. Licensed ${pkg.license}
 
 const config = {
     entry: path.resolve(__dirname, SOURCE_DIR, 'index.js'),
-    devtool: CHANNEL_ENV === CHANNEL_ENVS.DEV ? 'eval-source-map' : false,
+    devtool: CHANNEL_ENV === CHANNEL_ENVS.DEV ? 'inline-source-map' : false,
     output: {
         path: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENV),
         filename: FILENAME,
@@ -58,15 +58,16 @@ const fileManagerPlugin = new FileManagerPlugin({
     onEnd: {
         copy: [
             {
-                source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, FILENAME),
+                source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENV, FILENAME),
                 destination: path.resolve(__dirname, DIST_DIR),
             },
         ],
     },
 });
 
-if (CHANNEL_ENV === CHANNEL_ENVS.RELEASE) {
-    config.plugins.unshift(fileManagerPlugin);
-}
+// FIXME uncomment
+// if (CHANNEL_ENV === CHANNEL_ENVS.RELEASE) {
+config.plugins.unshift(fileManagerPlugin);
+// }
 
 module.exports = merge(commonConfig, config);

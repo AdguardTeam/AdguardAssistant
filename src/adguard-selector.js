@@ -1,12 +1,5 @@
 /* eslint-disable no-param-reassign, func-names */
-import {
-    removeClass,
-    hasClass,
-    addStyle,
-    hide,
-    toArray,
-    show,
-} from './utils/dom-utils';
+import { addStyle, hasClass, hide, removeClass, show, toArray, } from './utils/dom-utils';
 import protectedApi from './protectedApi';
 
 /**
@@ -60,7 +53,8 @@ function AdguardSelector(api = {}) {
     };
 
     const getTagPath = function (element) {
-        if (element.parentNode) {
+        // FIXME better path for shadow dom selector
+        if (element.parentNode && !element.parentNode.host) {
             return `${element.parentNode.tagName.toLowerCase()} ${element.tagName.toLowerCase()}`;
         }
         return element.tagName.toLowerCase();
@@ -68,7 +62,13 @@ function AdguardSelector(api = {}) {
 
     /** ******** Events ************** */
     const sgMouseoverHandler = function (e) {
-        e.stopPropagation();
+        if (!e.target.shadowRoot) {
+            e.stopPropagation();
+        }
+
+        if (e.target.shadowRoot) {
+            return true;
+        }
 
         if (unbound) {
             return true;
@@ -577,9 +577,36 @@ function AdguardSelector(api = {}) {
         return false;
     };
 
+    /**
+     * Selects elements in the dom including shadow elements
+     * @param selector
+     * @returns {*[]}
+     */
+    const selectElements = (selector) => {
+        const selectElementsIn = (parent, selector) => {
+            const elements = parent.querySelectorAll(selector);
+
+            const result = [];
+            for (let i = 0; i < elements.length; i += 1) {
+                const element = elements[i];
+                if (element.shadowRoot) {
+                    // FIXME do not use body for shadow root elements
+                    const shadowRootElements = selectElementsIn(element.shadowRoot, `*:not(.${IGNORED_CLASS})`);
+                    for (let i = 0; i < shadowRootElements.length; i += 1) {
+                        result.push(shadowRootElements[i]);
+                    }
+                }
+                result.push(element);
+            }
+            return result;
+        };
+
+        return selectElementsIn(document, selector);
+    };
+
     const setupEventHandlers = function () {
         makeIFrameAndEmbeddedSelector();
-        const elements = document.querySelectorAll(`body *:not(.${IGNORED_CLASS})`);
+        const elements = selectElements(`body *:not(.${IGNORED_CLASS})`);
         toArray(elements).forEach((el) => {
             el.addEventListener('gestureend', gestureEndHandler);
             el.addEventListener('touchmove', touchMoveHandler);
@@ -594,7 +621,7 @@ function AdguardSelector(api = {}) {
     const deleteEventHandlers = function () {
         removePlaceholders();
 
-        const elements = document.querySelectorAll('body *');
+        const elements = selectElements('body *');
         toArray(elements).forEach((el) => {
             el.removeEventListener('gestureend', gestureEndHandler);
             el.removeEventListener('touchmove', touchMoveHandler);

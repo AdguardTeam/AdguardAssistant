@@ -1,7 +1,7 @@
 /*!
- * AdGuard Assistant - v4.3.68 - Tue Dec 06 2022
+ * AdGuard Assistant - v4.3.69 - Thu Mar 09 2023
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
- * Copyright (c) 2022 AdGuard. Licensed GPL-3.0
+ * Copyright (c) 2023 AdGuard. Licensed GPL-3.0
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -5962,7 +5962,7 @@ function SliderMenuControllerMobile(addRule, iframe) {
   };
 }
 ;// CONCATENATED MODULE: ./package.json
-const package_namespaceObject = {"i8":"4.3.68"};
+const package_namespaceObject = {"i8":"4.3.69"};
 ;// CONCATENATED MODULE: ./src/iframe.mobile.js
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 

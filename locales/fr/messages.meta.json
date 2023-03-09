@@ -2,7 +2,7 @@
     "extension": {
         "assistant": {
             "name": "Assistant AdGuard ",
-            "description": "Fournit un moyen facile et pratique pour gérer le filtrage des droit à partir du navigateur"
+            "description": "Fournit un moyen simple et pratique de gérer le filtrage directement depuis le navigateur"
         }
     }
 }

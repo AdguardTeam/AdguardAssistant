@@ -3,17 +3,7 @@
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2023 AdGuard. Licensed GPL-3.0
  */
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else {
-		var a = factory();
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
-})(self, () => {
-return /******/ (() => { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 1503:
@@ -6292,7 +6282,8 @@ var isMobile = function isMobile(ua) {
 var adguardAssistant = isMobile(navigator.userAgent) ? adguardAssistantMini : adguardAssistantExtended;
 })();
 
-/******/ 	return __webpack_exports__;
+var __webpack_export_target__ = self;
+for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
+if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
 /******/ })()
 ;
-});

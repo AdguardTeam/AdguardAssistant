@@ -29,7 +29,9 @@ const config = {
     output: {
         path: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENV),
         filename: FILENAME,
-        libraryTarget: 'umd',
+        library: {
+            type: 'umd',
+        },
     },
     optimization: {
         minimize: false,

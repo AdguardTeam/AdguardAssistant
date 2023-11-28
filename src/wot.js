@@ -9,6 +9,7 @@
  * @constructor
  */
 function Wot() {
+    // eslint-disable-next-line max-len
     const wotUrlScorecardTemplate = 'https://link.adtidy.org/forward.html?action=wot_scorecard&from=main_menu&app=assistant&domain=';
     const WOT_URL = 'https://link.adtidy.org/forward.html?action=wot&from=main_menu&app=assistant';
     let wotData = null;

@@ -89,6 +89,7 @@ function IframeController() {
         // IE hack for prevent access denied error
         // see: https://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
         if (navigator.userAgent.match(/msie/i)) {
+            // eslint-disable-next-line max-len
             iframe[IFRAME_SRC_ATTR] = `javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\"${document.domain}\\";<\\\\/script>\\');document.close();};</script>'`;
         }
 
@@ -286,7 +287,11 @@ function IframeController() {
         };
 
         if (!iframe) {
-            const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, getStyleNonce(), 'adg-styles-selector');
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                getStyleNonce(),
+                'adg-styles-selector',
+            );
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }

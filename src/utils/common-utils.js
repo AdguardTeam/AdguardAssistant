@@ -2,7 +2,7 @@ export const cropDomain = (domain) => domain.replace('www.', '').replace(/:\d+/,
 
 /**
  * Force clear the page cache
- * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
+ * @see {@link https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362}
  * @param callback
  */
 export const bypassCache = (callback) => {

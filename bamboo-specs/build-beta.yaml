@@ -5,7 +5,7 @@ plan:
   key: LEGASSBETASPECS
   name: legacy assistant - build beta
 variables:
-  dockerNode: adguard/node-ssh:16.17--1
+  dockerNode: adguard/node-ssh:18.13--1
 
 stages:
   - Build:

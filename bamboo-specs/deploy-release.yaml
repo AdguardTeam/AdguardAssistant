@@ -40,7 +40,7 @@ userscripts.adtidy.org:
             url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
 npmjs:
   docker:
-    image: adguard/node-ssh:14.18--0
+    image: adguard/node-ssh:18.13--1
     volumes:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
   triggers: [ ]

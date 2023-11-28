@@ -1,17 +1,20 @@
 name: Build Adguard Assistant
 
+env:
+  NODE_VERSION: 18
+
 on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.jobs
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: yarn install
         run: yarn install
@@ -33,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Conclusion
-        uses: technote-space/workflow-conclusion-action@v1
+        uses: technote-space/workflow-conclusion-action@v3
       - name: Send Slack notif
         uses: 8398a7/action-slack@v3
         with:

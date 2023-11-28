@@ -45,6 +45,8 @@ function IframeController() {
     let buttonPosition = null;
     const blockedElementsStyleID = 'ag-hide-elements-style-id';
 
+    const IFRAME_SRC_ATTR = 'src';
+
     const views = {};
 
     views[settings.MenuItemsNames.DetailedMenu] = HTML.detailed_menu;
@@ -87,10 +89,16 @@ function IframeController() {
         // IE hack for prevent access denied error
         // see: https://stackoverflow.com/questions/1886547/access-is-denied-javascript-error-when-trying-to-access-the-document-object-of
         if (navigator.userAgent.match(/msie/i)) {
-            iframe.src = `javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\"${document.domain}\\";<\\\\/script>\\');document.close();};</script>'`;
+            iframe[IFRAME_SRC_ATTR] = `javascript:'<script>window.onload=function(){document.write(\\'<script>document.domain=\\"${document.domain}\\";<\\\\/script>\\');document.close();};</script>'`;
         }
 
         const attributes = {
+            // Empty 'src' is needed for "marking" the iframe as not local for any web page
+            // to avoid cosmetic rules (specific for websites) to be applied to the iframe.
+            // To be more specific, frame's url is matched with main frame url on webNavigation.onDOMContentLoaded
+            // so iframe's 'src' attribute should be removed and needed content should be appended to the iframe.
+            // https://github.com/AdguardTeam/AdguardBrowserExtension/issues/1848
+            [IFRAME_SRC_ATTR]: 'data:text/html, ',
             id: settings.Constants.IFRAME_ID,
             class: selector.ignoreClassName(),
             frameBorder: 0,
@@ -242,6 +250,12 @@ function IframeController() {
                 getStyleNonce(),
             );
             view.appendChild(stylesElement);
+
+            // remove iframe's src attribute which is empty
+            // and is only needed for mismatching iframe's url with main frame url
+            // https://github.com/AdguardTeam/AdguardBrowserExtension/issues/1848
+            frameElement.removeAttribute(IFRAME_SRC_ATTR);
+
             appendContent(view);
             localize();
             if (!options) {

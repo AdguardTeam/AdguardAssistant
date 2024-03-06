@@ -63,9 +63,22 @@ npmjs:
             export NPM_TOKEN=${bamboo.npmSecretToken}
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
             npm publish --access public
+  final-tasks:
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
 
-            # cleanup
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            echo "Size before cleanup:" && du -h | tail -n 1
             rm -rf node_modules
+            echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
     - adg-docker: 'true'
   notifications:

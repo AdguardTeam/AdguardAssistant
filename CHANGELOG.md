@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 
-## [4.3.72] - 2023-11-29
+## [4.3.73] - 2024-03-22
 
 ### Fixed
 

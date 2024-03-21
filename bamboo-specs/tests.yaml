@@ -39,9 +39,6 @@ Test:
 
             yarn lint
             yarn test
-<<<<<<< HEAD
-
-=======
   final-tasks:
     - script:
         interpreter: SHELL
@@ -56,7 +53,6 @@ Test:
             ls -la
 
             echo "Size before cleanup:" && du -h | tail -n 1
->>>>>>> master
             rm -rf node_modules
             echo "Size after cleanup:" && du -h | tail -n 1
   artifacts:

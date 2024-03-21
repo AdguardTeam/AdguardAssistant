@@ -82,7 +82,7 @@ function IframeController() {
         return shadowiframeAnchor;
     };
 
-    const createIframe = (onIframeLoadCallback) => {
+    const createIframe = (onIframeLoadCallback, checkSrcAttribute) => {
         log.debug('Creating iframe');
         iframe = protectedApi.createElement('iframe');
 
@@ -94,17 +94,21 @@ function IframeController() {
         }
 
         const attributes = {
+            // FIXME: update this comment due to checkSrcAttribute changes
             // Empty 'src' is needed for "marking" the iframe as not local for any web page
             // to avoid cosmetic rules (specific for websites) to be applied to the iframe.
             // To be more specific, frame's url is matched with main frame url on webNavigation.onDOMContentLoaded
             // so iframe's 'src' attribute should be removed and needed content should be appended to the iframe.
             // https://github.com/AdguardTeam/AdguardBrowserExtension/issues/1848
-            [IFRAME_SRC_ATTR]: 'data:text/html, ',
             id: settings.Constants.IFRAME_ID,
             class: selector.ignoreClassName(),
             frameBorder: 0,
             allowTransparency: 'true',
         };
+
+        if (checkSrcAttribute) {
+            attributes[IFRAME_SRC_ATTR] = checkSrcAttribute;
+        }
         Object.keys(attributes).forEach((item) => {
             iframe.setAttribute(item, attributes[item]);
         });
@@ -237,7 +241,7 @@ function IframeController() {
         }
     };
 
-    const showMenuItem = (viewName, controller, width, height, options) => {
+    const showMenuItem = (viewName, controller, width, height, options, checkSrcAttribute) => {
         log.debug(`Showing menu item: ${viewName}`);
         if (currentItem === viewName) {
             return;
@@ -296,7 +300,7 @@ function IframeController() {
                 document.documentElement.appendChild(adgStylesSelector);
             }
 
-            createIframe(onIframeLoad);
+            createIframe(onIframeLoad, checkSrcAttribute);
             return;
         }
         onIframeLoad();
@@ -344,10 +348,10 @@ function IframeController() {
         setCloseEventIfNotHitIframe(true);
     };
 
-    const showSelectorMenu = () => {
+    const showSelectorMenu = (checkSrcAttribute) => {
         const controller = new SelectorMenuController(ioc.get('iframeController'));
         const options = { dragElement: '.head' };
-        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 160, options);
+        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 160, options, checkSrcAttribute);
         setCloseEventIfNotHitIframe(false);
     };
 

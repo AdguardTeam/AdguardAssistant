@@ -20,14 +20,14 @@ export function adguardAssistantExtended() {
     ioc.register('iframeController', iframeController);
 
     return {
-        start(element, callback) {
+        start(element, callback, checkSrcAttribute) {
             ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
             if (element) {
                 iframeController.showSelectorMenu();
                 iframeController.showSliderMenu(element);
             } else {
-                iframeController.showSelectorMenu();
+                iframeController.showSelectorMenu(checkSrcAttribute);
             }
         },
         close() {

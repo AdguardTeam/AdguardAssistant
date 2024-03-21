@@ -4,7 +4,11 @@ declare module "@adguard/assistant" {
     }
 
     interface Assistant {
-        start: (element: HTMLElement | null, callback: Callback) => void,
+        start: (
+            element: HTMLElement | null,
+            callback: Callback,
+            checkSrcAttribute?: string,
+        ) => void,
         close: () => void,
     }
 

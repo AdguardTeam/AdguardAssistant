@@ -39,8 +39,26 @@ Test:
 
             yarn lint
             yarn test
+<<<<<<< HEAD
 
+=======
+  final-tasks:
+    - script:
+        interpreter: SHELL
+        scripts:
+          - |-
+            set -x
+            set -e
+
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -la
+
+            echo "Size before cleanup:" && du -h | tail -n 1
+>>>>>>> master
             rm -rf node_modules
+            echo "Size after cleanup:" && du -h | tail -n 1
   artifacts:
     - name: assistant.meta.js
       location: build/dev

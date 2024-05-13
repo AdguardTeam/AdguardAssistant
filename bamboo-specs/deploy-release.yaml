@@ -14,7 +14,7 @@ userscripts.adtidy.org:
     - checkout:
         repository: bamboo-deploy-publisher
         path: bamboo-deploy-publisher
-        force-clean-build: 'false'
+        force-clean-build: false
     - artifact-download:
         artifacts:
           - {}
@@ -30,23 +30,23 @@ userscripts.adtidy.org:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
+    - adg-docker: true
   notifications:
     - events:
         - deployment-started-and-finished
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
 npmjs:
   docker:
     image: adguard/node-ssh:18.13--1
     volumes:
       ${system.YARN_DIR}: "${bamboo.cacheYarn}"
-  triggers: [ ]
+  triggers: []
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -80,11 +80,11 @@ npmjs:
             rm -rf node_modules
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
-    - adg-docker: 'true'
+    - adg-docker: true
   notifications:
     - events:
         - deployment-started-and-finished
       recipients:
         - webhook:
             name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa
+            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds

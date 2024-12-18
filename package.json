@@ -19,6 +19,10 @@
         "increment": "yarn version --patch --no-git-tag-version",
         "prepublishOnly": "yarn release"
     },
+    "files": [
+        "dist/**",
+        "!dist/build.txt"
+    ],
     "author": "AdGuard",
     "license": "GPL-3.0",
     "repository": {
@@ -37,7 +41,6 @@
         "babel-loader": "^9.2.1",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^6",
-        "cp-file": "^9.0.0",
         "create-file-webpack": "^1.0.2",
         "css-loader": "^3.4.2",
         "eslint": "^7.2.0",

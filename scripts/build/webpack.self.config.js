@@ -1,10 +1,15 @@
-import { resolve } from 'node:path';
+/* eslint-disable import/extensions */
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import FileManagerPlugin from 'filemanager-webpack-plugin';
 
-import config from './webpack.umd.config';
+import config from './webpack.umd.config.js';
 import {
     BUILD_DIR, CHANNEL_ENVS, SELF_FILENAME, DIST_DIR,
-} from './constants';
+} from './constants.js';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 

@@ -13,7 +13,7 @@ const USERSCRIPT_NAME = 'assistant';
 const LOCALES_DIR = '../../locales';
 const TYPES_DIR = '../../types';
 
-module.exports = {
+export {
     CHANNEL_ENVS,
     BUILD_DIR,
     SOURCE_DIR,

@@ -1,4 +1,5 @@
-import { CHANNEL_ENVS } from './constants';
+/* eslint-disable import/extensions */
+import { CHANNEL_ENVS } from './constants.js';
 
 const CHANNEL = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 

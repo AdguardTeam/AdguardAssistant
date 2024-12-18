@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog][keepachangelog],
 and this project adheres to [Semantic Versioning][semver].
 
 
+## [4.4.0] - 2024-12-18
+
+### Changed
+
+- Switched to ESM build.
+
+[4.4.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.70...v4.4.0
+
 ## [4.3.70] - 2023-06-01
 
 ### Added

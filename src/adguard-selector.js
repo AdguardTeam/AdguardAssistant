@@ -187,7 +187,7 @@ function AdguardSelector(api = {}) {
      * @private
      */
     // eslint-disable-next-line no-shadow
-    const BorderSelectionRenderer = (function (api) {
+    let BorderSelectionRenderer = function (api) {
         const BORDER_WIDTH = 5;
         const BORDER_PADDING = 2;
 
@@ -386,7 +386,9 @@ function AdguardSelector(api = {}) {
 
         return api;
         // eslint-disable-next-line no-use-before-define
-    }(BorderSelectionRenderer || {}));
+    };
+
+    BorderSelectionRenderer = BorderSelectionRenderer(BorderSelectionRenderer || {});
 
     const linkHelper = protectedApi.createElement('a');
     const getHost = function (url) {

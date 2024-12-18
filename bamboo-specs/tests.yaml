@@ -35,6 +35,7 @@ Test:
 
             # export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
             yarn install ${bamboo.varsYarn}
+            npx puppeteer browsers install chrome
             yarn dev
             yarn test
   final-tasks:

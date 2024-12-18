@@ -2,7 +2,9 @@
 import locales from '../locales/index';
 import protectedApi from './protectedApi';
 
-const [{ base_locale: BASE_LOCALE }] = require('../.twosky.json');
+import TwoSkyJson from '../.twosky.json';
+
+const [{ base_locale: BASE_LOCALE }] = TwoSkyJson;
 
 /**
  * Object that manages localizations

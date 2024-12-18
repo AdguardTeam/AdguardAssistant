@@ -1,13 +1,10 @@
-const path = require('path');
-const FileManagerPlugin = require('filemanager-webpack-plugin');
+import { resolve } from 'node:path';
+import FileManagerPlugin from 'filemanager-webpack-plugin';
 
-const config = require('./webpack.umd.config');
-const {
-    BUILD_DIR,
-    CHANNEL_ENVS,
-    SELF_FILENAME,
-    DIST_DIR,
-} = require('./constants');
+import config from './webpack.umd.config';
+import {
+    BUILD_DIR, CHANNEL_ENVS, SELF_FILENAME, DIST_DIR,
+} from './constants';
 
 const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 
@@ -20,7 +17,7 @@ const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
  * see AG-22653 issue
  */
 config.output = {
-    path: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENV),
+    path: resolve(__dirname, BUILD_DIR, CHANNEL_ENV),
     filename: SELF_FILENAME,
     library: {
         type: 'self',
@@ -31,8 +28,8 @@ const fileManagerPlugin = new FileManagerPlugin({
     onEnd: {
         copy: [
             {
-                source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, SELF_FILENAME),
-                destination: path.resolve(__dirname, DIST_DIR),
+                source: resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, SELF_FILENAME),
+                destination: resolve(__dirname, DIST_DIR),
             },
         ],
     },
@@ -42,4 +39,4 @@ if (CHANNEL_ENV === CHANNEL_ENVS.RELEASE) {
     config.plugins.unshift(fileManagerPlugin);
 }
 
-module.exports = config;
+export default config;

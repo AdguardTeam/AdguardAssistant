@@ -1,4 +1,4 @@
-const { CHANNEL_ENVS } = require('./constants');
+import { CHANNEL_ENVS } from './constants';
 
 const CHANNEL = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 
@@ -34,4 +34,4 @@ const config = {
     },
 };
 
-module.exports = config;
+export default config;

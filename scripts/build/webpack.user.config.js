@@ -1,29 +1,24 @@
-const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CreateFileWebpack = require('create-file-webpack');
-const webpack = require('webpack');
-const { merge } = require('webpack-merge');
+import { resolve } from 'node:path';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CreateFileWebpack from 'create-file-webpack';
+import { DefinePlugin } from 'webpack';
+import { merge } from 'webpack-merge';
 
-const commonConfig = require('./webpack.common.config');
+import commonConfig from './webpack.common.config';
 
-const MetaDataPlugin = require('./metadata.plugin');
-const metaSettings = require('./meta.settings');
-const {
-    SOURCE_DIR,
-    BUILD_DIR,
-    CHANNEL_ENVS,
-    USERSCRIPT_NAME,
-    LOCALES_DIR,
-    METADATA_TEMPLATE,
-} = require('./constants');
-const pkg = require('../../package.json');
+import MetaDataPlugin from './metadata.plugin';
+import metaSettings from './meta.settings';
+import {
+    SOURCE_DIR, BUILD_DIR, CHANNEL_ENVS, USERSCRIPT_NAME, LOCALES_DIR, METADATA_TEMPLATE,
+} from './constants';
+import pkg from '../../package.json';
 
 const CHANNEL = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
-const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, CHANNEL);
+const OUTPUT_PATH = resolve(__dirname, BUILD_DIR, CHANNEL);
 
 const config = {
     entry: {
-        [`${USERSCRIPT_NAME}.user`]: path.resolve(__dirname, SOURCE_DIR, 'index.user.js'),
+        [`${USERSCRIPT_NAME}.user`]: resolve(__dirname, SOURCE_DIR, 'index.user.js'),
     },
     output: {
         path: OUTPUT_PATH,
@@ -39,7 +34,7 @@ const config = {
             fileName: 'build.txt',
             content: `version=${pkg.version}`,
         }),
-        new webpack.DefinePlugin({
+        new DefinePlugin({
             DEBUG: CHANNEL === CHANNEL_ENVS.DEV,
         }),
         new MetaDataPlugin({
@@ -56,4 +51,4 @@ const config = {
     ],
 };
 
-module.exports = merge(commonConfig, config);
+export default merge(commonConfig, config);

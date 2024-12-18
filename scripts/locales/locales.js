@@ -1,14 +1,10 @@
 /* eslint-disable no-console */
-const fs = require('fs-extra');
-const path = require('path');
-const axios = require('axios');
-const {
-    BASE_LOCALE,
-    PROJECT_ID,
-    LANGUAGES,
-    LOCALIZABLE_FILES,
-    LOCALES_EQUIVALENTS_MAP,
-} = require('./consts');
+import { createReadStream, outputJson } from 'fs-extra';
+import { resolve } from 'node:path';
+import { get, post } from 'axios';
+import {
+    BASE_LOCALE, PROJECT_ID, LANGUAGES, LOCALIZABLE_FILES, LOCALES_EQUIVALENTS_MAP,
+} from './consts';
 
 // URLs
 const BASE_URL = 'https://twosky.int.agrd.dev/api/v1';
@@ -73,14 +69,14 @@ const getEquivalent = (locale) => LOCALES_EQUIVALENTS_MAP[locale] || locale;
  * @param {string} file crowdin file name
  */
 const getFormData = (file) => {
-    const pathToBaseFile = path.resolve(LOCALES_DIR, BASE_LOCALE, file);
+    const pathToBaseFile = resolve(LOCALES_DIR, BASE_LOCALE, file);
     const body = new FormData();
 
     body.append('format', 'json');
     body.append('language', BASE_LOCALE);
     body.append('project', CROWDIN_PROJECT);
     body.append('filename', `${file}`);
-    body.append('file', fs.createReadStream(pathToBaseFile));
+    body.append('file', createReadStream(pathToBaseFile));
     return body;
 };
 
@@ -97,7 +93,7 @@ const getDownloadURL = (lang, file) => BASE_DOWNLOAD_URL + getQueryString(lang, 
  * @param {any} content
  */
 function saveFile(filePath, content) {
-    fs.outputJson(filePath, content, { spaces: 4 });
+    outputJson(filePath, content, { spaces: 4 });
 }
 
 /**
@@ -112,9 +108,9 @@ async function download() {
             try {
                 console.log('Downloading:', url);
                 // eslint-disable-next-line no-await-in-loop
-                const { data } = await axios.get(url);
+                const { data } = await get(url);
                 const resultLocale = getEquivalent(lang);
-                const filePath = path.resolve(LOCALES_DIR, resultLocale, `${file}`);
+                const filePath = resolve(LOCALES_DIR, resultLocale, `${file}`);
                 const formatted = removeEmptyStrings(data);
                 saveFile(filePath, formatted);
             } catch (e) {
@@ -132,7 +128,7 @@ function upload() {
     CROWDIN_FILES.forEach(async (filename) => {
         try {
             const formData = getFormData(filename);
-            await axios.post(BASE_UPLOAD_URL, formData, {
+            await post(BASE_UPLOAD_URL, formData, {
                 contentType: 'multipart/form-data',
                 headers: formData.getHeaders(),
             });

@@ -7,7 +7,9 @@ import protectedApi from './protectedApi';
 import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
-import { version } from '../package.json';
+import pkg from '../package.json';
+
+const { version } = pkg;
 
 /**
  * Manages iframe and it's content

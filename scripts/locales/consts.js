@@ -1,3 +1,5 @@
+import TwoskyJson from '../../.twosky.json';
+
 const [{
     // Base locale
     base_locale: BASE_LOCALE,
@@ -7,7 +9,7 @@ const [{
     languages: LANGUAGES,
     // Crowdin files for downloading/uploading
     localizable_files: LOCALIZABLE_FILES,
-}] = require('../../.twosky.json');
+}] = TwoskyJson;
 
 /**
  * Users locale may be defined with only two chars (language code)
@@ -17,8 +19,7 @@ const LOCALES_EQUIVALENTS_MAP = {
     'pt-BR': 'pt',
     'zh-CN': 'zh',
 };
-
-module.exports = {
+export {
     LOCALES_EQUIVALENTS_MAP,
     BASE_LOCALE,
     PROJECT_ID,

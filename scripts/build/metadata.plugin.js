@@ -1,9 +1,10 @@
 /* eslint-disable max-len,no-param-reassign,no-unused-vars */
-const path = require('path');
-const glob = require('glob');
-const copyfile = require('cp-file');
-const replaceInFile = require('replace-in-file');
-const fs = require('fs');
+// FIXME: sync, _sync, __sync, better naming
+import { resolve, join } from 'node:path';
+import { sync } from 'glob';
+import { sync as _sync } from 'cp-file';
+import { sync as __sync } from 'replace-in-file';
+import { readFileSync, writeFileSync } from 'node:fs';
 
 const PLUGIN_NAME = 'MetaDataPlugin';
 const DEFAULT_METADATA_TEMPLATE = './meta.template.js';
@@ -24,7 +25,7 @@ const replaceWithMultipleSource = (source, filePath) => {
         }), { from: [], to: [] });
 
     replaceOptions.files = filePath;
-    replaceInFile.sync(replaceOptions);
+    __sync(replaceOptions);
 };
 
 /**
@@ -39,7 +40,7 @@ const replace = (from, to, filePath) => {
         to,
         files: filePath,
     };
-    replaceInFile.sync(replaceOptions);
+    __sync(replaceOptions);
 };
 
 /**
@@ -93,9 +94,9 @@ const getMessageValue = (messageKey, translation) => {
  * // example output: `// desctiption:ru Пример\n// desctiption:en Example\n`
  * ```
  */
-const getField = (translation, fieldOptions, localesDir, postfix) => {
+const getField = async (translation, fieldOptions, localesDir, postfix) => {
     // eslint-disable-next-line global-require,import/no-dynamic-require
-    const json = require(translation);
+    const json = await import(translation);
     const { metaName, messageKey, usePostfix } = fieldOptions;
     const value = getMessageValue(messageKey, json);
     if (!value) {
@@ -129,13 +130,13 @@ const createMetadata = (outputPath, callback, options) => {
         fields = {},
     } = options;
 
-    localesDir = path.resolve(__dirname, localesDir);
-    metadataTemplate = path.resolve(__dirname, metadataTemplate);
+    localesDir = resolve(__dirname, localesDir);
+    metadataTemplate = resolve(__dirname, metadataTemplate);
 
     // Calculate result metadata file path
-    const metadataOutputPath = path.join(outputPath, filename);
+    const metadataOutputPath = join(outputPath, filename);
     // Copy template file to output directory
-    copyfile.sync(path.resolve(__dirname, metadataTemplate), metadataOutputPath);
+    _sync(resolve(__dirname, metadataTemplate), metadataOutputPath);
 
     // Separate fields which have multiple translations and simple fields
     const multipleFields = {};
@@ -152,7 +153,7 @@ const createMetadata = (outputPath, callback, options) => {
     replaceWithMultipleSource(singleFields, metadataOutputPath);
 
     // Get all locales paths
-    const translations = glob.sync(`${localesDir}/**/*.meta.json`);
+    const translations = sync(`${localesDir}/**/*.meta.json`);
 
     // replace fields with multiple values from translations
     Object.entries(multipleFields).forEach(([key, fieldOptions]) => {
@@ -185,13 +186,13 @@ const createMetadata = (outputPath, callback, options) => {
  */
 const concatMetaWithOutput = (outputPath, userscriptName, options, callback) => {
     const { filename } = options;
-    const metadataOutputPath = path.join(outputPath, filename);
-    const chunkOutputPath = path.resolve(outputPath, userscriptName);
+    const metadataOutputPath = join(outputPath, filename);
+    const chunkOutputPath = resolve(outputPath, userscriptName);
 
-    const meta = fs.readFileSync(metadataOutputPath).toString();
-    const chunk = fs.readFileSync(chunkOutputPath).toString();
+    const meta = readFileSync(metadataOutputPath).toString();
+    const chunk = readFileSync(chunkOutputPath).toString();
 
-    fs.writeFileSync(path.resolve(chunkOutputPath), `${meta}${chunk}`);
+    writeFileSync(resolve(chunkOutputPath), `${meta}${chunk}`);
     callback();
 };
 
@@ -255,4 +256,4 @@ class MetaDataPlugin {
     }
 }
 
-module.exports = MetaDataPlugin;
+export default MetaDataPlugin;

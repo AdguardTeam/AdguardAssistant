@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
-const { runQunitPuppeteer, printFailedTests, printResultSummary } = require('node-qunit-puppeteer');
-const path = require('path');
+import { runQunitPuppeteer, printFailedTests, printResultSummary } from 'node-qunit-puppeteer';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const qunitArgs = {
-    targetUrl: `file://${path.resolve(__dirname, './dist/index.html')}`,
+    targetUrl: `file://${resolve(__dirname, './dist/index.html')}`,
     timeout: 10000,
     puppeteerArgs: ['--no-sandbox', '--allow-file-access-from-files'],
 };
@@ -14,8 +18,6 @@ runQunitPuppeteer(qunitArgs)
         if (result.stats.failed > 0) {
             printFailedTests(result, console);
         }
-    })
-    .then(() => {
     })
     .catch((ex) => {
         console.error(ex);

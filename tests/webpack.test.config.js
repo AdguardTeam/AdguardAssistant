@@ -1,13 +1,17 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
-module.exports = {
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const config = {
     mode: 'development',
-    entry: path.resolve(__dirname, './index.test.js'),
+    entry: resolve(__dirname, './index.test.js'),
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: resolve(__dirname, './dist'),
         filename: 'bundle.test.js',
     },
     devtool: 'inline-source-map',
@@ -41,6 +45,11 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                 },
+                resolve: {
+                    // we use esm and it requires .js extensions in imports,
+                    // but we don't want to write them
+                    fullySpecified: false,
+                },
             },
         ],
     },
@@ -57,7 +66,9 @@ module.exports = {
             ],
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'index.html'),
+            template: resolve(__dirname, 'index.html'),
         }),
     ],
 };
+
+export default config;

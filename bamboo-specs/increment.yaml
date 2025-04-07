@@ -5,7 +5,7 @@ plan:
   key: LEGASSINCRSPECS
   name: legacy assistant - increment version
 variables:
-  dockerNode: adguard/node-ssh:18.13--1
+  dockerNode: adguard/node-ssh:22-14--0
 
 stages:
   - Increment:
@@ -20,10 +20,10 @@ Increment:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -41,7 +41,7 @@ Increment:
             if ! [[ `git log -1 --pretty=%s` =~ "deploy: update dist" ]];then
               git checkout master
               ls -alt
-              yarn increment
+              pnpm increment
             fi
     - any-task:
         plugin-key: com.atlassian.bamboo.plugins.vcs:task.vcs.commit

@@ -4,9 +4,11 @@ deployment:
   name: legacy assistant - deploy release
   source-plan: ADGEXT-LEGASSRELEASESPECS
 release-naming: ${bamboo.userscriptMeta.version}
+
 environments:
   - userscripts.adtidy.org
   - npmjs
+
 userscripts.adtidy.org:
   triggers: []
   tasks:
@@ -38,11 +40,12 @@ userscripts.adtidy.org:
         - webhook:
             name: Deploy webhook
             url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
+
 npmjs:
   docker:
-    image: adguard/node-ssh:18.13--1
+    image: adguard/node-ssh:22-14--0
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   triggers: []
   tasks:
     - checkout:
@@ -54,11 +57,11 @@ npmjs:
             set -e
             set -x
 
-            yarn install ${bamboo.varsYarn}
+            pnpm install
 
             ls -la
 
-            yarn release
+            pnpm release
 
             export NPM_TOKEN=${bamboo.npmSecretToken}
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc

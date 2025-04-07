@@ -5,12 +5,12 @@ plan:
   key: LEGASSRELEASESPECS
   name: legacy assistant - build release
 variables:
-  dockerNode: adguard/node-ssh:18.13--1
+  dockerNode: adguard/node-ssh:22.11--1
 
 stages:
   - Build:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Build
 
@@ -21,14 +21,14 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - checkout:
         repository: extensions-private
         path: private
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -37,8 +37,8 @@ Build:
             set -e
             ls -alt
 
-            yarn install ${bamboo.varsYarn}
-            yarn release
+            pnpm install
+            pnpm release
     - inject-variables:
         file: build/release/build.txt
         scope: RESULT
@@ -89,7 +89,7 @@ triggers: []
 branches:
   create: manually
   delete: never
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications:
   - events:

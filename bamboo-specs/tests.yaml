@@ -5,12 +5,12 @@ plan:
   key: LEGASSTESTSPECS
   name: legacy assistant - test
 variables:
-  dockerPuppeteer: adguard/puppeteer-runner:8.0--1
+  dockerPuppeteer: adguard/puppeteer-runner:22.14--24.5--0
 
 stages:
   - Test:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Test
 
@@ -21,10 +21,10 @@ Test:
   docker:
     image: ${bamboo.dockerPuppeteer}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -33,10 +33,11 @@ Test:
             set -e
             ls -alt
 
-            export PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
-            yarn install ${bamboo.varsYarn}
-            yarn dev
-            yarn test
+            pnpm install
+
+            pnpm dev
+
+            pnpm test
   final-tasks:
     - script:
         interpreter: SHELL
@@ -77,7 +78,7 @@ branches:
   delete:
     after-deleted-days: '1'
     after-inactive-days: '5'
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications: []
 labels: []

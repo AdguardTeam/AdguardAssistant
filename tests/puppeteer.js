@@ -5,7 +5,10 @@ const path = require('path');
 const qunitArgs = {
     targetUrl: `file://${path.resolve(__dirname, './dist/index.html')}`,
     timeout: 10000,
-    puppeteerArgs: ['--no-sandbox', '--allow-file-access-from-files'],
+    puppeteerArgs: [
+        '--no-sandbox',
+        '--allow-file-access-from-files',
+    ],
 };
 
 runQunitPuppeteer(qunitArgs)

@@ -5,12 +5,12 @@ plan:
   key: LEGASSBETASPECS
   name: legacy assistant - build beta
 variables:
-  dockerNode: adguard/node-ssh:18.13--1
+  dockerNode: adguard/node-ssh:22-14--0
 
 stages:
   - Build:
-      manual: 'false'
-      final: 'false'
+      manual: false
+      final: false
       jobs:
         - Build
 
@@ -21,10 +21,10 @@ Build:
   docker:
     image: ${bamboo.dockerNode}
     volumes:
-      ${system.YARN_DIR}: "${bamboo.cacheYarn}"
+      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
-        force-clean-build: 'true'
+        force-clean-build: true
     - script:
         interpreter: SHELL
         scripts:
@@ -33,8 +33,8 @@ Build:
             set -e
             ls -alt
 
-            yarn install ${bamboo.varsYarn}
-            yarn beta
+            pnpm install
+            pnpm beta
     - inject-variables:
         file: build/beta/build.txt
         scope: RESULT
@@ -79,7 +79,7 @@ triggers: []
 branches:
   create: manually
   delete: never
-  link-to-jira: 'true'
+  link-to-jira: true
 
 notifications:
   - events:

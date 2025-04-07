@@ -4,8 +4,10 @@ deployment:
   name: legacy assistant - deploy beta
   source-plan: ADGEXT-LEGASSBETASPECS
 release-naming: ${bamboo.userscriptMeta.version}-beta
+
 environments:
   - userscripts.adtidy.org
+
 userscripts.adtidy.org:
   triggers: []
   tasks:

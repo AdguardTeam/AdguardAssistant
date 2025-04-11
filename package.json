@@ -15,7 +15,7 @@
         "test": "pnpm webpack --config tests/webpack.test.config.js && node tests/puppeteer.js",
         "locales:download": "LOCALES=DOWNLOAD node scripts/locales/locales.js",
         "locales:upload": "LOCALES=UPLOAD node scripts/locales/locales.js",
-        "increment": "pnpm version --patch --no-git-tag-version",
+        "increment": "pnpm version patch --no-git-tag-version",
         "prepublishOnly": "pnpm release"
     },
     "author": "AdGuard",

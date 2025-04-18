@@ -1,8 +1,10 @@
 name: Build AdGuard Assistant
 
 env:
-  NODE_VERSION: 22
+  NODE_VERSION: 22.14.0
   PNPM_VERSION: 10.7.1
+  # Forks do not have access to our vars
+  VARS_PNPM: ${{ vars.VARS_PNPM || '--silent --ignore-scripts' }}
 
 on: push
 
@@ -24,7 +26,7 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install ${{ env.VARS_PNPM }}
 
       - name: Build release
         run: pnpm release

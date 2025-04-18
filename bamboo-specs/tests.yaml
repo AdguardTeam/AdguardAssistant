@@ -31,9 +31,20 @@ Test:
           - |-
             set -x
             set -e
-            ls -alt
 
-            pnpm install
+            # Fix mixed logs
+            exec 2>&1
+
+            ls -laht
+
+            # Exclude '--ignore-scripts' from pnpm arguments
+            # since it prevents postinstall scripts from running
+            # so Chrome is not installed which is crucial for tests
+            originalPnpmArgs="$bamboo_varsPnpm"
+            modifiedPnpmArgs=$(echo "$originalPnpmArgs" | sed 's/--ignore-scripts//g')
+
+            # Install dependencies
+            pnpm install ${modifiedPnpmArgs}
 
             pnpm dev
 

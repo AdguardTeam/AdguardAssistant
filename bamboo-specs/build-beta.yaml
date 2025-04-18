@@ -33,7 +33,8 @@ Build:
             set -e
             ls -alt
 
-            pnpm install
+            pnpm install ${bamboo.varsPnpm}
+
             pnpm beta
     - inject-variables:
         file: build/beta/build.txt

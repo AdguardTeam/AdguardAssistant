@@ -57,7 +57,7 @@ npmjs:
             set -e
             set -x
 
-            pnpm install
+            pnpm install ${bamboo.varsPnpm}
 
             ls -la
 

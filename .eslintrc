@@ -5,6 +5,16 @@
         "node": true
     },
     "rules": {
+        "no-console": "error",
+        "max-len": ["error", {
+            "code": 120,
+            "comments": 120,
+            "tabWidth": 4,
+            "ignoreUrls": true,
+            "ignoreTrailingComments": false,
+            "ignoreComments": false,
+            "ignoreTemplateLiterals": true
+        }],
         "indent": [
             "error",
             4,

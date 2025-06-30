@@ -1,136 +1,186 @@
-import { addStyle, addClass } from './utils/dom-utils';
 import protectedApi from './protectedApi';
-
-const BASIC_GREEN_COLOR = '#36BA53';
-const DARK_GREEN_COLOR = '#4D995F';
-const TICK_RIGHT_COLOR = '#E0DFDB';
 
 /**
  * Slider widget
  * @type {Function}
  */
 function SliderWidget(api = {}) {
-    const PLACEHOLDER_CLASS = 'adg-slide ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all';
-    const HANDLE_CLASS = 'ui-slider-handle';
-    const HANDLE_FULL_CLASS = 'ui-slider-handle ui-state-default ui-corner-all';
-    const TICK_CLASS = 'tick';
-    const TICK_FULL_CLASS = 'tick ui-widget-content';
-    let tickLeftColor = BASIC_GREEN_COLOR;
+    const CLUE_CLASS = 'adg-slide_clue';
+    const CLUE_MIN_CLASS = `${CLUE_CLASS} ${CLUE_CLASS}--min`;
+    const CLUE_MAX_CLASS = `${CLUE_CLASS} ${CLUE_CLASS}--max`;
+    const TRACK_CLASS = 'adg-slide_track';
+    const HANDLE_CLASS = 'adg-slide_handle';
+    const TICK_CLASS = 'adg-slide_tick';
+    const TICK_ACTIVE_CLASS = `${TICK_CLASS} ${TICK_CLASS}--active`;
+
+    // Horizontal padding of the track, should match with .adg-slide_track class in CSS
+    const TRACK_OFFSET = 28;
 
     let placeholder = null;
+    let clueMin = null;
+    let clueMax = null;
+    let track = null;
+    let handle = null;
+    let ticks = null;
 
     let min = 0;
     let max = 1;
     let value = 0;
-    let sliderArea = null;
     let onValueChanged = null;
 
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        tickLeftColor = DARK_GREEN_COLOR;
-    }
-
-    const refresh = () => {
-        const handle = placeholder.querySelectorAll(`.${HANDLE_CLASS}`);
-        addStyle(handle, 'left', `${((value - 1) * 100) / (max - min)}%`);
-
-        const ticks = placeholder.querySelectorAll(`.${TICK_CLASS}`);
-        for (let i = 0; i < ticks.length; i += 1) {
-            if (i + 1 < value) {
-                addStyle(ticks[i], 'background-color', tickLeftColor);
-            } else {
-                addStyle(ticks[i], 'background-color', TICK_RIGHT_COLOR);
-            }
-        }
-    };
-
-    const render = () => {
-        addClass(placeholder, PLACEHOLDER_CLASS);
-
-        const handle = protectedApi.createElement('span');
-        handle.setAttribute('class', HANDLE_FULL_CLASS);
-        placeholder.appendChild(handle);
-
-        const count = max - min;
-        const prepare = (i) => {
-            const tick = protectedApi.createElement('div');
-            tick.setAttribute('class', TICK_FULL_CLASS);
-            tick.style.left = `${(100 / count) * i}%`;
-            tick.style.width = `${100 / count}%`;
-
-            placeholder.appendChild(tick);
-        };
-
-        for (let i = 0; i < count; i += 1) {
-            prepare(i);
+    const activateValue = (newValue) => {
+        // Do nothing if the value is the same
+        if (newValue === value) {
+            return;
         }
 
-        refresh();
-    };
-
-    const setValue = (v) => {
-        if (v < min) {
+        // Clamp the new value between min and max
+        if (newValue < min) {
             value = min;
-        } else if (v > max) {
+        } else if (newValue > max) {
             value = max;
         } else {
-            value = v;
+            value = newValue;
         }
 
-        refresh();
+        // Update handle position
+        const trackWidth = track.offsetWidth - (TRACK_OFFSET * 2);
+        const valueRange = max - min;
+        const valuePercentage = (value - min) / valueRange;
+        const handlePosition = (valuePercentage * trackWidth) + TRACK_OFFSET;
+        handle.style.left = `${handlePosition}px`;
+
+        // Activate all ticks up to the new value
+        for (let i = 0; i < ticks.length; i += 1) {
+            // Add `min`, because ticks are 0-based, but values are starts from `min`
+            if (i + min < value) {
+                ticks[i].setAttribute('class', TICK_ACTIVE_CLASS);
+            } else {
+                ticks[i].setAttribute('class', TICK_CLASS);
+            }
+        }
 
         onValueChanged(value);
     };
 
+    const render = () => {
+        // Render clue min
+        clueMin = protectedApi.createElement('div');
+        clueMin.setAttribute('class', CLUE_MIN_CLASS);
+        clueMin.textContent = 'Min';
+        placeholder.appendChild(clueMin);
+
+        // Render clue max
+        clueMax = protectedApi.createElement('div');
+        clueMax.setAttribute('class', CLUE_MAX_CLASS);
+        clueMax.textContent = 'Max';
+        placeholder.appendChild(clueMax);
+
+        // Render handle
+        handle = protectedApi.createElement('div');
+        handle.setAttribute('class', HANDLE_CLASS);
+
+        // Render track
+        track = protectedApi.createElement('div');
+        track.setAttribute('class', TRACK_CLASS);
+        track.appendChild(handle);
+        placeholder.appendChild(track);
+
+        // Render ticks
+        const tickCount = max - min;
+        ticks = [];
+        for (let i = 0; i < tickCount; i += 1) {
+            const tick = protectedApi.createElement('div');
+            tick.setAttribute('class', TICK_CLASS);
+            track.appendChild(tick);
+            ticks.push(tick);
+        }
+    };
+
     const bindEvents = () => {
-        const rect = placeholder.getBoundingClientRect();
-        const sliderWidth = rect.width;
-        const offsetLeft = rect.left + document.body.scrollLeft;
+        clueMin.addEventListener('click', () => {
+            activateValue(min);
+        });
 
-        const getSliderValue = (pageX) => Math.round(
-            ((max - min) / sliderWidth) * (pageX - offsetLeft) + min,
-        );
+        clueMax.addEventListener('click', () => {
+            activateValue(max);
+        });
 
-        const onMouseMove = (e) => {
-            // calculate the correct position of the slider set the value
-            const val = getSliderValue(e.pageX);
-            setValue(val);
-        };
+        // Track dragging logic using pointer events with pointer capture
+        track.addEventListener('pointerdown', (pointerDownEvent) => {
+            // Prevent default behavior to avoid text selection during dragging
+            pointerDownEvent.preventDefault();
 
-        const onClick = (e) => {
-            // calculate the correct position of the slider set the value
-            const val = getSliderValue(e.pageX);
-            setValue(val);
-        };
+            // Set pointer capture to the track element
+            track.setPointerCapture(pointerDownEvent.pointerId);
 
-        const onMouseDown = (e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            e.cancelBubble = true;
-            e.returnValue = false;
+            // Flag to track active dragging
+            let isDragging = true;
 
-            sliderArea.addEventListener('mousemove', onMouseMove);
-            sliderArea.addEventListener('touchmove', onMouseMove);
-            sliderArea.addEventListener('pointermove', onMouseMove);
-        };
+            // Calculate the value based on pointer position
+            const calculateValueFromPosition = (clientX) => {
+                const trackRect = track.getBoundingClientRect();
+                const trackWidth = trackRect.width - (TRACK_OFFSET * 2);
+                const valueRange = max - min;
 
-        const sliderAreaRemoveListeners = () => {
-            sliderArea.removeEventListener('mousemove', onMouseMove);
-            sliderArea.removeEventListener('touchmove', onMouseMove);
-            sliderArea.removeEventListener('pointermove', onMouseMove);
-        };
+                // Calculate the offset within the track, accounting for padding
+                let offsetX = clientX - trackRect.left - TRACK_OFFSET;
 
-        document.addEventListener('mouseup', sliderAreaRemoveListeners);
-        document.addEventListener('touchend', sliderAreaRemoveListeners);
-        document.addEventListener('pointerup', sliderAreaRemoveListeners);
+                // Keep offset within bounds
+                if (offsetX < 0) {
+                    offsetX = 0;
+                }
+                if (offsetX > trackWidth) {
+                    offsetX = trackWidth;
+                }
 
-        placeholder.addEventListener('click', onClick);
-        placeholder.addEventListener('mousedown', onMouseDown);
-        placeholder.addEventListener('touchstart', onMouseDown);
+                // Calculate value based on position
+                const valuePercentage = offsetX / trackWidth;
+                const newValue = min + (valuePercentage * valueRange);
 
-        sliderArea.addEventListener('mouseup', sliderAreaRemoveListeners);
-        sliderArea.addEventListener('touchend', sliderAreaRemoveListeners);
-        sliderArea.addEventListener('pointerup', sliderAreaRemoveListeners);
-        sliderArea.addEventListener('mouseleave', sliderAreaRemoveListeners);
+                // Round to nearest value
+                return Math.round(newValue);
+            };
+
+            // Set initial value based on where the user clicked
+            activateValue(calculateValueFromPosition(pointerDownEvent.clientX));
+
+            // Handle pointer movement
+            const handlePointerMove = (pointerMoveEvent) => {
+                if (!isDragging) {
+                    return;
+                }
+
+                // Prevent default to avoid unwanted side effects
+                pointerMoveEvent.preventDefault();
+
+                // Update value based on pointer position
+                activateValue(calculateValueFromPosition(pointerMoveEvent.clientX));
+            };
+
+            // Handle pointer up - cleanup
+            const handlePointerUp = (pointerUpEvent) => {
+                // Release pointer capture
+                if (track.hasPointerCapture(pointerUpEvent.pointerId)) {
+                    track.releasePointerCapture(pointerUpEvent.pointerId);
+                }
+
+                // Set dragging flag to false
+                isDragging = false;
+
+                // Remove event listeners
+                track.removeEventListener('pointermove', handlePointerMove);
+                track.removeEventListener('pointerup', handlePointerUp);
+                track.removeEventListener('pointercancel', handlePointerUp);
+                track.removeEventListener('pointerleave', handlePointerUp);
+            };
+
+            // Add pointer event listeners
+            track.addEventListener('pointermove', handlePointerMove);
+            track.addEventListener('pointerup', handlePointerUp);
+            track.addEventListener('pointercancel', handlePointerUp);
+            track.addEventListener('pointerleave', handlePointerUp);
+        });
     };
 
     /**
@@ -148,8 +198,6 @@ function SliderWidget(api = {}) {
         value = options.value;
         // eslint-disable-next-line prefer-destructuring
         onValueChanged = options.onValueChanged;
-        // eslint-disable-next-line prefer-destructuring
-        sliderArea = options.sliderArea;
 
         render();
         bindEvents();

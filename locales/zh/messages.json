@@ -32,7 +32,7 @@
         "message": "拦截元素"
     },
     "assistant_select_element_ext": {
-        "message": "选择此页面上需要拦截的元素"
+        "message": "点击想要拦截的元素。AdGuard 将创建一条用户规则。"
     },
     "assistant_select_element_cancel": {
         "message": "取消"
@@ -41,10 +41,10 @@
         "message": "拦截元素"
     },
     "assistant_block_element_explain": {
-        "message": "调整元素拦截规则"
+        "message": "创建元素拦截规则"
     },
     "assistant_slider_explain": {
-        "message": "使用滑块改变要由新规则将要拦截的框架大小："
+        "message": "移动滑块以调整框架大小"
     },
     "assistant_extended_settings": {
         "message": "高级设置"
@@ -71,10 +71,10 @@
         "message": "AdGuard 助手设置"
     },
     "assistant_preview_header": {
-        "message": "元素拦截 - 预览"
+        "message": "预览已拦截元素"
     },
     "assistant_preview_header_info": {
-        "message": "请确保元素拦截方式符合预期"
+        "message": "检查该元素是否被正确拦截"
     },
     "assistant_preview_end": {
         "message": "退出预览"

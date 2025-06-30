@@ -3,68 +3,46 @@
 
 
 .element-rule{
-    padding: @base-offset;
+    padding: 0 32px 24px;
     &_slider{
-        margin: 5px 0 7px;
         user-select: none;
         @media (max-width: @mobile){
             display: none;
         }
     }
     &_expand-link{
-        font-size: 12px;
-        line-height: 15px;
-        font-weight: 500;
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 700;
         cursor: pointer;
+        padding: 8px 0;
+        display: flex;
+        column-gap: 4px;
         &_txt{
             display: inline-block;
             vertical-align: top;
+            padding: 1px 0;
         }
         &_arr{
             display: inline-block;
             vertical-align: top;
-            width: 5px;
-            height: 5px;
-            margin: 3px 0 0 3px;
-            border-bottom: 1px solid #91a795;
-            border-left: 1px solid #91a795;
-            transform: rotate(-45deg);
-            transition: .2s;
-        }
-        &.active{
-            .element-rule_expand-link{
-                &_arr{
-                    margin-top: 5px;
-                    transform: rotate(-225deg);
-                }
+            width: 24px;
+            height: 24px;
+            transition: color .3s ease, transform .3s ease;
+            line-height: 1;
+            .element-rule_expand-link.active & {
+                transform: rotate(180deg);
             }
         }
     }
     &_form{
-        height: 0;
-        margin: 0 -@base-offset;
-        overflow: hidden;
+        display: none;
         &.open{
-            height: auto;
-            margin-bottom: -@base-offset;
-            @media (max-width: @mobile){
-                padding: 20px;
-                padding-top: 0;
-            }
-        }
-    }
-    &_form-cont{
-        margin: 4px 0 0;
-        padding: @base-offset;
-        @media (max-width: @mobile){
-            margin-top: 0;
+            display: block;
         }
     }
     &_fieldset{
-        margin: 10px 0 0;
-        &:first-child{
-            margin: 0;
-        }
+        padding: 8px 0;
     }
     &_more--mobile {
         display: none;
@@ -83,33 +61,63 @@
             }
         }
     }
+    &_text {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
 
 
 // slider
 .adg-slide{
-    position: relative;
-    width: 500px;
-    height: 44px;
-    margin: auto;
-    transform: translate3d(0,0,0);
-}
+    display: flex;
+    padding: 16px 0;
 
-.adg-slide-clue-min,
-.adg-slide-clue-max{
-    position: absolute;
-    top: 14px;
-    left: -40px;
-    width: 30px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #8f9b92;
-    cursor: pointer;
-}
-.adg-slide-clue-min{
-    left: auto;
-    right: -40px;
-    text-align: right;
+    &_clue {
+        padding: 9px 0;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        line-height: 1.2;
+
+        &--min {
+            order: 1;
+        }
+
+        &--max {
+            order: 3;
+        }
+    }
+
+    &_track {
+        order: 2;
+        flex: 1 1 auto;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        column-gap: 4px;
+        padding: 18px 28px;
+        cursor: pointer;
+        touch-action: none;
+    }
+
+    &_tick {
+        flex: 1 1 auto;
+        width: auto;
+        height: 4px;
+        pointer-events: none;
+    }
+
+    &_handle {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.20), 2px 2px 4px rgba(0, 0, 0, 0.10);
+        pointer-events: none;
+    }
 }
 
 .adg-slide-btns{
@@ -145,46 +153,5 @@
             border-radius: 2px;
         }
     }
-}
-
-.ui-slider-handle {
-    position: absolute;
-    top: 22px;
-    z-index: 2;
-    cursor: pointer;
-    &:before{
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 30px;
-        height: 30px;
-        margin: -15px 0 0 -15px;
-        background: fade(#000, 10);
-        border-radius: 50%;
-        transition: .2s;
-    }
-    &:after{
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 20px;
-        height: 20px;
-        margin: -10px 0 0 -10px;
-        border-radius: 50%;
-    }
-
-    &:hover{
-        &:active,
-        &:before{
-            background: fade(#000, 15);
-        }
-    }
-}
-
-.tick{
-    position: absolute;
-    height: 44px;
 }
 // /slider

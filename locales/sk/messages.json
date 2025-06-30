@@ -32,7 +32,7 @@
         "message": "Blokovanie prvku"
     },
     "assistant_select_element_ext": {
-        "message": "Vyberte prvok stránky, ktorý sa má blokovať"
+        "message": "Kliknite na prvok, ktorý chcete zablokovať. AdGuard preň vytvorí používateľské pravidlo"
     },
     "assistant_select_element_cancel": {
         "message": "Zrušiť"
@@ -41,10 +41,10 @@
         "message": "Blokovanie prvku"
     },
     "assistant_block_element_explain": {
-        "message": "Upraviť pravidlo blokovania prvku"
+        "message": "Vytvorenie pravidla blokovania prvkov"
     },
     "assistant_slider_explain": {
-        "message": "Použite posuvník pre zmenu veľkosti rámu pre nové pravidlo, ktoré bude použité na:"
+        "message": "Posuňte posúvač a upravte veľkosť rámčeka"
     },
     "assistant_extended_settings": {
         "message": "Pokročilé nastavenia"
@@ -71,10 +71,10 @@
         "message": "Nastavenia asistenta"
     },
     "assistant_preview_header": {
-        "message": "Blokovanie prvku - náhľad"
+        "message": "Náhľad blokovaného prvku"
     },
     "assistant_preview_header_info": {
-        "message": "Uistite sa, že prvok je blokovaný podľa Vašich predstáv"
+        "message": "Skontrolujte, či je prvok správne zablokovaný"
     },
     "assistant_preview_end": {
         "message": "Ukončenie náhľadu"

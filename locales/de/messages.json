@@ -1,9 +1,9 @@
 {
-    "settings_position_save": "Webseiten",
-    "settings_position_save_all": "Alle Webseiten",
+    "settings_position_save": "Websites",
+    "settings_position_save_all": "Alle Websites",
     "settings_position_save_this": "Diese Webseite",
     "assistant_select_element_start": "Starten",
-    "assistant_select_element_text": "Wählen Sie ein zu sperrenden Element auf der Seite aus. Laden Sie die Seite neu, um den Sperrmodus zu verlassen.",
+    "assistant_select_element_text": "Wählen Sie ein zu sperrendes Element auf der Seite aus. Laden Sie die Seite neu, um den Sperrmodus zu verlassen.",
     "menu_filtration_status": {
         "message": "Diese Webseite filtern"
     },
@@ -29,22 +29,22 @@
         "message": "Reputationsvertrauensgrad"
     },
     "assistant_select_element": {
-        "message": "Element sperren"
+        "message": "Element blockieren"
     },
     "assistant_select_element_ext": {
-        "message": "Zu sperrendes Element auf der Seite auswählen"
+        "message": "Klicken Sie auf ein Element — AdGuard erstellt dafür eine Benutzerregel"
     },
     "assistant_select_element_cancel": {
         "message": "Abbrechen"
     },
     "assistant_block_element": {
-        "message": "Element sperren"
+        "message": "Element blockieren"
     },
     "assistant_block_element_explain": {
-        "message": "Regel zum Sperren von Elementen anpassen"
+        "message": "Erstellen Sie eine Blockierregel für dieses Element"
     },
     "assistant_slider_explain": {
-        "message": "Bewegen Sie den Schieberegler, um die Ausmaßgröße der neuen Regeln zu ändern:"
+        "message": "Bewegen Sie den Schieberegler, um die Größe des Rahmens anzupassen"
     },
     "assistant_extended_settings": {
         "message": "Erweiterte Einstellungen"
@@ -56,7 +56,7 @@
         "message": "Durch Referenzlink sperren"
     },
     "assistant_block_similar": {
-        "message": "Ähnliche Elemente sperren"
+        "message": "Ähnliche Elemente blockieren"
     },
     "assistant_another_element": {
         "message": "Ein anderes Element wählen"
@@ -71,10 +71,10 @@
         "message": "Assistent-Einstellungen"
     },
     "assistant_preview_header": {
-        "message": "Vorschau der zu sperrenden Elemente"
+        "message": "Blockiertes Element vorab anzeigen"
     },
     "assistant_preview_header_info": {
-        "message": "Prüfen Sie, ob das Element wie vorgesehen gesperrt wurde."
+        "message": "Prüfen Sie, ob das Element korrekt blockiert ist"
     },
     "assistant_preview_end": {
         "message": "Vorschau beenden"

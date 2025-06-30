@@ -62,6 +62,9 @@ jobs:
       - name: Run Rollup build
         run: pnpm build
 
+      - name: Validate locales
+        run: pnpm locales:validate-required
+
       - name: Pack files
         run: pnpm pack && mv adguard-assistant-*.tgz assistant.tgz
 

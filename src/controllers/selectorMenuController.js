@@ -16,7 +16,7 @@ export default function SelectorMenuController(iframe) {
 
     const bindEvents = () => {
         const menuEvents = {
-            '.close': close,
+            '.main_close': close,
             '.btn-default': close,
         };
         Object.keys(menuEvents).forEach((item) => {

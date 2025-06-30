@@ -15,6 +15,7 @@
         "test": "pnpm webpack --config tests/webpack.test.config.js && node tests/puppeteer.js",
         "locales:download": "LOCALES=DOWNLOAD node scripts/locales/locales.js",
         "locales:upload": "LOCALES=UPLOAD node scripts/locales/locales.js",
+        "locales:validate-required": "LOCALES=VALIDATE-MIN node scripts/locales/locales.js",
         "increment": "pnpm version patch --no-git-tag-version",
         "prepublishOnly": "pnpm release"
     },
@@ -32,10 +33,12 @@
         "neverBuiltDependencies": []
     },
     "devDependencies": {
+        "@adguard/translate": "^1.0.2",
         "@babel/core": "^7.9.0",
         "@babel/preset-env": "^7.9.0",
         "axios": "^0.21.1",
         "babel-loader": "^8.1.0",
+        "chalk": "4.1.2",
         "clean-webpack-plugin": "^3.0.0",
         "copy-webpack-plugin": "^6",
         "cp-file": "^9.0.0",

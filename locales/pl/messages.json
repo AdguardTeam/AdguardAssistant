@@ -29,22 +29,22 @@
         "message": "Poziom zaufania do reputacji"
     },
     "assistant_select_element": {
-        "message": "Blokowanie elementów"
+        "message": "Zablokuj element"
     },
     "assistant_select_element_ext": {
-        "message": "Wybierz element na stronie by zablokować"
+        "message": "Kliknij element, który chcesz zablokować. AdGuard utworzy dla niego regułę użytkownika"
     },
     "assistant_select_element_cancel": {
         "message": "Anuluj"
     },
     "assistant_block_element": {
-        "message": "Blokowanie elementów"
+        "message": "Zablokuj element"
     },
     "assistant_block_element_explain": {
-        "message": "Dostosuj regułę blokowania elementów"
+        "message": "Utwórz regułę blokowania elementów"
     },
     "assistant_slider_explain": {
-        "message": "Przesuń suwak by zmienić rozmiar ramki, dla której będzie obowiązywać nowa reguła:"
+        "message": "Przesuń suwak, aby dostosować rozmiar ramki"
     },
     "assistant_extended_settings": {
         "message": "Ustawienia zaawansowane"
@@ -71,10 +71,10 @@
         "message": "Ustawienia Asystenta"
     },
     "assistant_preview_header": {
-        "message": "Blokowanie elementów - podgląd"
+        "message": "Podgląd zablokowanego elementu"
     },
     "assistant_preview_header_info": {
-        "message": "Upewnij się, że element jest blokowany jak zamierzono"
+        "message": "Sprawdź, czy element jest poprawnie zablokowany"
     },
     "assistant_preview_end": {
         "message": "Zamknij podgląd"

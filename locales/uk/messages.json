@@ -29,22 +29,13 @@
         "message": "Рівень надійності репутації"
     },
     "assistant_select_element": {
-        "message": "Блокування елементу"
-    },
-    "assistant_select_element_ext": {
-        "message": "Виберіть елемент на сторінці, який треба заблокувати"
+        "message": "Заблокувати елемент"
     },
     "assistant_select_element_cancel": {
         "message": "Скасувати"
     },
     "assistant_block_element": {
-        "message": "Блокування елементу"
-    },
-    "assistant_block_element_explain": {
-        "message": "Налаштуйте правило блокування елементу"
-    },
-    "assistant_slider_explain": {
-        "message": "Пересувайте повзунок, щоб змінити розмір блоку, для якого діятиме правило:"
+        "message": "Заблокувати елемент"
     },
     "assistant_extended_settings": {
         "message": "Розширені налаштування"
@@ -69,12 +60,6 @@
     },
     "assistant_settings": {
         "message": "Налаштування помічника"
-    },
-    "assistant_preview_header": {
-        "message": "Блокування елементу - попередній перегляд"
-    },
-    "assistant_preview_header_info": {
-        "message": "Переконайтеся, що елемент заблокований як слід"
     },
     "assistant_preview_end": {
         "message": "Закінчити попередній перегляд"

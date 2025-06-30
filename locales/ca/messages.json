@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Llocs web",
+    "settings_position_save_all": "Tots els llocs web",
+    "settings_position_save_this": "Aquest lloc web",
+    "assistant_select_element_start": "Començar",
+    "assistant_select_element_text": "Trieu un element de la pàgina per bloquejar. Actualitzeu la pàgina per cancel·lar el mode de bloqueig d'elements.",
+    "menu_filtration_status": {
+        "message": "Filtrat en aquest lloc web"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "No filtrar durant 30 segons"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Bloquejar anuncis en aquest lloc web"
+    },
+    "menu_report_abuse": {
+        "message": "Informar del lloc web"
+    },
+    "menu_site_report": {
+        "message": "Informe de seguretat del lloc web"
+    },
+    "menu_settings": {
+        "message": "Configuració de l'assistent"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Indicador de reputació del lloc"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Nivell de confiança de la reputació"
+    },
+    "assistant_select_element": {
+        "message": "Bloqueja un element"
+    },
+    "assistant_select_element_ext": {
+        "message": "Fes clic en un element que vulguis bloquejar. AdGuard crearà una regla d'usuari per a això"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Cancel·lar"
+    },
+    "assistant_block_element": {
+        "message": "Bloqueja un element"
+    },
+    "assistant_block_element_explain": {
+        "message": "Crea una regla de bloqueig d'elements"
+    },
+    "assistant_slider_explain": {
+        "message": "Mou el control lliscant per ajustar la mida del marc"
+    },
+    "assistant_extended_settings": {
+        "message": "Configuració avançada"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Apliqueu la regla a tots els llocs web"
+    },
+    "assistant_block_by_reference": {
+        "message": "Bloqueja per enllaç de referència"
+    },
+    "assistant_block_similar": {
+        "message": "Bloquejar element similar"
+    },
+    "assistant_another_element": {
+        "message": "Seleccioneu un element diferent"
+    },
+    "assistant_preview": {
+        "message": "Vista prèvia"
+    },
+    "assistant_block": {
+        "message": "Bloquejeu"
+    },
+    "assistant_settings": {
+        "message": "Configuració de l'assistent"
+    },
+    "assistant_preview_header": {
+        "message": "Previsualitza l'element bloquejat"
+    },
+    "assistant_preview_header_info": {
+        "message": "Comproveu si l'element està bloquejat correctament"
+    },
+    "assistant_preview_end": {
+        "message": "Sortir de la vista prèvia"
+    },
+    "wot_unknown_description": {
+        "message": "La reputació d'aquest lloc web no està definida per $1"
+    },
+    "wot_bad_description": {
+        "message": "Aquest lloc web té una molt mala reputació\nsegons $1"
+    },
+    "wot_poor_description": {
+        "message": "Aquest lloc web té una mala reputació \nsegons $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Aquest lloc web té una pobra reputació\nsegons $1"
+    },
+    "wot_good_description": {
+        "message": "Aquest lloc web té una bona reputació\nsegons $1"
+    },
+    "wot_excellent_description": {
+        "message": "Aquest lloc web té una excel·lent reputació\nsegons $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Ajusteu la mida i la posició de l'AdGuard Assistant"
+    },
+    "settings_icon_size": {
+        "message": "Mida de la icona:"
+    },
+    "settings_small": {
+        "message": "Petit"
+    },
+    "settings_big": {
+        "message": "Gran"
+    },
+    "settings_position": {
+        "message": "Posició:"
+    },
+    "settings_left_top": {
+        "message": "A dalt a l'esquerra"
+    },
+    "settings_right_top": {
+        "message": "A dalt a la dreta"
+    },
+    "settings_left_bottom": {
+        "message": "A baix a l'esquerra"
+    },
+    "settings_right_bottom": {
+        "message": "A baix a la dreta"
+    },
+    "settings_cancel": {
+        "message": "Cancel·lar"
+    },
+    "settings_save": {
+        "message": "Guardar canvis"
+    }
+}

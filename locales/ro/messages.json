@@ -29,22 +29,22 @@
         "message": "Nivel de încredere în reputație"
     },
     "assistant_select_element": {
-        "message": "Element de blocat"
+        "message": "Blocați un element"
     },
     "assistant_select_element_ext": {
-        "message": "Alegeți un element de blocat pe pagină"
+        "message": "Faceți clic pe un element pe care doriți să îl blocați. AdGuard va crea o regulă de utilizator"
     },
     "assistant_select_element_cancel": {
         "message": "Anulare"
     },
     "assistant_block_element": {
-        "message": "Blocare de element"
+        "message": "Blocați un element"
     },
     "assistant_block_element_explain": {
-        "message": "Ajustați regula de blocare element"
+        "message": "Creați o regulă de blocare a elementelor"
     },
     "assistant_slider_explain": {
-        "message": "Mișcarea glisorului schimbă talia cadrului în care va funcționa noua regulă:"
+        "message": "Mutați glisorul pentru a regla dimensiunea cadrului"
     },
     "assistant_extended_settings": {
         "message": "Setări avansate"
@@ -71,10 +71,10 @@
         "message": "Setări asistent"
     },
     "assistant_preview_header": {
-        "message": "Blocare element - previzualizare"
+        "message": "Previzualizare element blocat"
     },
     "assistant_preview_header_info": {
-        "message": "Verificați blocarea elementului conform planului"
+        "message": "Verifică dacă elementul este blocat corect"
     },
     "assistant_preview_end": {
         "message": "Ieșire ecran"

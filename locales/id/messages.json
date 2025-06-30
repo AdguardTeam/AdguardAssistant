@@ -29,22 +29,22 @@
         "message": "Tingkat Keyakinan Reputasi"
     },
     "assistant_select_element": {
-        "message": "Blok Elemen"
+        "message": "Blokir elemen"
     },
     "assistant_select_element_ext": {
-        "message": "Pilih elemen di halaman untuk diblok"
+        "message": "Klik elemen yang ingin Anda blokir. AdGuard akan membuat aturan pengguna untuk itu"
     },
     "assistant_select_element_cancel": {
         "message": "Batalkan"
     },
     "assistant_block_element": {
-        "message": "Blok Elemen"
+        "message": "Blokir elemen"
     },
     "assistant_block_element_explain": {
-        "message": "Atur aturan blokir elemen"
+        "message": "Buat aturan pemblokiran elemen"
     },
     "assistant_slider_explain": {
-        "message": "Pindahkan slider untuk mengatur ukuran frame dimana aturan baru akan aktif:"
+        "message": "Pindahkan penggeser untuk menyesuaikan ukuran bingkai"
     },
     "assistant_extended_settings": {
         "message": "Pengaturan lanjutan"
@@ -71,10 +71,10 @@
         "message": "Pengaturan Asisten"
     },
     "assistant_preview_header": {
-        "message": "Blok elemen - pratinjau"
+        "message": "Pratinjau elemen yang diblokir"
     },
     "assistant_preview_header_info": {
-        "message": "Harap pastikan bahwa elemen diblok sesuai kemauan Anda"
+        "message": "Periksa apakah elemen diblokir dengan benar"
     },
     "assistant_preview_end": {
         "message": "Keluar pratinjau"

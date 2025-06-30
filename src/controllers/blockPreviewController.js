@@ -44,7 +44,7 @@ export default function BlockPreviewController(addRule, iframe) {
 
     const bindEvents = () => {
         const menuEvents = {
-            '.close': close,
+            '.main_close': close,
             '#select-another-element': selectAnotherElement,
             '#end-preview': showDetailedMenu,
             '#block-element': blockElement,

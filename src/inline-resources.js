@@ -6,6 +6,7 @@ import RESOURCE_TEMPLATE_SLIDERMENU from './templates/sliderMenu.html';
 import RESOURCE_TEMPLATE_BLOCKPREVIEW from './templates/blockPreview.html';
 import RESOURCE_TEMPLATE_POPUP from './templates/mobilePopup.html';
 import RESOURCE_TEMPLATE_MENU from './templates/mobileMenu.html';
+import RESOURCE_TEMPLATE_SVG_ICONS from './templates/svgIcons.html';
 
 import RESOURCE_CSS_COMMON from './styles/base/base-common.less';
 import RESOURCE_CSS_BUTTON from './styles/button.less';
@@ -30,4 +31,5 @@ export const HTML = {
     preview: RESOURCE_TEMPLATE_BLOCKPREVIEW,
     popup: RESOURCE_TEMPLATE_POPUP,
     mobile_menu: RESOURCE_TEMPLATE_MENU,
+    svg_icons: RESOURCE_TEMPLATE_SVG_ICONS,
 };

@@ -29,22 +29,22 @@
         "message": "Nível de Confiança de Reputação"
     },
     "assistant_select_element": {
-        "message": "Bloqueio de elemento"
+        "message": "Bloquear um elemento"
     },
     "assistant_select_element_ext": {
-        "message": "Escolha um elemento na página para bloquear"
+        "message": "Clique num elemento que pretende bloquear. O AdGuard criará uma regra de utilizador para esse elemento"
     },
     "assistant_select_element_cancel": {
         "message": "Cancelar"
     },
     "assistant_block_element": {
-        "message": "Bloqueio de elementos"
+        "message": "Bloquear um elemento"
     },
     "assistant_block_element_explain": {
-        "message": "Ajustar a regra de bloqueio do elemento"
+        "message": "Criar uma regra de bloqueio do elemento"
     },
     "assistant_slider_explain": {
-        "message": "Desloque o controlo deslizante para alterar o tamanho do quadro para o qual a nova regra irá funcionar:"
+        "message": "Mova o controlo deslizante para ajustar o tamanho do quadro"
     },
     "assistant_extended_settings": {
         "message": "Definições avançadas"
@@ -71,10 +71,10 @@
         "message": "Configurações do assistente"
     },
     "assistant_preview_header": {
-        "message": "Bloquear elemento - pré-visualização"
+        "message": "Pré-visualizar elemento bloqueado"
     },
     "assistant_preview_header_info": {
-        "message": "Certifique-se de que o elemento está bloqueado como pretendido"
+        "message": "Verifique se o elemento está corretamente bloqueado"
     },
     "assistant_preview_end": {
         "message": "Sair da previsualização"

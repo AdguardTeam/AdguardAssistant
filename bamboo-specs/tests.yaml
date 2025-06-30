@@ -46,6 +46,8 @@ Test:
             # Install dependencies
             pnpm install ${modifiedPnpmArgs}
 
+            pnpm lint
+
             pnpm dev
 
             pnpm test

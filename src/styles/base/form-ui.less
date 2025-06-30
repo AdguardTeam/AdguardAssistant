@@ -83,30 +83,47 @@ input[type="radio"] {
 
 // checkbox
 input[type="checkbox"] {
-    & + .form-ui{
-        .form-ui-txt{
-            &:after{
-                top: 7px;
-                left: 5px;
-                width: 13px;
-                height: 6px;
-                border-bottom: 2px solid transparent;
-                border-left: 2px solid transparent;
-                transform: rotate(-45deg);
+    & + .form-ui {
+        display: flex;
+        column-gap: 12px;
+
+        .form-ui-txt {
+            padding: 3px 0;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+
+            &:before,
+            &:after {
+                content: none;
+            }
+        }
+
+        .form-ui-icon {
+            width: 24px;
+            height: 24px;
+
+            &--off {
+                display: block;
+            }
+
+            &--on {
+                display: none;
             }
         }
     }
 
-    &:disabled {
-        & + .form-ui{
-            .form-ui-txt{
-                &:before{
-                    opacity: .6;
-                }
-                &:after{
-                    opacity: .6;
-                }
-            }
+    &:disabled + .form-ui .form-ui-icon {
+        opacity: .6;
+    }
+
+    &:checked + .form-ui .form-ui-icon {
+        &--off {
+            display: none;
+        }
+
+        &--on {
+            display: block;
         }
     }
 }

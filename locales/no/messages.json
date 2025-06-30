@@ -29,22 +29,22 @@
         "message": "Ryktepålitelighetsnivå"
     },
     "assistant_select_element": {
-        "message": "Elementblokkering"
+        "message": "Blokker et element"
     },
     "assistant_select_element_ext": {
-        "message": "Velg et element på siden som skal blokkeres"
+        "message": "Klikk på et element du vil blokkere. AdGuard vil lage en brukerregel for den"
     },
     "assistant_select_element_cancel": {
         "message": "Avbryt"
     },
     "assistant_block_element": {
-        "message": "Elementblokkering"
+        "message": "Blokker et element"
     },
     "assistant_block_element_explain": {
-        "message": "Juster elementblokkeringsregel"
+        "message": "Opprette en blokkeringsregel for elementer"
     },
     "assistant_slider_explain": {
-        "message": "Flytt glidebryteren for å endre størrelsen på rammen den nye regelen vil fungere for:"
+        "message": "Flytt glidebryteren for å justere størrelsen på rammen"
     },
     "assistant_extended_settings": {
         "message": "Avanserte innstillinger"
@@ -71,10 +71,10 @@
         "message": "Assistentinnstillinger"
     },
     "assistant_preview_header": {
-        "message": "Elementblokkering - forhåndsvisning"
+        "message": "Forhåndsvis blokkert element"
     },
     "assistant_preview_header_info": {
-        "message": "Kontroller at elementet er blokkert som det skal"
+        "message": "Sjekk om elementet er blokkert riktig"
     },
     "assistant_preview_end": {
         "message": "Avslutt forhåndsvisning"

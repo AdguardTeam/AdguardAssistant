@@ -22,23 +22,29 @@
     "menu_settings": {
         "message": "アシスタントの設定"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "ウェブサイトの評価基準"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "評判の信頼度（Reputation Confidence Level）"
+    },
     "assistant_select_element": {
-        "message": "要素をブロック"
+        "message": "手動で要素をブロック"
     },
     "assistant_select_element_ext": {
-        "message": "ブロックする要素を選択"
+        "message": "ブロックしたい要素をクリックしてください。AdGuardがその要素に対してユーザールールを作成します。"
     },
     "assistant_select_element_cancel": {
         "message": "キャンセル"
     },
     "assistant_block_element": {
-        "message": "要素をブロック"
+        "message": "手動で要素をブロック"
     },
     "assistant_block_element_explain": {
-        "message": "要素のブロックルールを調整する"
+        "message": "要素のブロックルールを作成します。"
     },
     "assistant_slider_explain": {
-        "message": "スライダーを動かすと、ブロックするフレームのサイズを変更できます:"
+        "message": "スライダーを移動してフレームのサイズを調整してください："
     },
     "assistant_extended_settings": {
         "message": "高度な設定"
@@ -65,10 +71,10 @@
         "message": "アシスタントの設定"
     },
     "assistant_preview_header": {
-        "message": "要素のブロック - プレビュー"
+        "message": "要素ブロック後の画面プレビューを確認する"
     },
     "assistant_preview_header_info": {
-        "message": "要素が意図したとおりにブロックされていることを確認します"
+        "message": "画面プレビューで要素が思い通りにブロックされているかを確認してください。"
     },
     "assistant_preview_end": {
         "message": "プレビューを終了"

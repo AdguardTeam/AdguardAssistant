@@ -1,4 +1,7 @@
 {
+    "assistant_select_element_cancel": {
+        "message": "रद्द करें"
+    },
     "assistant_extended_settings": {
         "message": "उन्नत सेटिंग"
     },
@@ -13,5 +16,8 @@
     },
     "settings_big": {
         "message": "बड़ा"
+    },
+    "settings_cancel": {
+        "message": "रद्द करें"
     }
 }

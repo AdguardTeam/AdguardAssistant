@@ -39,7 +39,10 @@ function IframeController() {
     let currentItem = null;
     const iframeMaxWidth = 320;
     const iframeMaxHeight = 407;
-    let menuMaxWidth = 668;
+    let menuMaxWidth = 600;
+    const menuMaxHeight = 640;
+    const menuInitialHeight = 224;
+    const detailedMenuInitialHeight = 355;
     let settingsMaxWidth = 458;
     const iframePositionOffset = 20;
     let buttonPosition = null;
@@ -119,7 +122,7 @@ function IframeController() {
         document.documentElement.appendChild(iframeAnchor);
     };
 
-    const getIframePosition = () => {
+    const getIframePosition = (maxHeight = iframeMaxHeight) => {
         const viewPort = uiValidationUtils.getViewPort();
 
         if (!buttonPosition) {
@@ -136,22 +139,22 @@ function IframeController() {
         const sides = [
             { // left top
                 left: buttonPosition.left - iframeMaxWidth - iframePositionOffset,
-                top: buttonPosition.top - iframeMaxHeight - iframePositionOffset,
+                top: buttonPosition.top - maxHeight - iframePositionOffset,
             },
             { // right top
                 left: buttonPosition.left + iframePositionOffset,
                 checkLeft: buttonPosition.left + iframeMaxWidth + iframePositionOffset,
-                top: buttonPosition.top - iframeMaxHeight - iframePositionOffset,
+                top: buttonPosition.top - maxHeight - iframePositionOffset,
             },
             { // bottom right
                 left: buttonPosition.left + iframePositionOffset,
                 checkLeft: buttonPosition.left + iframeMaxWidth + iframePositionOffset,
-                checkTop: buttonPosition.top + iframeMaxHeight + iframePositionOffset,
+                checkTop: buttonPosition.top + maxHeight + iframePositionOffset,
                 top: buttonPosition.top + iframePositionOffset,
             },
             { // bottom left
                 left: buttonPosition.left - iframeMaxWidth - iframePositionOffset,
-                checkTop: buttonPosition.top + iframeMaxHeight + iframePositionOffset,
+                checkTop: buttonPosition.top + maxHeight + iframePositionOffset,
                 top: buttonPosition.top + iframePositionOffset,
             },
         ];
@@ -260,10 +263,15 @@ function IframeController() {
                 );
             }
 
+            if (options.includeSvgIcons) {
+                const icons = protectedApi.createElement(HTML.svg_icons);
+                view.appendChild(icons);
+            }
+
             // make iframe size as like internal content size
             resizeIframe(width, height);
 
-            const iframePosition = getIframePosition();
+            const iframePosition = getIframePosition(options.maxHeight || iframeMaxHeight);
             iframe.style.left = `${iframePosition.left}px`;
             iframe.style.top = `${iframePosition.top}px`;
 
@@ -272,7 +280,11 @@ function IframeController() {
         };
 
         if (!iframe) {
-            const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, getStyleNonce(), 'adg-styles-selector');
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                getStyleNonce(),
+                'adg-styles-selector',
+            );
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }
@@ -320,15 +332,28 @@ function IframeController() {
 
     const showDetailedMenu = () => {
         const controller = new DetailedMenuController(ioc.get('iframeController'));
-        const options = { dragElement: '.menu-head' };
+        const options = {
+            dragElement: '.menu-head',
+            maxHeight: detailedMenuInitialHeight,
+        };
         showMenuItem(settings.MenuItemsNames.DetailedMenu, controller, iframeMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
     };
 
     const showSelectorMenu = () => {
         const controller = new SelectorMenuController(ioc.get('iframeController'));
-        const options = { dragElement: '.head' };
-        showMenuItem(settings.MenuItemsNames.SelectorMenu, controller, menuMaxWidth, 160, options);
+        const options = {
+            dragElement: '.head',
+            includeSvgIcons: true,
+            maxHeight: menuMaxHeight,
+        };
+        showMenuItem(
+            settings.MenuItemsNames.SelectorMenu,
+            controller,
+            menuMaxWidth,
+            menuInitialHeight,
+            options,
+        );
         setCloseEventIfNotHitIframe(false);
     };
 
@@ -340,6 +365,8 @@ function IframeController() {
             element: initElement,
             dragElement: '.head',
             options: optionsState,
+            includeSvgIcons: true,
+            maxHeight: menuMaxHeight,
         };
         showMenuItem(settings.MenuItemsNames.SliderMenu, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);
@@ -353,6 +380,8 @@ function IframeController() {
             element: initElement,
             dragElement: '.head',
             options: optionsState,
+            includeSvgIcons: true,
+            maxHeight: menuMaxHeight,
         };
         showMenuItem(settings.MenuItemsNames.BlockPreview, controller, menuMaxWidth, 'auto', options);
         setCloseEventIfNotHitIframe(true);

@@ -29,22 +29,22 @@
         "message": "سطح اعتبار"
     },
     "assistant_select_element": {
-        "message": "مسدودسازی عنصر"
+        "message": "مسدودسازی یک عنصر"
     },
     "assistant_select_element_ext": {
-        "message": "عنصری در صفحه برای مسدودسازی انتخاب کنید"
+        "message": "روی اجزایی که می‌خواهید مسدود کنید کلیک کنید. AdGuard یک رویهٔ کاربر برای آن ایجاد خواهد کرد."
     },
     "assistant_select_element_cancel": {
         "message": "لغو"
     },
     "assistant_block_element": {
-        "message": "مسدودسازی عنصر"
+        "message": "مسدودسازی یک عنصر"
     },
     "assistant_block_element_explain": {
-        "message": "تنظیم دستور مسدودسازی عنصر"
+        "message": "ایجاد یک رویهٔ مسدودسازی اجزاء"
     },
     "assistant_slider_explain": {
-        "message": "جابجایی لغزنده برای تغییر اندازه فریم که دستور جدیدی کار خواهد کرد:"
+        "message": "اسلایدر را جابه‌جا کنید تا اندازه قاب را تنظیم کنید."
     },
     "assistant_extended_settings": {
         "message": "تنظیمات پیشرفته"
@@ -71,10 +71,10 @@
         "message": "تنظیمات دستیار"
     },
     "assistant_preview_header": {
-        "message": "مسدودسازی عنصر - پیشنمایش"
+        "message": "پیش‌نمایش اجزاء مسدود شده"
     },
     "assistant_preview_header_info": {
-        "message": "مطمئن شوید عنصر به شکل دلخواه مسدود شود"
+        "message": "بررسی کنید که آیا جزء به درستی مسدود شده است یا خیر"
     },
     "assistant_preview_end": {
         "message": "خروج از پیشنمایش"

@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Уебсайтове",
+    "settings_position_save_all": "Всички уебсайтове",
+    "settings_position_save_this": "Този уебсайт",
+    "assistant_select_element_start": "Старт",
+    "assistant_select_element_text": "Изберете елемент на страницата, който да блокирате. Опреснете страницата, за да отмените режима за блокиране на елементи.",
+    "menu_filtration_status": {
+        "message": "Филтриране в този уебсайт"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Не филтрирайте в продължение на 30 секунди"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Блокирай реклама на този сайт"
+    },
+    "menu_report_abuse": {
+        "message": "Докладвай този уебсайт"
+    },
+    "menu_site_report": {
+        "message": "Доклад за сигурността на сайта"
+    },
+    "menu_settings": {
+        "message": "Настройки на Асистента"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Индикатор за репутация на сайта"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Ниво на доверие в репутацията"
+    },
+    "assistant_select_element": {
+        "message": "Блокирай елемент"
+    },
+    "assistant_select_element_ext": {
+        "message": "Кликнете върху елемент, който искате да блокирате. AdGuard ще създаде правило за него"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Отказ"
+    },
+    "assistant_block_element": {
+        "message": "Блокирай елемент"
+    },
+    "assistant_block_element_explain": {
+        "message": "Създаване на правило за блокиране на елемент"
+    },
+    "assistant_slider_explain": {
+        "message": "Преместете плъзгача, за да регулирате размера на рамката"
+    },
+    "assistant_extended_settings": {
+        "message": "Разширени настройки"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Приложи правилото към всички сайтове"
+    },
+    "assistant_block_by_reference": {
+        "message": "Блокиране по референтен линк"
+    },
+    "assistant_block_similar": {
+        "message": "Блокиране на подобни"
+    },
+    "assistant_another_element": {
+        "message": "Избор на различен елемент"
+    },
+    "assistant_preview": {
+        "message": "Преглед"
+    },
+    "assistant_block": {
+        "message": "Блокирай"
+    },
+    "assistant_settings": {
+        "message": "Настройки на Асистента"
+    },
+    "assistant_preview_header": {
+        "message": "Преглед на блокирания елемент"
+    },
+    "assistant_preview_header_info": {
+        "message": "Проверете дали елементът е блокиран правилно"
+    },
+    "assistant_preview_end": {
+        "message": "Изход от преглед"
+    },
+    "wot_unknown_description": {
+        "message": "Репутацията на този уебсайт не е определена от $1"
+    },
+    "wot_bad_description": {
+        "message": "Този уебсайт е с много лоша репутация\nспоред $1"
+    },
+    "wot_poor_description": {
+        "message": "Този уебсайт е с лоша репутация според $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Този сайт е с лоша репутация според $1"
+    },
+    "wot_good_description": {
+        "message": "Този уебсайт има добра репутация\nспоред $1"
+    },
+    "wot_excellent_description": {
+        "message": "Този уебсайт е с отлична репутация\nспоред $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Настройване на размера и позицията на AdGuard Assistant"
+    },
+    "settings_icon_size": {
+        "message": "Размер на иконата:"
+    },
+    "settings_small": {
+        "message": "Малка"
+    },
+    "settings_big": {
+        "message": "Голяма"
+    },
+    "settings_position": {
+        "message": "Позиция:"
+    },
+    "settings_left_top": {
+        "message": "Горе вляво"
+    },
+    "settings_right_top": {
+        "message": "Горе вдясно"
+    },
+    "settings_left_bottom": {
+        "message": "Долу вляво"
+    },
+    "settings_right_bottom": {
+        "message": "Долу вдясно"
+    },
+    "settings_cancel": {
+        "message": "Отказ"
+    },
+    "settings_save": {
+        "message": "Запази промените"
+    }
+}

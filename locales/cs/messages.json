@@ -29,22 +29,22 @@
         "message": "Úroveň důvěryhodnosti reputace"
     },
     "assistant_select_element": {
-        "message": "Blokování prvku"
+        "message": "Blokovat prvek"
     },
     "assistant_select_element_ext": {
-        "message": "Vyberte prvek na stránce, který chcete zablokovat"
+        "message": "Klikněte na prvek, který chcete blokovat. AdGuard pro něj vytvoří uživatelské pravidlo"
     },
     "assistant_select_element_cancel": {
         "message": "Zrušit"
     },
     "assistant_block_element": {
-        "message": "Blokování prvku"
+        "message": "Blokovat prvek"
     },
     "assistant_block_element_explain": {
-        "message": "Upravit pravidlo blokování prvku"
+        "message": "Vytvořte pravidlo blokování prvku"
     },
     "assistant_slider_explain": {
-        "message": "Přesunutím posuvníku změňte velikost rámce, pro který bude nové pravidlo fungovat:"
+        "message": "Posunutím posuvníku upravíte velikost rámečku"
     },
     "assistant_extended_settings": {
         "message": "Pokročilá nastavení"
@@ -71,10 +71,10 @@
         "message": "Nastavení asistenta"
     },
     "assistant_preview_header": {
-        "message": "Blokování prvku - náhled"
+        "message": "Náhled blokovaného prvku"
     },
     "assistant_preview_header_info": {
-        "message": "Ujistěte se, že je prvek zablokován podle určení"
+        "message": "Zkontrolujte, zda je prvek správně zablokován"
     },
     "assistant_preview_end": {
         "message": "Ukončit náhled"

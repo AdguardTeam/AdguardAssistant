@@ -29,10 +29,10 @@
         "message": "평판 신뢰 수준"
     },
     "assistant_select_element": {
-        "message": "선택 모드"
+        "message": "요소 차단"
     },
     "assistant_select_element_ext": {
-        "message": "페이지에서 아무 요소나 클릭하거나"
+        "message": "차단하려는 요소를 클릭합니다. AdGuard가 해당 요소에 대한 사용자 규칙을 생성합니다."
     },
     "assistant_select_element_cancel": {
         "message": "선택 모드 취소"
@@ -41,10 +41,10 @@
         "message": "요소 차단"
     },
     "assistant_block_element_explain": {
-        "message": "요소 차단 규칙 설정"
+        "message": "요소 차단 규칙을 생성하세요."
     },
     "assistant_slider_explain": {
-        "message": "슬라이더로 차단할 요소의 범위를 지정하세요."
+        "message": "슬라이더를 움직여 프레임 크기를 조정합니다."
     },
     "assistant_extended_settings": {
         "message": "고급 설정"
@@ -71,10 +71,10 @@
         "message": "어시스턴트 설정"
     },
     "assistant_preview_header": {
-        "message": "요소 차단 - 미리 보기"
+        "message": "차단된 요소 미리보기"
     },
     "assistant_preview_header_info": {
-        "message": "의도한 대로 요소가 차단되었는지 확인하세요."
+        "message": "요소가 올바르게 차단되었는지 확인하세요."
     },
     "assistant_preview_end": {
         "message": "미리 보기 종료"

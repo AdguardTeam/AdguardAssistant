@@ -32,7 +32,7 @@
         "message": "Element blokkeren"
     },
     "assistant_select_element_ext": {
-        "message": "Kies een element op deze pagina dat je wil blokkeren"
+        "message": "Klik op een element dat je wilt blokkeren. AdGuard zal er een gebruikersregel voor aanmaken"
     },
     "assistant_select_element_cancel": {
         "message": "Annuleren"
@@ -41,10 +41,10 @@
         "message": "Element blokkeren"
     },
     "assistant_block_element_explain": {
-        "message": "Pas de Element blokkeren regel aan"
+        "message": "Een elementblokkerende regel aanmaken"
     },
     "assistant_slider_explain": {
-        "message": "Beweeg de schuifregelaar om de grootte van het frame te wijzigen waarvoor de nieuwe regel werkt:"
+        "message": "Verplaats de schuifregelaar om de grootte van het kader aan te passen"
     },
     "assistant_extended_settings": {
         "message": "Geavanceerde instellingen"
@@ -71,10 +71,10 @@
         "message": "Assistent instellingen"
     },
     "assistant_preview_header": {
-        "message": "Elementblokkering - voorbeeld"
+        "message": "Voorbeeld geblokkeerd element"
     },
     "assistant_preview_header_info": {
-        "message": "Zorg ervoor dat het element wordt geblokkeerd zoals bedoeld"
+        "message": "Controleer of het element correct is geblokkeerd"
     },
     "assistant_preview_end": {
         "message": "Voorbeeldweergave afsluiten"

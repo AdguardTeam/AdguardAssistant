@@ -29,22 +29,22 @@
         "message": "Reputacijos pasitikėjimo lygis"
     },
     "assistant_select_element": {
-        "message": "Elemento blokavimas"
+        "message": "Blokuoti elementą"
     },
     "assistant_select_element_ext": {
-        "message": "Pasirinkite elementą puslapyje, kurį norite blokuoti"
+        "message": "Spustelėkite elementą, kurį norite užblokuoti. \"AdGuard\" sukurs vartotojo taisyklę"
     },
     "assistant_select_element_cancel": {
         "message": "Atšaukti"
     },
     "assistant_block_element": {
-        "message": "Elemento blokavimas"
+        "message": "Blokuoti elementą"
     },
     "assistant_block_element_explain": {
-        "message": "Nustatykite elemento blokavimo taisyklę"
+        "message": "Sukurti elemento blokavimo taisyklę"
     },
     "assistant_slider_explain": {
-        "message": "Slankiklio pagalba, keiskite rėmelio dydį, kuriame galios nauja taisyklė:"
+        "message": "Perkelkite slankiklį, kad pakoreguotumėte rėmelio dydį"
     },
     "assistant_extended_settings": {
         "message": "Išplėstiniai nustatymai"
@@ -71,10 +71,10 @@
         "message": "Asistento nustatymai"
     },
     "assistant_preview_header": {
-        "message": "Elemento blokavimas - peržiūra"
+        "message": "Peržiūrėti užblokuotą elementą"
     },
     "assistant_preview_header_info": {
-        "message": "Įsitikinkite, kad elementas yra užblokuotas kaip sumanyta"
+        "message": "Patikrinkite, ar elementas tinkamai užblokuotas"
     },
     "assistant_preview_end": {
         "message": "Baigti peržiūrą"

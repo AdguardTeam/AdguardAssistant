@@ -32,7 +32,7 @@
         "message": "Elem blokkolása"
     },
     "assistant_select_element_ext": {
-        "message": "Válassza ki az elemet az oldalon, amit blokkolni szeretne"
+        "message": "Kattintson a blokkolni kívánt elemre. Az AdGuard létrehoz egy felhasználói szabályt"
     },
     "assistant_select_element_cancel": {
         "message": "Mégse"
@@ -41,10 +41,10 @@
         "message": "Elem blokkolása"
     },
     "assistant_block_element_explain": {
-        "message": "Állítsa be az elemet blokkoló szabályt"
+        "message": "Elemblokkoló szabály létrehozása"
     },
     "assistant_slider_explain": {
-        "message": "Mozgassa a csúszkát a keret méretének megváltoztatásához, amelyre az új szabály működni fog:"
+        "message": "Mozgassa a csúszkát a keret méretének beállításához"
     },
     "assistant_extended_settings": {
         "message": "Haladó beállítások"
@@ -71,10 +71,10 @@
         "message": "Asszisztens beállításai"
     },
     "assistant_preview_header": {
-        "message": "Elem blokkolása - előnézet"
+        "message": "Blokkolt elem előnézete"
     },
     "assistant_preview_header_info": {
-        "message": "Ellenőrizze, hogy az elem blokkolva van-e a tervezett módon"
+        "message": "Ellenőrizze, hogy az elem helyesen lett-e letiltva"
     },
     "assistant_preview_end": {
         "message": "Kilépés az előnézetből"

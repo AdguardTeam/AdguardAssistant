@@ -39,6 +39,10 @@ Build:
 
             pnpm install ${bamboo.varsPnpm}
 
+            pnpm lint
+
+            pnpm locales:validate-required
+
             pnpm release
     - inject-variables:
         file: build/release/build.txt

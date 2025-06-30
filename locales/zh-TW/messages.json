@@ -29,22 +29,22 @@
         "message": "信譽信賴等級"
     },
     "assistant_select_element": {
-        "message": "元件封鎖"
+        "message": "封鎖元件"
     },
     "assistant_select_element_ext": {
-        "message": "選擇於該頁面上之元件以封鎖"
+        "message": "點選想要封鎖的元件。AdGuard 將創建一條使用者規則。"
     },
     "assistant_select_element_cancel": {
         "message": "取消"
     },
     "assistant_block_element": {
-        "message": "元件封鎖"
+        "message": "封鎖元件"
     },
     "assistant_block_element_explain": {
-        "message": "調整元件封鎖規則"
+        "message": "建立元件封鎖規則"
     },
     "assistant_slider_explain": {
-        "message": "移動該滑標以更改新的規則將作用於的框架之尺寸："
+        "message": "移動滑塊以調整框架大小"
     },
     "assistant_extended_settings": {
         "message": "進階設定"
@@ -71,10 +71,10 @@
         "message": "助理設定"
     },
     "assistant_preview_header": {
-        "message": "元件封鎖 - 預覽"
+        "message": "預覽已封鎖元件"
     },
     "assistant_preview_header_info": {
-        "message": "確定元件如預期的被封鎖"
+        "message": "檢查該元件是否被正確封鎖"
     },
     "assistant_preview_end": {
         "message": "離開預覽"

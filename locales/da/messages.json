@@ -29,22 +29,22 @@
         "message": "Omdømmetillidsniveau"
     },
     "assistant_select_element": {
-        "message": "Elementblokering"
+        "message": "Blokere et element"
     },
     "assistant_select_element_ext": {
-        "message": "Vælg et element på siden, der skal blokeres"
+        "message": "Klik på et element, der skal blokeres. AdGuard opretter en brugerregel for det"
     },
     "assistant_select_element_cancel": {
         "message": "Afbryd"
     },
     "assistant_block_element": {
-        "message": "Elementblokering"
+        "message": "Blokere et element"
     },
     "assistant_block_element_explain": {
-        "message": "Justér regel for elementblokering"
+        "message": "Opret en elementblokereringsregel"
     },
     "assistant_slider_explain": {
-        "message": "Flyt skyderen for at ændre størrelsen på den ramme, den nye regel vil fungere for:"
+        "message": "Flyt skyderen for at justere rammestørrelsen"
     },
     "assistant_extended_settings": {
         "message": "Avancerede indstillinger"
@@ -71,10 +71,10 @@
         "message": "Assistent-indstillinger"
     },
     "assistant_preview_header": {
-        "message": "Elementblokering - forhåndsvisning"
+        "message": "Forhåndsvisningsblokeret element"
     },
     "assistant_preview_header_info": {
-        "message": "Sørg for, at elementet er blokeret som tilsigtet"
+        "message": "Tjek, om elementet blokeres korrekt"
     },
     "assistant_preview_end": {
         "message": "Afslut forhåndsvisning"

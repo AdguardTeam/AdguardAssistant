@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "Веб-страници",
+    "settings_position_save_all": "Сите веб-локации",
+    "settings_position_save_this": "Оваа веб-локација",
+    "assistant_select_element_start": "Започнете",
+    "assistant_select_element_text": "Изберете елемент на страницата за блокирање. Освежете ја страницата за да го откажете режимот за блокирање елементи.",
+    "menu_filtration_status": {
+        "message": "Филтрирање на оваа веб-локација"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "Не филтрирајте 30 секунди"
+    },
+    "menu_block_ad_on_site": {
+        "message": "Блокирајте ја рекламата на оваа веб-локација"
+    },
+    "menu_report_abuse": {
+        "message": "Пријавете ја веб-страницата"
+    },
+    "menu_site_report": {
+        "message": "Извештај за безбедност на веб-страницата"
+    },
+    "menu_settings": {
+        "message": "Поставки за Помошникот"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "Индикатор за репутација на локацијата"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Ниво на доверба на репутацијата"
+    },
+    "assistant_select_element": {
+        "message": "Блокирање на елемент"
+    },
+    "assistant_select_element_ext": {
+        "message": "Кликнете на елемент што сакате да го блокирате. AdGuard ќе создаде корисничко правило"
+    },
+    "assistant_select_element_cancel": {
+        "message": "Откажи"
+    },
+    "assistant_block_element": {
+        "message": "Блокирање на елемент"
+    },
+    "assistant_block_element_explain": {
+        "message": "Креирајте правило за блокирање на елемент"
+    },
+    "assistant_slider_explain": {
+        "message": "Преместете го лизгачот за да ја прилагодите големината на рамката"
+    },
+    "assistant_extended_settings": {
+        "message": "Напредни поставки"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "Применете го правилото на сите веб-локации"
+    },
+    "assistant_block_by_reference": {
+        "message": "Блокирај по референтен линк"
+    },
+    "assistant_block_similar": {
+        "message": "Блокирајте слични работи"
+    },
+    "assistant_another_element": {
+        "message": "Изберете друг елемент"
+    },
+    "assistant_preview": {
+        "message": "Преглед"
+    },
+    "assistant_block": {
+        "message": "Блокирај"
+    },
+    "assistant_settings": {
+        "message": "Поставки за Помошникот"
+    },
+    "assistant_preview_header": {
+        "message": "Преглед на блокиран елемент"
+    },
+    "assistant_preview_header_info": {
+        "message": "Провери дали елементот е правилно блокиран"
+    },
+    "assistant_preview_end": {
+        "message": "Излезете од прегледот"
+    },
+    "wot_unknown_description": {
+        "message": "Репутацијата на оваа веб-локација не е дефинирана со $1"
+    },
+    "wot_bad_description": {
+        "message": "Оваа веб-локација има многу лоша репутација\nспоред $1"
+    },
+    "wot_poor_description": {
+        "message": "Оваа веб-локација има лоша репутација \nспоред $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "Оваа веб-локација има лоша репутација\nспоред $1"
+    },
+    "wot_good_description": {
+        "message": "Оваа веб-локација има добра репутација\nспоред $1"
+    },
+    "wot_excellent_description": {
+        "message": "Оваа веб-локација има одлична репутација\nспоред $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "Прилагодете ја големината и положбата на „Помошник на AdGuard“"
+    },
+    "settings_icon_size": {
+        "message": "Големина на иконата:"
+    },
+    "settings_small": {
+        "message": "Мала"
+    },
+    "settings_big": {
+        "message": "Голема"
+    },
+    "settings_position": {
+        "message": "Поставеност:"
+    },
+    "settings_left_top": {
+        "message": "Горе лево"
+    },
+    "settings_right_top": {
+        "message": "Горе десно"
+    },
+    "settings_left_bottom": {
+        "message": "Долу лево"
+    },
+    "settings_right_bottom": {
+        "message": "Долу десно"
+    },
+    "settings_cancel": {
+        "message": "Откажи"
+    },
+    "settings_save": {
+        "message": "Зачувајте ги промените"
+    }
+}

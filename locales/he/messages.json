@@ -29,22 +29,22 @@
         "message": "רמת אמון מוניטין"
     },
     "assistant_select_element": {
-        "message": "חסימת אלמנט"
+        "message": "חסום אלמנט"
     },
     "assistant_select_element_ext": {
-        "message": "בחר אלמנט בדף לחסימה"
+        "message": "לחץ על רכיב שברצונך לחסום. AdGuard ייצור עבורו כלל משתמש."
     },
     "assistant_select_element_cancel": {
         "message": "בטל"
     },
     "assistant_block_element": {
-        "message": "חסימת אלמנט"
+        "message": "חסום אלמנט"
     },
     "assistant_block_element_explain": {
-        "message": "התאם כלל של חסימת אלמנט"
+        "message": "צור כלל לחסימת אלמנט"
     },
     "assistant_slider_explain": {
-        "message": "הזז את המַחְלֵק כדי לשנות את גודל המסגרת שבה הכלל החדש יעבוד:"
+        "message": "הזז את המחוון כדי להתאים את גודל המסגרת"
     },
     "assistant_extended_settings": {
         "message": "הגדרות מתקדמות"
@@ -71,10 +71,10 @@
         "message": "הגדרות המסייע"
     },
     "assistant_preview_header": {
-        "message": "חסימת אלמנט - תצוגה מקדימה"
+        "message": "תצוגה מקדימה של אלמנט חסום"
     },
     "assistant_preview_header_info": {
-        "message": "ודא כי אלמנט זה חסום כמתוכנן"
+        "message": "בדוק אם האלמנט חסום כראוי"
     },
     "assistant_preview_end": {
         "message": "צא מתצוגה מקדימה"

@@ -29,22 +29,22 @@
         "message": "Razina povjerenja reputacije"
     },
     "assistant_select_element": {
-        "message": "Blokiranje elementa"
+        "message": "Blokiraj element"
     },
     "assistant_select_element_ext": {
-        "message": "Odaberite element na stranici za blokiranje"
+        "message": "Kliknite element koji želite blokirati. AdGuard će za to stvoriti korisničko pravilo"
     },
     "assistant_select_element_cancel": {
         "message": "Poništi"
     },
     "assistant_block_element": {
-        "message": "Blokiranje elementa"
+        "message": "Blokiraj element"
     },
     "assistant_block_element_explain": {
-        "message": "Prilagodite pravilo blokiranja elemenata"
+        "message": "Izradite pravilo za blokiranje elemenata"
     },
     "assistant_slider_explain": {
-        "message": "Pomaknite klizač da biste promijenili veličinu okvira na koji će se primijeniti novo pravilo:"
+        "message": "Pomaknite klizač za podešavanje veličine okvira"
     },
     "assistant_extended_settings": {
         "message": "Napredne postavke"
@@ -71,10 +71,10 @@
         "message": "Postavke pomoćnika"
     },
     "assistant_preview_header": {
-        "message": "Pregled blokiranja elementa"
+        "message": "Pregled blokiranog elementa"
     },
     "assistant_preview_header_info": {
-        "message": "Provjerite da je li element blokiran kako ste željeli"
+        "message": "Provjerite je li element ispravno blokiran"
     },
     "assistant_preview_end": {
         "message": "Izlaz iz pregleda"

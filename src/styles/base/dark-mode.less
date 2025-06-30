@@ -1,32 +1,40 @@
+@import "palette";
+
 @bg-color: #323232;
 @bg-hover: #555555;
 @bg-active: #4d4d4d;
-@bg-grey: #666666;
 @border-color: #444;
 @text-main-color: #ccc;
-@text-body-color: #ddd;
 
-@light-green: #67B279;
 @basic-green: #4D995F;
-@dark-green: #39774C;
 
-@light-red: #BF4829;
-@basic-red: #8E2C13;
-@dark-red: #732613;
-
-@advanced-settings-bg: #555;
 @input-border: #666;
-
 
 @close-image: url("../img/close-white.svg");
 
+// == Figma variables ==
+@text-main-text-main-default: @gray-20;
+@text-description-description-default: @gray-30;
+
+@fills-backgrounds-cards-background-default: @gray-80;
+@fills-buttons-secondary-card-button-default: @gray-80;
+@fills-buttons-secondary-card-button-hovered: @gray-70;
+@fills-buttons-secondary-card-button-pressed: @gray-60;
+@fills-buttons-danger-button-disabled: @red-90;
+@fills-inputs-input-background-default: @gray-80;
+@fills-switch-all-off-default: @gray-60;
+
+@stroke-dividers-item-divider-default: @gray-70;
+@stroke-buttons-secondary-default: @gray-20;
+@stroke-icons-gray-icons-default: @gray-40;
+@stroke-inputs-inactive-input-stroke-default: @gray-70;
 
 body {
-  color: @text-body-color;
+  color: @text-main-text-main-default;
 }
 
 .main {
-  background: @bg-color;
+  background: @fills-backgrounds-cards-background-default;
   &-popup {
     &__btn {
       background: @bg-color;
@@ -50,43 +58,41 @@ body {
   &-version {
     color: @border-color;
   }
+  &_close {
+    color: @stroke-icons-gray-icons-default;
+    &:hover {
+      color: @text-main-text-main-default;
+    }
+  }
 }
 
 .head {
   &_title {
-    color: @text-main-color;
+    color: @text-main-text-main-default;
   }
 
   &_text {
-    color: @text-main-color;
+    color: @text-description-description-default;
+  }
+
+  &::after {
+    background-color: @stroke-dividers-item-divider-default;
   }
 }
 
 .element-rule{
   &_expand-link{
-    &_txt{
-      color: @light-green;
-      border-bottom: 1px solid @light-green;
-    }
-    &:hover{
-      .element-rule_expand-link{
-        &_txt{
-          color: @basic-green;
-          border-bottom-color: @basic-green;
-        }
+    color: @text-main-text-main-default;
+    &_arr {
+      color: @stroke-icons-gray-icons-default;
+      .element-rule_expand-link:hover & {
+        color: @text-main-text-main-default;
       }
     }
   }
-  &_form-cont{
-    border-top: 1px solid @border-color;
-    background: @advanced-settings-bg;
+  &_text {
+    color: @text-description-description-default;
   }
-}
-
-.tick{
-  border: 20px solid @bg-color;
-  border-left: 1px solid @bg-color;
-  border-right: 1px solid @bg-color;
 }
 
 .close {
@@ -99,46 +105,24 @@ body {
 }
 
 .form-control {
-  color: @text-main-color;
-  background: @bg-color;
-  border: 1px solid @input-border;
+  color: @text-main-text-main-default;
+  background-color: @fills-inputs-input-background-default;
+  border-color: @stroke-inputs-inactive-input-stroke-default;
 }
 
 input[type="checkbox"] {
   & + .form-ui {
     .form-ui-txt {
-      &:before {
-        border: 1px solid @input-border;
-        background: @bg-color;
-      }
+      color: @text-main-text-main-default;
     }
-  }
-  &:checked {
-    & + .form-ui{
-      .form-ui-txt{
-        &:before{
-          border: 1px solid @basic-green;
-          background: @basic-green;
-        }
-      }
-    }
-  }
-  &:checked {
-    & + .form-ui{
-      .form-ui-txt{
-        &:after{
-          border-bottom-color: @bg-color;
-          border-left-color: @bg-color;
-        }
-      }
+    .form-ui-icon--off {
+      color: @stroke-icons-gray-icons-default;
     }
   }
 }
 
 .menu,
-.menu-filter,
-.content,
-.foot {
+.menu-filter {
   border-top: 1px solid @border-color;
 }
 
@@ -149,46 +133,55 @@ input[type="checkbox"] {
 }
 
 .btn-primary {
-  border-color: @basic-green;
-  background: @basic-green;
-  color: #fff;
-  &:hover{
-    border-color: @dark-green;
-    background: @dark-green;
-    color: #fff;
+  color: @text-main-text-main-default;
+  background-color: @fills-buttons-secondary-card-button-default;
+  border-color: @fills-buttons-secondary-card-button-default;
+  &:hover,
+  &:focus-visible {
+    background-color: @fills-buttons-secondary-card-button-hovered;
+    border-color: @fills-buttons-secondary-card-button-hovered;
   }
-  &.active, &:active{
-    border-color: @dark-green;
-    background: @dark-green;
+  &:active,
+  &.active {
+    background-color: @fills-buttons-secondary-card-button-pressed;
+    border-color: @fills-buttons-secondary-card-button-pressed;
   }
-  &.disabled, &[disabled]{
-    border-color: @dark-green;
-    background: @dark-green;
+  // Note: In dark mode, only background and border color differs for disabled state
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    background-color: @fills-buttons-secondary-card-button-default;
+    border-color: @fills-buttons-secondary-card-button-default;
   }
 }
 
+// Note: Check light-mode.less for other state colors
 .btn-cancel {
-  border-color: @basic-red;
-  background: @basic-red;
-  color: #fff;
-  &:hover{
-    border-color: @dark-red;
-    background: @dark-red;
-    color: #fff;
-  }
-  &.active, &:active{
-    border-color: @dark-red;
-    background: @dark-red;
-  }
-  &.disabled, &[disabled]{
-    border-color: @dark-red;
-    background: @dark-red;
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    background-color: @fills-buttons-danger-button-disabled;
+    border-color: @fills-buttons-danger-button-disabled;
   }
 }
 
-.ui-slider-handle {
-  &:after{
-    background: @basic-green;
+.btn-default {
+  color: @text-main-text-main-default;
+  background-color: @fills-buttons-secondary-card-button-default;
+  border-color: @stroke-buttons-secondary-default;
+  &:hover,
+  &:focus-visible {
+    background-color: @fills-buttons-secondary-card-button-hovered;
+  }
+  &:active,
+  &.active {
+    background-color: @fills-buttons-secondary-card-button-pressed;
+  }
+  // Note: In dark mode, only background color differs for disabled state
+  &:disabled,
+  &[disabled],
+  &.disabled {
+    background-color: @fills-buttons-secondary-card-button-default;
   }
 }
 
@@ -234,5 +227,14 @@ input[type="radio"] {
 .menu-filter {
   &_handle {
     background: @bg-color;
+  }
+}
+
+.adg-slide {
+  &_clue {
+    color: @text-main-text-main-default;
+  }
+  &_tick {
+    background-color: @fills-switch-all-off-default;
   }
 }

@@ -29,22 +29,22 @@
         "message": "Raven ugleda zaupanja"
     },
     "assistant_select_element": {
-        "message": "Onemogočanje elementa"
+        "message": "Onemogoči element"
     },
     "assistant_select_element_ext": {
-        "message": "Izberite element na strani, ki ga želite onemogočiti"
+        "message": "Kliknite element, ki ga želite blokirati. AdGuard bo zanj ustvaril uporabniško pravilo"
     },
     "assistant_select_element_cancel": {
         "message": "Prekliči"
     },
     "assistant_block_element": {
-        "message": "Onemogočanje elementa"
+        "message": "Onemogoči element"
     },
     "assistant_block_element_explain": {
-        "message": "Prilagodite pravilo za onemogočanje elementa"
+        "message": "Ustvarite pravilo za blokiranje elementov"
     },
     "assistant_slider_explain": {
-        "message": "Premaknite drsnik, da spremenite velikost okvirja, za katerega bo delovalo novo pravilo:"
+        "message": "Premaknite drsnik, da prilagodite velikost okvirja"
     },
     "assistant_extended_settings": {
         "message": "Napredne nastavitve"
@@ -71,10 +71,10 @@
         "message": "Nastavitve Pomočnika"
     },
     "assistant_preview_header": {
-        "message": "Onemogočanje elementa - predogled"
+        "message": "Predogled blokiranega elementa"
     },
     "assistant_preview_header_info": {
-        "message": "Prepričajte se, da je element bil onemogočen, kot je bilo predvideno"
+        "message": "Preverite, ali je element pravilno blokiran"
     },
     "assistant_preview_end": {
         "message": "Zapusti predogled"

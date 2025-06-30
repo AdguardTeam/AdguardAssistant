@@ -35,14 +35,17 @@ export default function SliderMenuController(addRule, iframe) {
     const expandAdvanced = () => {
         const advancedSettings = contentDocument.querySelector('#advanced-settings');
         const extendedSettingsText = contentDocument.querySelector('#ExtendedSettingsText');
+        const extendedSettingsTextMobile = contentDocument.querySelector('#ExtendedSettingsTextMobile');
         const hidden = !hasClass(advancedSettings, 'open');
         if (hidden) {
             addClass(advancedSettings, 'open');
             addClass(extendedSettingsText, 'active');
+            addClass(extendedSettingsTextMobile, 'active');
             iframeCtrl.resizeSliderMenuToAdvanced();
         } else {
             removeClass(advancedSettings, 'open');
             removeClass(extendedSettingsText, 'active');
+            removeClass(extendedSettingsTextMobile, 'active');
             iframeCtrl.resizeSliderMenuToNormal();
         }
     };
@@ -135,8 +138,9 @@ export default function SliderMenuController(addRule, iframe) {
 
     const bindEvents = () => {
         const menuEvents = {
-            '.close': close,
+            '.main_close': close,
             '#ExtendedSettingsText': expandAdvanced,
+            '#ExtendedSettingsTextMobile': expandAdvanced,
             '#adg-cancel': iframeCtrl.showSelectorMenu,
             '#adg-preview': showPreview,
             '#adg-accept': blockElement,
@@ -179,7 +183,6 @@ export default function SliderMenuController(addRule, iframe) {
         const min = 1;
         const options = { value, min, max };
         const slider = contentDocument.querySelector('#slider');
-        const sliderArea = contentDocument.querySelector('#slider-area');
 
         if (min === max) {
             // hide slider text
@@ -217,10 +220,10 @@ export default function SliderMenuController(addRule, iframe) {
             value: currentVal,
             // eslint-disable-next-line no-shadow
             onValueChanged(value) {
-                const delta = options.value - value;
+                // max - value + min is because we have reversed slider
+                const delta = options.value - (options.max - value + options.min);
                 options.onSliderMove(delta);
             },
-            sliderArea,
         });
     };
 

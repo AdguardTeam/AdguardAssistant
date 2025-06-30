@@ -29,22 +29,22 @@
         "message": "Niveau de confiance"
     },
     "assistant_select_element": {
-        "message": "Blocage d'éléments "
+        "message": "Bloquer un élément"
     },
     "assistant_select_element_ext": {
-        "message": "Choisir un élément de la page à bloquer "
+        "message": "Cliquez sur l'élément à bloquer. AdGuard créera une règle utilisateur pour cet élément"
     },
     "assistant_select_element_cancel": {
         "message": "Annuler"
     },
     "assistant_block_element": {
-        "message": "Blocage d'éléments "
+        "message": "Bloquer un élément"
     },
     "assistant_block_element_explain": {
-        "message": "Affiner la règle de blocage d'elements"
+        "message": "Créer une règle de blocage d'élément"
     },
     "assistant_slider_explain": {
-        "message": "Déplacez le curseur pour modifier la taille du cadre de travail de la nouvelle règle"
+        "message": "Déplacez le curseur pour ajuster la taille du cadre"
     },
     "assistant_extended_settings": {
         "message": "Paramétrages avancés "
@@ -71,10 +71,10 @@
         "message": "Réglages de l'Assistant AdGuard"
     },
     "assistant_preview_header": {
-        "message": "Blocage d'éléments - Previsualisation "
+        "message": "Aperçu de l'élément bloqué"
     },
     "assistant_preview_header_info": {
-        "message": "Assurez-vous que l'élément est bloqué comme prévu"
+        "message": "Vérifiez si l'élément est correctement bloqué"
     },
     "assistant_preview_end": {
         "message": "Sortir de la previsualisation "

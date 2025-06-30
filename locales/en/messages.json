@@ -29,22 +29,22 @@
         "message": "Reputation Confidence Level"
     },
     "assistant_select_element": {
-        "message": "Element blocking"
+        "message": "Block an element"
     },
     "assistant_select_element_ext": {
-        "message": "Choose an element on the page to block"
+        "message": "Click an element you want to block. AdGuard will create a user rule for it"
     },
     "assistant_select_element_cancel": {
         "message": "Cancel"
     },
     "assistant_block_element": {
-        "message": "Element blocking"
+        "message": "Block an element"
     },
     "assistant_block_element_explain": {
-        "message": "Adjust element blocking rule"
+        "message": "Create an element blocking rule"
     },
     "assistant_slider_explain": {
-        "message": "Move the slider to change the size of the frame the new rule will work for:"
+        "message": "Move the slider to adjust the size of the frame"
     },
     "assistant_extended_settings": {
         "message": "Advanced settings"
@@ -71,10 +71,10 @@
         "message": "Assistant settings"
     },
     "assistant_preview_header": {
-        "message": "Element blocking - preview"
+        "message": "Preview blocked element"
     },
     "assistant_preview_header_info": {
-        "message": "Make sure that element is blocked as intended"
+        "message": "Check if the element is blocked correctly"
     },
     "assistant_preview_end": {
         "message": "Exit preview"

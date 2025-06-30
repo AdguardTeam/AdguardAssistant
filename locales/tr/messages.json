@@ -29,22 +29,22 @@
         "message": "İtibarın Güven Seviyesi"
     },
     "assistant_select_element": {
-        "message": "Öğe engelleme"
+        "message": "Bir öğeyi engelle"
     },
     "assistant_select_element_ext": {
-        "message": "Sayfada engellenecek bir öğe seçin"
+        "message": "Engellemek istediğiniz bir öğeye tıklayın. AdGuard bunun için bir kullanıcı kuralı oluşturur"
     },
     "assistant_select_element_cancel": {
         "message": "İptal"
     },
     "assistant_block_element": {
-        "message": "Öğe engelleme"
+        "message": "Bir öğeyi engelle"
     },
     "assistant_block_element_explain": {
-        "message": "Öğe engelleme kuralını ayarla"
+        "message": "Öğe engelleme kuralı oluşturun"
     },
     "assistant_slider_explain": {
-        "message": "Yeni kuralın çalışacağı çerçevenin boyutunu değiştirmek için kayar düğmeyi hareket ettirin"
+        "message": "Çerçevenin boyutunu ayarlamak için kaydırıcıyı hareket ettirin"
     },
     "assistant_extended_settings": {
         "message": "Gelişmiş ayarlar"
@@ -71,10 +71,10 @@
         "message": "Asistan ayarları"
     },
     "assistant_preview_header": {
-        "message": "Öğe engelleme - ön izleme"
+        "message": "Engellenen öğeyi önizleyin"
     },
     "assistant_preview_header_info": {
-        "message": "Öğenin istediğiniz gibi engellendiğinden emin olun"
+        "message": "Öğenin doğru şekilde engellenip engellenmediğini kontrol edin"
     },
     "assistant_preview_end": {
         "message": "Önizlemeden çık"

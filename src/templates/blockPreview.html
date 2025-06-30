@@ -1,5 +1,9 @@
 <div class="main">
-    <div class="close"></div>
+    <div class="main_close">
+        <svg>
+            <use xlink:href="#icon-cross" />
+        </svg>
+    </div>
 
     <div class="head">
         <div i18n="assistant_preview_header" class="head_title">
@@ -9,13 +13,8 @@
     </div>
 
     <div class="foot">
-        <button i18n="assistant_another_element" class="btn btn-default" id="select-another-element" type="button"></button>
-
-        <div class="foot_action">
-            <div class="foot_action_btn">
-                <button i18n="assistant_preview_end" class="btn btn-primary" id="end-preview" type="button"></button>
-                <button i18n="assistant_block" class="btn btn-cancel" id="block-element" type="button"></button>
-            </div>
-        </div>
+        <button i18n="assistant_block" class="btn btn-cancel" id="block-element" type="button"></button>
+        <button i18n="assistant_preview_end" class="btn btn-default" id="end-preview" type="button"></button>
+        <button i18n="assistant_another_element" class="btn btn-primary" id="select-another-element" type="button"></button>
     </div>
 </div>

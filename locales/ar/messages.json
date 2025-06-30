@@ -1,5 +1,4 @@
 {
-    "settings_position_save": "مواقع الويب",
     "settings_position_save_all": "كافة مواقع الويب",
     "settings_position_save_this": "هذا الموقع",
     "assistant_select_element_start": "بدء",
@@ -31,20 +30,11 @@
     "assistant_select_element": {
         "message": "حظر العنصر"
     },
-    "assistant_select_element_ext": {
-        "message": "اختر عنصرا في الصفحة للحظر"
-    },
     "assistant_select_element_cancel": {
         "message": "الغاء"
     },
     "assistant_block_element": {
         "message": "حظر العنصر"
-    },
-    "assistant_block_element_explain": {
-        "message": "ضبط قاعدة حظر العنصر"
-    },
-    "assistant_slider_explain": {
-        "message": "حرك شريط التمرير لتغيير حجم الإطار الذي ستعمل عليه القاعدة الجديدة:"
     },
     "assistant_extended_settings": {
         "message": "إعدادات متقدمة"
@@ -69,12 +59,6 @@
     },
     "assistant_settings": {
         "message": "إعدادات المساعد"
-    },
-    "assistant_preview_header": {
-        "message": "حجب عنصر--معاينه"
-    },
-    "assistant_preview_header_info": {
-        "message": "تاكد من حظر هذا العنصر كما هو مقصود"
     },
     "assistant_preview_end": {
         "message": "إنهاء المعاينة"

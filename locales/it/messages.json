@@ -29,22 +29,22 @@
         "message": "Livello della reputazione"
     },
     "assistant_select_element": {
-        "message": "Blocca elemento"
+        "message": "Blocca un elemento"
     },
     "assistant_select_element_ext": {
-        "message": "Scegli un elemento da bloccare sulla pagina"
+        "message": "Clicca un elemento che vuoi bloccare. AdGuard creerà per esso una regola utente"
     },
     "assistant_select_element_cancel": {
         "message": "Annulla"
     },
     "assistant_block_element": {
-        "message": "Blocca elemento"
+        "message": "Blocca un elemento"
     },
     "assistant_block_element_explain": {
-        "message": "Modifica la regola di blocco di un elemento"
+        "message": "Crea una regola di bloccaggio elementi"
     },
     "assistant_slider_explain": {
-        "message": "Muovi la barra per cambiare la grandezza del frame da per il quale la nuova regola funzionerà:"
+        "message": "Sposta il cursore per regolare la dimensione della cornice"
     },
     "assistant_extended_settings": {
         "message": "Impostazioni avanzate"
@@ -71,10 +71,10 @@
         "message": "Impostazioni di Assistant"
     },
     "assistant_preview_header": {
-        "message": "Blocco elemento - anteprima"
+        "message": "Anteprima elemento bloccato"
     },
     "assistant_preview_header_info": {
-        "message": "Assicurati che l'elemento è bloccato come richiesto"
+        "message": "Controlla se l'elemento è bloccato correttamente"
     },
     "assistant_preview_end": {
         "message": "Esci dall'anteprima"

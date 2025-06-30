@@ -29,22 +29,22 @@
         "message": "Mức độ đáng tin của danh tiếng"
     },
     "assistant_select_element": {
-        "message": "Chặn thành phần"
+        "message": "Chặn một thành phần"
     },
     "assistant_select_element_ext": {
-        "message": "Chọn một thành phần trên trang để chặn"
+        "message": "Nhấp vào phần tử bạn muốn chặn. AdGuard sẽ tạo quy tắc người dùng cho phần tử đó"
     },
     "assistant_select_element_cancel": {
         "message": "Hủy bỏ"
     },
     "assistant_block_element": {
-        "message": "Chặn thành phần"
+        "message": "Chặn một thành phần"
     },
     "assistant_block_element_explain": {
-        "message": "Điều chỉnh quy tắc chặn phần tử"
+        "message": "Tạo một quy tắc chặn yếu tố"
     },
     "assistant_slider_explain": {
-        "message": "Di chuyển thanh trượt để thay đổi kích thước của khung, quy tắc mới sẽ hoạt động cho:"
+        "message": "Di chuyển thanh trượt để điều chỉnh kích thước của khung"
     },
     "assistant_extended_settings": {
         "message": "Cài đặt nâng cao"
@@ -71,10 +71,10 @@
         "message": "Cài đặt trợ lý"
     },
     "assistant_preview_header": {
-        "message": "Element blocking-xem trước"
+        "message": "Xem trước yếu tố đã bị chặn"
     },
     "assistant_preview_header_info": {
-        "message": "Đảm bảo rằng thành phần đó bị chặn như dự định"
+        "message": "Kiểm tra xem phần tử có bị chặn đúng không"
     },
     "assistant_preview_end": {
         "message": "Thoát xem trước"

@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@adguard/translate':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@babel/core':
         specifier: ^7.9.0
         version: 7.26.10
@@ -20,6 +23,9 @@ importers:
       babel-loader:
         specifier: ^8.1.0
         version: 8.4.1(@babel/core@7.26.10)(webpack@5.98.0)
+      chalk:
+        specifier: 4.1.2
+        version: 4.1.2
       clean-webpack-plugin:
         specifier: ^3.0.0
         version: 3.0.0(webpack@5.98.0)
@@ -91,6 +97,9 @@ importers:
         version: 5.10.0
 
 packages:
+
+  '@adguard/translate@1.0.2':
+    resolution: {integrity: sha512-TeQV4ngse/fcpFDCrtU5VqjZfQsdytSuGT8wF4biIM6c6v6W/tkUdrTDhNItq126hAZe65V8QgipTAp8qHdeZw==}
 
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
@@ -3571,6 +3580,8 @@ packages:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
 snapshots:
+
+  '@adguard/translate@1.0.2': {}
 
   '@ampproject/remapping@2.3.0':
     dependencies:

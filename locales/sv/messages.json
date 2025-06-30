@@ -2,6 +2,7 @@
     "settings_position_save": "Webbplatser",
     "settings_position_save_all": "Alla webbplatser",
     "settings_position_save_this": "Den här webbplatsen",
+    "assistant_select_element_start": "Starta",
     "assistant_select_element_text": "Välj ett element sidan att blockera. Återladda sidan för att återställa elementblockeringsläget.",
     "menu_filtration_status": {
         "message": "Webbplatsens filtrering"
@@ -21,23 +22,29 @@
     "menu_settings": {
         "message": "Assistentinställningar"
     },
+    "menu_wot_reputation_indicator": {
+        "message": "Indikator för webbplatsens rykte"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "Förtroendenivå för rykte"
+    },
     "assistant_select_element": {
-        "message": "Blockering av annonselement"
+        "message": "Blockera ett element"
     },
     "assistant_select_element_ext": {
-        "message": "Välj ett annonselement för blockering"
+        "message": "Klicka på ett element du vill blockera. AdGuard skapar en användarregel för det"
     },
     "assistant_select_element_cancel": {
         "message": "Avbryt"
     },
     "assistant_block_element": {
-        "message": "Blockering av annonselement"
+        "message": "Blockera ett element"
     },
     "assistant_block_element_explain": {
-        "message": "Anpassa blockeringsregeln för annonselementet"
+        "message": "Skapa en blockeringsregel för element"
     },
     "assistant_slider_explain": {
-        "message": "Justera storleken på annonselementet som den nya blockeringsregeln skall avse:"
+        "message": "Flytta reglaget för att justera ramens storlek"
     },
     "assistant_extended_settings": {
         "message": "Avancerade val"
@@ -64,10 +71,10 @@
         "message": "Assistentval"
     },
     "assistant_preview_header": {
-        "message": "Förhandsgranskning av elementblockeringen"
+        "message": "Förhandsgranska blockerad element"
     },
     "assistant_preview_header_info": {
-        "message": "Kontrollera att elementet blockerats som avsett"
+        "message": "Kontrollera om elementet är blockerat korrekt"
     },
     "assistant_preview_end": {
         "message": "Avsluta förhandsgranskningen"

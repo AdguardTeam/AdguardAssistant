@@ -1,0 +1,133 @@
+{
+    "settings_position_save": "เว็บไซต์",
+    "settings_position_save_all": "ทุกเว็บไซต์",
+    "settings_position_save_this": "เว็บไซต์นี้",
+    "assistant_select_element_start": "เริ่ม",
+    "assistant_select_element_text": "เลือกองค์ประกอบบนหน้าเพื่อปิดกั้น รีเฟรชหน้านี้เพื่อยกเลิกโหมดการปิดกั้นองค์ประกอบ",
+    "menu_filtration_status": {
+        "message": "การกรองบนเว็บไซต์นี้"
+    },
+    "menu_do_not_filter_30_sec": {
+        "message": "ห้ามกรองเป็นเวลา 30 วินาที"
+    },
+    "menu_block_ad_on_site": {
+        "message": "ปิดกั้นโฆษณาบนเว็บไซต์นี้"
+    },
+    "menu_report_abuse": {
+        "message": "รายงานเว็บไซต์นี้"
+    },
+    "menu_site_report": {
+        "message": "รายงานความปลอดภัยของเว็บไซต์"
+    },
+    "menu_settings": {
+        "message": "ตั้งค่าการช่วยเหลือ"
+    },
+    "menu_wot_reputation_indicator": {
+        "message": "ตัวบ่งชี้ชื่อเสียงของเว็บไซต์"
+    },
+    "menu_wot_reputation_confidence_level": {
+        "message": "ชื่อเสียงระดับความเชื่อมั่น"
+    },
+    "assistant_select_element": {
+        "message": "ปิดกั้นองค์ประกอบ"
+    },
+    "assistant_select_element_ext": {
+        "message": "คลิกองค์ประกอบที่คุณต้องการบล็อก AdGuard จะสร้างกฎผู้ใช้สำหรับมัน"
+    },
+    "assistant_select_element_cancel": {
+        "message": "ยกเลิก"
+    },
+    "assistant_block_element": {
+        "message": "ปิดกั้นองค์ประกอบ"
+    },
+    "assistant_block_element_explain": {
+        "message": "สร้างกฎการปิดกั้นองค์ประกอบ"
+    },
+    "assistant_slider_explain": {
+        "message": "เลื่อนสไลด์เพื่อปรับขนาดของกรอบ"
+    },
+    "assistant_extended_settings": {
+        "message": "การตั้งค่าขั้นสูง"
+    },
+    "assistant_apply_rule_to_all_sites": {
+        "message": "ใช้กฏนี้กับทุกเว็บไซต์"
+    },
+    "assistant_block_by_reference": {
+        "message": "ปิดกั้นโดยลิงค์อ้างอิง"
+    },
+    "assistant_block_similar": {
+        "message": "ปิดกั้นที่คล้ายกัน"
+    },
+    "assistant_another_element": {
+        "message": "เลือกองค์ประกอบที่แตกต่าง"
+    },
+    "assistant_preview": {
+        "message": "ดูตัวอย่าง"
+    },
+    "assistant_block": {
+        "message": "ปิดกั้น"
+    },
+    "assistant_settings": {
+        "message": "ตั้งค่าการช่วยเหลือ"
+    },
+    "assistant_preview_header": {
+        "message": "ดูตัวอย่างองค์ประกอบที่ถูกบล็อค"
+    },
+    "assistant_preview_header_info": {
+        "message": "ตรวจสอบว่าองค์ประกอบถูกบล็อคอย่างถูกต้องหรือไม่"
+    },
+    "assistant_preview_end": {
+        "message": "ออกจากตัวอย่าง"
+    },
+    "wot_unknown_description": {
+        "message": "ชื่อเสียงของเว็บไซต์นี้ไม่ได้กำหนดไว้ที่ $1"
+    },
+    "wot_bad_description": {
+        "message": "เว็บไซต์นี้มีชื่อเสียงแย่มาก\nตาม $1"
+    },
+    "wot_poor_description": {
+        "message": "เว็บไซต์นี้มีชื่อเสียงไม่ดี\nตาม $1"
+    },
+    "wot_unsatisfactory_description": {
+        "message": "เว็บไซต์นี้มีชื่อเสียงไม่ดี\nตาม $1"
+    },
+    "wot_good_description": {
+        "message": "เว็บไซต์นี้มีชื่อเสียงดี\nตาม $1"
+    },
+    "wot_excellent_description": {
+        "message": "เว็บไซต์นี้มีชื่อเสียงที่ยอดเยี่ยม\nตาม $1"
+    },
+    "settings_choose_size_and_position": {
+        "message": "ปรับขนาดและตำแหน่ง AdGuard Assistant"
+    },
+    "settings_icon_size": {
+        "message": "ขนาดไอคอน:"
+    },
+    "settings_small": {
+        "message": "เล็ก"
+    },
+    "settings_big": {
+        "message": "ใหญ่"
+    },
+    "settings_position": {
+        "message": "ตำแหน่ง:"
+    },
+    "settings_left_top": {
+        "message": "บนซ้าย"
+    },
+    "settings_right_top": {
+        "message": "บนขวา"
+    },
+    "settings_left_bottom": {
+        "message": "ล่างซ้าย"
+    },
+    "settings_right_bottom": {
+        "message": "ล่างขวา"
+    },
+    "settings_cancel": {
+        "message": "ยกเลิก"
+    },
+    "settings_save": {
+        "message": "บันทึกการเปลี่ยนแปลง"
+    }
+}

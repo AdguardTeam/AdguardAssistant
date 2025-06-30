@@ -1,5 +1,5 @@
 {
-    "settings_position_save": "Verkkosivustot",
+    "settings_position_save": "Sivustot",
     "settings_position_save_all": "Kaikki sivustot",
     "settings_position_save_this": "Tämä sivusto",
     "assistant_select_element_start": "Aloita",
@@ -29,25 +29,25 @@
         "message": "Mainearvion luotettavuus"
     },
     "assistant_select_element": {
-        "message": "Elementin esto"
+        "message": "Estä elementti"
     },
     "assistant_select_element_ext": {
-        "message": "Valitse sivulta estettävä elementti"
+        "message": "Klikkaa elementtiä, jonka haluat estää. AdGuard luo sille käyttäjäsäännön"
     },
     "assistant_select_element_cancel": {
         "message": "Peruuta"
     },
     "assistant_block_element": {
-        "message": "Elementin esto"
+        "message": "Estä elementti"
     },
     "assistant_block_element_explain": {
-        "message": "Muokkaa elementinestosääntöä"
+        "message": "Luo elementin estämissääntö"
     },
     "assistant_slider_explain": {
-        "message": "Siirrä liukukytkintä muuttaaksesi sen kehyksen kokoa, johon tämä sääntö vaikuttaa:"
+        "message": "Säädä kehyksen kokoa siirtämällä liukusäädintä"
     },
     "assistant_extended_settings": {
-        "message": "Edistyneet lisäasetukset"
+        "message": "Lisäasetukset"
     },
     "assistant_apply_rule_to_all_sites": {
         "message": "Käytä kaikilla sivustoilla"
@@ -62,7 +62,7 @@
         "message": "Valitse eri elementti"
     },
     "assistant_preview": {
-        "message": "Esikatsele"
+        "message": "Esikatselu"
     },
     "assistant_block": {
         "message": "Estä"
@@ -71,10 +71,10 @@
         "message": "Apurin asetukset"
     },
     "assistant_preview_header": {
-        "message": "Elementin estosäännön esikatselu"
+        "message": "Esikatselu estetty elementti"
     },
     "assistant_preview_header_info": {
-        "message": "Varmista, että elementti estetään tarkoituksenmukaisesti"
+        "message": "Tarkista, onko elementti lukittu oikein"
     },
     "assistant_preview_end": {
         "message": "Sulje esikatselu"

@@ -29,22 +29,22 @@
         "message": "Уровень доверия к репутации"
     },
     "assistant_select_element": {
-        "message": " Блокировка элемента"
+        "message": "Заблокировать элемент"
     },
     "assistant_select_element_ext": {
-        "message": "Выберите на странице элемент, который надо заблокировать"
+        "message": "Нажмите на элемент, который хотите заблокировать. AdGuard создаст для него правило блокировки"
     },
     "assistant_select_element_cancel": {
         "message": "Отмена"
     },
     "assistant_block_element": {
-        "message": "Блокировка элемента"
+        "message": "Заблокировать элемент"
     },
     "assistant_block_element_explain": {
-        "message": "Настройте правило блокирования элемента"
+        "message": "Будет создано правило блокировки элемента"
     },
     "assistant_slider_explain": {
-        "message": "Перемещайте бегунок, чтобы изменить размер блока, для которого будет действовать правило:"
+        "message": "Двигайте ползунок, чтобы отрегулировать размер"
     },
     "assistant_extended_settings": {
         "message": "Расширенные настройки"
@@ -71,13 +71,13 @@
         "message": "Настройка помощника"
     },
     "assistant_preview_header": {
-        "message": "Блокировка элемента – предпросмотр"
+        "message": "Предпросмотр"
     },
     "assistant_preview_header_info": {
-        "message": "Убедитесь, что элемент заблокирован как задумано"
+        "message": "Проверьте, что элемент заблокировано верно"
     },
     "assistant_preview_end": {
-        "message": "Закончить предпросмотр"
+        "message": "Назад"
     },
     "wot_unknown_description": {
         "message": "Репутация не определена расширением $1"

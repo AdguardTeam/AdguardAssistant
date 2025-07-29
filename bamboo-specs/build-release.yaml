@@ -5,7 +5,7 @@ plan:
   key: LEGASSRELEASESPECS
   name: legacy assistant - build release
 variables:
-  dockerNode: adguard/node-ssh:22.14--0
+  dockerNode: adguard/node-ssh:22.17--0
 
 stages:
   - Build:

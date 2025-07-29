@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [4.3.75] - 2025-07-29
+
+### Fixed
+
+- Fix broken settings screen [#433].
+
+[#433]: https://github.com/AdguardTeam/AdguardAssistant/issues/433
+[4.3.75]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.74...v4.3.75
+
 ## [4.3.74] - 2025-06-30
 
 ### Added

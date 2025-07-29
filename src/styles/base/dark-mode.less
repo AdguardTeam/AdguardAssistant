@@ -7,6 +7,7 @@
 @text-main-color: #ccc;
 
 @basic-green: #4D995F;
+@dark-green: #39774C;
 
 @input-border: #666;
 
@@ -236,5 +237,24 @@ input[type="radio"] {
   }
   &_tick {
     background-color: @fills-switch-all-off-default;
+  }
+}
+
+.old-btn-primary {
+  border-color: @basic-green;
+  background: @basic-green;
+  color: #fff;
+  &:hover {
+    border-color: @dark-green;
+    background: @dark-green;
+    color: #fff;
+  }
+  &.active, &:active {
+    border-color: @dark-green;
+    background: @dark-green;
+  }
+  &.disabled, &[disabled] {
+    border-color: @dark-green;
+    background: @dark-green;
   }
 }

@@ -8,6 +8,7 @@
 @text-main-color: #343434;
 
 @basic-green: #36ba53;
+@dark-green: darken(@basic-green, 5%);
 
 @input-border: #cfcfcf;
 
@@ -271,5 +272,24 @@ input[type="radio"] {
   &_handle {
     // Important to override dark mode value as media selector has more specificity
     background-color: @fills-switch-all-on-default !important;
+  }
+}
+
+.old-btn-primary {
+  border-color: @basic-green;
+  background: @basic-green;
+  color: #fff;
+  &:hover {
+    border-color: @dark-green;
+    background: @dark-green;
+    color: #fff;
+  }
+  &.active, &:active {
+    border-color: @dark-green;
+    background: @dark-green;
+  }
+  &.disabled, &[disabled] {
+    border-color: @dark-green;
+    background: @dark-green;
   }
 }

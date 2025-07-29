@@ -110,3 +110,57 @@ input[type="button"] {
         cursor: pointer;
     }
 }
+
+// Old button styles
+.old-btn {
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 10px 20px;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    user-select: none;
+
+    &:hover {
+        color: #000;
+        text-decoration: none;
+    }
+    &:active, &.active {
+        outline: none;
+    }
+    &:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 1px #fff;
+    }
+    &[disabled], &.disabled {
+        cursor: default;
+        box-shadow: none;
+        opacity: .5;
+        pointer-events: none;
+    }
+}
+
+.old-btn-default {
+    border-color: @secondary-color;
+    background: @secondary-color;
+    color: #fff;
+    &:hover {
+        border-color: lighten(@secondary-color, 10%);
+        background: lighten(@secondary-color, 10%);
+        color: #fff;
+    }
+    &.active, &:active {
+        border-color: lighten(@secondary-color, 10%);
+        background: lighten(@secondary-color, 10%);
+    }
+    &.disabled, &[disabled] {
+        border-color: @secondary-color;
+        background: @secondary-color;
+    }
+}

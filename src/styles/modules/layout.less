@@ -71,3 +71,39 @@
         }
     }
 }
+
+.old-head {
+    padding: @base-offset - 2 @base-offset;
+    cursor: move;
+
+    &_title {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    &_text {
+        margin: 4px 0 0;
+        font-size: 12px;
+    }
+}
+
+.old-foot {
+    &:extend(.cf-mix all);
+    padding: @base-offset;
+
+    &_action {
+        float: right;
+
+        &_btn {
+            font-size: 0;
+
+            .old-btn + .old-btn {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .cf {
+        clear: right;
+    }
+}

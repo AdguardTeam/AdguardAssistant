@@ -41,7 +41,7 @@ function IframeController() {
     const iframeMaxHeight = 407;
     let menuMaxWidth = 600;
     const menuMaxHeight = 640;
-    const menuInitialHeight = 224;
+    const menuInitialHeight = 252;
     const detailedMenuInitialHeight = 355;
     let settingsMaxWidth = 458;
     const iframePositionOffset = 20;

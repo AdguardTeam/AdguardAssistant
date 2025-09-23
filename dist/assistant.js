@@ -1,5 +1,5 @@
 /*!
- * AdGuard Assistant - v4.3.75 - Tue Jul 29 2025
+ * AdGuard Assistant - v4.3.77 - Tue Sep 23 2025
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2025 AdGuard. Licensed GPL-3.0
  */
@@ -1874,6 +1874,10 @@ var ioc = new Ioc();
  * @constructor
  */
 function ProtectedApi() {
+  /**
+   * Default Trusted Types policy name provided by CoreLibs.
+   */
+  var DEFAULT_POLICY_NAME = 'AGPolicy';
   var win = window;
   var functionPType = Function.prototype;
   var originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
@@ -1927,6 +1931,10 @@ function ProtectedApi() {
    * Creating element instead `document.createElement`
    * to prevented a custom `document.createElement`
    * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
+   *
+   * And also if browser supports Trusted Types,
+   * we will use it with default AdGuard policy to create elements from strings.
+   * see: https://github.com/AdguardTeam/AdguardAssistant/issues/438
    */
   var createElement = function createElement(markup) {
     var doc = document.implementation.createHTMLDocument('');
@@ -1934,8 +1942,37 @@ function ProtectedApi() {
       // eslint-disable-next-line no-param-reassign
       markup = "<".concat(markup, "></").concat(markup, ">");
     }
+    try {
+      if (win.trustedTypes && win.trustedTypes.createPolicy) {
+        var policy = win.trustedTypes.createPolicy(DEFAULT_POLICY_NAME, {
+          createHTML: function createHTML(s) {
+            return s;
+          }
+        });
+        // eslint-disable-next-line no-param-reassign
+        markup = policy.createHTML(markup);
+      }
+    } catch (e) {
+      // Do nothing
+    }
     doc.body.innerHTML = markup;
     return doc.body.firstChild;
+  };
+
+  /**
+   * Set innerHTML to element.
+   *
+   * @param {HTMLElement} element Element to add HTML.
+   * @param {string} html HTML string.
+   */
+  var setInnerHtml = function setInnerHtml(element, html) {
+    // Clear existing content
+    while (element.lastChild) {
+      element.removeChild(element.lastChild);
+    }
+
+    // Add new content
+    element.appendChild(createElement(html));
   };
   var json = {
     parse: methodCallerFactory(originalJSON, 'parse'),
@@ -1986,6 +2023,7 @@ function ProtectedApi() {
     documentMode: documentMode,
     appendChildToElement: appendChildToElement,
     createElement: createElement,
+    setInnerHtml: setInnerHtml,
     json: json,
     createStylesElement: createStylesElement,
     checkShadowDomSupport: checkShadowDomSupport
@@ -3093,7 +3131,7 @@ function DetailedMenuController(iframe) {
     wotIndication.dataset.title = src_localization.getMessage('menu_wot_reputation_indicator');
     var wotDescriptionText = contentDocument.querySelector('#WotDescriptionText');
     var wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
-    wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
+    src_protectedApi.setInnerHtml(wotDescriptionText, wotReputationSettings.text.replace('$1', wotLogo));
     var confidenceIndication = contentDocument.querySelector('#ConfidenceIndication');
     var wotConfidenceClass = getWotConfidenceClass(wotData);
     addClass(confidenceIndication, wotConfidenceClass);
@@ -5373,7 +5411,7 @@ function UIButton() {
     }
     src_log.debug('Requirements checked, all ok');
     buttonElement = src_protectedApi.createElement('div');
-    buttonElement.innerHTML = HTML.button;
+    src_protectedApi.setInnerHtml(buttonElement, HTML.button);
     button = buttonElement.firstChild;
     var adgStylesButton;
     if (src_protectedApi.checkShadowDomSupport()) {
@@ -5895,7 +5933,7 @@ function IframeController() {
     }
     var stylesElement = document.documentElement.querySelector("#".concat(styleID));
     if (stylesElement) {
-      stylesElement.innerHTML = "".concat(stylesElement.innerHTML, " ").concat(style);
+      src_protectedApi.setInnerHtml(stylesElement, "".concat(stylesElement.innerHTML, " ").concat(style));
     } else {
       document.documentElement.appendChild(src_protectedApi.createStylesElement(style, getStyleNonce(), styleID));
     }
@@ -6078,7 +6116,7 @@ function SliderMenuControllerMobile(addRule, iframe) {
   };
 }
 ;// ./package.json
-const package_namespaceObject = {"rE":"4.3.75"};
+const package_namespaceObject = {"rE":"4.3.77"};
 ;// ./src/iframe.mobile.js
 function iframe_mobile_typeof(o) { "@babel/helpers - typeof"; return iframe_mobile_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, iframe_mobile_typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }

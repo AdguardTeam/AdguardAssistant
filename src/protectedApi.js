@@ -5,6 +5,10 @@
  * @constructor
  */
 function ProtectedApi() {
+    /**
+     * Default Trusted Types policy name provided by CoreLibs.
+     */
+    const DEFAULT_POLICY_NAME = 'AGPolicy';
     const win = window;
     const functionPType = Function.prototype;
     const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
@@ -59,6 +63,10 @@ function ProtectedApi() {
      * Creating element instead `document.createElement`
      * to prevented a custom `document.createElement`
      * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
+     *
+     * And also if browser supports Trusted Types,
+     * we will use it with default AdGuard policy to create elements from strings.
+     * see: https://github.com/AdguardTeam/AdguardAssistant/issues/438
      */
     const createElement = (markup) => {
         const doc = document.implementation.createHTMLDocument('');
@@ -68,9 +76,37 @@ function ProtectedApi() {
             markup = `<${markup}></${markup}>`;
         }
 
+        try {
+            if (win.trustedTypes && win.trustedTypes.createPolicy) {
+                const policy = win.trustedTypes.createPolicy(DEFAULT_POLICY_NAME, {
+                    createHTML: (s) => s,
+                });
+                // eslint-disable-next-line no-param-reassign
+                markup = policy.createHTML(markup);
+            }
+        } catch (e) {
+            // Do nothing
+        }
+
         doc.body.innerHTML = markup;
 
         return doc.body.firstChild;
+    };
+
+    /**
+     * Set innerHTML to element.
+     *
+     * @param {HTMLElement} element Element to add HTML.
+     * @param {string} html HTML string.
+     */
+    const setInnerHtml = (element, html) => {
+        // Clear existing content
+        while (element.lastChild) {
+            element.removeChild(element.lastChild);
+        }
+
+        // Add new content
+        element.appendChild(createElement(html));
     };
 
     const json = {
@@ -130,6 +166,7 @@ function ProtectedApi() {
         documentMode,
         appendChildToElement,
         createElement,
+        setInnerHtml,
         json,
         createStylesElement,
         checkShadowDomSupport,

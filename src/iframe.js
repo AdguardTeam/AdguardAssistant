@@ -433,7 +433,7 @@ function IframeController() {
         const stylesElement = document.documentElement.querySelector(`#${styleID}`);
 
         if (stylesElement) {
-            stylesElement.innerHTML = `${stylesElement.innerHTML} ${style}`;
+            protectedApi.setInnerHtml(stylesElement, `${stylesElement.innerHTML} ${style}`);
         } else {
             document.documentElement.appendChild(
                 protectedApi.createStylesElement(style, getStyleNonce(), styleID),

@@ -7,6 +7,15 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [4.3.76] - 2025-09-23
+
+### Fixed
+
+- AdGuard Assistant icon doesn't appear on YouTube and Google sites [#438].
+
+[#438]: https://github.com/AdguardTeam/AdguardAssistant/issues/438
+[4.3.76]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.75...v4.3.76
+
 ## [4.3.75] - 2025-07-29
 
 ### Fixed

@@ -190,7 +190,7 @@ function UIButton() {
         log.debug('Requirements checked, all ok');
 
         buttonElement = protectedApi.createElement('div');
-        buttonElement.innerHTML = HTML.button;
+        protectedApi.setInnerHtml(buttonElement, HTML.button);
         button = buttonElement.firstChild;
         let adgStylesButton;
         if (protectedApi.checkShadowDomSupport()) {

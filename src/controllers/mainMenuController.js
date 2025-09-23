@@ -128,7 +128,7 @@ export default function DetailedMenuController(iframe) {
 
         const wotDescriptionText = contentDocument.querySelector('#WotDescriptionText');
         const wotLogo = '<span id="WotLogo"><span class="wot-logo"></span></span>';
-        wotDescriptionText.innerHTML = wotReputationSettings.text.replace('$1', wotLogo);
+        protectedApi.setInnerHtml(wotDescriptionText, wotReputationSettings.text.replace('$1', wotLogo));
 
         const confidenceIndication = contentDocument.querySelector('#ConfidenceIndication');
         const wotConfidenceClass = getWotConfidenceClass(wotData);

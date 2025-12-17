@@ -31,7 +31,8 @@ userscripts.adtidy.org:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: true
+    - adg-docker: 'true'
+    - extension: 'true'
   notifications:
     - events:
         - deployment-started-and-finished

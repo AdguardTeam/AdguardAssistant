@@ -32,7 +32,8 @@ userscripts.adtidy.org:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: true
+    - adg-docker: 'true'
+    - extension: 'true'
   notifications:
     - events:
         - deployment-started-and-finished
@@ -83,7 +84,8 @@ npmjs:
             rm -rf node_modules
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
-    - adg-docker: true
+    - adg-docker: 'true'
+    - extension: 'true'
   notifications:
     - events:
         - deployment-started-and-finished

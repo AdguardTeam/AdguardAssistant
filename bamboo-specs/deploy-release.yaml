@@ -32,7 +32,6 @@ userscripts.adtidy.org:
   final-tasks: []
   variables: {}
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:
@@ -84,7 +83,6 @@ npmjs:
             rm -rf node_modules
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
-    - adg-docker: 'true'
     - extension: 'true'
   notifications:
     - events:

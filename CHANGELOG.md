@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [4.3.81] - FIXME: Add date on release
+
+### Fixed
+
+- Shadow at the bottom of the element picker is displayed as a white strip in Safari/Chrome dark mode [#442].
+
+[#442]: https://github.com/AdguardTeam/AdguardAssistant/issues/442
+
+[4.3.81]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.77...v4.3.81
+
 ## [4.3.77] - 2025-09-23
 
 ### Fixed

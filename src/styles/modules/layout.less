@@ -2,6 +2,11 @@
 
 .main {
     position: relative;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    // To adjust for different locales text length
+    justify-content: space-evenly;
 
     &--roboto {
         font-family: "Roboto", "Open Sans", Arial, sans-serif;

@@ -10,7 +10,7 @@ const config = {
             {
                 test: /\.svg$/,
                 exclude: /node_modules/,
-                loader: 'url-loader',
+                type: 'asset/inline',
             },
             {
                 test: /\.html$/,

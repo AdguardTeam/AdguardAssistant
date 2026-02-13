@@ -2,7 +2,7 @@
 const path = require('path');
 const glob = require('glob');
 const copyfile = require('cp-file');
-const replaceInFile = require('replace-in-file');
+const { sync: replaceInFileSync } = require('replace-in-file');
 const fs = require('fs');
 
 const PLUGIN_NAME = 'MetaDataPlugin';
@@ -24,7 +24,7 @@ const replaceWithMultipleSource = (source, filePath) => {
         }), { from: [], to: [] });
 
     replaceOptions.files = filePath;
-    replaceInFile.sync(replaceOptions);
+    replaceInFileSync(replaceOptions);
 };
 
 /**
@@ -39,7 +39,7 @@ const replace = (from, to, filePath) => {
         to,
         files: filePath,
     };
-    replaceInFile.sync(replaceOptions);
+    replaceInFileSync(replaceOptions);
 };
 
 /**

@@ -9,10 +9,15 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [4.3.81] - FIXME: Add date on release
 
+### Changed
+
+- Updated packages to latest stable versions [#275].
+
 ### Fixed
 
 - Shadow at the bottom of the element picker is displayed as a white strip in Safari/Chrome dark mode [#442].
 
+[#275]: https://github.com/AdguardTeam/AdguardAssistant/issues/275
 [#442]: https://github.com/AdguardTeam/AdguardAssistant/issues/442
 
 [4.3.81]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.77...v4.3.81

@@ -57,13 +57,15 @@ const config = {
 };
 
 const fileManagerPlugin = new FileManagerPlugin({
-    onEnd: {
-        copy: [
-            {
-                source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, FILENAME),
-                destination: path.resolve(__dirname, DIST_DIR),
-            },
-        ],
+    events: {
+        onEnd: {
+            copy: [
+                {
+                    source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, FILENAME),
+                    destination: path.resolve(__dirname, DIST_DIR),
+                },
+            ],
+        },
     },
 });
 

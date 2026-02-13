@@ -19,7 +19,7 @@ module.exports = {
             {
                 test: /\.svg$/,
                 exclude: /node_modules/,
-                loader: 'url-loader',
+                type: 'asset/inline',
             },
             {
                 test: /\.html$/,
@@ -27,7 +27,7 @@ module.exports = {
                 loader: 'html-loader',
                 options: {
                     minimize: true,
-                    attributes: false,
+                    sources: false,
                 },
             },
             {

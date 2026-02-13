@@ -128,8 +128,7 @@ async function upload() {
         try {
             const formData = getFormData(filename);
             await axios.post(BASE_UPLOAD_URL, formData, {
-                contentType: 'multipart/form-data',
-                headers: formData.getHeaders(),
+                headers: { 'Content-Type': 'multipart/form-data' },
             });
             cliLog.success(`Successfully uploaded ${filename}`);
         } catch (e) {

@@ -9,6 +9,10 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [4.3.81] - FIXME: Add date on release
 
+### Added
+
+- Support for changing the icon color based on the browser theme (light/dark) [#439].
+
 ### Changed
 
 - Updated packages to latest stable versions [#275].
@@ -19,6 +23,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 [#275]: https://github.com/AdguardTeam/AdguardAssistant/issues/275
 [#442]: https://github.com/AdguardTeam/AdguardAssistant/issues/442
+[#439]: https://github.com/AdguardTeam/AdguardAssistant/issues/439
 
 [4.3.81]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.77...v4.3.81
 

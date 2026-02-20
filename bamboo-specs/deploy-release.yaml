@@ -33,14 +33,6 @@ userscripts.adtidy.org:
   variables: {}
   requirements:
     - extension: 'true'
-  notifications:
-    - events:
-        - deployment-started-and-finished
-      recipients:
-        - webhook:
-            name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds
-
 npmjs:
   docker:
     image: adguard/node-ssh:22.17--0
@@ -84,10 +76,3 @@ npmjs:
             echo "Size after cleanup:" && du -h | tail -n 1
   requirements:
     - extension: 'true'
-  notifications:
-    - events:
-        - deployment-started-and-finished
-      recipients:
-        - webhook:
-            name: Deploy webhook
-            url: http://prod.jirahub.service.eu.consul/v1/webhook/bamboo?channel=adguard-qa-extensions-builds

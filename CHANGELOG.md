@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
-## [4.3.87] - 2026-02-?? <!-- TODO: Add release date -->
+## [4.4.1] - 2026-02-24
 
 ### Added
 
@@ -25,7 +25,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [#442]: https://github.com/AdguardTeam/AdguardAssistant/issues/442
 [#439]: https://github.com/AdguardTeam/AdguardAssistant/issues/439
 
-[4.3.87]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.77...v4.3.87
+[4.4.1]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.77...v4.4.1
 
 ## [4.3.77] - 2025-09-23
 

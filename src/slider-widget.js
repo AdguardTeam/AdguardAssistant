@@ -28,12 +28,12 @@ function SliderWidget(api = {}) {
     let value = 0;
     let onValueChanged = null;
 
-    const activateValue = (newValue) => {
-        // Do nothing if the value is the same
-        if (newValue === value) {
-            return;
-        }
-
+    /*
+     * Updates slider UI.
+     *
+     * @param {number} newValue Value to set for slider.
+     */
+    const updateSliderUi = (newValue) => {
         // Clamp the new value between min and max
         if (newValue < min) {
             value = min;
@@ -59,6 +59,20 @@ function SliderWidget(api = {}) {
                 ticks[i].setAttribute('class', TICK_CLASS);
             }
         }
+    };
+
+    /*
+     * Checks if value changed, updates slider and fires value changed event.
+     *
+     * @param {number} newValue Value to set for slider.
+     */
+    const activateValue = (newValue) => {
+        // Do nothing if the value is the same
+        if (newValue === value) {
+            return;
+        }
+
+        updateSliderUi(newValue);
 
         onValueChanged(value);
     };
@@ -201,7 +215,15 @@ function SliderWidget(api = {}) {
 
         render();
         bindEvents();
+
+        // Defer visual update to ensure DOM is fully rendered
+        requestAnimationFrame(() => {
+            updateSliderUi(value);
+        });
     };
+
+    // eslint-disable-next-line no-param-reassign
+    api.getValue = () => value;
 
     return api;
 }

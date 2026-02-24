@@ -55,6 +55,8 @@ export default function SliderMenuController(addRule, iframe) {
             isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
             isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
             isBlockOneDomain: contentDocument.getElementById('one-domain-checkbox').checked,
+            // Slider widget value is inverted
+            sliderValue: sliderWidget.getValue(),
         };
 
         iframeCtrl.showBlockPreview(
@@ -173,7 +175,7 @@ export default function SliderMenuController(addRule, iframe) {
         handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
     };
 
-    const createSlider = (setElement) => {
+    const createSlider = (setElement, savedSliderValue) => {
         const parents = getParentsLevel(selectedElement);
         const children = getAllChildren(selectedElement);
 
@@ -207,17 +209,25 @@ export default function SliderMenuController(addRule, iframe) {
         };
 
         let currentVal = options.value;
+        let isReversedValue = false;
 
-        // set slider position on current element after returning from preview mode
-        if (setElement) {
-            const setElementparents = getParentsLevel(setElement);
-            currentVal = setElementparents.length + 1;
+        // set slider position after returning from preview mode
+        if (savedSliderValue !== undefined && savedSliderValue !== null) {
+            currentVal = savedSliderValue;
+            // savedSliderValue comes from getValue() which returns the UI value (already reversed)
+            isReversedValue = true;
+        } else if (setElement) {
+            const setElementParents = getParentsLevel(setElement);
+            currentVal = setElementParents.length + 1;
         }
+
+        // Convert to reversed slider value (slider is inverted) only if not already reversed
+        const reversedValue = isReversedValue ? currentVal : options.max - currentVal + options.min;
 
         sliderWidget.init(slider, {
             min: options.min,
             max: options.max,
-            value: currentVal,
+            value: reversedValue,
             // eslint-disable-next-line no-shadow
             onValueChanged(value) {
                 // max - value + min is because we have reversed slider
@@ -239,7 +249,8 @@ export default function SliderMenuController(addRule, iframe) {
         // eslint-disable-next-line prefer-destructuring
         currentElement = options.currentElement;
         bindEvents();
-        createSlider(currentElement);
+        const savedSliderValue = options.options && options.options.sliderValue;
+        createSlider(currentElement, savedSliderValue);
         onScopeChange();
         selector.selectElement(selectedElement);
 

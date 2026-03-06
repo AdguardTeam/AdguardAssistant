@@ -18,7 +18,8 @@ userscripts.adtidy.org:
         force-clean-build: false
     - artifact-download:
         artifacts:
-          - {}
+          - name: assistant.meta.js
+          - name: assistant.user.js
     - script:
         interpreter: SHELL
         scripts:

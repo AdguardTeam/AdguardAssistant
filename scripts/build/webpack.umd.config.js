@@ -61,8 +61,8 @@ const fileManagerPlugin = new FileManagerPlugin({
         onEnd: {
             copy: [
                 {
-                    source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENVS.RELEASE, FILENAME),
-                    destination: path.resolve(__dirname, DIST_DIR),
+                    source: path.resolve(__dirname, BUILD_DIR, CHANNEL_ENV, FILENAME),
+                    destination: path.resolve(__dirname, DIST_DIR, FILENAME),
                 },
             ],
         },

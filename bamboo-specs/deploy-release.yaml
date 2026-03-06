@@ -19,7 +19,8 @@ userscripts.adtidy.org:
         force-clean-build: false
     - artifact-download:
         artifacts:
-          - {}
+          - name: assistant.meta.js
+          - name: assistant.user.js
     - script:
         interpreter: SHELL
         scripts:
@@ -42,22 +43,20 @@ npmjs:
   tasks:
     - checkout:
         force-clean-build: true
+    - artifact-download:
+        artifacts:
+          - name: assistant.tgz
     - script:
         interpreter: SHELL
         scripts:
           - |-
             set -e
             set -x
-
-            pnpm install ${bamboo.varsPnpm}
-
             ls -la
-
-            pnpm release
 
             export NPM_TOKEN=${bamboo.npmSecretToken}
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
-            npm publish --access public
+            npm publish assistant.tgz --access public
   final-tasks:
     - script:
         interpreter: SHELL

@@ -44,6 +44,8 @@ Build:
             pnpm locales:validate-required
 
             pnpm release
+
+            pnpm pack --out assistant.tgz
     - inject-variables:
         file: build/release/build.txt
         scope: RESULT
@@ -84,6 +86,11 @@ Build:
     - name: assistant.user.js
       location: build/release
       pattern: assistant.user.js
+      shared: true
+      required: true
+    - name: assistant.tgz
+      location: ./
+      pattern: assistant.tgz
       shared: true
       required: true
   requirements:

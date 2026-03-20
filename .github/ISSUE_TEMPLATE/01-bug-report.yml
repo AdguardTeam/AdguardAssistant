@@ -1,0 +1,62 @@
+name: 🐞 Bug report
+description: Report a bug or unexpected behavior.
+labels: "Bug"
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this form!
+
+  - type: input
+    id: product_type
+    attributes:
+      label: Type of product
+      description: What product are you running?
+      placeholder: For example, AdGuard for Windows
+    validations:
+      required: false    
+  - type: input
+    id: br_version
+    attributes:
+      label: Browser version
+      description: What browser do you use?
+      placeholder: For example, Chrome 123
+    validations:
+      required: false
+  - type: input
+    id: os_version
+    attributes:
+      label: OS version
+      description: What operating system do you use?
+      placeholder: For example, macOS 14.5
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Issue Details
+      description: Please provide a set of steps to reproduce the issue.
+      value: |
+        Steps to reproduce:
+        1.
+        2.
+        3.
+        Expected result:
+        Actual result:
+    validations:
+      required: true   
+  - type: textarea
+    id: screens
+    attributes:
+      label: Screenshots
+      description: |
+        If applicable add screenshots explaining your problem.
+        You can drag and drop images or paste them from clipboard.
+        Use `<details> </details>` tag to hide screenshots under the spoiler.
+      value: |
+          <details><summary>Screenshot 1</summary>
+
+          <!-- paste your screenshot here -->
+
+          </details>
+    validations:
+      required: false

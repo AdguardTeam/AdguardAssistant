@@ -37,7 +37,7 @@
         "@adguard/translate": "^2.0.1",
         "@babel/core": "^7.29.0",
         "@babel/preset-env": "^7.29.0",
-        "axios": "^1.13.5",
+        "axios": "^1.15.0",
         "babel-loader": "^9.2.1",
         "chalk": "5.6.2",
         "clean-webpack-plugin": "^4.0.0",

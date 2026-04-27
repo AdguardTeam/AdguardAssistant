@@ -4,8 +4,6 @@ plan:
   project-key: ADGEXT
   key: LEGASSTESTSPECS
   name: legacy assistant - test
-variables:
-  dockerPuppeteer: adguard/puppeteer-runner:22.14--24.5--0
 
 stages:
   - Test:
@@ -18,10 +16,6 @@ Test:
   key: TEST
   other:
     clean-working-dir: true
-  docker:
-    image: ${bamboo.dockerPuppeteer}
-    volumes:
-      ${system.PNPM_DIR}: "${bamboo.cachePnpm}"
   tasks:
     - checkout:
         force-clean-build: true
@@ -29,57 +23,43 @@ Test:
         interpreter: SHELL
         scripts:
           - |-
-            set -x
-            set -e
+            # 'set' should be added to the beginning of each script to ensure that it runs with the correct options.
+            #  -e: Exit immediately if any command exits with a non-zero status (i.e., if a command fails).
+            #  -x: Print each command to the terminal as it is executed, which is useful for debugging.
+            set -ex
 
             # Fix mixed logs
             exec 2>&1
 
-            ls -laht
+            export DOCKER_BUILDKIT=1
 
-            # Exclude '--ignore-scripts' from pnpm arguments
-            # since it prevents postinstall scripts from running
-            # so Chrome is not installed which is crucial for tests
-            originalPnpmArgs="$bamboo_varsPnpm"
-            modifiedPnpmArgs=$(echo "$originalPnpmArgs" | sed 's/--ignore-scripts//g')
-
-            # Install dependencies
-            pnpm install ${modifiedPnpmArgs}
-
-            pnpm lint
-
-            pnpm dev
-
-            pnpm test
+            # Uses puppeteer-runner base image (has Chrome pre-installed).
+            # --ignore-scripts is NOT passed so puppeteer postinstall can run inside Docker.
+            docker build \
+              --file Dockerfile \
+              --progress plain \
+              --build-arg TEST_RUN_ID=${bamboo.buildNumber} \
+              --target test-output \
+              --output type=local,dest=output \
+              .
   final-tasks:
     - script:
         interpreter: SHELL
         scripts:
-          - |-
-            set -x
-            set -e
-
-            # Fix mixed logs
-            exec 2>&1
-
-            ls -la
-
-            echo "Size before cleanup:" && du -h | tail -n 1
-            rm -rf node_modules
-            echo "Size after cleanup:" && du -h | tail -n 1
+          - "./bamboo-specs/scripts/cleanup.sh output/artifacts/assistant.meta.js,output/artifacts/assistant.js,output/artifacts/assistant.user.js"
   artifacts:
     - name: assistant.meta.js
-      location: build/dev
+      location: output/artifacts
       pattern: assistant.meta.js
       shared: true
       required: true
     - name: assistant.js
-      location: build/dev
+      location: output/artifacts
       pattern: assistant.js
       shared: true
       required: true
     - name: assistant.user.js
-      location: build/dev
+      location: output/artifacts
       pattern: assistant.user.js
       shared: true
       required: true

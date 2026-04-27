@@ -5,3 +5,5 @@ tests/dist/
 .DS_Store
 .pnpm-store/
 .npmrc
+# Output directory for CI docker build (must not be committed)
+output/

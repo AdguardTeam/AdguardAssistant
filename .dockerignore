@@ -1,0 +1,17 @@
+.git
+.idea
+.vscode
+.DS_Store
+.eslintcache
+*.tsbuildinfo
+build/
+output/
+tmp/
+vendor/
+node_modules/
+private/
+dist/
+assistant.tgz
+Dockerfile*
+*.md
+*.log

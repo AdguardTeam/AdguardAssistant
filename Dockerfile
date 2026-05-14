@@ -1,7 +1,7 @@
 # TODO: sync puppeteer-runner image tag with the puppeteer version in pnpm-lock.yaml
 # so the pre-installed Chrome matches and npx puppeteer browsers install becomes a no-op.
 FROM adguard/puppeteer-runner:22.14--24.5--0 AS base-puppeteer
-FROM adguard/node-ssh:22.17--0 AS base
+FROM adguard/node-ssh:22.22--0 AS base
 
 WORKDIR /assistant
 

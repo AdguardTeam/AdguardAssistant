@@ -1,5 +1,5 @@
 /*!
- * AdGuard Assistant - v4.4.3 - Tue Mar 10 2026
+ * AdGuard Assistant - v4.4.11 - Mon Jun 08 2026
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2026 AdGuard. Licensed GPL-3.0
  */
@@ -6498,15 +6498,12 @@ function AdguardSelector() {
     return false;
   };
   var makeIFrameAndEmbeddedSelector = function makeIFrameAndEmbeddedSelector() {
-    placeholdedElements = document.querySelectorAll("iframe:not(.".concat(IGNORED_CLASS, "),embed,object"));
-    toArray(placeholdedElements).filter(function (elem) {
-      var isVisible = elem.style.display !== 'none';
-      var isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
-      return isVisible && isHaveSize;
+    var iframeElements = document.querySelectorAll("iframe:not(.".concat(IGNORED_CLASS, "),embed,object"));
+    placeholdedElements = toArray(iframeElements).filter(function (elem) {
+      return elem.style.display !== 'none' && elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
     });
-    var elements = placeholdedElements;
     var _loop = function _loop(i) {
-      var current = elements[i];
+      var current = placeholdedElements[i];
       // eslint-disable-next-line no-shadow
       (function (current) {
         var placeHolder = makePlaceholderImage(current);
@@ -6535,7 +6532,7 @@ function AdguardSelector() {
         }
       })(current);
     };
-    for (var i = 0; i < elements.length; i += 1) {
+    for (var i = 0; i < placeholdedElements.length; i += 1) {
       _loop(i);
     }
   };
@@ -8964,7 +8961,7 @@ function SliderMenuControllerMobile(addRule, iframe) {
   };
 }
 ;// ./package.json
-const package_namespaceObject = {"rE":"4.4.3"};
+const package_namespaceObject = {"rE":"4.4.11"};
 ;// ./src/iframe.mobile.js
 function iframe_mobile_typeof(o) { "@babel/helpers - typeof"; return iframe_mobile_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, iframe_mobile_typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }

@@ -498,17 +498,16 @@ function AdguardSelector(api = {}) {
     };
 
     const makeIFrameAndEmbeddedSelector = function () {
-        placeholdedElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`);
-        toArray(placeholdedElements)
-            .filter((elem) => {
-                const isVisible = elem.style.display !== 'none';
-                const isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
-                return isVisible && isHaveSize;
-            });
+        const iframeElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`);
+        placeholdedElements = toArray(iframeElements)
+            .filter((elem) => (
+                elem.style.display !== 'none'
+                && elem.offsetWidth !== 0
+                && elem.offsetHeight !== 0
+            ));
 
-        const elements = placeholdedElements;
-        for (let i = 0; i < elements.length; i += 1) {
-            const current = elements[i];
+        for (let i = 0; i < placeholdedElements.length; i += 1) {
+            const current = placeholdedElements[i];
             // eslint-disable-next-line no-shadow
             (function (current) {
                 const placeHolder = makePlaceholderImage(current);

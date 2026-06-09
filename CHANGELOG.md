@@ -7,6 +7,16 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [4.4.12] - 2026-06-09
+
+### Fixed
+
+- "Block elements" on pages with hidden iframes. Placeholders covering the entire screen prevented element selection [#455].
+
+[#455]: https://github.com/AdguardTeam/AdguardAssistant/issues/455
+
+[4.4.12]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.3...v4.4.12
+
 ## [4.4.3] - 2026-02-24
 
 ### Added

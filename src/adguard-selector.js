@@ -500,11 +500,11 @@ function AdguardSelector(api = {}) {
     const makeIFrameAndEmbeddedSelector = function () {
         const iframeElements = document.querySelectorAll(`iframe:not(.${IGNORED_CLASS}),embed,object`);
         placeholdedElements = toArray(iframeElements)
-            .filter((elem) => (
-                elem.style.display !== 'none'
-                && elem.offsetWidth !== 0
-                && elem.offsetHeight !== 0
-            ));
+            .filter((elem) => {
+                const isVisible = elem.style.display !== 'none';
+                const isHaveSize = elem.offsetWidth !== 0 && elem.offsetHeight !== 0;
+                return isVisible && isHaveSize;
+            });
 
         for (let i = 0; i < placeholdedElements.length; i += 1) {
             const current = placeholdedElements[i];

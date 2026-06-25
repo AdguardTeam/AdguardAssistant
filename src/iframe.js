@@ -46,7 +46,8 @@ function IframeController() {
     let settingsMaxWidth = 458;
     const iframePositionOffset = 20;
     let buttonPosition = null;
-    const blockedElementsStyleID = 'ag-hide-elements-style-id';
+    const blockedElementsStyleID = settings.Constants.BLOCKED_ELEMENTS_STYLE_ID;
+    const previewStyleID = settings.Constants.PREVIEW_STYLE_ID;
 
     const views = {};
 
@@ -299,6 +300,19 @@ function IframeController() {
         buttonPosition = coords;
     };
 
+    /**
+     * Removes a style element that was hiding elements by path.
+     * @param {string} [styleID] Style element ID. Defaults to the
+     * blocked-elements style so previously blocked elements reappear.
+     */
+    const showHiddenElements = (styleID = blockedElementsStyleID) => {
+        const stylesElement = document.documentElement.querySelector(`#${styleID}`);
+
+        if (stylesElement) {
+            stylesElement.parentNode.removeChild(stylesElement);
+        }
+    };
+
     // e.isTrusted checking for prevent programmatically events
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     const removeIframe = (e) => {
@@ -311,6 +325,12 @@ function IframeController() {
         }
 
         document.removeEventListener('click', removeIframe);
+
+        // Remove the preview style so an unblocked previewed element reappears.
+        // NOTE: the blocked-elements style is intentionally kept so blocked
+        // elements stay hidden until the extension filter takes over.
+        showHiddenElements(previewStyleID);
+
         document.documentElement.removeChild(iframeAnchor);
         iframe = null;
         iframeAnchor = null;
@@ -402,7 +422,7 @@ function IframeController() {
         resizeIframe(null, null);
     };
 
-    const hideElementsByPath = (selectedPath, styleID) => {
+    const hideElementsByPath = (selectedPath, styleID = blockedElementsStyleID) => {
         if (!selectedPath) {
             return false;
         }
@@ -425,15 +445,10 @@ function IframeController() {
             return false;
         }
 
-        if (!styleID) {
-            // eslint-disable-next-line no-param-reassign
-            styleID = blockedElementsStyleID;
-        }
-
         const stylesElement = document.documentElement.querySelector(`#${styleID}`);
 
         if (stylesElement) {
-            protectedApi.setInnerHtml(stylesElement, `${stylesElement.innerHTML} ${style}`);
+            stylesElement.appendChild(document.createTextNode(` ${style}`));
         } else {
             document.documentElement.appendChild(
                 protectedApi.createStylesElement(style, getStyleNonce(), styleID),
@@ -447,20 +462,6 @@ function IframeController() {
         }
         return undefined;
     };
-
-    // show elements hidden by `hideElementsByPath` function
-    const showHiddenElements = (styleID) => {
-        if (!styleID) {
-            // eslint-disable-next-line no-param-reassign
-            styleID = blockedElementsStyleID;
-        }
-        const stylesElement = document.documentElement.querySelector(`#${styleID}`);
-
-        if (stylesElement) {
-            stylesElement.parentNode.removeChild(stylesElement);
-        }
-    };
-
     const blockElement = (path, addRule) => {
         if (gm.ADG_addRule) {
             gm.ADG_addRule(path, () => {

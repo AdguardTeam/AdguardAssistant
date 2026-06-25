@@ -7,6 +7,14 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [Keep a Changelog]: https://keepachangelog.com/en/1.0.0/
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## [Unreleased]
+
+### Fixed
+
+- Visual feedback breaking on repeated element blocking — corrupted CSS accumulation in the hide style (AG-55504).
+
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.12...HEAD
+
 ## [4.4.12] - 2026-06-09
 
 ### Fixed

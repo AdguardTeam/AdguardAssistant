@@ -11,7 +11,9 @@ import gm from './gm';
  *  MINIMUM_IE_SUPPORTED_VERSION: number,
  *  MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number,
  *  BUTTON_POSITION_ITEM_NAME: string,
- *  IFRAME_ID: string
+ *  IFRAME_ID: string,
+ *  PREVIEW_STYLE_ID: string,
+ *  BLOCKED_ELEMENTS_STYLE_ID: string
  * },
  * MenuItemsNames: {
  *  DetailedMenu: string,
@@ -38,6 +40,8 @@ function Settings() {
         MINIMUM_IE_SUPPORTED_VERSION: 10,
         MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
         IFRAME_ID: 'adguard-assistant-dialog',
+        PREVIEW_STYLE_ID: 'ag-preview-style-id',
+        BLOCKED_ELEMENTS_STYLE_ID: 'ag-hide-elements-style-id',
         REPORT_URL: 'https://link.adtidy.org/forward.html?action=site_report_page&domain={0}&from=main_menu&app=assistant',
     };
 

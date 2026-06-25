@@ -1,5 +1,5 @@
 /*!
- * AdGuard Assistant - v4.4.12 - Wed Jun 10 2026
+ * AdGuard Assistant - v4.4.13 - Thu Jun 25 2026
  * https://github.com/AdguardTeam/AdguardAssistant#adguard-assistant
  * Copyright (c) 2026 AdGuard. Licensed GPL-3.0
  */
@@ -5143,7 +5143,9 @@ function settings_typeof(o) { "@babel/helpers - typeof"; return settings_typeof 
  *  MINIMUM_IE_SUPPORTED_VERSION: number,
  *  MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: number,
  *  BUTTON_POSITION_ITEM_NAME: string,
- *  IFRAME_ID: string
+ *  IFRAME_ID: string,
+ *  PREVIEW_STYLE_ID: string,
+ *  BLOCKED_ELEMENTS_STYLE_ID: string
  * },
  * MenuItemsNames: {
  *  DetailedMenu: string,
@@ -5170,6 +5172,8 @@ function Settings() {
     MINIMUM_IE_SUPPORTED_VERSION: 10,
     MINIMUM_VISIBLE_HEIGHT_TO_SHOW_BUTTON: 250,
     IFRAME_ID: 'adguard-assistant-dialog',
+    PREVIEW_STYLE_ID: 'ag-preview-style-id',
+    BLOCKED_ELEMENTS_STYLE_ID: 'ag-hide-elements-style-id',
     REPORT_URL: 'https://link.adtidy.org/forward.html?action=site_report_page&domain={0}&from=main_menu&app=assistant'
   };
   var MenuItemsNames = {
@@ -7629,6 +7633,7 @@ function SliderMenuController(addRule, iframe) {
 
 
 
+
 /**
  * Block preview controller
  * @param addRule
@@ -7643,7 +7648,7 @@ function BlockPreviewController(addRule, iframe) {
   var selectedPath = null;
   var optionsState = null;
   var iframeCtrl = iframe;
-  var previewStyleID = 'ag-preview-style-id';
+  var previewStyleID = src_settings.Constants.PREVIEW_STYLE_ID;
   var showElement = function showElement() {
     iframeCtrl.showHiddenElements(previewStyleID);
   };
@@ -7657,6 +7662,11 @@ function BlockPreviewController(addRule, iframe) {
   };
   var blockElement = function blockElement(e) {
     e.stopPropagation();
+    // NOTE: preview style cleanup is handled inside iframeCtrl.blockElement
+    // → removeIframe() → showHiddenElements(previewStyleID), which runs
+    // synchronously right before hideElementsByPath re-hides the element.
+    // Calling showElement() here would remove the preview style now, making
+    // the element visible until the async GM callback re-hides it (flash).
     iframeCtrl.blockElement(selectedPath, addRule);
   };
   var showDetailedMenu = function showDetailedMenu() {
@@ -8466,7 +8476,8 @@ function IframeController() {
   var settingsMaxWidth = 458;
   var iframePositionOffset = 20;
   var buttonPosition = null;
-  var blockedElementsStyleID = 'ag-hide-elements-style-id';
+  var blockedElementsStyleID = src_settings.Constants.BLOCKED_ELEMENTS_STYLE_ID;
+  var previewStyleID = src_settings.Constants.PREVIEW_STYLE_ID;
   var views = {};
   views[src_settings.MenuItemsNames.DetailedMenu] = HTML.detailed_menu;
   views[src_settings.MenuItemsNames.SelectorMenu] = HTML.selector_menu;
@@ -8678,6 +8689,19 @@ function IframeController() {
     buttonPosition = coords;
   };
 
+  /**
+   * Removes a style element that was hiding elements by path.
+   * @param {string} [styleID] Style element ID. Defaults to the
+   * blocked-elements style so previously blocked elements reappear.
+   */
+  var showHiddenElements = function showHiddenElements() {
+    var styleID = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : blockedElementsStyleID;
+    var stylesElement = document.documentElement.querySelector("#".concat(styleID));
+    if (stylesElement) {
+      stylesElement.parentNode.removeChild(stylesElement);
+    }
+  };
+
   // e.isTrusted checking for prevent programmatically events
   // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
   var _removeIframe = function removeIframe(e) {
@@ -8688,6 +8712,11 @@ function IframeController() {
       return false;
     }
     document.removeEventListener('click', _removeIframe);
+
+    // Remove the preview style so an unblocked previewed element reappears.
+    // NOTE: the blocked-elements style is intentionally kept so blocked
+    // elements stay hidden until the extension filter takes over.
+    showHiddenElements(previewStyleID);
     document.documentElement.removeChild(iframeAnchor);
     iframe = null;
     iframeAnchor = null;
@@ -8765,7 +8794,8 @@ function IframeController() {
   var resizeSliderMenuToNormal = function resizeSliderMenuToNormal() {
     resizeIframe(null, null);
   };
-  var hideElementsByPath = function hideElementsByPath(selectedPath, styleID) {
+  var hideElementsByPath = function hideElementsByPath(selectedPath) {
+    var styleID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : blockedElementsStyleID;
     if (!selectedPath) {
       return false;
     }
@@ -8784,13 +8814,9 @@ function IframeController() {
       src_log.error('Can`t block element: `selector` path is empty');
       return false;
     }
-    if (!styleID) {
-      // eslint-disable-next-line no-param-reassign
-      styleID = blockedElementsStyleID;
-    }
     var stylesElement = document.documentElement.querySelector("#".concat(styleID));
     if (stylesElement) {
-      src_protectedApi.setInnerHtml(stylesElement, "".concat(stylesElement.innerHTML, " ").concat(style));
+      stylesElement.appendChild(document.createTextNode(" ".concat(style)));
     } else {
       document.documentElement.appendChild(src_protectedApi.createStylesElement(style, getStyleNonce(), styleID));
     }
@@ -8801,18 +8827,6 @@ function IframeController() {
       iframeAnchor.style.setProperty('display', 'block', 'important');
     }
     return undefined;
-  };
-
-  // show elements hidden by `hideElementsByPath` function
-  var showHiddenElements = function showHiddenElements(styleID) {
-    if (!styleID) {
-      // eslint-disable-next-line no-param-reassign
-      styleID = blockedElementsStyleID;
-    }
-    var stylesElement = document.documentElement.querySelector("#".concat(styleID));
-    if (stylesElement) {
-      stylesElement.parentNode.removeChild(stylesElement);
-    }
   };
   var blockElement = function blockElement(path, addRule) {
     if (gm.ADG_addRule) {
@@ -8973,7 +8987,7 @@ function SliderMenuControllerMobile(addRule, iframe) {
   };
 }
 ;// ./package.json
-const package_namespaceObject = {"rE":"4.4.12"};
+const package_namespaceObject = {"rE":"4.4.13"};
 ;// ./src/iframe.mobile.js
 function iframe_mobile_typeof(o) { "@babel/helpers - typeof"; return iframe_mobile_typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, iframe_mobile_typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }

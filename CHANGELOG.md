@@ -9,11 +9,15 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.13...HEAD
+
+## [4.4.13] - 2026-06-25
+
 ### Fixed
 
 - Visual feedback breaking on repeated element blocking — corrupted CSS accumulation in the hide style (AG-55504).
 
-[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.12...HEAD
+[4.4.13]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.12...v4.4.13
 
 ## [4.4.12] - 2026-06-09
 

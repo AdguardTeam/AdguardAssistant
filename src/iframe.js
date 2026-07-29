@@ -217,8 +217,25 @@ function IframeController() {
 
         // setting iframe height dynamically based on inner content
         if (height === 'auto' || !height) {
+            const main = frame.contentWindow.document.body.querySelector('.main');
+            let measured = 0;
+            if (main) {
+                // `.main { min-height: 100% }` makes client/scroll height equal the
+                // current iframe height, so shrinking fails on Safari. Temporarily
+                // neutralize fill-parent styles and measure intrinsic content height.
+                // Collapsing the iframe to 0 is avoided: Chrome can report 0 and then
+                // fall back to iframeMaxHeight (AG-52065).
+                main.style.setProperty('min-height', '0', 'important');
+                main.style.setProperty('justify-content', 'flex-start', 'important');
+                // Force layout before reading metrics
+                // eslint-disable-next-line no-unused-expressions
+                main.offsetHeight;
+                measured = main.scrollHeight || main.offsetHeight;
+                main.style.removeProperty('min-height');
+                main.style.removeProperty('justify-content');
+            }
             // eslint-disable-next-line no-param-reassign
-            height = frame.contentWindow.document.body.querySelector('.main').clientHeight || iframeMaxHeight;
+            height = measured || iframeMaxHeight;
         }
 
         if (width) {

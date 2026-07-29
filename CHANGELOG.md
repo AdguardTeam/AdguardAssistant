@@ -9,6 +9,13 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+### Fixed
+
+- Preview dialog not shrinking on Safari when switching from the block
+  element menu [#448].
+
+[#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
+
 [Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.13...HEAD
 
 ## [4.4.13] - 2026-06-25

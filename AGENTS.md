@@ -154,6 +154,10 @@ pnpm lint       # ESLint + Markdown lint
   [DEVELOPMENT.md — Commit message
   convention](./DEVELOPMENT.md#commit-message-convention).
 
+- **Always include the Jira task URL in the pull request description**
+  (e.g. `https://jira.int.agrd.dev/browse/AG-XXX`), not just the ticket
+  number in the title/branch.
+
 [Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
 
 ## Code Guidelines

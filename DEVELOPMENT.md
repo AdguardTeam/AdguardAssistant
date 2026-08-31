@@ -197,6 +197,10 @@ conventions.
 5. If public API changes (exports from `src/index.js`), update
    `types/assistant.d.ts`.
 
+6. When opening a pull request, always include the Jira task URL in the
+   description, e.g. `https://jira.int.agrd.dev/browse/AG-XXXXX`, so
+   reviewers can jump straight to the ticket.
+
 ### Commit message convention
 
 Every commit message MUST start with the ticket number (`AG-XXX`) so it

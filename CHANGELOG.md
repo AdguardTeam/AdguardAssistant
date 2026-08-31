@@ -23,10 +23,6 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [4.4.14-beta.0] - 2026-08-31
 
-### Changed
-
-- Migrated CI/CD and release automation to GitHub Actions (AG-58189).
-
 ### Fixed
 
 - Preview dialog not shrinking on Safari when switching from the block

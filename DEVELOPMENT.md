@@ -190,7 +190,9 @@ conventions.
    ```
 
 4. Update [CHANGELOG.md](./CHANGELOG.md) under the `Unreleased` section if
-   the change is user-facing.
+   the change is user-facing. Do NOT touch the changelog for changes that
+   only affect CI or tests (workflows, test code, tooling) — those never
+   get a changelog entry.
 
 5. If public API changes (exports from `src/index.js`), update
    `types/assistant.d.ts`.

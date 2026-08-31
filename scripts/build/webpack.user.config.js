@@ -1,6 +1,5 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const CreateFileWebpack = require('create-file-webpack');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 
@@ -16,7 +15,6 @@ const {
     LOCALES_DIR,
     METADATA_TEMPLATE,
 } = require('./constants');
-const pkg = require('../../package.json');
 
 const CHANNEL = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 const OUTPUT_PATH = path.resolve(__dirname, BUILD_DIR, CHANNEL);
@@ -34,11 +32,6 @@ const config = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new CreateFileWebpack({
-            path: OUTPUT_PATH,
-            fileName: 'build.txt',
-            content: `version=${pkg.version}`,
-        }),
         new webpack.DefinePlugin({
             DEBUG: CHANNEL === CHANNEL_ENVS.DEV,
         }),

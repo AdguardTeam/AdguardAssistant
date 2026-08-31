@@ -5,17 +5,17 @@
 - [Project Overview](#project-overview)
 - [Technical Context](#technical-context)
 - [Project Structure](#project-structure)
-- [Build And Test Commands](#build-and-test-commands)
+- [Build And Test](#build-and-test)
 - [Contribution Instructions](#contribution-instructions)
 - [Code Guidelines](#code-guidelines)
-  - [System Design](#system-design)
-  - [Architecture](#architecture)
-  - [Code Quality](#code-quality)
-  - [Testing](#testing)
-  - [Dependency Management](#dependency-management)
-  - [Configuration \& Documentation](#configuration--documentation)
-  - [Markdown Formatting](#markdown-formatting)
-  - [Other](#other)
+    - [System Design](#system-design)
+    - [Architecture](#architecture)
+    - [Code Quality](#code-quality)
+    - [Testing](#testing)
+    - [Dependency Management](#dependency-management)
+    - [Configuration \& Documentation](#configuration--documentation)
+    - [Markdown Formatting](#markdown-formatting)
+    - [Other](#other)
 - [Resources](#resources)
 
 ## Project Overview
@@ -28,8 +28,8 @@ leaving the current page. The assistant is published as an npm package
 
 ## Technical Context
 
-- **Language/Version**: JavaScript (ES modules, transpiled via Babel), Node.js
-  ≥ 22
+- **Language/Version**: JavaScript (ES modules, transpiled via Babel),
+  Node.js ≥ 22.12
 - **Package Manager**: pnpm v10
 - **Primary Dependencies**: None (zero runtime dependencies). Build-time
   dependencies include Webpack 5, Babel, LESS.
@@ -37,6 +37,9 @@ leaving the current page. The assistant is published as an npm package
 - **Storage**: `GM_setValue`/`GM_getValue` (userscript mode),
   `localStorage`-based fallback (embedded mode)
 - **Testing**: QUnit + Puppeteer
+- **CI/CD**: GitHub Actions on self-hosted `team-extensions` runners with
+  shared workflows from `AdGuardSoftwareLimited/actions`; see
+  [DEPLOYMENT.md](./DEPLOYMENT.md)
 - **Target Platform**: Browser (userscript via Tampermonkey/Greasemonkey,
   embedded via `<script>` tag in browser extensions)
 - **Project Type**: Single-package repository
@@ -48,17 +51,18 @@ leaving the current page. The assistant is published as an npm package
 ```text
 ├── .eslintrc                   # ESLint config (airbnb-base)
 ├── .twosky.json                # Locale translation platform config
+├── .github/workflows/          # GitHub Actions: ci, prepare-release,
+│                               # publish-release, mirror
+├── .markdownlint.json          # Markdown lint config
+├── .markdownlintignore         # Markdown lint ignore list
 ├── babel.config.js             # Babel configuration
 ├── CHANGELOG.md                # Version history
+├── DEPLOYMENT.md               # Release channels and deployment pipeline
 ├── Dockerfile                  # Multi-stage CI Docker build
 ├── package.json                # Dependencies and scripts
 ├── pnpm-lock.yaml              # Locked dependency versions
 ├── pnpm-workspace.yaml         # pnpm workspace definition
 ├── README.md                   # Project overview and development guide
-├── bamboo-specs/               # CI/CD pipeline definitions (Bamboo)
-│   ├── build-beta.yaml
-│   ├── build-release.yaml
-│   └── tests.yaml
 ├── build/                      # Build output (dev/beta/release per channel)
 ├── dist/                       # NPM publish output (UMD + self modules)
 ├── locales/                    # i18n translation files (40+ languages)
@@ -99,50 +103,19 @@ leaving the current page. The assistant is published as an npm package
     └── assistant.d.ts
 ```
 
-## Build And Test Commands
+## Build And Test
 
-### Setup
-
-```bash
-pnpm install                   # Install dependencies
-```
-
-### Build
-
-| Command           | Channel  | Output Dir     | Output Files                                   |
-|-------------------|----------|----------------|------------------------------------------------|
-| `pnpm dev`        | DEV      | `build/dev`    | `assistant.user.js`, `assistant.js`, `self.assistant.js` |
-| `pnpm beta`       | BETA     | `build/beta`   | `assistant.user.js`, `assistant.js`, `self.assistant.js` |
-| `pnpm release`    | RELEASE  | `build/release`| `assistant.user.js`, `assistant.js`, `self.assistant.js` |
-
-Each build command runs three Webpack configs:
-1. **userscript** (`webpack.user.config.js`) — produces `assistant.user.js`
-2. **UMD** (`webpack.umd.config.js`) — produces `dist/assistant.js`
-3. **self-context** (`webpack.self.config.js`) — produces
-   `dist/self.assistant.js`
-
-### Test
+Prerequisites, build channels, output files, and troubleshooting are
+documented in [DEVELOPMENT.md — Getting
+Started](./DEVELOPMENT.md#getting-started). Quick reference:
 
 ```bash
-pnpm test                      # Run QUnit tests via Puppeteer
-```
-
-> Tests bundle the source with `tests/webpack.test.config.js`, then launch
-> Puppeteer to run QUnit assertions against a real browser page.
-
-### Lint
-
-```bash
-pnpm lint                      # ESLint on src/ and tests/
-```
-
-### Other
-
-```bash
-pnpm locales:download          # Download translations from Twosky
-pnpm locales:upload            # Upload translations to Twosky
-pnpm locales:validate-required # Validate minimum required keys per locale
-pnpm increment                 # Bump patch version (no git tag)
+pnpm install    # Install dependencies
+pnpm dev        # Build for the DEV channel
+pnpm beta       # Build for the BETA channel
+pnpm release    # Build for the RELEASE channel
+pnpm test       # Run QUnit tests via Puppeteer
+pnpm lint       # ESLint + Markdown lint
 ```
 
 ## Contribution Instructions
@@ -175,6 +148,13 @@ pnpm increment                 # Bump patch version (no git tag)
 - Even when your task is to write or update a document (e.g., a plan, PRD, or
   any Markdown file) rather than code, you MUST still run `pnpm lint` to
   verify Markdown formatting (if ESLint includes Markdown rules).
+
+- **Use ticket-prefixed commit messages**: `AG-XXX <short description in the
+  present tense>`. See the full convention and examples in
+  [DEVELOPMENT.md — Commit message
+  convention](./DEVELOPMENT.md#commit-message-convention).
+
+[Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
 
 ## Code Guidelines
 
@@ -255,7 +235,8 @@ Each layer may call layers below it. No layer may depend on a layer above it.
 
 - **Documentation**: JSDoc is required for constructor functions and public
   methods. Use `@returns`, `@param`, and `@constructor` tags.
-- **Linting**: ESLint with `airbnb-base` config. Code MUST pass `pnpm lint`.
+- **Linting**: ESLint with `airbnb-base` config plus markdownlint. Code MUST
+  pass `pnpm lint`.
 - **No console.log**: Use the custom `log.js` module (`log.debug`,
   `log.error`, `log.warn`, `log.info`) instead of `console.*`. The ESLint
   `no-console: error` rule enforces this.
@@ -280,8 +261,9 @@ Each layer may call layers below it. No layer may depend on a layer above it.
 - **Naming**: Test modules use `.test.js` suffix.
 - **Structure**: Use `QUnit.module` for grouping and `QUnit.test` for
   individual assertions.
-- **Running**: `pnpm test` bundles source with `tests/webpack.test.config.js`
-  and runs assertions in a headless Chromium via Puppeteer.
+- **Running**: Verify changes with `pnpm test` — how the suite runs is
+  described in [DEVELOPMENT.md — Run
+  tests](./DEVELOPMENT.md#run-tests).
 - **Verification**: Tests MUST pass before submitting changes.
 
 ### Dependency Management
@@ -303,11 +285,6 @@ Each layer may call layers below it. No layer may depend on a layer above it.
 directly impacts user experience. Fewer dependencies mean a smaller,
 faster script.
 
-**Known exclusions**:
-
-- Dev dependencies use `^` ranges (e.g., `"webpack": "^5.105.1"`). This is
-  acceptable for build tools but should be tightened over time.
-
 ### Configuration & Documentation
 
 - **Channel environment**: Build behavior is controlled by the `CHANNEL_ENV`
@@ -318,9 +295,9 @@ faster script.
 - **Browser settings**: The `AdguardSettings` global object (injected by the
   embedding extension) provides locale, nonce, and other configuration at
   runtime.
-- **Documentation to update**: When changing public API (exports from
-  `index.js`), update `types/assistant.d.ts`. When changing behavior, update
-  `CHANGELOG.md` under the `Unreleased` section.
+- **Documentation to update**: Update `CHANGELOG.md` and
+  `types/assistant.d.ts` as described in the *Making changes* workflow in
+  [DEVELOPMENT.md](./DEVELOPMENT.md).
 - **Secrets**: Do NOT hardcode API keys, tokens, or other secrets. Use
   environment variables or the embedding extension's `AdguardSettings`.
 
@@ -332,7 +309,8 @@ All Markdown files MUST follow these formatting rules:
   lines artificially short just to hit the limit, keep them close to 80
   characters where possible. This is not a hard lint gate, but SHOULD be
   followed for readability. Lines inside fenced code blocks are exempt from
-  this limit.
+  this limit. The hard limit is 120 characters, enforced by markdownlint
+  (see `.markdownlint.json`).
 - **Unordered lists**: Use dashes (`-`) for bullet points. Indent nested
   list items by 4 spaces.
 - **Continuation lines**: When a list item wraps to the next line, align the
@@ -347,13 +325,13 @@ All Markdown files MUST follow these formatting rules:
 - **Trailing spaces**: Do NOT leave trailing whitespace on any line.
 - **Bare URLs**: Bare URLs are permitted and do not need to be wrapped in
   angle brackets.
-- **Table formatting**: Align table columns with padding when the table fits
-  within 80 characters. If the table exceeds 80 characters, use a compact
-  format with single spaces only.
+- **Table formatting**: Align table column pipes (markdownlint MD060,
+  `aligned` style). Tables are exempt from the line length limit (MD013
+  `tables: false`), so wide tables stay readable.
 
   ```markdown
-  | Col1 | Col2 |
-  | --- | --- |
+  | Col1   | Col2   |
+  | ------ | ------ |
   | Value1 | Value2 |
   ```
 
@@ -364,15 +342,25 @@ humans and AI agents that consume project documentation.
 
 - **Copyright header**: Every source file must include the GPL-3.0 copyright
   header.
-- **Commit conventions**: Keep commits focused and atomic. Reference JIRA
-  issue IDs (e.g., `AG-53878`) when applicable.
-- **CI/CD**: Builds run in Bamboo with multi-stage Docker builds. See
-  `Dockerfile` and `bamboo-specs/` for pipeline definitions.
-- **Versioning**: Follow semantic versioning. The `pnpm increment` script
-  bumps the patch version.
+- **Commit conventions**: Keep commits focused and atomic. Follow the
+  ticket-prefixed convention in
+  [DEVELOPMENT.md](./DEVELOPMENT.md#commit-message-convention); automated CI
+  commits (e.g., CHANGELOG finalization) use a [Conventional Commits] prefix
+  such as `docs:`.
+- **CI/CD**: GitHub Actions run lint/build/tests via the multi-stage
+  `Dockerfile`; releases run via `prepare-release.yml` → merge →
+  `publish-release.yml`. See [DEPLOYMENT.md](./DEPLOYMENT.md) for the
+  pipeline definition.
+- **Versioning**: Follow semantic versioning. Versions are derived from
+  CHANGELOG.md by the release automation — `package.json` has no `version`
+  field.
 
 ## Resources
 
 - [README.md](./README.md) — Project overview, development setup, and usage
   instructions
+- [DEVELOPMENT.md](./DEVELOPMENT.md) — Local setup, build, test, and Docker
+  instructions
+- [DEPLOYMENT.md](./DEPLOYMENT.md) — Release channels and the GitHub Actions
+  deployment pipeline
 - [CHANGELOG.md](./CHANGELOG.md) — Version history

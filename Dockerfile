@@ -1,6 +1,7 @@
-# TODO: sync puppeteer-runner image tag with the puppeteer version in pnpm-lock.yaml
-# so the pre-installed Chrome matches and npx puppeteer browsers install becomes a no-op.
-FROM adguard/puppeteer-runner:22.14--24.5--0 AS base-puppeteer
+# Keep the puppeteer version in pnpm-lock.yaml in sync with the puppeteer-runner
+# image tag so the pre-installed Chrome matches and npx puppeteer browsers
+# install becomes a no-op.
+FROM adguard/puppeteer-runner:22.21.1--24.35.0--0 AS base-puppeteer
 FROM adguard/node-ssh:22.22--0 AS base
 
 WORKDIR /assistant
@@ -66,12 +67,14 @@ RUN --mount=type=cache,target=/pnpm-store,id=assistant-pnpm \
     cp build/dev/assistant.user.js /out/artifacts/
 
 FROM scratch AS test-output
-COPY --from=test /out/ /
+COPY --from=test /out/artifacts/assistant.meta.js /assistant.meta.js
+COPY --from=test /out/artifacts/assistant.js /assistant.js
+COPY --from=test /out/artifacts/assistant.user.js /assistant.user.js
 
 # ============================================================================
 # Stage: build-beta
-# Runs lint + locales check + beta build (no private repo needed)
-# Output: build/beta/assistant.meta.js + assistant.user.js
+# Runs lint + locales check + beta build
+# Output: assistant.meta.js + assistant.user.js
 # ============================================================================
 FROM source-deps AS build-beta
 
@@ -83,23 +86,20 @@ RUN --mount=type=cache,target=/pnpm-store,id=assistant-pnpm \
     pnpm locales:validate-required && \
     pnpm beta && \
     mkdir -p /out/artifacts && \
-    cp build/beta/build.txt /out/artifacts/ && \
     cp build/beta/assistant.meta.js /out/artifacts/ && \
     cp build/beta/assistant.user.js /out/artifacts/
 
 FROM scratch AS build-beta-output
-COPY --from=build-beta /out/ /
+COPY --from=build-beta /out/artifacts/assistant.meta.js /assistant.meta.js
+COPY --from=build-beta /out/artifacts/assistant.user.js /assistant.user.js
 
 # ============================================================================
 # Stage: build-release
 # Runs lint + locales check + release build + pnpm pack
-# Requires private repo (passed via --build-context private=private)
-# Also commits dist/ back to repo (handled outside Docker in bamboo yaml)
-# Output: build/release/ + assistant.tgz + modified/dist/
+# Emits the rebuilt dist/ so publish-release.yml can commit it back to master
+# Output: assistant.meta.js + assistant.user.js + assistant.tgz + dist/
 # ============================================================================
 FROM source-deps AS build-release
-
-COPY --from=private . /assistant/private
 
 ARG TEST_RUN_ID=""
 
@@ -110,11 +110,13 @@ RUN --mount=type=cache,target=/pnpm-store,id=assistant-pnpm \
     pnpm release && \
     pnpm pack --out assistant.tgz && \
     mkdir -p /out/artifacts /out/modified/dist && \
-    cp build/release/build.txt /out/artifacts/ && \
     cp build/release/assistant.meta.js /out/artifacts/ && \
     cp build/release/assistant.user.js /out/artifacts/ && \
     cp assistant.tgz /out/artifacts/ && \
     cp -r dist/. /out/modified/dist/
 
-FROM scratch AS build-release-output
-COPY --from=build-release /out/ /
+FROM scratch AS build-output
+COPY --from=build-release /out/artifacts/assistant.meta.js /assistant.meta.js
+COPY --from=build-release /out/artifacts/assistant.user.js /assistant.user.js
+COPY --from=build-release /out/artifacts/assistant.tgz /assistant.tgz
+COPY --from=build-release /out/modified/dist/ /dist/

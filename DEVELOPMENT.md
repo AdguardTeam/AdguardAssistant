@@ -4,21 +4,22 @@
 
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-  - [Clone the repository](#clone-the-repository)
-  - [Install dependencies](#install-dependencies)
-  - [Build the project](#build-the-project)
-  - [Run tests](#run-tests)
-  - [Run linting](#run-linting)
+    - [Clone the repository](#clone-the-repository)
+    - [Install dependencies](#install-dependencies)
+    - [Build the project](#build-the-project)
+    - [Run tests](#run-tests)
+    - [Run linting](#run-linting)
 - [Project Overview](#project-overview)
 - [Development Workflow](#development-workflow)
-  - [Branching model](#branching-model)
-  - [Code style](#code-style)
-  - [Making changes](#making-changes)
-  - [Testing in a real browser extension](#testing-in-a-real-browser-extension)
+    - [Branching model](#branching-model)
+    - [Code style](#code-style)
+    - [Making changes](#making-changes)
+    - [Commit message convention](#commit-message-convention)
+    - [Testing in a real browser extension](#testing-in-a-real-browser-extension)
 - [Common Tasks](#common-tasks)
-  - [Updating translations](#updating-translations)
-  - [Bumping the version](#bumping-the-version)
-  - [Running in Docker](#running-in-docker)
+    - [Updating translations](#updating-translations)
+    - [Versioning and releases](#versioning-and-releases)
+    - [Running in Docker](#running-in-docker)
 - [Troubleshooting](#troubleshooting)
 - [Additional Resources](#additional-resources)
 
@@ -26,10 +27,10 @@
 
 Before you start, make sure you have the following tools installed:
 
-| Tool     | Minimum Version | How to check    |
-|----------|----------------|-----------------|
-| Node.js  | 22.x           | `node -v`       |
-| pnpm     | 10.x           | `pnpm -v`       |
+| Tool     | Version         | How to check |
+| -------- | --------------- | ------------ |
+| Node.js  | 22.12 or later  | `node -v`    |
+| pnpm     | >=10.33.4 <11   | `pnpm -v`    |
 
 The assistant has **zero runtime dependencies**. All dependencies are
 build-time only — Webpack 5, Babel, LESS, and testing tools (QUnit +
@@ -40,8 +41,8 @@ Puppeteer).
 ### Clone the repository
 
 ```bash
-git clone ssh://git@bit.int.agrd.dev:7999/extensions/assistant.git
-cd assistant
+git clone git@github.com:AdGuardSoftwareLimited/ext-assistant.git
+cd ext-assistant
 ```
 
 ### Install dependencies
@@ -50,17 +51,17 @@ cd assistant
 pnpm install
 ```
 
-> **Note**: The `postinstall` script for Puppeteer (which downloads a Chromium
-> binary) is skipped by default via the `pnpm.neverBuiltDependencies` setting
-> in `package.json`. When running tests locally, you must install Chrome
-> separately — see [Run tests](#run-tests) below.
+> **Note**: pnpm 10 does not run dependency build scripts by default, so
+> Puppeteer's `postinstall` (which downloads a Chromium binary) is skipped.
+> When running tests locally, you must install Chrome separately — see
+> [Run tests](#run-tests) below.
 
 ### Build the project
 
 Three build channels are available:
 
 | Command        | Channel   | Output Directory  |
-|----------------|-----------|-------------------|
+| -------------- | --------- | ----------------- |
 | `pnpm dev`     | DEV       | `build/dev/`      |
 | `pnpm beta`    | BETA      | `build/beta/`     |
 | `pnpm release` | RELEASE   | `build/release/`  |
@@ -82,16 +83,16 @@ Each command runs three Webpack builds in sequence:
 
 **Build output files** (per channel directory):
 
-| File                   | Build Type  | Purpose                               |
-|------------------------|-------------|---------------------------------------|
-| `assistant.user.js`    | userscript  | Self-executing userscript             |
-| `assistant.meta.js`    | userscript  | Userscript metadata (version, update URL) |
-| `assistant.js`         | UMD         | Embeddable module (NPM package)       |
-| `self.assistant.js`    | self        | Global-variable module for `self`     |
-| `build.txt`            | all         | Bamboo environment variables          |
+| File                | Build Type | Purpose                                   |
+| ------------------- | ---------- | ----------------------------------------- |
+| `assistant.user.js` | userscript | Self-executing userscript                 |
+| `assistant.meta.js` | userscript | Userscript metadata (version, update URL) |
+| `assistant.js`      | UMD        | Embeddable module (NPM package)           |
+| `self.assistant.js` | self       | Global-variable module for `self`         |
 
-> For DEV builds, only `assistant.user.js` is written to `build/dev/`. UMD
-> and self builds go to `dist/` for NPM publish.
+> For DEV builds, the UMD (`assistant.js`) and self (`self.assistant.js`)
+> builds are also written to `build/dev/`; they are copied to `dist/` only
+> for RELEASE builds (for NPM publish).
 
 ### Run tests
 
@@ -102,6 +103,7 @@ pnpm test
 ```
 
 This command:
+
 1. Bundles the test suite with `tests/webpack.test.config.js` → `tests/dist/`
 2. Launches Puppeteer to load the test page and run QUnit assertions
 
@@ -122,13 +124,10 @@ suffix.
 pnpm lint
 ```
 
-ESLint checks `src/` and `tests/` using the `airbnb-base` preset. Key rules:
-
-- **No `console.log`**: Use the project's `log.js` module instead
-- **Max line length**: 120 characters
-- **Indentation**: 4 spaces
-
-> There is no auto-fix command. Fix lint issues manually.
+`pnpm lint` runs ESLint on `src/` and `tests/` (the `airbnb-base` preset)
+and markdownlint on all Markdown files. There is no auto-fix command — fix
+lint issues manually. The detailed code style is documented in
+[AGENTS.md — Code Quality](./AGENTS.md#code-quality).
 
 ## Project Overview
 
@@ -164,19 +163,11 @@ the embedded entry point.
 
 ### Code style
 
-Adheres to the [Airbnb JavaScript style guide] via ESLint.
+Adheres to the [Airbnb JavaScript style guide] via ESLint. See
+[AGENTS.md — Code Guidelines](./AGENTS.md#code-guidelines) for the full
+conventions.
 
 [Airbnb JavaScript style guide]: https://github.com/airbnb/javascript
-
-Key conventions:
-
-- 4-space indentation, 120-char max line length
-- `kebab-case` filenames for modules (e.g., `adguard-selector.js`)
-- Named exports preferred over default exports
-- JSDoc for constructor functions and public methods
-- Copyright header required in every source file (GPL-3.0)
-
-Full code guidelines are in [AGENTS.md — Code Guidelines](./AGENTS.md#code-guidelines).
 
 ### Making changes
 
@@ -204,6 +195,29 @@ Full code guidelines are in [AGENTS.md — Code Guidelines](./AGENTS.md#code-gui
 5. If public API changes (exports from `src/index.js`), update
    `types/assistant.d.ts`.
 
+### Commit message convention
+
+Every commit message MUST start with the ticket number (`AG-XXX`) so it
+auto-links with the task tracker, followed by a short description in the
+present tense:
+
+```text
+AG-XXX <short description in present tense>
+```
+
+Examples:
+
+- `AG-55716 Add reusable publish-release workflow`
+- `AG-4321 Fix redirect after login`
+- `AG-99 Update dependencies`
+
+Automated commits that CI creates on its own (for example, the CHANGELOG
+finalization in the release-* PRs, which has no ticket number) use a
+[Conventional Commits] prefix such as `docs:` — e.g.
+`docs: finalize changelog for release`.
+
+[Conventional Commits]: https://www.conventionalcommits.org/en/v1.0.0/
+
 ### Testing in a real browser extension
 
 To test the assistant inside the AdGuard Browser Extension:
@@ -211,7 +225,7 @@ To test the assistant inside the AdGuard Browser Extension:
 1. Build the assistant:
 
    ```bash
-   cd assistant
+   cd ext-assistant
    pnpm dev        # or pnpm beta / pnpm release
    ```
 
@@ -249,14 +263,24 @@ pnpm locales:validate-required # Verify all locales have the required keys
 
 Configuration is in `.twosky.json` (project ID, base locale, language list).
 
-### Bumping the version
+### Versioning and releases
 
-```bash
-pnpm increment                 # Bumps patch version (no git tag)
-```
+`package.json` has **no `version` field** — versions are managed entirely by
+the release automation:
 
-This increments the `version` field in `package.json` only. You must commit
-the change manually. The version is embedded at build time into output files.
+- CI (`ci.yml`) stamps a next-patch `-dev` version derived from CHANGELOG.md
+  into `package.json` before building, via the shared `set-dev-version`
+  action. To reproduce a CI build locally, run
+  `npm pkg set version="4.4.14-dev"` first and restore the file with
+  `git checkout -- package.json` afterwards.
+- Releases are prepared with the **Prepare release** workflow
+  (`prepare-release.yml`, manual `tag` input), which opens a `release-bump/*`
+  PR finalizing CHANGELOG.md, and published by merging that PR
+  (`publish-release.yml` parses the tag from CHANGELOG.md and injects the
+  version at build time).
+
+Never add a `version` field by hand. See [DEPLOYMENT.md](./DEPLOYMENT.md) for
+the full release process.
 
 ### Running in Docker
 
@@ -264,27 +288,34 @@ A multi-stage `Dockerfile` is used for CI. To run the full CI pipeline
 locally:
 
 ```bash
+# Lint + dev build + tests (matches the CI workflow), artifacts in output/
 docker build \
   --file Dockerfile \
   --progress plain \
-  --target test \
   --build-arg TEST_RUN_ID="$(date +%s)" \
+  --target test-output \
   --output type=local,dest=output \
   .
 ```
 
-This runs lint → dev build → tests and extracts artifacts to `output/`.
-
-To just run tests in Docker:
+To build release artifacts exactly as the publish pipeline does:
 
 ```bash
+# package.json has no version field — stamp one first (restore afterwards
+# with `git checkout -- package.json`)
+npm pkg set version="4.4.14-dev"
+
 docker build \
   --file Dockerfile \
   --progress plain \
-  --target test \
   --build-arg TEST_RUN_ID="$(date +%s)" \
+  --target build-output \
+  --output type=local,dest=output \
   .
 ```
+
+Available output targets: `test-output`, `build-beta-output`, and
+`build-output` (release build).
 
 ## Troubleshooting
 
@@ -319,19 +350,6 @@ corepack enable pnpm
 corepack prepare pnpm@10 --activate
 ```
 
-### Build warnings about default imports
-
-You may see warnings like:
-
-```
-Should not import the named export 'version' (imported as 'version')
-from default-exporting module
-```
-
-This warning comes from `iframe.mobile.js` importing `version` from
-`package.json`. It is harmless and does not affect the build output.
-These warnings are tracked for future cleanup.
-
 ### `ERR_OSSL_EVP_UNSUPPORTED` on newer Node.js versions
 
 If you see OpenSSL errors during build, ensure you're using Node.js 22.x.
@@ -343,6 +361,8 @@ versions.
 - [README.md](./README.md) — Project overview, usage, and installation
 - [AGENTS.md](./AGENTS.md) — Code guidelines and architecture for
   contributors and AI agents
+- [DEPLOYMENT.md](./DEPLOYMENT.md) — Release channels and the GitHub Actions
+  deployment pipeline
 - [CHANGELOG.md](./CHANGELOG.md) — Version history
 - [AdGuard Browser Extension](https://github.com/AdguardTeam/AdguardBrowserExtension)
   — The extension that embeds this assistant

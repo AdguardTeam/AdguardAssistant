@@ -1,0 +1,93 @@
+name: CI
+
+description: Lints, tests, and builds on pull requests and pushes to master.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+# Cancel in-progress CI runs for the same ref when a new push occurs,
+# preventing redundant builds and saving CI resources.
+concurrency:
+  group: ci-ext-assistant-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Lint, test, build
+    runs-on: team-extensions
+    # Bound the whole job so a hung puppeteer run cannot occupy the shared
+    # self-hosted runner for hours.
+    timeout-minutes: 30
+    # Least privilege — this job never writes to repo contents.
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # package.json has no version field; the userscript metadata and the
+      # dist banner need one. Derive the next-patch -dev version from the
+      # latest CHANGELOG release (e.g. 4.4.14-dev) via the shared
+      # set-dev-version action; the real version is injected by
+      # publish-release.yml at release time.
+      - name: Set dev version
+        uses: >-
+          AdGuardSoftwareLimited/ext-shared-actions/.github/actions/set-dev-version@master
+
+      - name: Build, lint, and test via Docker
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --build-arg TEST_RUN_ID="${GITHUB_RUN_ID}"
+          --target test-output --output ./artifacts .
+
+      # `archive: false` uploads each file uncompressed so QA can download
+      # the userscript directly. The option only allows a single file per
+      # artifact, so each file is uploaded in its own step.
+      - name: Upload userscript
+        uses: actions/upload-artifact@v7
+        with:
+          name: assistant.user.js
+          path: artifacts/assistant.user.js
+          archive: false
+
+      - name: Upload metadata
+        uses: actions/upload-artifact@v7
+        with:
+          name: assistant.meta.js
+          path: artifacts/assistant.meta.js
+          archive: false
+
+  notify-failure:
+    # The old build.yaml reported every push conclusion to Slack; keep a
+    # failure-only channel for master pushes so a red master doesn't go
+    # unnoticed. PR failures are visible to the author in the Actions UI.
+    #
+    # `cancelled` is included because a job killed by `timeout-minutes`
+    # (e.g. a hung puppeteer run) ends with `cancelled`, not `failure` —
+    # exactly the scenario this notification exists for. This does not
+    # false-alarm on superseded pushes: `cancel-in-progress: true` cancels
+    # the whole previous run (including this pending job), so this job only
+    # ever evaluates on a run that was not superseded. Caveat: if the
+    # timeout fires while this job is still queued on a busy
+    # `team-extensions` runner, the next push supersedes the run and cancels
+    # this pending job before `if` ever evaluates — that timeout goes
+    # unnotified. Narrow window (runner queue time), accepted.
+    name: Notify (failure)
+    needs: test
+    if: >-
+      always() &&
+      github.event_name == 'push' &&
+      (needs.test.result == 'failure' || needs.test.result == 'cancelled')
+    runs-on: team-extensions
+    permissions:
+      contents: read
+    steps:
+      - name: Send Slack notification
+        uses: AdGuardSoftwareLimited/actions/actions/slack@master
+        with:
+          channel: '#adguard-extension-vcs'
+          message: ':cross-mark: *ext-assistant* CI failed on master (result: ${{ needs.test.result }}) — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          color: danger

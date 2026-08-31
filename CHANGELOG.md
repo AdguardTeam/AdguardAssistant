@@ -9,10 +9,22 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+- Migrated CI/CD and release automation to GitHub Actions (AG-58189).
+
+### Deprecated
+
+### Removed
+
 ### Fixed
 
 - Preview dialog not shrinking on Safari when switching from the block
   element menu [#448].
+
+### Security
 
 [#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
 
@@ -30,7 +42,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Fixed
 
-- "Block elements" on pages with hidden iframes. Placeholders covering the entire screen prevented element selection [#455].
+- "Block elements" on pages with hidden iframes. Placeholders covering the
+  entire screen prevented element selection [#455].
 
 [#455]: https://github.com/AdguardTeam/AdguardAssistant/issues/455
 

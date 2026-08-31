@@ -1,0 +1,50 @@
+name: Mirror
+
+description: Mirrors code to the public repo on every push to master.
+
+on:
+  push:
+    branches:
+      - master
+
+# Serialize mirror runs per repo. A release produces two quick master pushes
+# (release-bump merge, then `deploy: update dist`); without a single group
+# they could interleave and leave the mirror behind master's actual head.
+# A run in flight is never cancelled.
+concurrency:
+  group: mirror-${{ github.repository }}
+  cancel-in-progress: false
+
+# `contents: read` — checkout source repo
+# `actions: write` — disable workflows in the public mirror
+# `id-token: write` — Octopass token for push to public repo
+permissions:
+  contents: read
+  actions: write
+  id-token: write
+
+jobs:
+  mirror:
+    # The shared workflow authenticates with `github.token` and the Octopass
+    # OIDC token only, so no repo secrets are forwarded.
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/mirror.yml@master
+    with:
+      team: extensions
+      target_repo: git@github.com:AdguardTeam/AdguardAssistant.git
+
+  notify-failure:
+    # A failing mirror (grant expiry, rejected force-push) leaves the public
+    # repo silently stale — surface it instead of waiting for the next push.
+    name: Notify (failure)
+    needs: mirror
+    if: always() && needs.mirror.result == 'failure'
+    runs-on: team-extensions
+    permissions:
+      contents: read
+    steps:
+      - name: Send Slack notification
+        uses: AdGuardSoftwareLimited/actions/actions/slack@master
+        with:
+          channel: '#adguard-extension-vcs'
+          message: ':cross-mark: *ext-assistant* mirror to AdguardTeam/AdguardAssistant failed — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          color: danger

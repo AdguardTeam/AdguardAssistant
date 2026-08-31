@@ -19,7 +19,9 @@ const {
 
 const CHANNEL_ENV = CHANNEL_ENVS[process.env.CHANNEL_ENV] || CHANNEL_ENVS.DEV;
 
-const banner = `AdGuard Assistant - v${pkg.version} - ${new Date().toDateString()}
+// package.json has no version field outside CI/release builds (it is stamped
+// by set-dev-version / publish-release); fall back to 'dev' for local builds.
+const banner = `AdGuard Assistant - v${pkg.version || 'dev'} - ${new Date().toDateString()}
 ${pkg.homepage ? `${pkg.homepage}` : ''}
 Copyright (c) ${new Date().getFullYear()} ${pkg.author}. Licensed ${pkg.license}`;
 

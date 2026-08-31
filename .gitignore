@@ -5,7 +5,8 @@ tests/dist/
 .DS_Store
 .pnpm-store/
 .npmrc
+assistant.tgz
 # Output directory for CI docker build (must not be committed)
 output/
-.cursor/
 .playwright-mcp/
+.sdd/

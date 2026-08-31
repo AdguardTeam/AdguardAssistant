@@ -9,9 +9,10 @@ output/
 tmp/
 vendor/
 node_modules/
-private/
 dist/
 assistant.tgz
 Dockerfile*
-*.md
 *.log
+# Never bake local credentials into image layers (see Security Notes)
+.npmrc
+.env*

@@ -3,7 +3,7 @@ const pkg = require('../../package.json');
 const releaseChannels = {
     common: {
         fields: {
-            USERSCRIPT_VERSION: pkg.version,
+            USERSCRIPT_VERSION: pkg.version || 'dev',
             USERSCRIPT_NAME: {
                 messageKey: 'extension.assistant.name',
                 metaName: 'name',

@@ -7,7 +7,11 @@ import protectedApi from './protectedApi';
 import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
-import { version } from '../package.json';
+import pkg from '../package.json';
+
+// package.json carries no version outside CI/release builds; show 'dev'
+// instead of 'undefined' for local development builds.
+const appVersion = pkg.version || 'dev';
 
 /**
  * Manages iframe and it's content
@@ -222,7 +226,7 @@ export default function IframeControllerMobile() {
 
             startSelectMode.addEventListener('click', startSelect);
             cancelSelectMode.addEventListener('click', removeIframe);
-            appVersionElem.innerText = `v${version}`;
+            appVersionElem.innerText = `v${appVersion}`;
         },
     });
 

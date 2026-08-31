@@ -1,0 +1,339 @@
+name: Publish release
+
+description: >-
+  Tags the release commit, builds, tests, deploys the compiled userscript to
+  userscripts.adtidy.org, publishes @adguard/assistant to npm (stable tags
+  only), mirrors the release to the public repo (AdguardTeam/AdguardAssistant)
+  with a GitHub Release, commits the rebuilt dist/ back to master, then
+  notifies Slack.
+  Beta tags (e.g. v4.4.14-beta.0) deploy only to the beta channel.
+  Stable tags (e.g. v4.4.14) deploy to the release channel and npm.
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Ref to publish manually
+        required: false
+        type: string
+
+# Serialize all publishes for this repo. A merge-triggered run and a manual
+# workflow_dispatch would otherwise run concurrently on the same release:
+# double force-retag, and the losing npm publish fails with EPUBLISHCONFLICT.
+# An in-flight release is never cancelled.
+concurrency:
+  group: publish-release-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  resolve:
+    name: Resolve publish ref
+    runs-on: team-extensions
+    timeout-minutes: 5
+    # Same gate as the tag job: on a plain PR close (not a merged
+    # release-bump PR from the release bot) the whole pipeline no-ops, so
+    # don't spin up a shared runner just to resolve a ref nobody will use.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       startsWith(github.event.pull_request.head.ref, 'release-bump/') &&
+       github.event.pull_request.user.id == 285975488)
+    permissions:
+      contents: read
+    outputs:
+      ref: ${{ steps.ref.outputs.ref }}
+    steps:
+      - name: Resolve and validate ref
+        id: ref
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_REF: ${{ inputs.ref }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          if [[ "${EVENT_NAME}" == "workflow_dispatch" ]]; then
+            REF="${INPUT_REF:-master}"
+            # Normalize fully-qualified refs so refs/heads/master and
+            # refs/tags/v1.2.3 pass the same gate as their short forms.
+            REF="${REF#refs/heads/}"
+            REF="${REF#refs/tags/}"
+            # Arbitrary SHAs/branches would run an unreviewed Dockerfile with
+            # deploy/npm secrets env. Allow master and release tags only.
+            if [[ "${REF}" != "master" && ! "${REF}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-beta(\.[0-9]+)?)?$ ]]; then
+              echo "::error::workflow_dispatch ref must be empty, master, or a vX.Y.Z[-beta[.N]] tag (got '${REF}')"
+              exit 1
+            fi
+          else
+            REF="${MERGE_SHA:-${REF_NAME}}"
+          fi
+          echo "Resolved publish ref: ${REF}"
+          echo "ref=${REF}" >> "$GITHUB_OUTPUT"
+
+  tag:
+    # Only tag when triggered manually or when a release-bump/* PR from the
+    # release bot is merged (matched by immutable user id, so renames can't
+    # break it). tag-from-changelog.yml has the same guard internally; this
+    # prevents notify-tag-failure from firing on non-release PR merges.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       startsWith(github.event.pull_request.head.ref, 'release-bump/') &&
+       github.event.pull_request.user.id == 285975488)
+    needs: [resolve]
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/tag-from-changelog.yml@master
+    with:
+      ref: ${{ needs.resolve.outputs.ref }}
+      team: extensions
+    # `contents: write` — create the git tag
+    permissions:
+      contents: write
+
+  build:
+    name: Test and build
+    needs: [resolve, tag]
+    runs-on: team-extensions
+    # Bound the whole job so a hung Docker build cannot occupy the shared
+    # self-hosted runner indefinitely.
+    timeout-minutes: 60
+    # Least privilege — this job only checks out and uploads artifacts.
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ needs.resolve.outputs.ref }}
+
+      # Version is parsed from CHANGELOG by the tag job and injected
+      # here so the compiled userscript metadata carries the release tag.
+      # The value is passed via env (never interpolated into the shell
+      # command) so a tag-derived version can never be interpreted by the
+      # shell. The stamped package.json is never committed (commit-dist
+      # stages only dist/).
+      - name: Inject version into package.json
+        run: npm pkg set version="$VERSION"
+        env:
+          VERSION: ${{ needs.tag.outputs.version }}
+
+      - name: Lint and test
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --build-arg TEST_RUN_ID="${GITHUB_RUN_ID}"
+          --target test-output .
+
+      - name: Build release artifacts
+        if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --build-arg TEST_RUN_ID="${GITHUB_RUN_ID}"
+          --target build-output --output ./artifacts .
+
+      - name: Build beta artifacts
+        if: ${{ contains(needs.tag.outputs.tag, '-beta') }}
+        run: >-
+          DOCKER_BUILDKIT=1 docker build --progress plain
+          --build-arg TEST_RUN_ID="${GITHUB_RUN_ID}"
+          --target build-beta-output --output ./artifacts .
+
+      # Transient artifacts are consumed by downstream jobs of the same run
+      # (and for QA) only; a single day of retention keeps storage clean.
+      - name: Upload userscript artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: userscript
+          path: |
+            artifacts/assistant.user.js
+            artifacts/assistant.meta.js
+          retention-days: 1
+
+      - name: Upload npm package artifact
+        if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: npm-package
+          path: artifacts/assistant.tgz
+          retention-days: 1
+
+      # mirror-and-release attaches every file of one artifact to the
+      # GitHub Release: user.js + meta.js for beta tags, plus assistant.tgz
+      # for stable tags. upload-artifact warns only when zero files match
+      # across the whole list — with user.js and meta.js present, the
+      # absent tgz is skipped silently on beta builds.
+      - name: Upload release assets artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-assets
+          path: |
+            artifacts/assistant.user.js
+            artifacts/assistant.meta.js
+            artifacts/assistant.tgz
+          retention-days: 1
+
+      - name: Upload dist artifact
+        if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: artifacts/dist/
+          retention-days: 1
+
+  deploy-static:
+    # Deploys to the beta channel for beta tags (with `-beta` suffix)
+    # or to the release channel for stable tags.
+    needs: [tag, build]
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/deploy-to-static.yml@master
+    with:
+      team: extensions
+      deployer-module: ${{ contains(needs.tag.outputs.tag, '-beta') && 'adguard-assistant-beta' || 'adguard-assistant-release' }}
+      artifact-name: userscript
+      environment: ${{ contains(needs.tag.outputs.tag, '-beta') && 'beta-static' || 'production-static' }}
+    # `contents: read` — download artifact only
+    # `id-token: write` — OIDC token for authenticated Deployer upload
+    permissions:
+      contents: read
+      id-token: write
+
+  deploy-npm:
+    # npm publishes stable tags only — beta is never published to npm.
+    needs: [tag, build]
+    if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/deploy-to-npm.yml@master
+    with:
+      artifact-name: npm-package
+      package-file: assistant.tgz
+    # `contents: read` — download artifact
+    # `id-token: write` — OIDC trusted publishing to npm
+    permissions:
+      contents: read
+      id-token: write
+
+  commit-dist:
+    # Commits the rebuilt dist/ (embedded builds) back to master. Stable tags
+    # only — dist is never committed for beta builds. protected-push resolves
+    # the remote branch head and pushes with --force-with-lease, and no-ops
+    # when dist is unchanged.
+    needs: [tag, build]
+    if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
+    runs-on: team-extensions
+    permissions:
+      contents: write   # push to master
+      id-token: write   # Octopass token exchange in protected-push
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: master
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist-new
+
+      - name: Replace dist with build output
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist
+          mv dist-new dist
+
+      - name: Commit and push dist
+        uses: AdGuardSoftwareLimited/actions/actions/protected-push@master
+        with:
+          # Required: protected-push forwards this to Octopass as the target
+          # repository for the minted token.
+          repository: ${{ github.repository }}
+          branch: master
+          commit-message: 'deploy: update dist ${{ needs.tag.outputs.tag }}'
+          files: dist
+
+  mirror-and-release:
+    # Mirrors the repo (including the tag) to the public mirror and
+    # creates a matching GitHub Release on AdguardTeam/AdguardAssistant.
+    needs: [tag, build]
+    uses: AdGuardSoftwareLimited/actions/.github/workflows/mirror-and-release.yml@master
+    with:
+      team: extensions
+      target_repo: AdguardTeam/AdguardAssistant
+      tag: ${{ needs.tag.outputs.tag }}
+      changelog: ${{ needs.tag.outputs.changelog }}
+      artifact_name: release-assets
+      prerelease: ${{ contains(needs.tag.outputs.tag, '-beta') }}
+    secrets: inherit
+    # `actions: write` — disable workflows in the public mirror
+    # `contents: write` — create GitHub Release on public repo
+    # `id-token: write` — Octopass token for mirror push
+    permissions:
+      actions: write
+      contents: write
+      id-token: write
+
+  notify-success:
+    name: Notify (success)
+    needs: [tag, build, deploy-static, deploy-npm, commit-dist, mirror-and-release]
+    # `always()` so the job still evaluates when beta-skip jobs
+    # (deploy-npm, commit-dist) are skipped for beta tags.
+    if: >-
+      always() &&
+      needs.tag.result == 'success' &&
+      needs.build.result == 'success' &&
+      needs.deploy-static.result == 'success' &&
+      needs.mirror-and-release.result == 'success' &&
+      (needs.deploy-npm.result == 'success' || needs.deploy-npm.result == 'skipped') &&
+      (needs.commit-dist.result == 'success' || needs.commit-dist.result == 'skipped')
+    runs-on: team-extensions
+    # Least privilege — only calls the Slack action.
+    permissions:
+      contents: read
+    steps:
+      - name: Send Slack notification
+        uses: AdGuardSoftwareLimited/actions/actions/slack@master
+        with:
+          channel: '#adguard-extension-vcs'
+          message: ':white_check_mark: *ext-assistant* *${{ needs.tag.outputs.tag }}* deployed to userscripts.adtidy.org + GitHub Release — <${{ needs.mirror-and-release.outputs.release-url }}|release> | <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          color: good
+
+  notify-failure:
+    name: Notify (failure)
+    needs: [tag, build, deploy-static, deploy-npm, commit-dist, mirror-and-release]
+    # `tag` must succeed so we have a version to report; skipped channel
+    # jobs (beta tags skip npm/dist) do not count as failures.
+    if: >-
+      always() && needs.tag.result == 'success' && (
+        needs.build.result != 'success' ||
+        needs.deploy-static.result != 'success' ||
+        needs.mirror-and-release.result != 'success' ||
+        (needs.deploy-npm.result != 'success' && needs.deploy-npm.result != 'skipped') ||
+        (needs.commit-dist.result != 'success' && needs.commit-dist.result != 'skipped')
+      )
+    runs-on: team-extensions
+    # Least privilege — only calls the Slack action.
+    permissions:
+      contents: read
+    steps:
+      - name: Send Slack notification
+        uses: AdGuardSoftwareLimited/actions/actions/slack@master
+        with:
+          channel: '#adguard-extension-vcs'
+          message: ':cross-mark: *ext-assistant* *${{ needs.tag.outputs.tag }}* deploy failed (build: ${{ needs.build.result }}, deploy: ${{ needs.deploy-static.result }}, npm: ${{ needs.deploy-npm.result }}, dist: ${{ needs.commit-dist.result }}, release: ${{ needs.mirror-and-release.result }}) — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          color: danger
+
+  notify-tag-failure:
+    name: Notify (tag failure)
+    needs: [tag]
+    if: always() && needs.tag.result == 'failure'
+    runs-on: team-extensions
+    # Least privilege — only calls the Slack action.
+    permissions:
+      contents: read
+    steps:
+      - name: Send Slack notification
+        uses: AdGuardSoftwareLimited/actions/actions/slack@master
+        with:
+          channel: '#adguard-extension-vcs'
+          message: ':cross-mark: *ext-assistant* release failed at the tag step (result: ${{ needs.tag.result }}) — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          color: danger

@@ -13,22 +13,20 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Changed
 
-- Migrated CI/CD and release automation to GitHub Actions (AG-58189).
-
 ### Deprecated
 
 ### Removed
 
 ### Fixed
 
-- Preview dialog not shrinking on Safari when switching from the block
-  element menu [#448].
-
 ### Security
 
-[#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
+## [4.4.14-beta.0] - 2026-08-31
 
-[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.13...HEAD
+### Fixed
+
+- Preview dialog not shrinking on Safari when switching from the block
+  element menu [#448].
 
 ## [4.4.13] - 2026-06-25
 
@@ -111,3 +109,7 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 [4.3.70]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.3.68...v4.3.70
 [AdguardForMac#1246]: https://github.com/AdguardTeam/AdguardForMac/issues/1246
+
+[#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14-beta.0...HEAD
+[4.4.14-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.13...v4.4.14-beta.0

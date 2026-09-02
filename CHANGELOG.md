@@ -21,6 +21,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Security
 
+## [4.4.14-beta.1] - 2026-09-02
+
 ## [4.4.14-beta.0] - 2026-08-31
 
 ### Fixed
@@ -111,5 +113,6 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [AdguardForMac#1246]: https://github.com/AdguardTeam/AdguardForMac/issues/1246
 
 [#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
-[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14-beta.0...HEAD
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14-beta.1...HEAD
+[4.4.14-beta.1]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14-beta.0...v4.4.14-beta.1
 [4.4.14-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.13...v4.4.14-beta.0

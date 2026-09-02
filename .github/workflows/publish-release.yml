@@ -8,6 +8,8 @@ description: >-
   notifies Slack.
   Beta tags (e.g. v4.4.14-beta.0) deploy only to the beta channel.
   Stable tags (e.g. v4.4.14) deploy to the release channel and npm.
+  Deployment jobs pause for approval in the beta-static, production-static,
+  and npm environments (reviewers managed by terraform-github).
 
 on:
   pull_request:
@@ -183,7 +185,9 @@ jobs:
 
   deploy-static:
     # Deploys to the beta channel for beta tags (with `-beta` suffix)
-    # or to the release channel for stable tags.
+    # or to the release channel for stable tags. Both environments are
+    # approval-gated (required reviewers are managed by terraform-github),
+    # so the job pauses until an extensions team member approves the deploy.
     needs: [tag, build]
     uses: AdGuardSoftwareLimited/actions/.github/workflows/deploy-to-static.yml@master
     with:
@@ -199,12 +203,16 @@ jobs:
 
   deploy-npm:
     # npm publishes stable tags only — beta is never published to npm.
+    # The `npm` environment carries required reviewers (managed by
+    # terraform-github), so the publish pauses for approval — the same gate
+    # the legacy Bamboo `npmjs` deployment project enforced manually.
     needs: [tag, build]
     if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
     uses: AdGuardSoftwareLimited/actions/.github/workflows/deploy-to-npm.yml@master
     with:
       artifact-name: npm-package
       package-file: assistant.tgz
+      environment: npm
     # `contents: read` — download artifact
     # `id-token: write` — OIDC trusted publishing to npm
     permissions:

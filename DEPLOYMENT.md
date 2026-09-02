@@ -36,7 +36,7 @@ Deployment is handled by GitHub Actions:
 | Job                  | Beta tag (`v4.4.14-beta.0`)                        | Stable tag (`v4.4.14`)                                      |
 | -------------------- | -------------------------------------------------- | ----------------------------------------------------------- |
 | `deploy-static`      | module `adguard-assistant-beta`, env `beta-static` | module `adguard-assistant-release`, env `production-static` |
-| `deploy-npm`         | skipped                                            | publishes `assistant.tgz` to npm (`latest`)                 |
+| `deploy-npm`         | skipped                                            | publishes `assistant.tgz` to npm (`latest`), env `npm`      |
 | `mirror-and-release` | prerelease = `true`                                | prerelease = `false`                                        |
 | `commit-dist`        | skipped                                            | commits `dist/` to `master`                                 |
 
@@ -45,6 +45,14 @@ The job inputs (module names, environments, npm tags) are authoritative in
 above summarizes the current wiring. The two channels are mutually exclusive:
 a beta tag never touches the release channel or npm, and a stable tag never
 touches the beta channel.
+
+Deployment jobs are approval-gated: the `beta-static`, `production-static`,
+and `npm` environments carry required reviewers (the extensions team), so a
+release pauses at each gate until it is approved. This replaces the manual
+trigger of the legacy Bamboo deployment projects for `userscripts.adtidy.org`
+and `npmjs`. The environments and their reviewers are managed as code in
+`terraform-github` (see `team_extensions.tf` in
+https://github.com/AdGuardSoftwareLimited/terraform-github).
 
 GitHub Releases are created **only** on the public mirror
 (`AdguardTeam/AdguardAssistant`) by the `mirror-and-release` job, which also
@@ -134,8 +142,12 @@ The following must exist before the first `publish-release.yml` run; they are
 not creatable from this repository and a missing piece fails mid-release,
 after the userscript is already deployed:
 
-- **GitHub environments** `beta-static` and `production-static` (with the
-  deployment protection rules expected by the Deployer).
+- **GitHub environments** `beta-static`, `production-static`, and `npm` with
+  required reviewers (the extensions team), managed as code in
+  `terraform-github` (`team_extensions.tf`). A missing environment is not an
+  error: GitHub auto-creates the environment on first reference with no
+  protection rules, and deploys silently skip approval — this is exactly what
+  happened on the first publish run (AG-58377).
 - **npm OIDC trusted publisher** entry for `@adguard/assistant` so
   `deploy-to-npm.yml` can publish without a token.
 - **Octopass grant** covering the mirror target
@@ -187,6 +199,10 @@ after the userscript is already deployed:
   `deploy: update dist v<version>`.
 - **Old tag-based path is gone**: pushing a `v*` tag manually builds and
   releases nothing. The only release path is prepare → merge → publish.
+- **Deploy jobs are approval-gated**: re-running `deploy-static` or
+  `deploy-npm` (or re-dispatching *Publish release*) starts a fresh
+  deployment, which again waits for a reviewer in `beta-static`,
+  `production-static`, or `npm` before it runs.
 
 ## Rolling Back A Bad Release
 

@@ -64,7 +64,8 @@ leaving the current page. The assistant is published as an npm package
 ├── pnpm-workspace.yaml         # pnpm workspace definition
 ├── README.md                   # Project overview and development guide
 ├── build/                      # Build output (dev/beta/release per channel)
-├── dist/                       # NPM publish output (UMD + self modules)
+├── dist/                       # Generated npm-package staging dir (git-ignored;
+│                               # UMD + self modules, packed by `pnpm pack`)
 ├── locales/                    # i18n translation files (40+ languages)
 │   └── index.js                # Locale aggregator
 ├── scripts/

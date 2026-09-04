@@ -73,8 +73,8 @@ Each command runs three Webpack builds in sequence:
    Tampermonkey/Greasemonkey).
 
 2. **UMD build** (`webpack.umd.config.js`)
-   — produces `assistant.js` in the output directory (also copied to `dist/`
-   for NPM publishing).
+   — produces `assistant.js` in the output directory (also copied to the
+   git-ignored `dist/` staging directory for the npm tarball).
 
 3. **Self-context build** (`webpack.self.config.js`)
    — produces `self.assistant.js` which exposes `adguardAssistant` as a
@@ -92,7 +92,8 @@ Each command runs three Webpack builds in sequence:
 
 > For DEV builds, the UMD (`assistant.js`) and self (`self.assistant.js`)
 > builds are also written to `build/dev/`; they are copied to `dist/` only
-> for RELEASE builds (for NPM publish).
+> for RELEASE builds. `dist/` is a git-ignored staging directory used by
+> `pnpm pack` when the npm tarball is assembled — it is never committed.
 
 ### Run tests
 

@@ -16,3 +16,4 @@ Dockerfile*
 # Never bake local credentials into image layers (see Security Notes)
 .npmrc
 .env*
+/private

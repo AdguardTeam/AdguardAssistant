@@ -19,9 +19,8 @@ Production deployment reference for AdGuard Assistant artifacts.
 ## Deployment Model
 
 The assistant has no long-running production server. Production consists of
-static userscript files published to `userscripts.adtidy.org`, the
-`@adguard/assistant` package on npmjs, and the `dist/` embedded builds
-committed to this repository.
+static userscript files published to `userscripts.adtidy.org` and the
+`@adguard/assistant` package on npmjs.
 
 Deployment is handled by GitHub Actions:
 
@@ -38,7 +37,6 @@ Deployment is handled by GitHub Actions:
 | `deploy-static`      | module `adguard-assistant-beta`, env `beta-static` | module `adguard-assistant-release`, env `production-static` |
 | `deploy-npm`         | skipped                                            | publishes `assistant.tgz` to npm (`latest`), env `npm`      |
 | `mirror-and-release` | prerelease = `true`                                | prerelease = `false`                                        |
-| `commit-dist`        | skipped                                            | commits `dist/` to `master`                                 |
 
 The job inputs (module names, environments, npm tags) are authoritative in
 [`publish-release.yml`](./.github/workflows/publish-release.yml); the table
@@ -57,8 +55,7 @@ https://github.com/AdGuardSoftwareLimited/terraform-github).
 GitHub Releases are created **only** on the public mirror
 (`AdguardTeam/AdguardAssistant`) by the `mirror-and-release` job, which also
 mirrors the repo (including the tag) before creating the release. Separately,
-`mirror.yml` mirrors every push to `master` (including the automated
-`deploy: update dist …` commits and release-bump merges) to the public repo.
+`mirror.yml` mirrors every push to `master` to the public repo.
 
 ## Release Channels
 
@@ -82,17 +79,16 @@ pipeline and not part of releases.
 
 - `assistant.user.js` — the userscript (metadata + bundled runtime).
 - `assistant.meta.js` — userscript metadata for update checks.
-- `assistant.tgz` — the npm package (stable tags only).
-- `dist/assistant.js`, `dist/self.assistant.js`, `dist/assistant.d.ts` —
-  embedded builds committed back to `master` by the `commit-dist` job
-  (stable tags only, message `deploy: update dist v<version>`).
+- `assistant.tgz` — the npm package (stable tags only). It contains the
+  embedded builds (`dist/assistant.js`, `dist/self.assistant.js`,
+  `dist/assistant.d.ts`) generated at build time; `dist/` itself is a
+  git-ignored build artifact and is never committed to the repository.
 
 GitHub Releases on the public mirror attach `assistant.user.js` and
 `assistant.meta.js` (both channels), plus `assistant.tgz` on stable tags.
-The embeddable builds (`dist/…`) are not release assets — they are consumed
-from the committed `dist/` directory and npm. (The previous
-tag-based release workflow attached `dist/assistant.js` and
-`dist/self.assistant.js` instead.)
+The embeddable builds are consumed from npm. (The previous tag-based release
+workflow attached `dist/assistant.js` and `dist/self.assistant.js` instead,
+and for some time they were also committed back to `master`.)
 
 The release version is parsed from `CHANGELOG.md` by
 `tag-from-changelog.yml` and injected into `package.json` at build time with
@@ -181,8 +177,8 @@ after the userscript is already deployed:
   it) or leave empty to publish from `master`. The `resolve` job accepts
   `master` and `vX.Y.Z[-beta[.N]]` refs only — commit SHAs are rejected, so
   use the tag, not the merge commit SHA. Re-running is idempotent **only for
-  the tag step** (the tag job force-retags): a full re-run after a
-  `commit-dist`-only failure re-executes `deploy-npm`, which fails with
+  the tag step** (the tag job force-retags): a full re-run after a failure
+  that happened past `deploy-npm` re-executes it, which fails with
   `EPUBLISHCONFLICT` once the version exists (the release actually shipped —
   a red run with a misleading failure notification). Prefer re-running
   individual failed jobs from the run page, within the artifact retention
@@ -191,12 +187,6 @@ after the userscript is already deployed:
   re-patches the CHANGELOG, which is not idempotent (AG-55717) and can
   corrupt `CHANGELOG.md`. Use a different tag or revert the CHANGELOG
   changes manually first.
-- **Only the `dist/` commit-back failed**: the release itself is already
-  published (userscript, npm, GitHub Release). Re-run the `commit-dist` job
-  from the run page (`protected-push` no-ops when there is nothing to
-  commit). As a last resort, build locally with the release version stamped
-  and commit `dist/` manually with the message
-  `deploy: update dist v<version>`.
 - **Old tag-based path is gone**: pushing a `v*` tag manually builds and
   releases nothing. The only release path is prepare → merge → publish.
 - **Deploy jobs are approval-gated**: re-running `deploy-static` or
@@ -225,11 +215,9 @@ Pipeline failures are reported to Slack (`#adguard-extension-vcs`) by the
 
 - No secrets are stored in this repository. Authentication uses short-lived
   Octopass/OIDC tokens (`id-token: write`) minted per job: mirror pushes,
-  PR creation, `protected-push`, Deployer upload, and npm trusted publishing.
+  PR creation, Deployer upload, and npm trusted publishing.
 - Local credential files (`.npmrc`, `.env*`) are excluded from the Docker
   build context (`.dockerignore`) so they cannot be baked into image layers.
-- `commit-dist` pushes with `--force-with-lease`, refusing to clobber a
-  concurrent push to `master`.
 - `ci.yml` runs on `pull_request` on self-hosted runners; the repository is
   private and forks are not expected.
 

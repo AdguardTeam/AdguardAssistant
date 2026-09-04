@@ -96,27 +96,39 @@ COPY --from=build-beta /out/artifacts/assistant.user.js /assistant.user.js
 # ============================================================================
 # Stage: build-release
 # Runs lint + locales check + release build + pnpm pack
-# Emits the rebuilt dist/ so publish-release.yml can commit it back to master
-# Output: assistant.meta.js + assistant.user.js + assistant.tgz + dist/
+# (`pnpm release` regenerates the git-ignored dist/ that goes into the
+# npm tarball)
+# Output: assistant.meta.js + assistant.user.js + assistant.tgz
 # ============================================================================
 FROM source-deps AS build-release
 
 ARG TEST_RUN_ID=""
 
+# The packed tarball is the only artifact npm consumers ever see. This stage
+# is the single place `pnpm pack` runs (CI test builds don't), so verify the
+# tarball contents here: fail the build if any contract file (README.md,
+# dist/assistant.js, dist/assistant.d.ts, dist/self.assistant.js, LICENSE) is
+# missing or if private build assets or Docker context files leak in.
 RUN --mount=type=cache,target=/pnpm-store,id=assistant-pnpm \
     echo "${TEST_RUN_ID}" > /tmp/.test-run-id && \
     pnpm lint && \
     pnpm locales:validate-required && \
     pnpm release && \
     pnpm pack --out assistant.tgz && \
-    mkdir -p /out/artifacts /out/modified/dist && \
+    tar -tzf assistant.tgz > /tmp/pack-contents && \
+    grep -q '^package/README.md$' /tmp/pack-contents && \
+    grep -q '^package/dist/assistant.js$' /tmp/pack-contents && \
+    grep -q '^package/dist/assistant.d.ts$' /tmp/pack-contents && \
+    grep -q '^package/dist/self.assistant.js$' /tmp/pack-contents && \
+    grep -q '^package/LICENSE$' /tmp/pack-contents && \
+    ! grep -q '^package/private/' /tmp/pack-contents && \
+    ! grep -q '^package/.dockerignore$' /tmp/pack-contents && \
+    mkdir -p /out/artifacts && \
     cp build/release/assistant.meta.js /out/artifacts/ && \
     cp build/release/assistant.user.js /out/artifacts/ && \
-    cp assistant.tgz /out/artifacts/ && \
-    cp -r dist/. /out/modified/dist/
+    cp assistant.tgz /out/artifacts/
 
 FROM scratch AS build-output
 COPY --from=build-release /out/artifacts/assistant.meta.js /assistant.meta.js
 COPY --from=build-release /out/artifacts/assistant.user.js /assistant.user.js
 COPY --from=build-release /out/artifacts/assistant.tgz /assistant.tgz
-COPY --from=build-release /out/modified/dist/ /dist/

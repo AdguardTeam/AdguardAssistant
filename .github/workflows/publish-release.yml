@@ -4,8 +4,7 @@ description: >-
   Tags the release commit, builds, tests, deploys the compiled userscript to
   userscripts.adtidy.org, publishes @adguard/assistant to npm (stable tags
   only), mirrors the release to the public repo (AdguardTeam/AdguardAssistant)
-  with a GitHub Release, commits the rebuilt dist/ back to master, then
-  notifies Slack.
+  with a GitHub Release, then notifies Slack.
   Beta tags (e.g. v4.4.14-beta.0) deploy only to the beta channel.
   Stable tags (e.g. v4.4.14) deploy to the release channel and npm.
   Deployment jobs pause for approval in the beta-static, production-static,
@@ -114,8 +113,7 @@ jobs:
       # here so the compiled userscript metadata carries the release tag.
       # The value is passed via env (never interpolated into the shell
       # command) so a tag-derived version can never be interpreted by the
-      # shell. The stamped package.json is never committed (commit-dist
-      # stages only dist/).
+      # shell. The stamped package.json is never committed.
       - name: Inject version into package.json
         run: npm pkg set version="$VERSION"
         env:
@@ -175,14 +173,6 @@ jobs:
             artifacts/assistant.tgz
           retention-days: 1
 
-      - name: Upload dist artifact
-        if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: dist
-          path: artifacts/dist/
-          retention-days: 1
-
   deploy-static:
     # Deploys to the beta channel for beta tags (with `-beta` suffix)
     # or to the release channel for stable tags. Both environments are
@@ -219,46 +209,6 @@ jobs:
       contents: read
       id-token: write
 
-  commit-dist:
-    # Commits the rebuilt dist/ (embedded builds) back to master. Stable tags
-    # only — dist is never committed for beta builds. protected-push resolves
-    # the remote branch head and pushes with --force-with-lease, and no-ops
-    # when dist is unchanged.
-    needs: [tag, build]
-    if: ${{ !contains(needs.tag.outputs.tag, '-beta') }}
-    runs-on: team-extensions
-    permissions:
-      contents: write   # push to master
-      id-token: write   # Octopass token exchange in protected-push
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          ref: master
-
-      - name: Download dist artifact
-        uses: actions/download-artifact@v8
-        with:
-          name: dist
-          path: dist-new
-
-      - name: Replace dist with build output
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf dist
-          mv dist-new dist
-
-      - name: Commit and push dist
-        uses: AdGuardSoftwareLimited/actions/actions/protected-push@master
-        with:
-          # Required: protected-push forwards this to Octopass as the target
-          # repository for the minted token.
-          repository: ${{ github.repository }}
-          branch: master
-          commit-message: 'deploy: update dist ${{ needs.tag.outputs.tag }}'
-          files: dist
-
   mirror-and-release:
     # Mirrors the repo (including the tag) to the public mirror and
     # creates a matching GitHub Release on AdguardTeam/AdguardAssistant.
@@ -282,17 +232,16 @@ jobs:
 
   notify-success:
     name: Notify (success)
-    needs: [tag, build, deploy-static, deploy-npm, commit-dist, mirror-and-release]
-    # `always()` so the job still evaluates when beta-skip jobs
-    # (deploy-npm, commit-dist) are skipped for beta tags.
+    needs: [tag, build, deploy-static, deploy-npm, mirror-and-release]
+    # `always()` so the job still evaluates when the beta-skip job
+    # (deploy-npm) is skipped for beta tags.
     if: >-
       always() &&
       needs.tag.result == 'success' &&
       needs.build.result == 'success' &&
       needs.deploy-static.result == 'success' &&
       needs.mirror-and-release.result == 'success' &&
-      (needs.deploy-npm.result == 'success' || needs.deploy-npm.result == 'skipped') &&
-      (needs.commit-dist.result == 'success' || needs.commit-dist.result == 'skipped')
+      (needs.deploy-npm.result == 'success' || needs.deploy-npm.result == 'skipped')
     runs-on: team-extensions
     # Least privilege — only calls the Slack action.
     permissions:
@@ -307,16 +256,15 @@ jobs:
 
   notify-failure:
     name: Notify (failure)
-    needs: [tag, build, deploy-static, deploy-npm, commit-dist, mirror-and-release]
-    # `tag` must succeed so we have a version to report; skipped channel
-    # jobs (beta tags skip npm/dist) do not count as failures.
+    needs: [tag, build, deploy-static, deploy-npm, mirror-and-release]
+    # `tag` must succeed so we have a version to report; the skipped channel
+    # job (beta tags skip npm) does not count as a failure.
     if: >-
       always() && needs.tag.result == 'success' && (
         needs.build.result != 'success' ||
         needs.deploy-static.result != 'success' ||
         needs.mirror-and-release.result != 'success' ||
-        (needs.deploy-npm.result != 'success' && needs.deploy-npm.result != 'skipped') ||
-        (needs.commit-dist.result != 'success' && needs.commit-dist.result != 'skipped')
+        (needs.deploy-npm.result != 'success' && needs.deploy-npm.result != 'skipped')
       )
     runs-on: team-extensions
     # Least privilege — only calls the Slack action.
@@ -327,7 +275,7 @@ jobs:
         uses: AdGuardSoftwareLimited/actions/actions/slack@master
         with:
           channel: '#adguard-extension-vcs'
-          message: ':cross-mark: *ext-assistant* *${{ needs.tag.outputs.tag }}* deploy failed (build: ${{ needs.build.result }}, deploy: ${{ needs.deploy-static.result }}, npm: ${{ needs.deploy-npm.result }}, dist: ${{ needs.commit-dist.result }}, release: ${{ needs.mirror-and-release.result }}) — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
+          message: ':cross-mark: *ext-assistant* *${{ needs.tag.outputs.tag }}* deploy failed (build: ${{ needs.build.result }}, deploy: ${{ needs.deploy-static.result }}, npm: ${{ needs.deploy-npm.result }}, release: ${{ needs.mirror-and-release.result }}) — <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|run>'
           color: danger
 
   notify-tag-failure:

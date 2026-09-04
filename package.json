@@ -3,6 +3,9 @@
     "description": "AdGuard Assistant helps you manage filtering right from the browser",
     "main": "dist/assistant.js",
     "types": "dist/assistant.d.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "dev": "export CHANNEL_ENV=DEV; pnpm build && pnpm build:embedded && pnpm build:self",
         "beta": "export CHANNEL_ENV=BETA; pnpm build && pnpm build:embedded && pnpm build:self",

@@ -8,6 +8,13 @@
 /types
 /assistant.tgz
 /.pnpm-store
+# Defense-in-depth: `files` in package.json is the publishing whitelist, but
+# keep these excluded here too so private build assets and Docker context
+# files can never leak into the package even without the whitelist.
+/private
+.dockerignore
+# Local credential files must never ship via a local `pnpm pack` either.
+.env*
 .eslintignore
 .eslintrc
 .markdownlint.json

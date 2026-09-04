@@ -7,9 +7,8 @@ on:
     branches:
       - master
 
-# Serialize mirror runs per repo. A release produces two quick master pushes
-# (release-bump merge, then `deploy: update dist`); without a single group
-# they could interleave and leave the mirror behind master's actual head.
+# Serialize mirror runs per repo so back-to-back master pushes cannot
+# interleave and leave the mirror behind master's actual head.
 # A run in flight is never cancelled.
 concurrency:
   group: mirror-${{ github.repository }}

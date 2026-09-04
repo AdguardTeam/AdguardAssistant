@@ -23,11 +23,15 @@ You can find all AdGuard Assistant releases here: https://github.com/AdguardTeam
 
 ## Development
 
+<!-- Absolute GitHub URLs: relative links 404 on npmjs -->
+
 Prerequisites, build commands, and the full development workflow are
-documented in [DEVELOPMENT.md](./DEVELOPMENT.md). Release channels and the
-GitHub Actions deployment pipeline are described in
-[DEPLOYMENT.md](./DEPLOYMENT.md). Code guidelines and architecture for
-contributors and AI agents live in [AGENTS.md](./AGENTS.md).
+documented in
+[DEVELOPMENT.md](https://github.com/AdguardTeam/AdguardAssistant/blob/master/DEVELOPMENT.md).
+Release channels and the GitHub Actions deployment pipeline are described in
+[DEPLOYMENT.md](https://github.com/AdguardTeam/AdguardAssistant/blob/master/DEPLOYMENT.md).
+Code guidelines and architecture for contributors and AI agents live in
+[AGENTS.md](https://github.com/AdguardTeam/AdguardAssistant/blob/master/AGENTS.md).
 
 ## Usage
 
@@ -61,7 +65,3 @@ adguardAssistant().start(null, callback);
 ```
 
 Callback returns a rule string.
-
-## Todo
-
-- write tests

@@ -60,8 +60,8 @@ function ProtectedApi() {
     };
 
     /**
-     * Creating element instead `document.createElement`
-     * to prevented a custom `document.createElement`
+     * Creating element instead of `document.createElement`
+     * to prevent a custom `document.createElement`
      * see: https://github.com/AdguardTeam/AdguardAssistant/issues/165
      *
      * And also if browser supports Trusted Types,
@@ -120,7 +120,7 @@ function ProtectedApi() {
      * @param {String} nonce  attribute for content-security-policy
      * @param {String} id to prevent duplicates, can be empty
      * @return {Object|false} style tag with styles or false
-     * if the styles with transferred id is exist
+     * if the styles with transferred id exist
      */
     const createStylesElement = (styles, nonce, id) => {
         if (id && querySelector(`#${id}`)) {

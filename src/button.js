@@ -61,7 +61,7 @@ function UIButton() {
     };
 
     /**
-     * Set a special classes for the pages on which
+     * Set special classes for the pages on which
      * under the button there are important elements
      * issue: https://github.com/AdguardTeam/AdguardAssistant/issues/32
      */

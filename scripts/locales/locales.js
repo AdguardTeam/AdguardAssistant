@@ -38,7 +38,7 @@ const getQueryString = (lang, file) => {
 /**
  * Iterates over translation object and removes keys with empty values
  *
- * For some reasons "Skip untranslated strings" option does not work properly with json files
+ * For some reason "Skip untranslated strings" option does not work properly with json files
  * and Crowdin returns translations with empty string.
  * Here we exclude such translations to keep changeset clear.
  *

@@ -28,6 +28,7 @@
 // @exclude *notifications.google.com*
 // @exclude *google.com/recaptcha/*
 // @exclude *bizmania.ru/*
+// @exclude *usanetwork.com*
 // @grant   GM_getValue
 // @grant   GM_setValue
 // @grant   GM_getResourceText

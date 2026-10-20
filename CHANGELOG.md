@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Fixed
 
+- Assistant breaking page functionality on usanetwork.com — the site is now
+  excluded from the userscript.
+
 ### Security
 
 ## [4.4.15-beta.0] - 2026-09-04

@@ -19,10 +19,14 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Fixed
 
+### Security
+
+## [4.4.16-beta.0] - 2026-10-20
+
+### Fixed
+
 - Assistant breaking page functionality on usanetwork.com — the site is now
   excluded from the userscript.
-
-### Security
 
 ## [4.4.15-beta.0] - 2026-09-04
 
@@ -122,7 +126,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [AdguardForMac#1246]: https://github.com/AdguardTeam/AdguardForMac/issues/1246
 
 [#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
-[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.15-beta.0...HEAD
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.16-beta.0...HEAD
+[4.4.16-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.15-beta.0...v4.4.16-beta.0
 [4.4.15-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.15...v4.4.15-beta.0
 [4.4.15]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14...v4.4.15
 [4.4.14]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.14-beta.1...v4.4.14

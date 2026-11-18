@@ -452,6 +452,26 @@ function IframeController() {
     };
 
     /**
+     * Returns a selector that matches the element by its address.
+     *
+     * The rule text holds the parsed address, while the page holds the value
+     * that the author wrote. The values differ when the authored value has
+     * non-ASCII characters, spaces, an explicit port, or an uppercase host.
+     * The raw value is used when it is available, so the element is hidden
+     * right after the user presses Block.
+     *
+     * @param {Element} [element] Selected element.
+     * @param {string} selectedPath Rule text of the blocked element.
+     * @returns {string} Attribute selector.
+     */
+    const getUrlHideSelector = (element, selectedPath) => {
+        const urlMask = element ? adguardRulesConstructor.getUrlBlockAttribute(element) : null;
+        const value = urlMask || selectedPath.split('$domain=')[0];
+
+        return `[src*="${escapeCssString(value)}"]`;
+    };
+
+    /**
      * Hides elements by the selected path.
      *
      * Style elements of the assistant have a CSP nonce, so a value that
@@ -460,19 +480,21 @@ function IframeController() {
      *
      * @param {string} selectedPath Rule text of the blocked element.
      * @param {string} [styleID] ID of the style element.
+     * @param {Element} [element] Selected element.
      * @returns {boolean|undefined} False if the path is empty.
      */
-    const hideElementsByPath = (selectedPath, styleID = blockedElementsStyleID) => {
+    const hideElementsByPath = (selectedPath, styleID, element) => {
         if (!selectedPath) {
             return false;
         }
 
+        const targetStyleID = styleID || blockedElementsStyleID;
         let slctr;
         let style;
 
         if (selectedPath.indexOf('://') > 0) {
             // all images by src
-            slctr = `[src*="${escapeCssString(selectedPath.split('$domain=')[0])}"]`;
+            slctr = getUrlHideSelector(element, selectedPath);
         } else {
             // eslint-disable-next-line prefer-destructuring
             slctr = selectedPath.split('##')[1];
@@ -485,13 +507,13 @@ function IframeController() {
             return false;
         }
 
-        const stylesElement = document.documentElement.querySelector(`#${styleID}`);
+        const stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
 
         if (stylesElement) {
             stylesElement.appendChild(document.createTextNode(` ${style}`));
         } else {
             document.documentElement.appendChild(
-                protectedApi.createStylesElement(style, getStyleNonce(), styleID),
+                protectedApi.createStylesElement(style, getStyleNonce(), targetStyleID),
             );
         }
 
@@ -502,7 +524,7 @@ function IframeController() {
         }
         return undefined;
     };
-    const blockElement = (path, addRule) => {
+    const blockElement = (path, addRule, element) => {
         const ruleText = typeof path === 'string' ? path.trim() : path;
 
         if (!adguardRulesConstructor.isValidRuleText(ruleText)) {
@@ -513,7 +535,7 @@ function IframeController() {
         if (gm.ADG_addRule) {
             gm.ADG_addRule(ruleText, () => {
                 removeIframe();
-                hideElementsByPath(ruleText);
+                hideElementsByPath(ruleText, blockedElementsStyleID, element);
                 bypassCache();
             });
         } else {
@@ -523,7 +545,7 @@ function IframeController() {
 
             addRule(ruleText);
             removeIframe();
-            hideElementsByPath(ruleText);
+            hideElementsByPath(ruleText, blockedElementsStyleID, element);
             bypassCache();
         }
     };

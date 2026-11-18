@@ -45,7 +45,7 @@ export default function BlockPreviewController(addRule, iframe) {
         // synchronously right before hideElementsByPath re-hides the element.
         // Calling showElement() here would remove the preview style now, making
         // the element visible until the async GM callback re-hides it (flash).
-        iframeCtrl.blockElement(selectedPath, addRule);
+        iframeCtrl.blockElement(selectedPath, addRule, selectedElement);
     };
 
     const showDetailedMenu = () => {
@@ -72,7 +72,7 @@ export default function BlockPreviewController(addRule, iframe) {
             return;
         }
 
-        iframeCtrl.hideElementsByPath(selectedPath, previewStyleID);
+        iframeCtrl.hideElementsByPath(selectedPath, previewStyleID, selectedElement);
     };
 
     /*

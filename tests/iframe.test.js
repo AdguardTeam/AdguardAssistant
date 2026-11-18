@@ -5,6 +5,56 @@ const { test, module } = QUnit;
 
 module('iframe controller — hideElementsByPath');
 
+test('URL hiding uses the raw attribute value', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-raw';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://site.ru/картинка.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    // The rule text holds the parsed address, the attribute keeps the
+    // authored value.
+    ctrl.hideElementsByPath(
+        'https://site.ru/%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B0.png$domain=site.ru',
+        styleID,
+        img,
+    );
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[src*="https://site.ru/картинка.png"]'),
+        'Selector uses the raw src',
+    );
+    assert.ok(img.matches('[src*="https://site.ru/картинка.png"]'), 'Selector matches the element');
+
+    styleEl.remove();
+    img.remove();
+});
+
+test('URL hiding falls back to the rule text without an element', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-rule';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    ctrl.hideElementsByPath('https://example.com/a.png$domain=example.com', styleID);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[src*="https://example.com/a.png"]'),
+        'Selector uses the rule text',
+    );
+
+    styleEl.remove();
+});
+
 test('CSS is valid after multiple hideElementsByPath calls', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-hide-style';

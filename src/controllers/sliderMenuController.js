@@ -73,7 +73,7 @@ export default function SliderMenuController(addRule, iframe) {
         }
 
         const path = getFilterRuleInputText();
-        iframeCtrl.blockElement(path, addRule);
+        iframeCtrl.blockElement(path, addRule, selectedElement);
     };
 
     const handleShowBlockSettings = (showBlockByUrl, showBlockSimilar) => {

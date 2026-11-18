@@ -1,5 +1,6 @@
 import cssEscape from './libs/css.escape';
 import protectedApi from './protectedApi';
+import { escapeCssString } from './utils/common-utils';
 
 /**
  * Adguard rules constructor
@@ -7,9 +8,46 @@ import protectedApi from './protectedApi';
  */
 function AdguardRulesConstructorLib(api = {}) {
     const CSS_RULE_MARK = '##';
+    const EXTENDED_CSS_RULE_MARK = '#?#';
     const RULE_OPTIONS_MARK = '$';
 
     const URLBLOCK_ATTRIBUTES = ['src', 'data'];
+
+    /**
+     * Rule marks that the element picker can build.
+     */
+    const ALLOWED_COSMETIC_MARKS = [CSS_RULE_MARK, EXTENDED_CSS_RULE_MARK];
+
+    /**
+     * Marks of the rule types that the element picker must never send to the
+     * filtering engine: scriptlet, style injection, and exception rules.
+     */
+    const FORBIDDEN_RULE_MARKS = [
+        '#%#',
+        '#$#',
+        '#@#',
+        '#@%#',
+        '#@$#',
+        '#@?#',
+        '#$?#',
+        '$$',
+    ];
+
+    /**
+     * Characters that separate rules in a filter list.
+     */
+    // eslint-disable-next-line no-control-regex
+    const LINE_SEPARATOR_REGEX = /[\r\n\f\u000b\u0085\u2028\u2029]/;
+
+    /**
+     * Prefixes of the blocking URL rules that the element picker can build.
+     */
+    const URL_RULE_PREFIX_REGEX = /^(?:\|\||\||\/\/|https?:\/\/)/i;
+
+    const ABSOLUTE_HTTP_URL_REGEX = /^https?:\/\//i;
+    const HTTP_URL_REGEX = /^http:\/\//i;
+    const PROTOCOL_RELATIVE_URL_REGEX = /^\/\//;
+    const FILTER_SYNTAX_CHARS_REGEX = /[$#]/;
 
     const linkHelper = protectedApi.createElement('a');
 
@@ -211,14 +249,73 @@ function AdguardRulesConstructorLib(api = {}) {
         return selector ? CSS_RULE_MARK + selector : '';
     };
 
-    const constructUrlBlockRuleText = (element, urlBlockAttribute, oneDomain, domain) => {
-        if (!urlBlockAttribute) {
+    /**
+     * Parses a value of a `src` or `data` attribute into URL parts.
+     *
+     * Only absolute HTTP(S) and protocol-relative addresses are accepted.
+     * Relative addresses, fragments, and data URIs resolve against the page
+     * address, so a page-controlled attribute could turn them into filter
+     * rule syntax. Characters that start the options or a cosmetic rule are
+     * rejected too, because they would change the type of the built rule.
+     *
+     * @param {string} value Attribute value.
+     * @returns {{protocolRelative: boolean, isHttp: boolean, host: string, path: string}|null}
+     * URL parts or null if the value cannot be used in a rule.
+     */
+    const parseUrlBlockValue = (value) => {
+        if (typeof value !== 'string') {
             return null;
         }
 
-        let blockUrlRuleText = urlBlockAttribute.replace(/^http:\/\/(www\.)?/, '||');
-        if (blockUrlRuleText.indexOf('.') === 0) {
-            blockUrlRuleText = blockUrlRuleText.substring(1);
+        const url = value.trim();
+        const protocolRelative = PROTOCOL_RELATIVE_URL_REGEX.test(url);
+
+        if (!protocolRelative && !ABSOLUTE_HTTP_URL_REGEX.test(url)) {
+            return null;
+        }
+
+        // The helper anchor lives in a document without a base address, so a
+        // protocol-relative address needs an explicit scheme to be parsed.
+        linkHelper.href = protocolRelative ? `https:${url}` : url;
+
+        const { host, pathname, search } = linkHelper;
+        const path = `${pathname}${search}`;
+
+        if (!host || FILTER_SYNTAX_CHARS_REGEX.test(host) || FILTER_SYNTAX_CHARS_REGEX.test(path)) {
+            return null;
+        }
+
+        return {
+            protocolRelative,
+            isHttp: HTTP_URL_REGEX.test(url),
+            host,
+            path,
+        };
+    };
+
+    /**
+     * Builds a rule that blocks the address from a parsed URL value.
+     *
+     * @param {string} urlBlockValue Value of the `src` or `data` attribute.
+     * @param {boolean} oneDomain True to block the address on all sites.
+     * @param {string} domain Page domain.
+     * @returns {string|null} Rule text or null if the value cannot be used.
+     */
+    const constructUrlBlockRuleText = (urlBlockValue, oneDomain, domain) => {
+        const url = parseUrlBlockValue(urlBlockValue);
+
+        if (!url) {
+            return null;
+        }
+
+        let blockUrlRuleText;
+
+        if (url.protocolRelative) {
+            blockUrlRuleText = `//${url.host}${url.path}`;
+        } else if (url.isHttp) {
+            blockUrlRuleText = `||${url.host.replace(/^www\./i, '')}${url.path}`;
+        } else {
+            blockUrlRuleText = `https://${url.host}${url.path}`;
         }
 
         if (!oneDomain) {
@@ -226,17 +323,6 @@ function AdguardRulesConstructorLib(api = {}) {
         }
 
         return blockUrlRuleText;
-    };
-
-    const isValidUrl = (value) => {
-        if (value) {
-            linkHelper.href = value;
-            if (linkHelper.hostname) {
-                return true;
-            }
-        }
-
-        return false;
     };
 
     const getUrlBlockAttribute = (element) => {
@@ -247,7 +333,7 @@ function AdguardRulesConstructorLib(api = {}) {
         for (let i = 0; i < URLBLOCK_ATTRIBUTES.length; i += 1) {
             const attr = URLBLOCK_ATTRIBUTES[i];
             const value = element.getAttribute(attr);
-            if (isValidUrl(value)) {
+            if (parseUrlBlockValue(value)) {
                 return value;
             }
         }
@@ -255,9 +341,22 @@ function AdguardRulesConstructorLib(api = {}) {
         return null;
     };
 
-    const haveUrlBlockParameter = (element) => {
-        const value = getUrlBlockAttribute(element);
-        return value && value !== '';
+    const haveUrlBlockParameter = (element) => getUrlBlockAttribute(element) !== null;
+
+    /**
+     * Checks that a value resolves to a host name.
+     *
+     * @param {string} value Attribute value.
+     * @returns {boolean} True if the value resolves to a host name.
+     */
+    const hasHost = (value) => {
+        if (!value) {
+            return false;
+        }
+
+        linkHelper.href = value;
+
+        return Boolean(linkHelper.hostname);
     };
 
     const haveClassAttribute = (element) => element.classList && element.classList.length > 0;
@@ -288,6 +387,52 @@ function AdguardRulesConstructorLib(api = {}) {
      */
     // eslint-disable-next-line no-param-reassign
     api.makeCssNthChildFilter = makeCssNthChildFilter;
+
+    // eslint-disable-next-line no-param-reassign
+    api.getUrlBlockAttribute = getUrlBlockAttribute;
+
+    // eslint-disable-next-line no-param-reassign
+    api.haveUrlBlockParameter = haveUrlBlockParameter;
+
+    /**
+     * Checks that the rule text can be passed to the filtering engine.
+     *
+     * The element picker builds a cosmetic rule or a blocking URL rule, and
+     * the user can change the rule text in the dialog. The check accepts these
+     * two families and rejects the types that the picker cannot build, so a
+     * page-controlled value cannot turn an element rule into a scriptlet, a
+     * style injection, or an exception rule. Line separators are rejected,
+     * because one field must not submit several rules.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {boolean} True if the text is a single blocking rule.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.isValidRuleText = (ruleText) => {
+        if (typeof ruleText !== 'string') {
+            return false;
+        }
+
+        const rule = ruleText.trim();
+
+        if (!rule || LINE_SEPARATOR_REGEX.test(rule)) {
+            return false;
+        }
+
+        // Comments, preprocessor directives, and exception rules do not block
+        // an element.
+        if (rule[0] === '!' || rule[0] === '[' || rule.indexOf('@@') === 0) {
+            return false;
+        }
+
+        if (FORBIDDEN_RULE_MARKS.some((mark) => rule.indexOf(mark) >= 0)) {
+            return false;
+        }
+
+        const hasCosmeticMark = ALLOWED_COSMETIC_MARKS.some((mark) => rule.indexOf(mark) >= 0);
+
+        return hasCosmeticMark || URL_RULE_PREFIX_REGEX.test(rule);
+    };
 
     /**
      * Returns detailed element info
@@ -344,8 +489,8 @@ function AdguardRulesConstructorLib(api = {}) {
         let s = ruleText.substring(0, optionsIndex);
         s = s.replace(/[|]|[\^]/g, '');
 
-        if (isValidUrl(s)) {
-            return `[src*="${s}"]`;
+        if (hasHost(s)) {
+            return `[src*="${escapeCssString(s)}"]`;
         }
 
         return null;
@@ -375,29 +520,26 @@ function AdguardRulesConstructorLib(api = {}) {
     api.constructRuleText = (element, options) => {
         const croppedDomain = cropDomain(options.url);
 
-        const { ruleType } = options;
-
-        if (ruleType === 'URL') {
+        if (options.ruleType === 'URL') {
             const blockUrlRuleText = constructUrlBlockRuleText(
-                element,
                 options.urlMask,
                 options.isBlockOneDomain,
                 croppedDomain,
             );
+
             if (blockUrlRuleText) {
                 return blockUrlRuleText;
             }
         }
 
-        let result;
+        // CSS rule, also used when the address cannot be turned into a URL
+        // rule. An attribute value that the picker cannot parse must not
+        // change the type of the rule.
+        let result = constructCssRuleText(element, options);
 
-        if (ruleType === 'CSS') {
-            result = constructCssRuleText(element, options);
-
-            // Append html attributes to css selector
-            if (options.attributes) {
-                result = (result || CSS_RULE_MARK + result) + options.attributes;
-            }
+        // Append html attributes to css selector
+        if (options.attributes) {
+            result = (result || CSS_RULE_MARK + result) + options.attributes;
         }
 
         if (!options.isBlockOneDomain) {

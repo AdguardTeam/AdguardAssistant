@@ -1,3 +1,5 @@
+import log from './log';
+
 /**
  * TODO: rewrite to class
  * TODO: add relevant jsdoc
@@ -14,6 +16,7 @@ function ProtectedApi() {
     const originalGetOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
     const { documentMode, documentElement } = document;
     const originalAppendChild = document.appendChild;
+    const originalCreateElement = document.createElement;
     const originalJSON = win.JSON;
     const functionApply = functionPType.apply;
     const functionBind = functionPType.bind;
@@ -94,6 +97,19 @@ function ProtectedApi() {
     };
 
     /**
+     * Creates an element in the page document.
+     *
+     * The element is a shadow host for the assistant UI. It is created in the
+     * page document, because every browser supports a shadow root on such an
+     * element. The original `document.createElement` method is used, so a
+     * method replaced by page scripts cannot return another element.
+     *
+     * @param {string} tagName Tag name.
+     * @returns {Element} New element.
+     */
+    const createElementInPageDocument = (tagName) => apply(originalCreateElement, document, [tagName]);
+
+    /**
      * Set innerHTML to element.
      *
      * @param {HTMLElement} element Element to add HTML.
@@ -147,15 +163,39 @@ function ProtectedApi() {
 
     /**
      * Check browser shadow dom support.
-     * Safari crashes after adding style tag in attachShadow so exclude it
-     * see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974
+     *
+     * The assistant UI is kept in a closed shadow root, so page scripts cannot
+     * read or change the rule shown in the element picker. Older Safari
+     * versions crashed when a style element was added to a shadow root
+     * (see: https://github.com/AdguardTeam/AdguardBrowserExtension/issues/974),
+     * so Safari was excluded from this path. Current Safari versions handle
+     * this pattern, so the check is the same for all browsers.
+     *
+     * @returns {boolean} True if the browser can attach a shadow root.
      */
-    const checkShadowDomSupport = () => {
-        const SAFARI_UA_REGEX = /^((?!chrome|android).)*safari/i;
-        const isSafari = window.safari !== undefined
-            || SAFARI_UA_REGEX.test(navigator.userAgent);
+    const checkShadowDomSupport = () => typeof originalAttachShadow === 'function';
 
-        return typeof originalAttachShadow !== 'undefined' && !isSafari;
+    /**
+     * Attaches a closed shadow root to the element.
+     *
+     * The original `attachShadow` method is used, so a method replaced by page
+     * scripts cannot open the root. Returns null when the root cannot be
+     * attached.
+     *
+     * @param {Element} element Shadow host.
+     * @returns {ShadowRoot|null} Closed shadow root or null.
+     */
+    const attachClosedShadowRoot = (element) => {
+        if (!checkShadowDomSupport()) {
+            return null;
+        }
+
+        try {
+            return apply(originalAttachShadow, element, [{ mode: 'closed' }]);
+        } catch (e) {
+            log.warn('Can`t attach a closed shadow root to the assistant element');
+            return null;
+        }
     };
 
     return {
@@ -166,10 +206,12 @@ function ProtectedApi() {
         documentMode,
         appendChildToElement,
         createElement,
+        createElementInPageDocument,
         setInnerHtml,
         json,
         createStylesElement,
         checkShadowDomSupport,
+        attachClosedShadowRoot,
     };
 }
 

@@ -1,6 +1,6 @@
 import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
-import { bypassCache } from './utils/common-utils';
+import { bypassCache, escapeCssString } from './utils/common-utils';
 import ioc from './ioc';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
@@ -15,6 +15,7 @@ import uiValidationUtils from './utils/ui-validation-utils';
 import selector from './adguard-selector';
 import uiUtils from './utils/ui-utils';
 import localization from './localization';
+import adguardRulesConstructor from './adguard-rules-constructor';
 
 /**
  * Manages iframe and it's content
@@ -74,7 +75,11 @@ function IframeController() {
     };
 
     const createShadowRootElement = (iframeAnc) => {
-        const shadowiframeAnchor = iframeAnc.attachShadow({ mode: 'closed' });
+        const shadowiframeAnchor = protectedApi.attachClosedShadowRoot(iframeAnc);
+        if (!shadowiframeAnchor) {
+            return null;
+        }
+
         const stylesElement = protectedApi.createStylesElement(
             CSS.common + CSS.iframe,
             getStyleNonce(),
@@ -114,8 +119,15 @@ function IframeController() {
         });
 
         if (protectedApi.checkShadowDomSupport()) {
-            iframeAnchor = protectedApi.createElement('div');
-            createShadowRootElement(iframeAnchor).appendChild(iframe);
+            iframeAnchor = protectedApi.createElementInPageDocument('div');
+            const shadowRoot = createShadowRootElement(iframeAnchor);
+            if (shadowRoot) {
+                shadowRoot.appendChild(iframe);
+            } else {
+                // The UI is not isolated, but the rule text still goes through
+                // the checks in blockElement() and the save handlers.
+                iframeAnchor = iframe;
+            }
         } else {
             iframeAnchor = iframe;
         }
@@ -439,6 +451,17 @@ function IframeController() {
         resizeIframe(null, null);
     };
 
+    /**
+     * Hides elements by the selected path.
+     *
+     * Style elements of the assistant have a CSP nonce, so a value that
+     * breaks out of the attribute selector could add styles that the page
+     * content security policy blocks.
+     *
+     * @param {string} selectedPath Rule text of the blocked element.
+     * @param {string} [styleID] ID of the style element.
+     * @returns {boolean|undefined} False if the path is empty.
+     */
     const hideElementsByPath = (selectedPath, styleID = blockedElementsStyleID) => {
         if (!selectedPath) {
             return false;
@@ -449,7 +472,7 @@ function IframeController() {
 
         if (selectedPath.indexOf('://') > 0) {
             // all images by src
-            slctr = `[src*="${selectedPath.split('$domain=')[0]}"]`;
+            slctr = `[src*="${escapeCssString(selectedPath.split('$domain=')[0])}"]`;
         } else {
             // eslint-disable-next-line prefer-destructuring
             slctr = selectedPath.split('##')[1];
@@ -480,10 +503,17 @@ function IframeController() {
         return undefined;
     };
     const blockElement = (path, addRule) => {
+        const ruleText = typeof path === 'string' ? path.trim() : path;
+
+        if (!adguardRulesConstructor.isValidRuleText(ruleText)) {
+            log.error('Can`t block element: the rule text is not a valid blocking rule');
+            return;
+        }
+
         if (gm.ADG_addRule) {
-            gm.ADG_addRule(path, () => {
+            gm.ADG_addRule(ruleText, () => {
                 removeIframe();
-                hideElementsByPath(path);
+                hideElementsByPath(ruleText);
                 bypassCache();
             });
         } else {
@@ -491,9 +521,9 @@ function IframeController() {
                 log.error('Callback function `addRule` can\'t be undefined!');
             }
 
-            addRule(path);
+            addRule(ruleText);
             removeIframe();
-            hideElementsByPath(path);
+            hideElementsByPath(ruleText);
             bypassCache();
         }
     };

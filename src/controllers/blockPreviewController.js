@@ -1,4 +1,5 @@
 import log from '../log';
+import { isTrustedEvent } from '../utils/common-utils';
 import { toArray } from '../utils/dom-utils';
 import selector from '../adguard-selector';
 import settings from '../settings';
@@ -34,6 +35,10 @@ export default function BlockPreviewController(addRule, iframe) {
     };
 
     const blockElement = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
         e.stopPropagation();
         // NOTE: preview style cleanup is handled inside iframeCtrl.blockElement
         // → removeIframe() → showHiddenElements(previewStyleID), which runs

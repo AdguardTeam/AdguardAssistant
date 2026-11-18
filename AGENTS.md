@@ -257,6 +257,11 @@ Each layer may call layers below it. No layer may depend on a layer above it.
 - **Global variables**: Userscript globals (`GM_*`, `AdguardSettings`,
   `DEBUG`, `WotData`) are declared in `/* global */` comments. Do not add
   new implicit globals.
+- **Rule safety**: Build filter rules from parsed values only. Do not
+  concatenate page-controlled values (element attributes, page text) into
+  rule text. Save a rule only after a trusted user action (`event.isTrusted`),
+  and keep the assistant UI in a closed shadow root, so page scripts cannot
+  change the rule before the user saves it.
 
 ### Testing
 

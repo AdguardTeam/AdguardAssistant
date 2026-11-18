@@ -26,7 +26,8 @@ Deployment is handled by GitHub Actions:
 
 1. **Prepare release** (`prepare-release.yml`, manual) — opens a
    `release-bump/*` PR that finalizes the `[Unreleased]` CHANGELOG.md section
-   for the entered tag.
+   for the entered tag. The Actions run list shows the requested tag in the
+   run name (for example, `Prepare release v4.4.14-beta.0`).
 2. **Publish release** (`publish-release.yml`) — runs when the release PR is
    merged (or manually with a `ref` input). It tags the merge commit from
    CHANGELOG.md, injects the version into `package.json`, builds and tests in

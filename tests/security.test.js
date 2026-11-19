@@ -9,6 +9,7 @@ import SliderMenuControllerMobile from '../src/controllers/sliderMenuControllerM
 import BlockPreviewController from '../src/controllers/blockPreviewController';
 import { HTML } from '../src/inline-resources';
 import selector from '../src/adguard-selector';
+import gm from '../src/gm';
 import ioc from '../src/ioc';
 
 const { test, module } = QUnit;
@@ -296,15 +297,26 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
 
 module('rule save funnel');
 
-test('blockElement does not save an invalid rule', (assert) => {
+test('blockElement saves only a valid rule', (assert) => {
     const ctrl = IframeController();
+    const originalAddRule = gm.ADG_addRule;
     let saved = null;
 
-    ctrl.blockElement('#%#window.__pwned=1;//$domain=example.com', (rule) => {
+    // The userscript build takes the gm branch, so the second argument of
+    // blockElement is not called in the tests. Stub the gm method instead.
+    gm.ADG_addRule = (rule) => {
         saved = rule;
-    });
+    };
 
-    assert.strictEqual(saved, null, 'No rule is saved');
+    try {
+        ctrl.blockElement('#%#window.__pwned=1;//$domain=example.com', () => {});
+        assert.strictEqual(saved, null, 'No rule is saved');
+
+        ctrl.blockElement('example.com##.banner', () => {});
+        assert.strictEqual(saved, 'example.com##.banner', 'A valid rule reaches the extension');
+    } finally {
+        gm.ADG_addRule = originalAddRule;
+    }
 });
 
 /**

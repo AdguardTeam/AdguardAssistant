@@ -45,11 +45,6 @@ function AdguardRulesConstructorLib(api = {}) {
     const LINE_SEPARATOR_REGEX = /[\r\n\f\u000b\u0085\u2028\u2029]/;
 
     /**
-     * Prefixes of the blocking URL rules that the element picker can build.
-     */
-    const URL_RULE_PREFIX_REGEX = /^(?:\|\||\||\/\/|https?:\/\/)/i;
-
-    /**
      * Characters of a blocking URL pattern. A hand-typed rule can have no
      * anchor and no scheme, for example `ads.example.com^`.
      */
@@ -467,14 +462,14 @@ function AdguardRulesConstructorLib(api = {}) {
     };
 
     /**
-     * Checks that the rule text is a blocking URL rule.
+     * Checks that the rule text is a cosmetic rule.
      *
      * @param {string} ruleText Rule text.
-     * @returns {boolean} True if the rule starts with a URL rule prefix.
+     * @returns {boolean} True if the rule has a cosmetic mark.
      */
     // eslint-disable-next-line no-param-reassign
-    api.isUrlRuleText = (ruleText) => typeof ruleText === 'string'
-        && URL_RULE_PREFIX_REGEX.test(ruleText.trim());
+    api.isCosmeticRuleText = (ruleText) => typeof ruleText === 'string'
+        && ALLOWED_COSMETIC_MARKS.some((mark) => ruleText.indexOf(mark) >= 0);
 
     /**
      * Returns detailed element info

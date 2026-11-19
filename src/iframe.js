@@ -497,12 +497,12 @@ function IframeController() {
         let slctr;
         let style;
 
-        if (adguardRulesConstructor.isUrlRuleText(selectedPath)) {
+        if (adguardRulesConstructor.isCosmeticRuleText(selectedPath)) {
+            // eslint-disable-next-line prefer-destructuring
+            slctr = selectedPath.split('##')[1] || selectedPath.split('#?#')[1];
+        } else {
             // all images by src
             slctr = getUrlHideSelector(element, selectedPath);
-        } else {
-            // eslint-disable-next-line prefer-destructuring
-            slctr = selectedPath.split('##')[1];
         }
 
         if (slctr) {

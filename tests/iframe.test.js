@@ -108,6 +108,30 @@ test('URL hiding uses the attribute that holds the address', (assert) => {
     object.remove();
 });
 
+test('URL hiding covers a rule without an anchor', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-basic';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://ads.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('ads.example.com^', styleID, img);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[src*="https://ads.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    styleEl.remove();
+    img.remove();
+});
+
 test('URL hiding falls back to the rule text without an element', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-url-hide-rule';

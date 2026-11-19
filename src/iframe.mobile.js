@@ -7,6 +7,7 @@ import protectedApi from './protectedApi';
 import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
+import settings from './settings';
 import pkg from '../package.json';
 
 // package.json carries no version outside CI/release builds; show 'dev'
@@ -43,6 +44,16 @@ export default function IframeControllerMobile() {
      * shadow host, so page scripts cannot find the dialog by the iframe id.
      */
     const HOST_ATTRIBUTE = 'data-adguard-assistant-dialog';
+
+    // Important attribute for all inline stylesheets.
+    // It needs for Content-Security-Policy.
+    const getStyleNonce = () => {
+        const adgSettings = settings.getAdguardSettings();
+        if (adgSettings === null) {
+            return '';
+        }
+        return adgSettings.nonce;
+    };
 
     const defaultCSS = {
         clip: 'auto',
@@ -92,12 +103,18 @@ export default function IframeControllerMobile() {
             updateIframeStyles(styles);
         });
 
-        // The dialog is kept in a closed shadow root, so page scripts cannot
-        // read or change the rule before the user saves it.
+        // The dialog is kept in a closed shadow root when Shadow DOM is
+        // available, so page scripts cannot read or change the rule before
+        // the user saves it.
         if (protectedApi.checkShadowDomSupport()) {
             const shadowHost = protectedApi.createElementInPageDocument('div');
             const shadowRoot = protectedApi.attachClosedShadowRoot(shadowHost);
             if (shadowRoot) {
+                // Without the host reset the page CSS can hide the dialog,
+                // for example `div:empty { display: none }`.
+                shadowRoot.appendChild(
+                    protectedApi.createStylesElement(CSS.host, getStyleNonce()),
+                );
                 shadowRoot.appendChild(iframe);
                 iframeAnchor = shadowHost;
             }

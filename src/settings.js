@@ -31,7 +31,6 @@ import gm from './gm';
  * removeUserPositionForButton: removeUserPositionForButton,
  * selectedElement: *,
  * setAdguardSettings: setAdguardSettings,
- * getAdguardSettings: getAdguardSettings,
  * getStyleNonce: getStyleNonce
  * }}
  * @constructor
@@ -171,8 +170,6 @@ function Settings() {
         adguardSettings = settings;
     };
 
-    const getAdguardSettings = () => adguardSettings;
-
     /**
      * Returns the nonce for inline stylesheets.
      *
@@ -306,7 +303,6 @@ function Settings() {
         setAdguardSettings,
         setPersonalParam,
         setButtonSide,
-        getAdguardSettings,
         getStyleNonce,
         getIconSize,
         getPersonalConfig,

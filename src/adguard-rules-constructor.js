@@ -24,9 +24,10 @@ function AdguardRulesConstructorLib(api = {}) {
      * exception rules.
      */
     const FORBIDDEN_RULE_MARKS = [
-        // JavaScript injection and style injection
+        // JavaScript injection
         '#%#',
-        '#$#',
+        // Style injection in a selector: `#$#` and `#$?#`
+        '#$',
         // uBO scriptlet syntax, FiltersCompiler converts it to `#%#//scriptlet`
         '##+js(',
         // uBO HTML filtering and style injection inside a selector
@@ -34,8 +35,9 @@ function AdguardRulesConstructorLib(api = {}) {
         ':style(',
         // A cosmetic exception, for example `#@#` or `#@$?#`
         '#@',
-        // HTML filtering
+        // HTML filtering and its exception
         '$$',
+        '$@$',
     ];
 
     /**

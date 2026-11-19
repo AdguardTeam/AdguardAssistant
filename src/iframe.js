@@ -488,8 +488,7 @@ function IframeController() {
         let style;
 
         if (adguardRulesConstructor.isCosmeticRuleText(selectedPath)) {
-            // eslint-disable-next-line prefer-destructuring
-            slctr = selectedPath.split('##')[1] || selectedPath.split('#?#')[1];
+            slctr = adguardRulesConstructor.getCosmeticSelector(selectedPath);
         } else {
             // all images by src
             slctr = getUrlHideSelector(element, selectedPath);

@@ -486,6 +486,26 @@ function AdguardRulesConstructorLib(api = {}) {
         && ALLOWED_COSMETIC_MARKS.some((mark) => ruleText.indexOf(mark) >= 0);
 
     /**
+     * Returns the selector of a cosmetic rule.
+     *
+     * The first cosmetic mark decides the selector, so a `#?#` rule whose
+     * selector contains `##` keeps the whole selector.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {string|null} Selector or null if the rule is not cosmetic.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.getCosmeticSelector = (ruleText) => {
+        if (typeof ruleText !== 'string') {
+            return null;
+        }
+
+        const match = ruleText.match(/^[^#]*(##|#\?#)([\s\S]*)$/);
+
+        return match ? match[2] : null;
+    };
+
+    /**
      * Returns detailed element info
      *
      * @param element
@@ -578,7 +598,10 @@ function AdguardRulesConstructorLib(api = {}) {
                 croppedDomain,
             );
 
-            if (blockUrlRuleText) {
+            // The gate must accept the built rule, otherwise the dialog would
+            // show a rule that Block drops without a visible result. Fall back
+            // to the CSS rule when the address holds a rejected sequence.
+            if (blockUrlRuleText && api.isValidRuleText(blockUrlRuleText)) {
                 return blockUrlRuleText;
             }
         }

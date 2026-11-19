@@ -151,6 +151,25 @@ test('URL hiding keeps a #?# rule on the CSS branch', (assert) => {
     styleEl.remove();
 });
 
+test('URL hiding keeps a #?# selector that contains a cosmetic mark', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-extended-hash';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    ctrl.hideElementsByPath('example.com#?#div[data-x="##"]', styleID);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('div[data-x="##"]{display:none!important}'),
+        'The whole selector is kept',
+    );
+
+    styleEl.remove();
+});
+
 test('URL hiding escapes quotes in the address', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-url-hide-escape';

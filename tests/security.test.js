@@ -161,6 +161,15 @@ test('does not build a URL rule from page-controlled rule syntax', (assert) => {
     });
 });
 
+test('falls back to a cosmetic rule when the address cannot pass the gate', (assert) => {
+    // The parsed address is usable, but the built rule holds a sequence that
+    // the gate rejects, so the picker must not show a dead URL rule.
+    const rule = buildRule('https://example.com/x:style(y)');
+
+    assert.ok(rule.includes('##'), 'Falls back to a cosmetic rule');
+    assert.ok(adguardRulesConstructor.isValidRuleText(rule), 'The shown rule is valid');
+});
+
 test('ignores unsafe URL values of the selected element', (assert) => {
     const element = document.createElement('img');
     element.setAttribute('src', '#%#window.__pwned=1;//');

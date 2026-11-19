@@ -124,8 +124,10 @@ function IframeController() {
             if (shadowRoot) {
                 shadowRoot.appendChild(iframe);
             } else {
-                // The UI is not isolated, but the rule text still goes through
-                // the checks in blockElement() and the save handlers.
+                // The UI is not isolated, so page scripts can reach the
+                // dialog. The rule checks in blockElement() and in the save
+                // handlers reduce the risk, but they do not limit the
+                // capability of a rule. The receiving side must gate it.
                 iframeAnchor = iframe;
             }
         } else {
@@ -458,17 +460,20 @@ function IframeController() {
      * that the author wrote. The values differ when the authored value has
      * non-ASCII characters, spaces, an explicit port, or an uppercase host.
      * The raw value is used when it is available, so the element is hidden
-     * right after the user presses Block.
+     * right after the user presses Block. The attribute name comes from the
+     * element too, because the address can be in `src` or `data`.
      *
      * @param {Element} [element] Selected element.
      * @param {string} selectedPath Rule text of the blocked element.
      * @returns {string} Attribute selector.
      */
     const getUrlHideSelector = (element, selectedPath) => {
+        const attribute = element ? adguardRulesConstructor.getUrlBlockAttributeName(element) : null;
         const urlMask = element ? adguardRulesConstructor.getUrlBlockAttribute(element) : null;
-        const value = urlMask || selectedPath.split('$domain=')[0];
+        const ruleValue = selectedPath.split('$domain=')[0].replace(/^\|+/, '');
+        const value = urlMask || ruleValue;
 
-        return `[src*="${escapeCssString(value)}"]`;
+        return `[${attribute || 'src'}*="${escapeCssString(value)}"]`;
     };
 
     /**
@@ -492,7 +497,7 @@ function IframeController() {
         let slctr;
         let style;
 
-        if (selectedPath.indexOf('://') > 0) {
+        if (adguardRulesConstructor.isUrlRuleText(selectedPath)) {
             // all images by src
             slctr = getUrlHideSelector(element, selectedPath);
         } else {

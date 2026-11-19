@@ -30,6 +30,8 @@ function AdguardRulesConstructorLib(api = {}) {
         '#@$#',
         '#@?#',
         '#$?#',
+        // uBO scriptlet syntax, FiltersCompiler converts it to `#%#//scriptlet`
+        '##+js(',
         '$$',
     ];
 
@@ -43,6 +45,12 @@ function AdguardRulesConstructorLib(api = {}) {
      * Prefixes of the blocking URL rules that the element picker can build.
      */
     const URL_RULE_PREFIX_REGEX = /^(?:\|\||\||\/\/|https?:\/\/)/i;
+
+    /**
+     * Characters of a blocking URL pattern. A hand-typed rule can have no
+     * anchor and no scheme, for example `ads.example.com^`.
+     */
+    const URL_PATTERN_CHARS_REGEX = /[./:^|*]/;
 
     const ABSOLUTE_HTTP_URL_REGEX = /^https?:\/\//i;
     const HTTP_URL_REGEX = /^http:\/\//i;
@@ -325,20 +333,37 @@ function AdguardRulesConstructorLib(api = {}) {
         return blockUrlRuleText;
     };
 
-    const getUrlBlockAttribute = (element) => {
+    /**
+     * Returns the name of the attribute that holds a usable address.
+     *
+     * @param {Element} element Element.
+     * @returns {string|null} `src`, `data`, or null.
+     */
+    const getUrlBlockAttributeName = (element) => {
         if (!element || !element.getAttribute) {
             return null;
         }
 
         for (let i = 0; i < URLBLOCK_ATTRIBUTES.length; i += 1) {
             const attr = URLBLOCK_ATTRIBUTES[i];
-            const value = element.getAttribute(attr);
-            if (parseUrlBlockValue(value)) {
-                return value;
+            if (parseUrlBlockValue(element.getAttribute(attr))) {
+                return attr;
             }
         }
 
         return null;
+    };
+
+    /**
+     * Returns the value of the attribute that holds a usable address.
+     *
+     * @param {Element} element Element.
+     * @returns {string|null} Attribute value or null.
+     */
+    const getUrlBlockAttribute = (element) => {
+        const attr = getUrlBlockAttributeName(element);
+
+        return attr ? element.getAttribute(attr) : null;
     };
 
     const haveUrlBlockParameter = (element) => getUrlBlockAttribute(element) !== null;
@@ -392,17 +417,21 @@ function AdguardRulesConstructorLib(api = {}) {
     api.getUrlBlockAttribute = getUrlBlockAttribute;
 
     // eslint-disable-next-line no-param-reassign
+    api.getUrlBlockAttributeName = getUrlBlockAttributeName;
+
+    // eslint-disable-next-line no-param-reassign
     api.haveUrlBlockParameter = haveUrlBlockParameter;
 
     /**
      * Checks that the rule text can be passed to the filtering engine.
      *
      * The element picker builds a cosmetic rule or a blocking URL rule, and
-     * the user can change the rule text in the dialog. The check accepts these
-     * two families and rejects the types that the picker cannot build, so a
-     * page-controlled value cannot turn an element rule into a scriptlet, a
-     * style injection, or an exception rule. Line separators are rejected,
-     * because one field must not submit several rules.
+     * the user can change the rule text in the dialog. The check keeps one
+     * rule in one field and rejects the families that the picker cannot
+     * build: scriptlets, style injections, HTML filtering rules, exceptions,
+     * comments, and preprocessor directives. A basic URL pattern without an
+     * anchor and a scheme is accepted, because the user can type one by hand.
+     * The check does not limit rule options, for example `$important`.
      *
      * @param {string} ruleText Rule text.
      * @returns {boolean} True if the text is a single blocking rule.
@@ -431,8 +460,18 @@ function AdguardRulesConstructorLib(api = {}) {
 
         const hasCosmeticMark = ALLOWED_COSMETIC_MARKS.some((mark) => rule.indexOf(mark) >= 0);
 
-        return hasCosmeticMark || URL_RULE_PREFIX_REGEX.test(rule);
+        return hasCosmeticMark || URL_PATTERN_CHARS_REGEX.test(rule);
     };
+
+    /**
+     * Checks that the rule text is a blocking URL rule.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {boolean} True if the rule starts with a URL rule prefix.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.isUrlRuleText = (ruleText) => typeof ruleText === 'string'
+        && URL_RULE_PREFIX_REGEX.test(ruleText.trim());
 
     /**
      * Returns detailed element info

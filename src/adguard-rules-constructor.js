@@ -20,18 +20,21 @@ function AdguardRulesConstructorLib(api = {}) {
 
     /**
      * Marks of the rule types that the element picker must never send to the
-     * filtering engine: scriptlet, style injection, and exception rules.
+     * filtering engine: scriptlet, style injection, HTML filtering, and
+     * exception rules.
      */
     const FORBIDDEN_RULE_MARKS = [
+        // JavaScript injection and style injection
         '#%#',
         '#$#',
-        '#@#',
-        '#@%#',
-        '#@$#',
-        '#@?#',
-        '#$?#',
         // uBO scriptlet syntax, FiltersCompiler converts it to `#%#//scriptlet`
         '##+js(',
+        // uBO HTML filtering and style injection inside a selector
+        '##^',
+        ':style(',
+        // A cosmetic exception, for example `#@#` or `#@$?#`
+        '#@',
+        // HTML filtering
         '$$',
     ];
 

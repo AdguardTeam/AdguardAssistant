@@ -22,8 +22,9 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 ### Security
 
 - Rule injection through the element picker: the dialog now runs in a closed
-  shadow root in all browsers, blocking URL rules are built from the parsed
-  address, and a rule is saved only after a trusted user action (AG-62223).
+  shadow root when Shadow DOM is available, blocking URL rules are built from
+  the parsed address, and a rule is saved only after a trusted user action
+  (AG-62223).
 
 ## [4.4.16] - 2026-10-20
 

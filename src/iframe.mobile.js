@@ -14,7 +14,7 @@ import pkg from '../package.json';
 const appVersion = pkg.version || 'dev';
 
 /**
- * Manages iframe and it's content
+ * Manages iframe and its content
  * @returns {{
  * showSelectorMenu: showSelectorMenu,
  * showSliderMenu: showSliderMenu,
@@ -196,7 +196,7 @@ export default function IframeControllerMobile() {
         showMenuItem('mobilePopup.html', mobilePopupButtonsInit(), null, styles);
     };
 
-    // e.isTrusted checking for prevent programmatically events
+    // e.isTrusted checking for preventing programmatically events
     // see: https://github.com/AdguardTeam/AdguardAssistant/issues/134
     const removeIframe = (e) => {
         if (e && e.isTrusted === false) {

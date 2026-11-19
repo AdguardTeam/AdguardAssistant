@@ -56,7 +56,7 @@ export const getAllChildren = (element) => {
 
 /**
  * Converts passed argument to array
- * Usually used for transformatin NodeList to simple Array
+ * Usually used for transforming NodeList to simple Array
  * @param {any} elems
  */
 export const toArray = (elems) => (elems && elems.length !== undefined
@@ -66,7 +66,7 @@ export const toArray = (elems) => (elems && elems.length !== undefined
 /**
  * Adds passed classes to target element
  * @param {Element} elem target element
- * @param {string} className string where classess must be separeted with space
+ * @param {string} className string where classes must be separated with space
  */
 export const addClass = (elem, className) => {
     const elems = toArray(elem);
@@ -79,7 +79,7 @@ export const addClass = (elem, className) => {
 /**
  * Removes passed classes from target element
  * @param {Element} elem target element
- * @param {string} className string where classess must be separeted with space
+ * @param {string} className string where classes must be separated with space
  */
 export const removeClass = (elem, className) => {
     const elems = toArray(elem);

@@ -52,7 +52,7 @@ function SliderWidget(api = {}) {
 
         // Activate all ticks up to the new value
         for (let i = 0; i < ticks.length; i += 1) {
-            // Add `min`, because ticks are 0-based, but values are starts from `min`
+            // Add `min`, because ticks are 0-based, but values start from `min`
             if (i + min < value) {
                 ticks[i].setAttribute('class', TICK_ACTIVE_CLASS);
             } else {

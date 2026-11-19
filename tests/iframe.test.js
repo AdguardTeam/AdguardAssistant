@@ -132,6 +132,47 @@ test('URL hiding covers a rule without an anchor', (assert) => {
     img.remove();
 });
 
+test('URL hiding keeps a #?# rule on the CSS branch', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-extended';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    ctrl.hideElementsByPath('example.com#?#div:has(> .ad)', styleID);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('div:has(> .ad){display:none!important}'),
+        'Selector comes from the cosmetic rule',
+    );
+
+    styleEl.remove();
+});
+
+test('URL hiding escapes quotes in the address', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-escape';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://example.com/a"b.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('https://example.com/a.png$domain=example.com', styleID, img);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(styleEl.textContent.includes('a\\"b.png'), 'The quote is escaped');
+    assert.notOk(styleEl.textContent.includes('a"b.png'), 'The quote does not break out of the selector');
+
+    styleEl.remove();
+    img.remove();
+});
+
 test('URL hiding falls back to the rule text without an element', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-url-hide-rule';

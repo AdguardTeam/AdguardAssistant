@@ -101,8 +101,8 @@ function ProtectedApi() {
      *
      * The element is a shadow host for the assistant UI. It is created in the
      * page document, because every browser supports a shadow root on such an
-     * element. The original `document.createElement` method is used, so a
-     * method replaced by page scripts cannot return another element.
+     * element. The method is captured when the assistant starts, so a method
+     * that page scripts replace later cannot return another element.
      *
      * @param {string} tagName Tag name.
      * @returns {Element} New element.
@@ -178,9 +178,11 @@ function ProtectedApi() {
     /**
      * Attaches a closed shadow root to the element.
      *
-     * The original `attachShadow` method is used, so a method replaced by page
-     * scripts cannot open the root. Returns null when the root cannot be
-     * attached.
+     * The method is captured when the assistant starts, so a method that page
+     * scripts replace later cannot open the root. A page that patches
+     * `Element.prototype.attachShadow` before the assistant starts still wins,
+     * because the userscript build runs in the page context. Returns null when
+     * the root cannot be attached.
      *
      * @param {Element} element Shadow host.
      * @returns {ShadowRoot|null} Closed shadow root or null.

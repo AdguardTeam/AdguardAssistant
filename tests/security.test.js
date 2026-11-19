@@ -66,6 +66,7 @@ test('accepts basic URL patterns that the user types by hand', (assert) => {
         'ads.example.com^',
         '/banner/ad.png',
         'example.com',
+        '[::1]##div',
     ];
 
     rules.forEach((rule) => {
@@ -143,6 +144,8 @@ test('does not build a URL rule from page-controlled rule syntax', (assert) => {
         'example.com#%#window.__pwned=1;//',
         'https://example.com/a$b.png',
         'https://example.com/a.png$domain=evil.example',
+        'https://cdn.example/*',
+        'https://cdn.example/x?a=^b',
         'data:image/png;base64,AAAA',
         '/relative/a.png',
         'ftp://example.com/a.png',
@@ -153,6 +156,7 @@ test('does not build a URL rule from page-controlled rule syntax', (assert) => {
 
         assert.notOk(rule.includes('#%#'), `No scriptlet mark for ${value}`);
         assert.notOk(rule.includes('$domain=evil.example'), `No injected scope for ${value}`);
+        assert.ok(rule.includes('##'), `The picker falls back to a cosmetic rule for ${value}`);
         assert.ok(adguardRulesConstructor.isValidRuleText(rule), `Fallback rule is valid for ${value}`);
     });
 });
@@ -164,12 +168,31 @@ test('ignores unsafe URL values of the selected element', (assert) => {
     assert.strictEqual(adguardRulesConstructor.getUrlBlockAttribute(element), null, 'Unsafe src is ignored');
     assert.notOk(adguardRulesConstructor.haveUrlBlockParameter(element), 'No URL option for an unsafe src');
 
+    // The first attribute with a value decides the address, so a relative or
+    // unsafe `src` must not fall through to a page-chosen `data` value.
     element.setAttribute('data', 'https://example.com/a.png');
 
     assert.strictEqual(
         adguardRulesConstructor.getUrlBlockAttribute(element),
-        'https://example.com/a.png',
-        'Safe data attribute is used',
+        null,
+        'A page-chosen data value is not used while src exists',
+    );
+    assert.notOk(adguardRulesConstructor.haveUrlBlockParameter(element), 'No URL option for an unsafe src');
+});
+
+test('uses the data attribute when src is absent', (assert) => {
+    const element = document.createElement('object');
+    element.setAttribute('data', 'https://example.com/obj.svg');
+
+    assert.strictEqual(
+        adguardRulesConstructor.getUrlBlockAttributeName(element),
+        'data',
+        'data is the address of an object',
+    );
+    assert.strictEqual(
+        adguardRulesConstructor.getUrlBlockAttribute(element),
+        'https://example.com/obj.svg',
+        'The data value is used',
     );
     assert.ok(adguardRulesConstructor.haveUrlBlockParameter(element), 'URL option is available');
 });
@@ -232,11 +255,17 @@ test('supports a closed shadow root', (assert) => {
 test('the desktop dialog is not exposed in the page DOM', (assert) => {
     const done = assert.async();
     const ctrl = IframeController();
+    let dialogShown = false;
+
+    ctrl.onShowMenuItem.attach(() => {
+        dialogShown = true;
+    });
 
     ioc.register('iframeController', ctrl);
     ctrl.showSelectorMenu();
 
     window.setTimeout(() => {
+        assert.ok(dialogShown, 'The dialog was rendered');
         assert.strictEqual(document.querySelector('iframe'), null, 'No iframe in the page DOM');
         assert.strictEqual(
             document.getElementById('adguard-assistant-dialog'),

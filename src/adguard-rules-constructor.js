@@ -53,7 +53,12 @@ function AdguardRulesConstructorLib(api = {}) {
     const ABSOLUTE_HTTP_URL_REGEX = /^https?:\/\//i;
     const HTTP_URL_REGEX = /^http:\/\//i;
     const PROTOCOL_RELATIVE_URL_REGEX = /^\/\//;
-    const FILTER_SYNTAX_CHARS_REGEX = /[$#]/;
+    const FILTER_SYNTAX_CHARS_REGEX = /[$#*^]/;
+
+    /**
+     * A preprocessor header, for example `[Adblock Plus 2.0]`.
+     */
+    const PREPROCESSOR_HEADER_REGEX = /^\[[^\]]*\]$/;
 
     const linkHelper = protectedApi.createElement('a');
 
@@ -261,8 +266,9 @@ function AdguardRulesConstructorLib(api = {}) {
      * Only absolute HTTP(S) and protocol-relative addresses are accepted.
      * Relative addresses, fragments, and data URIs resolve against the page
      * address, so a page-controlled attribute could turn them into filter
-     * rule syntax. Characters that start the options or a cosmetic rule are
-     * rejected too, because they would change the type of the built rule.
+     * rule syntax. Characters with rule meaning are rejected too: `$` starts
+     * the options, `#` starts a cosmetic rule, and `*` and `^` are URL
+     * pattern operators that would widen the rule.
      *
      * @param {string} value Attribute value.
      * @returns {{protocolRelative: boolean, isHttp: boolean, host: string, path: string}|null}
@@ -334,6 +340,9 @@ function AdguardRulesConstructorLib(api = {}) {
     /**
      * Returns the name of the attribute that holds a usable address.
      *
+     * The first attribute with a value decides the address. A `data`
+     * attribute is used only when `src` is absent or empty.
+     *
      * @param {Element} element Element.
      * @returns {string|null} `src`, `data`, or null.
      */
@@ -344,8 +353,12 @@ function AdguardRulesConstructorLib(api = {}) {
 
         for (let i = 0; i < URLBLOCK_ATTRIBUTES.length; i += 1) {
             const attr = URLBLOCK_ATTRIBUTES[i];
-            if (parseUrlBlockValue(element.getAttribute(attr))) {
-                return attr;
+            const value = element.getAttribute(attr);
+
+            // The first attribute that holds a value decides the address: a
+            // relative `src` must not fall through to a page-chosen `data`.
+            if (value) {
+                return parseUrlBlockValue(value) ? attr : null;
             }
         }
 
@@ -447,8 +460,9 @@ function AdguardRulesConstructorLib(api = {}) {
         }
 
         // Comments, preprocessor directives, and exception rules do not block
-        // an element.
-        if (rule[0] === '!' || rule[0] === '[' || rule.indexOf('@@') === 0) {
+        // an element. A preprocessor header is a line that only holds
+        // `[name]`, so a cosmetic rule such as `[::1]##div` still passes.
+        if (rule[0] === '!' || PREPROCESSOR_HEADER_REGEX.test(rule) || rule.indexOf('@@') === 0) {
             return false;
         }
 

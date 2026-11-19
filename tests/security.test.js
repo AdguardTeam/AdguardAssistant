@@ -4,6 +4,11 @@ import protectedApi from '../src/protectedApi';
 import { isTrustedEvent } from '../src/utils/common-utils';
 import IframeController from '../src/iframe';
 import IframeControllerMobile from '../src/iframe.mobile';
+import SliderMenuController from '../src/controllers/sliderMenuController';
+import SliderMenuControllerMobile from '../src/controllers/sliderMenuControllerMobile';
+import BlockPreviewController from '../src/controllers/blockPreviewController';
+import { HTML } from '../src/inline-resources';
+import selector from '../src/adguard-selector';
 import ioc from '../src/ioc';
 
 const { test, module } = QUnit;
@@ -55,6 +60,18 @@ test('accepts the rules that the element picker builds', (assert) => {
     });
 });
 
+test('accepts basic URL patterns that the user types by hand', (assert) => {
+    const rules = [
+        'ads.example.com^',
+        '/banner/ad.png',
+        'example.com',
+    ];
+
+    rules.forEach((rule) => {
+        assert.ok(adguardRulesConstructor.isValidRuleText(rule), `Accepts ${rule}`);
+    });
+});
+
 test('rejects rules of other types and several rules in one field', (assert) => {
     const rules = [
         '',
@@ -63,11 +80,12 @@ test('rejects rules of other types and several rules in one field', (assert) => 
         'example.com#%#window.__pwned=1;//',
         'example.com#$#body{display:none!important}',
         'example.com#@#.banner',
+        'example.com##+js(set-constant, foo, true)',
+        '##+js(nowoif)',
         '@@||example.com^',
         'example.com##.banner\n#%#window.__pwned=1;//',
         'example.com##.banner\r\n@@||example.com^',
         'example.com$$script[tag-content="pwned"]',
-        '0.0.0.0 example.com',
         '! comment',
         '[Adblock Plus 2.0]',
         'plain text',
@@ -247,4 +265,182 @@ test('the mobile dialog is not exposed in the page DOM', (assert) => {
         );
         done();
     }, 500);
+});
+
+test('page CSS cannot hide the mobile dialog host', (assert) => {
+    const done = assert.async();
+    const style = document.createElement('style');
+    style.textContent = 'div:empty { display: none; }';
+    document.head.appendChild(style);
+
+    const ctrl = IframeControllerMobile();
+    ctrl.showSelectorMenu();
+
+    window.setTimeout(() => {
+        const dialogHost = document.querySelector('[data-adguard-assistant-dialog]');
+        assert.ok(dialogHost, 'Dialog host is in the page DOM');
+        assert.strictEqual(
+            window.getComputedStyle(dialogHost).display,
+            'block',
+            'Page CSS does not hide the host',
+        );
+
+        ctrl.removeIframe();
+        style.remove();
+        done();
+    }, 500);
+});
+
+module('rule save funnel');
+
+test('blockElement does not save an invalid rule', (assert) => {
+    const ctrl = IframeController();
+    let saved = null;
+
+    ctrl.blockElement('#%#window.__pwned=1;//$domain=example.com', (rule) => {
+        saved = rule;
+    });
+
+    assert.strictEqual(saved, null, 'No rule is saved');
+});
+
+/**
+ * Creates an iframe with a dialog view, so a controller handler can receive a
+ * click from the test.
+ *
+ * @param {string} view HTML of the dialog view.
+ * @returns {Promise<HTMLIFrameElement>} Loaded iframe with the view.
+ */
+const createDialogFrame = (view) => new Promise((resolve) => {
+    const frame = document.createElement('iframe');
+    // The selector replaces visible iframes with placeholders, so the dialog
+    // frame must carry the ignored class, as it does in the assistant.
+    frame.className = selector.ignoreClassName();
+
+    // The load listener must be attached before the iframe is inserted,
+    // otherwise the event for the initial document is missed.
+    frame.addEventListener('load', () => {
+        frame.contentDocument.body.appendChild(protectedApi.createElement(view));
+        resolve(frame);
+    });
+
+    document.body.appendChild(frame);
+});
+
+/**
+ * Builds an iframe controller stub that records a saved rule.
+ *
+ * @param {Object} saved Sink for the saved rule.
+ * @returns {Object} Iframe controller stub.
+ */
+const createIframeStub = (saved) => ({
+    blockElement(rule) {
+        // eslint-disable-next-line no-param-reassign
+        saved.rule = rule;
+    },
+    hideElementsByPath() {},
+    resizeIframe() {},
+    resizeSliderMenuToAdvanced() {},
+    resizeSliderMenuToNormal() {},
+    showSelectorMenu() {},
+    showBlockPreview() {},
+    removeIframe() {},
+});
+
+/**
+ * Creates a page element for the dialog.
+ *
+ * @returns {Element} Element in the test fixture.
+ */
+const createSelectedElement = () => {
+    const element = document.createElement('div');
+    element.className = 'banner';
+    document.getElementById('qunit-fixture').appendChild(element);
+
+    return element;
+};
+
+module('untrusted clicks');
+
+test('an untrusted click does not save a rule in the slider menu', (assert) => {
+    const done = assert.async();
+
+    createDialogFrame(HTML.slider_menu)
+        .then((frame) => {
+            const element = createSelectedElement();
+            const saved = { rule: null };
+            const ctrl = SliderMenuController(() => {}, createIframeStub(saved));
+
+            selector.init(() => {});
+            ctrl.init(frame, { element });
+            frame.contentDocument.getElementById('adg-accept').click();
+
+            assert.strictEqual(saved.rule, null, 'No rule is saved from an untrusted click');
+
+            selector.close();
+            element.remove();
+            frame.remove();
+        })
+        .catch((e) => {
+            assert.ok(false, String(e && e.stack));
+        })
+        .then(() => {
+            done();
+        });
+});
+
+test('an untrusted click does not save a rule in the preview', (assert) => {
+    const done = assert.async();
+
+    createDialogFrame(HTML.preview)
+        .then((frame) => {
+            const element = createSelectedElement();
+            const saved = { rule: null };
+            const ctrl = BlockPreviewController(() => {}, createIframeStub(saved));
+
+            selector.init(() => {});
+            ctrl.init(frame, { element, path: 'example.com##.banner', options: {} });
+            frame.contentDocument.getElementById('block-element').click();
+
+            assert.strictEqual(saved.rule, null, 'No rule is saved from an untrusted click');
+
+            selector.close();
+            element.remove();
+            frame.remove();
+        })
+        .catch((e) => {
+            assert.ok(false, String(e && e.stack));
+        })
+        .then(() => {
+            done();
+        });
+});
+
+test('an untrusted click does not save a rule in the mobile menu', (assert) => {
+    const done = assert.async();
+
+    createDialogFrame(HTML.mobile_menu)
+        .then((frame) => {
+            const element = createSelectedElement();
+            const saved = { rule: null };
+            const ctrl = SliderMenuControllerMobile((rule) => {
+                saved.rule = rule;
+            }, createIframeStub(saved));
+
+            selector.init(() => {});
+            ctrl.init(frame, { element });
+            frame.contentDocument.querySelector('.adg-accept').click();
+
+            assert.strictEqual(saved.rule, null, 'No rule is saved from an untrusted click');
+
+            selector.close();
+            element.remove();
+            frame.remove();
+        })
+        .catch((e) => {
+            assert.ok(false, String(e && e.stack));
+        })
+        .then(() => {
+            done();
+        });
 });

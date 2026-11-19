@@ -36,12 +36,87 @@ test('URL hiding uses the raw attribute value', (assert) => {
     img.remove();
 });
 
-test('URL hiding falls back to the rule text without an element', (assert) => {
+test('URL hiding covers domain-anchored rules', (assert) => {
     const ctrl = IframeController();
-    const styleID = 'test-url-hide-rule';
+    const styleID = 'test-url-hide-anchor';
 
     const existing = document.querySelector(`#${styleID}`);
     if (existing) existing.remove();
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'http://www.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('||example.com/a.png$domain=example.com', styleID, img);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[src*="http://www.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    styleEl.remove();
+    img.remove();
+});
+
+test('URL hiding covers protocol-relative rules', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-protocol';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const img = document.createElement('img');
+    img.setAttribute('src', '//cdn.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('//cdn.example.com/a.png$domain=example.com', styleID, img);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[src*="//cdn.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    styleEl.remove();
+    img.remove();
+});
+
+test('URL hiding uses the attribute that holds the address', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-data';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const object = document.createElement('object');
+    object.setAttribute('data', 'https://example.com/obj.svg');
+    document.getElementById('qunit-fixture').appendChild(object);
+
+    ctrl.hideElementsByPath('https://example.com/obj.svg$domain=example.com', styleID, object);
+
+    const styleEl = document.querySelector(`#${styleID}`);
+    assert.ok(styleEl, 'Style element exists');
+    assert.ok(
+        styleEl.textContent.includes('[data*="https://example.com/obj.svg"]'),
+        'Selector uses the data attribute',
+    );
+
+    styleEl.remove();
+    object.remove();
+});
+
+test('URL hiding falls back to the rule text without an element', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-rule';
+    const anchorStyleID = 'test-url-hide-rule-anchor';
+
+    [styleID, anchorStyleID].forEach((id) => {
+        const existing = document.querySelector(`#${id}`);
+        if (existing) existing.remove();
+    });
 
     ctrl.hideElementsByPath('https://example.com/a.png$domain=example.com', styleID);
 
@@ -52,7 +127,17 @@ test('URL hiding falls back to the rule text without an element', (assert) => {
         'Selector uses the rule text',
     );
 
+    ctrl.hideElementsByPath('||example.com/a.png$domain=example.com', anchorStyleID);
+
+    const anchorStyleEl = document.querySelector(`#${anchorStyleID}`);
+    assert.ok(anchorStyleEl, 'Anchor style element exists');
+    assert.ok(
+        anchorStyleEl.textContent.includes('[src*="example.com/a.png"]'),
+        'Selector drops the domain anchor',
+    );
+
     styleEl.remove();
+    anchorStyleEl.remove();
 });
 
 test('CSS is valid after multiple hideElementsByPath calls', (assert) => {

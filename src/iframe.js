@@ -64,16 +64,6 @@ function IframeController() {
     const onCloseMenu = new CustomEvent();
     const onShowMenuItem = new CustomEvent();
 
-    // Important attribute for all inline stylesheets.
-    // It needs for Content-Security-Policy.
-    const getStyleNonce = () => {
-        const adgSettings = settings.getAdguardSettings();
-        if (adgSettings === null) {
-            return '';
-        }
-        return adgSettings.nonce;
-    };
-
     const createShadowRootElement = (iframeAnc) => {
         const shadowiframeAnchor = protectedApi.attachClosedShadowRoot(iframeAnc);
         if (!shadowiframeAnchor) {
@@ -82,7 +72,7 @@ function IframeController() {
 
         const stylesElement = protectedApi.createStylesElement(
             CSS.common + CSS.iframe,
-            getStyleNonce(),
+            settings.getStyleNonce(),
         );
         shadowiframeAnchor.appendChild(stylesElement);
 
@@ -274,7 +264,7 @@ function IframeController() {
             const view = protectedApi.createElement(views[viewName]);
             const stylesElement = protectedApi.createStylesElement(
                 CSS.common + CSS.button + CSS.iframe,
-                getStyleNonce(),
+                settings.getStyleNonce(),
             );
             view.appendChild(stylesElement);
             appendContent(view);
@@ -314,7 +304,7 @@ function IframeController() {
         if (!iframe) {
             const adgStylesSelector = protectedApi.createStylesElement(
                 CSS.selector,
-                getStyleNonce(),
+                settings.getStyleNonce(),
                 'adg-styles-selector',
             );
             if (adgStylesSelector) {
@@ -518,7 +508,7 @@ function IframeController() {
             stylesElement.appendChild(document.createTextNode(` ${style}`));
         } else {
             document.documentElement.appendChild(
-                protectedApi.createStylesElement(style, getStyleNonce(), targetStyleID),
+                protectedApi.createStylesElement(style, settings.getStyleNonce(), targetStyleID),
             );
         }
 

@@ -24,16 +24,6 @@ function UIButton() {
      */
     const HOST_ATTRIBUTE = 'data-adguard-assistant-button';
 
-    // Important attribute for all inline stylesheets.
-    // It needs for Content-Security-Policy.
-    const getStyleNonce = () => {
-        const adgSettings = settings.getAdguardSettings();
-        if (adgSettings === null) {
-            return '';
-        }
-        return adgSettings.nonce;
-    };
-
     const isButtonAlreadyInDOM = () => {
         const alert = document.querySelector('.adguard-alert')
             || document.querySelector(`[${HOST_ATTRIBUTE}]`);
@@ -207,14 +197,18 @@ function UIButton() {
         if (shadowRoot) {
             adgStylesButton = protectedApi.createStylesElement(
                 CSS.common + CSS.button,
-                getStyleNonce(),
+                settings.getStyleNonce(),
             );
             shadowRoot.appendChild(adgStylesButton);
             shadowRoot.appendChild(button);
             buttonElement.setAttribute(HOST_ATTRIBUTE, '');
             document.documentElement.appendChild(buttonElement);
         } else {
-            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
+            adgStylesButton = protectedApi.createStylesElement(
+                CSS.button,
+                settings.getStyleNonce(),
+                'adg-styles-button',
+            );
             if (adgStylesButton) {
                 document.documentElement.appendChild(adgStylesButton);
             }

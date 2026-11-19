@@ -45,16 +45,6 @@ export default function IframeControllerMobile() {
      */
     const HOST_ATTRIBUTE = 'data-adguard-assistant-dialog';
 
-    // Important attribute for all inline stylesheets.
-    // It needs for Content-Security-Policy.
-    const getStyleNonce = () => {
-        const adgSettings = settings.getAdguardSettings();
-        if (adgSettings === null) {
-            return '';
-        }
-        return adgSettings.nonce;
-    };
-
     const defaultCSS = {
         clip: 'auto',
         'z-index': 2147483647,
@@ -113,7 +103,7 @@ export default function IframeControllerMobile() {
                 // Without the host reset the page CSS can hide the dialog,
                 // for example `div:empty { display: none }`.
                 shadowRoot.appendChild(
-                    protectedApi.createStylesElement(CSS.host, getStyleNonce()),
+                    protectedApi.createStylesElement(CSS.host, settings.getStyleNonce()),
                 );
                 shadowRoot.appendChild(iframe);
                 iframeAnchor = shadowHost;

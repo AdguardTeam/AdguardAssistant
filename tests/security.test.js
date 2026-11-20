@@ -4,6 +4,7 @@ import protectedApi from '../src/protectedApi';
 import { isTrustedEvent } from '../src/utils/common-utils';
 import IframeController from '../src/iframe';
 import IframeControllerMobile from '../src/iframe.mobile';
+import button from '../src/button';
 import SliderMenuController from '../src/controllers/sliderMenuController';
 import SliderMenuControllerMobile from '../src/controllers/sliderMenuControllerMobile';
 import BlockPreviewController from '../src/controllers/blockPreviewController';
@@ -293,6 +294,9 @@ test('the desktop dialog is not exposed in the page DOM', (assert) => {
             null,
             'No dialog element in the page DOM',
         );
+        const openRoots = Array.from(document.querySelectorAll('*'))
+            .filter((element) => element.shadowRoot);
+        assert.strictEqual(openRoots.length, 0, 'No open shadow root in the page DOM');
         ctrl.removeIframe();
         done();
     }, 500);
@@ -343,6 +347,31 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
         style.remove();
         done();
     }, 500);
+});
+
+test('the assistant button is not exposed in the page DOM', (assert) => {
+    const done = assert.async();
+    const ctrl = IframeController();
+    ioc.register('iframeController', ctrl);
+
+    // The button needs the loaded settings. The test page has no userscript
+    // storage, so the load resolves to the default settings.
+    const originalGetValue = window.GM_getValue;
+    window.GM_getValue = () => null;
+
+    settings.loadSettings(() => {
+        button.show();
+
+        const host = document.querySelector('[data-adguard-assistant-button]');
+
+        assert.ok(host, 'Button host is in the page DOM');
+        assert.strictEqual(host.shadowRoot, null, 'Shadow root is closed');
+        assert.strictEqual(document.querySelector('.adguard-alert'), null, 'No button in the page DOM');
+
+        button.remove();
+        window.GM_getValue = originalGetValue;
+        done();
+    });
 });
 
 module('rule save funnel');

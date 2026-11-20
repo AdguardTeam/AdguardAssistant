@@ -4,7 +4,7 @@ import { bypassCache, escapeCssString, isHidingStyleRule } from './utils/common-
 import {
     adoptStyleSheet,
     removeAdoptedStyleSheet,
-    supportsAdoptedStyleSheets,
+    canAdoptStyleSheets,
 } from './utils/style-sheet';
 import ioc from './ioc';
 import DetailedMenuController from './controllers/mainMenuController';
@@ -308,7 +308,7 @@ function IframeController() {
 
         if (!iframe) {
             if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-                && !supportsAdoptedStyleSheets()) {
+                && !canAdoptStyleSheets()) {
                 const adgStylesSelector = protectedApi.createStylesElement(
                     CSS.selector,
                     settings.getStyleNonce(),
@@ -514,14 +514,6 @@ function IframeController() {
         const adoptedSheet = adoptStyleSheet(targetStyleID);
         let stylesElement = null;
         let isNewStyle = false;
-
-        if (!adoptedSheet && supportsAdoptedStyleSheets()) {
-            // The browser adopts constructed style sheets but refused this
-            // one, so the page tampered with the API. A style element would
-            // hand the page the CSP nonce.
-            log.error('Can`t block element: the browser refused the style sheet');
-            return false;
-        }
 
         if (!adoptedSheet) {
             stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);

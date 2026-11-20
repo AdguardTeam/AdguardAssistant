@@ -8,7 +8,7 @@ import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
 import settings from './settings';
-import { adoptStyleSheet, supportsAdoptedStyleSheets } from './utils/style-sheet';
+import { adoptStyleSheet, canAdoptStyleSheets } from './utils/style-sheet';
 import pkg from '../package.json';
 
 // package.json carries no version outside CI/release builds; show 'dev'
@@ -117,7 +117,7 @@ export default function IframeControllerMobile() {
         iframeAnchor.setAttribute(HOST_ATTRIBUTE, '');
 
         if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-            && !supportsAdoptedStyleSheets()) {
+            && !canAdoptStyleSheets()) {
             const adgStylesSelector = protectedApi.createStylesElement(
                 CSS.selector,
                 settings.getStyleNonce(),
@@ -198,7 +198,7 @@ export default function IframeControllerMobile() {
 
         if (!iframe) {
             if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-                && !supportsAdoptedStyleSheets()) {
+                && !canAdoptStyleSheets()) {
                 const adgStylesSelector = protectedApi.createStylesElement(
                     CSS.selector,
                     settings.getStyleNonce(),

@@ -9,14 +9,44 @@
  */
 const adoptedSheets = {};
 
+let isAdoptionChecked = false;
+let isAdoptionSupported = false;
+
 /**
- * Checks that the browser adopts constructed style sheets.
+ * Checks that this environment can adopt a constructed style sheet.
  *
- * @returns {boolean} True if `document.adoptedStyleSheets` is supported.
+ * Some browsers expose the API but refuse the assignment: a Firefox content
+ * script before 153 goes through an Xray wrapper and throws on
+ * `document.adoptedStyleSheets` (Bugzilla 1751346). The check adopts an empty
+ * sheet once, so such a browser falls back to a style element instead of
+ * writing nothing.
+ *
+ * @returns {boolean} True if adoption works here.
  */
-export const supportsAdoptedStyleSheets = () => typeof CSSStyleSheet === 'function'
-    && typeof document !== 'undefined'
-    && 'adoptedStyleSheets' in document;
+export const canAdoptStyleSheets = () => {
+    if (typeof CSSStyleSheet !== 'function'
+        || typeof document === 'undefined'
+        || !('adoptedStyleSheets' in document)) {
+        return false;
+    }
+
+    if (!isAdoptionChecked) {
+        isAdoptionChecked = true;
+
+        try {
+            const sheet = new CSSStyleSheet();
+            const current = document.adoptedStyleSheets;
+
+            document.adoptedStyleSheets = [...current, sheet];
+            document.adoptedStyleSheets = current;
+            isAdoptionSupported = true;
+        } catch (e) {
+            isAdoptionSupported = false;
+        }
+    }
+
+    return isAdoptionSupported;
+};
 
 /**
  * Returns the adopted style sheet for the id.
@@ -35,7 +65,7 @@ export const getAdoptedStyleSheet = (id) => adoptedSheets[id] || null;
  * not support constructed style sheets.
  */
 export const adoptStyleSheet = (id, styles = '') => {
-    if (!supportsAdoptedStyleSheets()) {
+    if (!canAdoptStyleSheets()) {
         return null;
     }
 
@@ -90,14 +120,14 @@ export const removeAdoptedStyleSheet = (id) => {
 /**
  * Style sheet utils
  * @type {{
- * supportsAdoptedStyleSheets: Function,
+ * canAdoptStyleSheets: Function,
  * getAdoptedStyleSheet: Function,
  * adoptStyleSheet: Function,
  * removeAdoptedStyleSheet: Function
  * }}
  */
 const StyleSheetUtils = {
-    supportsAdoptedStyleSheets,
+    canAdoptStyleSheets,
     getAdoptedStyleSheet,
     adoptStyleSheet,
     removeAdoptedStyleSheet,

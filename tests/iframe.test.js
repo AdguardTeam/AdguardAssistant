@@ -1,6 +1,10 @@
 /* global QUnit */
 import IframeController from '../src/iframe';
-import { getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
+import {
+    canAdoptStyleSheets,
+    getAdoptedStyleSheet,
+    removeAdoptedStyleSheet,
+} from '../src/utils/style-sheet';
 import settings from '../src/settings';
 
 const { test, module } = QUnit;
@@ -377,26 +381,46 @@ test('URL hiding adopts the rule sheet again after the page drops it', (assert) 
     target.remove();
 });
 
-test('URL hiding writes no nonced element when the page blocks adoption', (assert) => {
+test('URL hiding falls back to a nonced element when adoption fails', (assert) => {
     const ctrl = IframeController();
-    const styleID = 'test-hide-sabotage';
+    const styleID = 'test-hide-adoption-fails';
 
     removeSheet(styleID);
+    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
 
-    // A page can shadow the document property, so adoption throws.
+    const target = document.createElement('div');
+    target.className = 'adoption-target';
+    document.getElementById('qunit-fixture').appendChild(target);
+
+    // A Firefox content script before 153 goes through an Xray wrapper and a
+    // page can shadow the property: the assignment throws either way.
     Object.defineProperty(document, 'adoptedStyleSheets', {
         value: [],
         configurable: true,
     });
 
     try {
-        const result = ctrl.hideElementsByPath('example.com##.sabotage-target', styleID);
+        ctrl.hideElementsByPath('example.com##.adoption-target', styleID);
 
-        assert.strictEqual(result, false, 'The rule is not written');
-        assert.strictEqual(document.getElementById(styleID), null, 'No style element is written');
-        assert.strictEqual(getAdoptedStyleSheet(styleID), null, 'No sheet is cached');
+        const element = document.getElementById(styleID);
+
+        assert.ok(element, 'A style element is written');
+        assert.strictEqual(
+            element.getAttribute('nonce'),
+            'test-fallback-nonce',
+            'The element carries the nonce',
+        );
+        assert.strictEqual(getAdoptedStyleSheet(styleID), null, 'No sheet is adopted');
+        assert.strictEqual(
+            window.getComputedStyle(target).display,
+            'none',
+            'The rule hides the element',
+        );
     } finally {
         delete document.adoptedStyleSheets;
+        removeSheet(styleID);
+        settings.setAdguardSettings(null);
+        target.remove();
     }
 });
 
@@ -417,6 +441,8 @@ test('URL hiding falls back to a nonced style element without constructed sheets
     window.CSSStyleSheet = undefined;
 
     try {
+        assert.strictEqual(canAdoptStyleSheets(), false, 'The browser cannot adopt a sheet');
+
         ctrl.hideElementsByPath('example.com##.fallback-target', styleID);
 
         const element = document.getElementById(styleID);

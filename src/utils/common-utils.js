@@ -15,20 +15,24 @@ export const escapeCssString = (value) => value
     .replace(/[\r\n\f]/g, '');
 
 /**
- * Checks for a brace that is not escaped in a CSS value.
+ * Checks for a brace that is not escaped or quoted in a CSS value.
  *
- * An unescaped `{` or `}` ends the selector part of a CSS rule, so a value
- * that holds one can add declarations and further rules to a stylesheet built
- * from page or user data. An escaped brace is part of a selector, for example
- * the output of `cssEscape('a{b')`.
+ * A `{` or `}` outside a quoted string ends the selector part of a CSS rule,
+ * so a value that holds one can add declarations and further rules to a
+ * stylesheet built from page or user data. An escaped brace or a brace inside
+ * a quoted value is part of a selector, for example the output of
+ * `cssEscape('a{b')` or `div[data-code="{x}"]`.
  *
  * @param {string} value CSS selector or rule text.
- * @returns {boolean} True if the value holds an unescaped brace.
+ * @returns {boolean} True if the value holds a brace outside quotes that is
+ * not escaped.
  */
 export const hasUnescapedBrace = (value) => {
     if (typeof value !== 'string') {
         return false;
     }
+
+    let quote = null;
 
     for (let i = 0; i < value.length; i += 1) {
         const char = value[i];
@@ -36,6 +40,12 @@ export const hasUnescapedBrace = (value) => {
         if (char === '\\') {
             // Skip the escaped character.
             i += 1;
+        } else if (quote !== null) {
+            if (char === quote) {
+                quote = null;
+            }
+        } else if (char === '"' || char === "'") {
+            quote = char;
         } else if (char === '{' || char === '}') {
             return true;
         }
@@ -148,6 +158,7 @@ export const events = {
  * @type {{
  * cropDomain: Function,
  * escapeCssString: Function,
+ * hasUnescapedBrace: Function,
  * isTrustedEvent: Function,
  * bypassCache: Function,
  * reloadPageBypassCache: Function,

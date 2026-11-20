@@ -15,43 +15,102 @@ export const escapeCssString = (value) => value
     .replace(/[\r\n\f]/g, '');
 
 /**
- * Checks for a brace that is not escaped or quoted in a CSS value.
- *
- * A `{` or `}` outside a quoted string ends the selector part of a CSS rule,
- * so a value that holds one can add declarations and further rules to a
- * stylesheet built from page or user data. An escaped brace or a brace inside
- * a quoted value is part of a selector, for example the output of
- * `cssEscape('a{b')` or `div[data-code="{x}"]`.
- *
- * @param {string} value CSS selector or rule text.
- * @returns {boolean} True if the value holds a brace outside quotes that is
- * not escaped.
+ * CSS suffix of the rule that hides a blocked element.
  */
-export const hasUnescapedBrace = (value) => {
-    if (typeof value !== 'string') {
-        return false;
-    }
+const HIDING_RULE_SUFFIX = '{display:none!important}';
 
-    let quote = null;
+let validationStyle = null;
 
-    for (let i = 0; i < value.length; i += 1) {
-        const char = value[i];
-
-        if (char === '\\') {
-            // Skip the escaped character.
-            i += 1;
-        } else if (quote !== null) {
-            if (char === quote) {
-                quote = null;
-            }
-        } else if (char === '"' || char === "'") {
-            quote = char;
-        } else if (char === '{' || char === '}') {
-            return true;
+/**
+ * Returns a style element in a detached document, for CSS parsing.
+ *
+ * @returns {Element|null} Style element or null when it cannot be created.
+ */
+const getValidationStyle = () => {
+    if (validationStyle === null) {
+        try {
+            const validationDocument = document.implementation.createHTMLDocument('');
+            validationStyle = validationDocument.createElement('style');
+            validationDocument.head.appendChild(validationStyle);
+        } catch (e) {
+            validationStyle = null;
         }
     }
 
-    return false;
+    return validationStyle;
+};
+
+/**
+ * Checks that a parsed rule only hides the element.
+ *
+ * @param {CSSStyleRule} rule Parsed rule.
+ * @returns {boolean} True if the rule has one declaration, `display: none`
+ * with `!important`, and no nested rules.
+ */
+export const isHidingStyleRule = (rule) => Boolean(rule && rule.style)
+    && rule.style.length === 1
+    && rule.style.getPropertyValue('display') === 'none'
+    && rule.style.getPropertyPriority('display') === 'important'
+    && (!rule.cssRules || rule.cssRules.length === 0);
+
+/**
+ * Checks that a selector composes into a single rule that only hides the
+ * element.
+ *
+ * The assistant writes `selector{display:none!important}` into a stylesheet
+ * that carries the page CSP nonce, so a selector must not end early, add
+ * declarations, or leave the sheet inside a string or a comment. The CSS
+ * parser decides, because no lexical check can follow strings, comments, and
+ * unquoted url tokens.
+ *
+ * @param {string} selector CSS selector.
+ * @param {boolean} [allowUnparsed] Accept a selector that the CSS parser does
+ * not understand and that parses into no rule. Extended CSS may use syntax
+ * only the filtering engine knows, but such a selector hides nothing now and
+ * must not be written.
+ * @returns {boolean} True if the selector is safe to write into the stylesheet.
+ */
+export const isHidingRuleSelector = (selector, allowUnparsed) => {
+    if (typeof selector !== 'string') {
+        return false;
+    }
+
+    const style = getValidationStyle();
+    if (!style) {
+        return false;
+    }
+
+    const ruleText = selector + HIDING_RULE_SUFFIX;
+
+    // insertRule parses the text as one complete rule, so a text that holds
+    // several rules, ends inside a string, or ends inside a comment fails.
+    const insertSheet = style.sheet;
+
+    if (insertSheet) {
+        try {
+            const index = insertSheet.insertRule(ruleText, 0);
+            const rule = insertSheet.cssRules[index];
+            const hidesOnly = isHidingStyleRule(rule);
+            insertSheet.deleteRule(index);
+            return hidesOnly;
+        } catch (e) {
+            // Not one complete rule, the list parse below tells the cases
+            // apart.
+        }
+    }
+
+    if (allowUnparsed !== true) {
+        return false;
+    }
+
+    // An unparsed text is either CSS that only the filtering engine knows, or
+    // a text that parses into rules but not into one complete rule.
+    style.textContent = ruleText;
+    const listSheet = style.sheet;
+    const count = listSheet ? listSheet.cssRules.length : 0;
+    style.textContent = '';
+
+    return count === 0;
 };
 
 /**
@@ -158,7 +217,7 @@ export const events = {
  * @type {{
  * cropDomain: Function,
  * escapeCssString: Function,
- * hasUnescapedBrace: Function,
+ * isHidingRuleSelector: Function,
  * isTrustedEvent: Function,
  * bypassCache: Function,
  * reloadPageBypassCache: Function,
@@ -168,7 +227,7 @@ export const events = {
 const CommonUtils = {
     cropDomain,
     escapeCssString,
-    hasUnescapedBrace,
+    isHidingRuleSelector,
     isTrustedEvent,
     bypassCache,
     reloadPageBypassCache,

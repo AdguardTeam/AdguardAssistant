@@ -3,6 +3,17 @@ import IframeController from '../src/iframe';
 
 const { test, module } = QUnit;
 
+/**
+ * Returns the CSS text of the rules that the assistant wrote into a style
+ * element.
+ *
+ * @param {Element} styleEl Style element.
+ * @returns {string} Serialized rules.
+ */
+const getSheetText = (styleEl) => Array.from(styleEl.sheet.cssRules)
+    .map((rule) => rule.cssText)
+    .join('\n');
+
 module('iframe controller — hideElementsByPath');
 
 test('URL hiding uses the raw attribute value', (assert) => {
@@ -27,7 +38,7 @@ test('URL hiding uses the raw attribute value', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[src*="https://site.ru/картинка.png"]'),
+        getSheetText(styleEl).includes('[src*="https://site.ru/картинка.png"]'),
         'Selector uses the raw src',
     );
     assert.ok(img.matches('[src*="https://site.ru/картинка.png"]'), 'Selector matches the element');
@@ -52,7 +63,7 @@ test('URL hiding covers domain-anchored rules', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[src*="http://www.example.com/a.png"]'),
+        getSheetText(styleEl).includes('[src*="http://www.example.com/a.png"]'),
         'Selector uses the raw src',
     );
 
@@ -76,7 +87,7 @@ test('URL hiding covers protocol-relative rules', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[src*="//cdn.example.com/a.png"]'),
+        getSheetText(styleEl).includes('[src*="//cdn.example.com/a.png"]'),
         'Selector uses the raw src',
     );
 
@@ -100,7 +111,7 @@ test('URL hiding uses the attribute that holds the address', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[data*="https://example.com/obj.svg"]'),
+        getSheetText(styleEl).includes('[data*="https://example.com/obj.svg"]'),
         'Selector uses the data attribute',
     );
 
@@ -124,7 +135,7 @@ test('URL hiding covers a rule without an anchor', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[src*="https://ads.example.com/a.png"]'),
+        getSheetText(styleEl).includes('[src*="https://ads.example.com/a.png"]'),
         'Selector uses the raw src',
     );
 
@@ -144,7 +155,7 @@ test('URL hiding keeps a #?# rule on the CSS branch', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('div:has(> .ad){display:none!important}'),
+        getSheetText(styleEl).includes('div:has(> .ad) { display: none !important; }'),
         'Selector comes from the cosmetic rule',
     );
 
@@ -163,7 +174,7 @@ test('URL hiding keeps a #?# selector that contains a cosmetic mark', (assert) =
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('div[data-x="##"]{display:none!important}'),
+        getSheetText(styleEl).includes('div[data-x="##"] { display: none !important; }'),
         'The whole selector is kept',
     );
 
@@ -172,18 +183,92 @@ test('URL hiding keeps a #?# selector that contains a cosmetic mark', (assert) =
 
 test('URL hiding refuses a selector that injects CSS', (assert) => {
     const ctrl = IframeController();
-    const styleID = 'test-url-hide-brace';
+    const payloads = [
+        'example.com##x{}body{background:url(//evil.example/x)}',
+        // The quote inside the comment must not open a string in the scan.
+        'example.com##x/*"*/{}body{background:red}',
+        // An unquoted url token is not a comment.
+        'example.com##url(/*){}body{background:red}',
+        // An unparsed plain selector would leave the sheet inside a string.
+        'example.com##x"',
+        // One clean rule, but the text ends inside an open string.
+        'example.com##x{display:none!important}a"',
+    ];
+
+    payloads.forEach((payload, index) => {
+        const styleID = `test-url-hide-brace-${index}`;
+
+        const existing = document.querySelector(`#${styleID}`);
+        if (existing) existing.remove();
+
+        const result = ctrl.hideElementsByPath(payload, styleID);
+
+        assert.strictEqual(result, false, `The rule is refused: ${payload}`);
+        assert.strictEqual(
+            document.querySelector(`#${styleID}`),
+            null,
+            `No stylesheet is written: ${payload}`,
+        );
+    });
+});
+
+test('URL hiding keeps the stylesheet sound after a refused rule', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-sound';
 
     const existing = document.querySelector(`#${styleID}`);
     if (existing) existing.remove();
 
-    const result = ctrl.hideElementsByPath(
-        'example.com##x{}body{background:url(//evil.example/x)}',
-        styleID,
+    const refused = ctrl.hideElementsByPath('example.com##x{display:none!important}a"', styleID);
+    assert.strictEqual(refused, false, 'The rule that ends inside a string is refused');
+
+    const created = document.querySelector(`#${styleID}`);
+    assert.strictEqual(created, null, 'A refused first rule leaves no stylesheet');
+
+    ctrl.hideElementsByPath('example.com##.banner', styleID);
+
+    const stylesElement = document.querySelector(`#${styleID}`);
+    assert.ok(stylesElement, 'The next rule is written');
+    assert.strictEqual(stylesElement.sheet.cssRules.length, 1, 'One rule in the sheet');
+    assert.strictEqual(
+        stylesElement.sheet.cssRules[0].cssText,
+        '.banner { display: none !important; }',
+        'The rule only hides the element',
     );
 
-    assert.strictEqual(result, false, 'The rule is refused');
-    assert.strictEqual(document.querySelector(`#${styleID}`), null, 'No stylesheet is written');
+    stylesElement.remove();
+});
+
+test('URL hiding keeps the stylesheet a rule list after a trailing comment', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-comment';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    // A trailing comment passes the parser, and the next rule holds `*/`
+    // inside an attribute string. As CSSOM rules neither can add a rule.
+    ctrl.hideElementsByPath('example.com##x{display:none!important}/*', styleID);
+    ctrl.hideElementsByPath('example.com##[data-x="*/body{background:red}"] .banner', styleID);
+
+    const stylesElement = document.querySelector(`#${styleID}`);
+    assert.ok(stylesElement, 'The stylesheet is written');
+
+    const rules = Array.from(stylesElement.sheet.cssRules);
+
+    assert.strictEqual(rules.length, 2, 'Each write is one rule');
+    assert.deepEqual(
+        rules.map((rule) => rule.style.cssText),
+        ['display: none !important;', 'display: none !important;'],
+        'Every rule only hides the element',
+    );
+    assert.deepEqual(
+        rules.map((rule) => rule.selectorText),
+        ['x', '[data-x="*/body{background:red}"] .banner'],
+        'The selector text stays inside its rule',
+    );
+
+    stylesElement.remove();
 });
 
 test('URL hiding escapes quotes in the address', (assert) => {
@@ -201,8 +286,8 @@ test('URL hiding escapes quotes in the address', (assert) => {
 
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
-    assert.ok(styleEl.textContent.includes('a\\"b.png'), 'The quote is escaped');
-    assert.notOk(styleEl.textContent.includes('a"b.png'), 'The quote does not break out of the selector');
+    assert.ok(getSheetText(styleEl).includes('a\\"b.png'), 'The quote is escaped');
+    assert.notOk(getSheetText(styleEl).includes('a"b.png'), 'The quote does not break out of the selector');
 
     styleEl.remove();
     img.remove();
@@ -223,7 +308,7 @@ test('URL hiding falls back to the rule text without an element', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
     assert.ok(
-        styleEl.textContent.includes('[src*="https://example.com/a.png"]'),
+        getSheetText(styleEl).includes('[src*="https://example.com/a.png"]'),
         'Selector uses the rule text',
     );
 
@@ -232,7 +317,7 @@ test('URL hiding falls back to the rule text without an element', (assert) => {
     const anchorStyleEl = document.querySelector(`#${anchorStyleID}`);
     assert.ok(anchorStyleEl, 'Anchor style element exists');
     assert.ok(
-        anchorStyleEl.textContent.includes('[src*="example.com/a.png"]'),
+        getSheetText(anchorStyleEl).includes('[src*="example.com/a.png"]'),
         'Selector drops the domain anchor',
     );
 
@@ -256,15 +341,15 @@ test('CSS is valid after multiple hideElementsByPath calls', (assert) => {
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists after calls');
 
-    const css = styleEl.textContent;
+    const css = getSheetText(styleEl);
     // Must NOT contain HTML wrapper artifacts
     assert.notOk(css.includes('<'), 'CSS does not contain <');
     assert.notOk(css.includes('>'), 'CSS does not contain >');
 
     // Must contain all three selectors
-    assert.ok(css.includes('.foo{display:none!important}'), 'Contains .foo rule');
-    assert.ok(css.includes('.bar{display:none!important}'), 'Contains .bar rule');
-    assert.ok(css.includes('.baz{display:none!important}'), 'Contains .baz rule');
+    assert.ok(css.includes('.foo { display: none !important; }'), 'Contains .foo rule');
+    assert.ok(css.includes('.bar { display: none !important; }'), 'Contains .bar rule');
+    assert.ok(css.includes('.baz { display: none !important; }'), 'Contains .baz rule');
 
     // Cleanup
     styleEl.remove();
@@ -281,8 +366,8 @@ test('CSS is valid after single hideElementsByPath call', (assert) => {
 
     const styleEl = document.querySelector(`#${styleID}`);
     assert.ok(styleEl, 'Style element exists');
-    assert.notOk(styleEl.textContent.includes('<'), 'CSS does not contain <');
-    assert.ok(styleEl.textContent.includes('.single{display:none!important}'), 'Contains rule');
+    assert.notOk(getSheetText(styleEl).includes('<'), 'CSS does not contain <');
+    assert.ok(getSheetText(styleEl).includes('.single { display: none !important; }'), 'Contains rule');
 
     styleEl.remove();
 });
@@ -351,7 +436,7 @@ test('blockElement from preview removes preview style before blocking', (assert)
     ctrl.hideElementsByPath('example.com##.preview-target');
     const blockedEl = document.querySelector(`#${blockedStyleID}`);
     assert.ok(blockedEl, 'Blocked style created');
-    assert.notOk(blockedEl.textContent.includes('<'), 'Blocked CSS is valid');
+    assert.notOk(getSheetText(blockedEl).includes('<'), 'Blocked CSS is valid');
 
     // Cleanup
     ctrl.showHiddenElements(blockedStyleID);
@@ -408,7 +493,7 @@ test('Block completes: hide-elements style persists after close so element stays
     const styleAfterBlock = document.querySelector(`#${blockedStyleID}`);
     assert.ok(styleAfterBlock, 'Fresh style element created after block');
     assert.notOk(
-        styleAfterBlock.textContent.includes('<'),
+        getSheetText(styleAfterBlock).includes('<'),
         'Fresh style CSS is valid',
     );
 

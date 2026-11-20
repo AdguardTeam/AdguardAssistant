@@ -1,6 +1,6 @@
 import cssEscape from './libs/css.escape';
 import protectedApi from './protectedApi';
-import { escapeCssString, hasUnescapedBrace } from './utils/common-utils';
+import { escapeCssString, isHidingRuleSelector } from './utils/common-utils';
 
 /**
  * Adguard rules constructor
@@ -436,15 +436,36 @@ function AdguardRulesConstructorLib(api = {}) {
     api.haveUrlBlockParameter = haveUrlBlockParameter;
 
     /**
+     * Returns the mark and the selector of a cosmetic rule.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {{mark: string, selector: string}|null} Parts or null.
+     */
+    const getCosmeticRuleMatch = (ruleText) => {
+        if (typeof ruleText !== 'string') {
+            return null;
+        }
+
+        const match = ruleText.match(/^[^#]*(##|#\?#)([\s\S]*)$/);
+
+        if (!match) {
+            return null;
+        }
+
+        return { mark: match[1], selector: match[2] };
+    };
+
+    /**
      * Checks that the rule text can be passed to the filtering engine.
      *
      * The element picker builds a cosmetic rule or a blocking URL rule, and
      * the user can change the rule text in the dialog. The check keeps one
      * rule in one field and rejects the families that the picker cannot
      * build: scriptlets, style injections, HTML filtering rules, exceptions,
-     * comments, preprocessor directives, and a rule with an unescaped brace in
-     * the selector. A basic URL pattern without an anchor and a scheme is
-     * accepted, because the user can type one by hand.
+     * comments, preprocessor directives, and a plain cosmetic rule whose
+     * selector does not compose into a single hiding rule. A basic URL pattern
+     * without an anchor and a scheme is accepted, because the user can type one
+     * by hand.
      * The check does not limit rule options, for example `$important`.
      *
      * @param {string} ruleText Rule text.
@@ -469,20 +490,29 @@ function AdguardRulesConstructorLib(api = {}) {
             return false;
         }
 
-        // A brace that is not escaped ends the selector and opens a
-        // declaration block, so the rule could add styles to the stylesheet
-        // that hides the element. The picker escapes braces in a selector.
-        if (hasUnescapedBrace(rule)) {
-            return false;
-        }
-
         if (FORBIDDEN_RULE_MARKS.some((mark) => rule.indexOf(mark) >= 0)) {
             return false;
         }
 
         const hasCosmeticMark = ALLOWED_COSMETIC_MARKS.some((mark) => rule.indexOf(mark) >= 0);
 
-        return hasCosmeticMark || URL_PATTERN_CHARS_REGEX.test(rule);
+        if (!hasCosmeticMark) {
+            return URL_PATTERN_CHARS_REGEX.test(rule);
+        }
+
+        const parts = getCosmeticRuleMatch(rule);
+
+        if (!parts) {
+            return false;
+        }
+
+        // The selector must compose into a single hiding rule, otherwise the
+        // cosmetic rule could add styles to the stylesheet that hides the
+        // element. Extended CSS may use syntax only the filtering engine
+        // knows, so a selector that parses into no rule is accepted and never
+        // written. A URL rule keeps its braces in the quoted attribute
+        // selector, where they are escaped.
+        return isHidingRuleSelector(parts.selector, true);
     };
 
     /**
@@ -499,27 +529,22 @@ function AdguardRulesConstructorLib(api = {}) {
      * Returns the selector of a cosmetic rule.
      *
      * The first cosmetic mark decides the selector, so a `#?#` rule whose
-     * selector contains `##` keeps the whole selector. A selector with an
-     * unescaped brace is refused, because it closes its rule in the
-     * stylesheet.
+     * selector contains `##` keeps the whole selector. A selector that would
+     * close its rule in the stylesheet, or that hides nothing, is refused.
      *
      * @param {string} ruleText Rule text.
      * @returns {string|null} Selector, or null if the rule is not cosmetic or
-     * the selector holds an unescaped brace.
+     * the selector is not safe to write.
      */
     // eslint-disable-next-line no-param-reassign
     api.getCosmeticSelector = (ruleText) => {
-        if (typeof ruleText !== 'string') {
+        const parts = getCosmeticRuleMatch(ruleText);
+
+        if (!parts || !isHidingRuleSelector(parts.selector)) {
             return null;
         }
 
-        const match = ruleText.match(/^[^#]*(##|#\?#)([\s\S]*)$/);
-
-        if (!match || hasUnescapedBrace(match[2])) {
-            return null;
-        }
-
-        return match[2];
+        return parts.selector;
     };
 
     /**

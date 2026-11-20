@@ -1,6 +1,6 @@
 import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
-import { bypassCache, escapeCssString } from './utils/common-utils';
+import { bypassCache, escapeCssString, isHidingStyleRule } from './utils/common-utils';
 import ioc from './ioc';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
@@ -469,9 +469,9 @@ function IframeController() {
     /**
      * Hides elements by the selected path.
      *
-     * Style elements of the assistant carry the page CSP nonce, so a value
-     * that closes its rule could add styles that the page policy trusts. A
-     * cosmetic rule with an unescaped brace in the selector is refused.
+     * The rule is added to the stylesheet as a CSSOM rule, so a selector that
+     * holds strings, comments, or braces cannot add declarations or further
+     * rules to the stylesheet that carries the page CSP nonce.
      *
      * @param {string} selectedPath Rule text of the blocked element.
      * @param {string} [styleID] ID of the style element.
@@ -486,7 +486,6 @@ function IframeController() {
 
         const targetStyleID = styleID || blockedElementsStyleID;
         let slctr;
-        let style;
 
         if (adguardRulesConstructor.isCosmeticRuleText(selectedPath)) {
             slctr = adguardRulesConstructor.getCosmeticSelector(selectedPath);
@@ -495,21 +494,48 @@ function IframeController() {
             slctr = getUrlHideSelector(element, selectedPath);
         }
 
-        if (slctr) {
-            style = `${slctr}{display:none!important}`;
-        } else {
+        if (!slctr) {
             log.error('Can`t block element: `selector` path is empty');
             return false;
         }
 
-        const stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
+        const style = `${slctr}{display:none!important}`;
 
-        if (stylesElement) {
-            stylesElement.appendChild(document.createTextNode(` ${style}`));
-        } else {
-            document.documentElement.appendChild(
-                protectedApi.createStylesElement(style, settings.getStyleNonce(), targetStyleID),
+        let stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
+        let isNewStyle = false;
+
+        if (!stylesElement) {
+            stylesElement = protectedApi.createStylesElement(
+                '',
+                settings.getStyleNonce(),
+                targetStyleID,
             );
+            if (stylesElement) {
+                document.documentElement.appendChild(stylesElement);
+                isNewStyle = true;
+            }
+        }
+
+        const sheet = stylesElement ? stylesElement.sheet : null;
+        let ruleIndex = -1;
+
+        if (sheet) {
+            try {
+                ruleIndex = sheet.insertRule(style, sheet.cssRules.length);
+            } catch (e) {
+                ruleIndex = -1;
+            }
+        }
+
+        if (ruleIndex < 0 || !isHidingStyleRule(sheet.cssRules[ruleIndex])) {
+            if (sheet && ruleIndex >= 0) {
+                sheet.deleteRule(ruleIndex);
+            }
+            if (isNewStyle) {
+                document.documentElement.removeChild(stylesElement);
+            }
+            log.error('Can`t block element: the rule cannot be written safely');
+            return false;
         }
 
         // do not hide assistant div if the user wrote a rule

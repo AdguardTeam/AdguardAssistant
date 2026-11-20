@@ -54,12 +54,15 @@ test('accepts the rules that the element picker builds', (assert) => {
         'example.com#?#div:has(> .ad)',
         'example.com##div[data-code="{x}"]',
         'example.com##a\\{b',
+        'example.com##div[data-a="/*"]',
+        'example.com#?#div:has-text(ad)',
         '||example.com/banner.png',
         '||example.com/banner.png$domain=example.com',
         'https://example.com/banner.png$domain=example.com',
         '//cdn.example.com/banner.png$domain=example.com',
         '||example.com^$important',
         '||example.com^$removeparam=utm_source',
+        '||cdn.example.com/photo.jpg?w={width}',
     ];
 
     rules.forEach((rule) => {
@@ -94,6 +97,13 @@ test('rejects rules of other types and several rules in one field', (assert) => 
         'example.com##body:style(color: red)',
         'example.com#$?#div { color: red }',
         'example.com##x{}body{background:url(//evil.example/x)}',
+        'example.com##x/*"*/{}body{background:red}',
+        // An unquoted url token is not a comment, so the parser decides.
+        'example.com##url(/*){}body{background:red}',
+        // One clean rule, but the text ends inside an open string.
+        'example.com##x{display:none!important}a"',
+        // A single parsed rule that also declares a background.
+        'example.com##body{background:red;{display:none!important}',
         'example.com##a\\\\{b',
         'example.com#@$?#div { color: red }',
         'example.com$@$script[tag-content="x"]',
@@ -145,6 +155,12 @@ test('builds a rule from the parsed address', (assert) => {
         buildRule('https://example.com/a.png', { isBlockOneDomain: true }),
         'https://example.com/a.png',
         'Adds no scope for the current site only',
+    );
+
+    assert.strictEqual(
+        buildRule('https://cdn.example.com/photo.jpg?w={width}'),
+        'https://cdn.example.com/photo.jpg?w={width}$domain=page.example',
+        'Keeps a brace in the query, the attribute selector escapes it',
     );
 });
 

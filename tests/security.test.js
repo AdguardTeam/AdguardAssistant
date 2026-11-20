@@ -264,7 +264,13 @@ module('assistant UI isolation');
 
 test('supports a closed shadow root', (assert) => {
     assert.ok(protectedApi.checkShadowDomSupport(), 'Shadow DOM is used in all supported browsers');
-    assert.ok(protectedApi.attachClosedShadowRoot(document.createElement('div')), 'Shadow root is attached');
+
+    const host = document.createElement('div');
+    const root = protectedApi.attachClosedShadowRoot(host);
+
+    assert.ok(root, 'Shadow root is attached');
+    assert.strictEqual(root.mode, 'closed', 'Shadow root is closed');
+    assert.strictEqual(host.shadowRoot, null, 'The page cannot read the shadow root');
 });
 
 test('the desktop dialog is not exposed in the page DOM', (assert) => {
@@ -422,6 +428,14 @@ const createSelectedElement = () => {
     return element;
 };
 
+/*
+ * A QUnit test cannot produce a trusted click: `Event.isTrusted` is set by the
+ * browser and cannot be changed from script, and `element.click()` or
+ * `dispatchEvent()` always produce an untrusted event. These tests therefore
+ * cover the rejection path. A test of the trusted path needs a real pointer
+ * action from Puppeteer (`page.mouse.click`), which the runner does not drive
+ * yet, so it stays a separate task.
+ */
 module('untrusted clicks');
 
 test('an untrusted click does not save a rule in the slider menu', (assert) => {

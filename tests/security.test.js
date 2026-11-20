@@ -388,6 +388,34 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
     }, 500);
 });
 
+test('the mobile selector styles use the CSP nonce and the id', (assert) => {
+    const done = assert.async();
+    const existing = document.getElementById('adg-styles-selector');
+    if (existing) existing.remove();
+
+    settings.setAdguardSettings({ nonce: 'test-mobile-nonce' });
+    const ctrl = IframeControllerMobile();
+    ctrl.showSelectorMenu();
+
+    window.setTimeout(() => {
+        const styles = document.querySelectorAll('#adg-styles-selector');
+
+        assert.strictEqual(styles.length, 1, 'One selector stylesheet');
+        assert.strictEqual(
+            styles.length ? styles[0].getAttribute('nonce') : null,
+            'test-mobile-nonce',
+            'The selector styles carry the nonce',
+        );
+
+        ctrl.removeIframe();
+        if (styles.length) {
+            styles[0].remove();
+        }
+        settings.setAdguardSettings(null);
+        done();
+    }, 500);
+});
+
 test('the assistant button is not exposed in the page DOM', (assert) => {
     const done = assert.async();
     const ctrl = IframeController();

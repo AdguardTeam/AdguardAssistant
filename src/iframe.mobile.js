@@ -115,7 +115,11 @@ export default function IframeControllerMobile() {
         }
         iframeAnchor.setAttribute(HOST_ATTRIBUTE, '');
 
-        const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
+        const adgStylesSelector = protectedApi.createStylesElement(
+            CSS.selector,
+            settings.getStyleNonce(),
+            'adg-styles-selector',
+        );
         if (adgStylesSelector) {
             document.documentElement.appendChild(adgStylesSelector);
         }
@@ -187,7 +191,11 @@ export default function IframeControllerMobile() {
         };
 
         if (!iframe) {
-            const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                settings.getStyleNonce(),
+                'adg-styles-selector',
+            );
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }

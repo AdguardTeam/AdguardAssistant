@@ -349,7 +349,10 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
     const style = document.createElement('style');
     // A transform makes the host the containing block of the fixed dialog.
     style.textContent = 'div:empty { display: none; }'
-        + ' div { transform: translateZ(0); visibility: hidden; }';
+        + ' div { transform: translateZ(0); visibility: hidden;'
+        + ' clip-path: inset(50%); content-visibility: hidden;'
+        + ' translate: 10px 20px; scale: 2; rotate: 45deg;'
+        + ' offset-path: path("M0,0 L10,10"); backdrop-filter: blur(2px); zoom: 2; }';
     document.head.appendChild(style);
 
     const ctrl = IframeControllerMobile();
@@ -362,6 +365,22 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
         assert.strictEqual(hostStyle.display, 'block', 'Page CSS does not hide the host');
         assert.strictEqual(hostStyle.visibility, 'visible', 'Page CSS does not hide the host content');
         assert.strictEqual(hostStyle.transform, 'none', 'Page CSS does not move the host');
+        assert.strictEqual(hostStyle.clipPath, 'none', 'Page CSS does not clip the host');
+        assert.strictEqual(
+            hostStyle.contentVisibility,
+            'visible',
+            'Page CSS does not skip the host',
+        );
+        assert.strictEqual(hostStyle.translate, 'none', 'Page CSS does not translate the host');
+        assert.strictEqual(hostStyle.scale, 'none', 'Page CSS does not scale the host');
+        assert.strictEqual(hostStyle.rotate, 'none', 'Page CSS does not rotate the host');
+        assert.strictEqual(hostStyle.offsetPath, 'none', 'Page CSS does not offset the host');
+        assert.strictEqual(
+            hostStyle.backdropFilter,
+            'none',
+            'Page CSS does not filter the host backdrop',
+        );
+        assert.strictEqual(hostStyle.zoom, '1', 'Page CSS does not zoom the host');
 
         ctrl.removeIframe();
         style.remove();

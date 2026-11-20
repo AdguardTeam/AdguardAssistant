@@ -115,9 +115,16 @@ If you see `Could not find Chrome`, install it with:
 npx puppeteer browsers install chrome
 ```
 
-The test suite is minimal — it verifies the assistant does not cause errors
-when loaded on a page. Test files live in `tests/` and use a `.test.js`
-suffix.
+The suite loads the assistant on a page and asserts that it does not cause
+errors, and that the security invariants hold: the assistant dialogs run in a
+closed shadow root, an untrusted event cannot save or preview a rule, the rule
+gate rejects every family the picker cannot build, and page-controlled element
+attributes cannot change the rule. Test files live in `tests/` and use a
+`.test.js` suffix.
+
+The runner fails the command when an assertion fails: `tests/puppeteer.js`
+sets a non-zero exit code when QUnit reports a failed test, so a green
+`pnpm test` means every assertion passed.
 
 ### Run linting
 

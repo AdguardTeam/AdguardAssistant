@@ -10,7 +10,10 @@ import BlockPreviewController from '../src/controllers/blockPreviewController';
 import { HTML } from '../src/inline-resources';
 import selector from '../src/adguard-selector';
 import gm from '../src/gm';
+import settings from '../src/settings';
 import ioc from '../src/ioc';
+import { adguardAssistantMini as miniAssistant } from '../src/main';
+import { adguardAssistantMini as embeddedMiniAssistant } from '../src/embedded';
 
 const { test, module } = QUnit;
 
@@ -533,4 +536,30 @@ test('an untrusted click does not save a rule in the mobile menu', (assert) => {
         .then(() => {
             done();
         });
+});
+
+module('mini entry settings');
+
+test('the mini entries pass the embedding settings to the assistant', (assert) => {
+    const originalSettings = window.AdguardSettings;
+    window.AdguardSettings = { nonce: 'test-mini-nonce' };
+
+    settings.setAdguardSettings(null);
+    miniAssistant();
+    assert.strictEqual(
+        settings.getStyleNonce(),
+        'test-mini-nonce',
+        'The mini entry sets the settings',
+    );
+
+    settings.setAdguardSettings(null);
+    embeddedMiniAssistant();
+    assert.strictEqual(
+        settings.getStyleNonce(),
+        'test-mini-nonce',
+        'The embedded mini entry sets the settings',
+    );
+
+    settings.setAdguardSettings(null);
+    window.AdguardSettings = originalSettings;
 });

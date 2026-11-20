@@ -50,7 +50,11 @@ export default function SliderMenuController(addRule, iframe) {
         }
     };
 
-    const showPreview = () => {
+    const showPreview = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
         const options = {
             isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
             isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,

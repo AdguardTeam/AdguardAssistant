@@ -15,6 +15,36 @@ export const escapeCssString = (value) => value
     .replace(/[\r\n\f]/g, '');
 
 /**
+ * Checks for a brace that is not escaped in a CSS value.
+ *
+ * An unescaped `{` or `}` ends the selector part of a CSS rule, so a value
+ * that holds one can add declarations and further rules to a stylesheet built
+ * from page or user data. An escaped brace is part of a selector, for example
+ * the output of `cssEscape('a{b')`.
+ *
+ * @param {string} value CSS selector or rule text.
+ * @returns {boolean} True if the value holds an unescaped brace.
+ */
+export const hasUnescapedBrace = (value) => {
+    if (typeof value !== 'string') {
+        return false;
+    }
+
+    for (let i = 0; i < value.length; i += 1) {
+        const char = value[i];
+
+        if (char === '\\') {
+            // Skip the escaped character.
+            i += 1;
+        } else if (char === '{' || char === '}') {
+            return true;
+        }
+    }
+
+    return false;
+};
+
+/**
  * Checks that the user produced the event.
  *
  * Page scripts can dispatch events, and a dispatched event has `isTrusted`
@@ -127,6 +157,7 @@ export const events = {
 const CommonUtils = {
     cropDomain,
     escapeCssString,
+    hasUnescapedBrace,
     isTrustedEvent,
     bypassCache,
     reloadPageBypassCache,

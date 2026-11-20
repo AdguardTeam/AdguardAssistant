@@ -170,6 +170,22 @@ test('URL hiding keeps a #?# selector that contains a cosmetic mark', (assert) =
     styleEl.remove();
 });
 
+test('URL hiding refuses a selector that injects CSS', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-brace';
+
+    const existing = document.querySelector(`#${styleID}`);
+    if (existing) existing.remove();
+
+    const result = ctrl.hideElementsByPath(
+        'example.com##x{}body{background:url(//evil.example/x)}',
+        styleID,
+    );
+
+    assert.strictEqual(result, false, 'The rule is refused');
+    assert.strictEqual(document.querySelector(`#${styleID}`), null, 'No stylesheet is written');
+});
+
 test('URL hiding escapes quotes in the address', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-url-hide-escape';

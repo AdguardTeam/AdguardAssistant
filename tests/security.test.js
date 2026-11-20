@@ -87,6 +87,7 @@ test('rejects rules of other types and several rules in one field', (assert) => 
         'example.com##^script:has-text(ad)',
         'example.com##body:style(color: red)',
         'example.com#$?#div { color: red }',
+        'example.com##x{}body{background:url(//evil.example/x)}',
         'example.com#@$?#div { color: red }',
         'example.com$@$script[tag-content="x"]',
         '@@||example.com^',
@@ -393,12 +394,15 @@ const createIframeStub = (saved) => ({
         // eslint-disable-next-line no-param-reassign
         saved.rule = rule;
     },
+    showBlockPreview(element, rule) {
+        // eslint-disable-next-line no-param-reassign
+        saved.preview = rule;
+    },
     hideElementsByPath() {},
     resizeIframe() {},
     resizeSliderMenuToAdvanced() {},
     resizeSliderMenuToNormal() {},
     showSelectorMenu() {},
-    showBlockPreview() {},
     removeIframe() {},
 });
 
@@ -431,6 +435,37 @@ test('an untrusted click does not save a rule in the slider menu', (assert) => {
             frame.contentDocument.getElementById('adg-accept').click();
 
             assert.strictEqual(saved.rule, null, 'No rule is saved from an untrusted click');
+
+            selector.close();
+            element.remove();
+            frame.remove();
+        })
+        .catch((e) => {
+            assert.ok(false, String(e && e.stack));
+        })
+        .then(() => {
+            done();
+        });
+});
+
+test('an untrusted click does not preview a rule in the slider menu', (assert) => {
+    const done = assert.async();
+
+    createDialogFrame(HTML.slider_menu)
+        .then((frame) => {
+            const element = createSelectedElement();
+            const saved = { rule: null, preview: null };
+            const ctrl = SliderMenuController(() => {}, createIframeStub(saved));
+
+            selector.init(() => {});
+            ctrl.init(frame, { element });
+            // On the non-isolated fallback the page can write the rule text,
+            // and the preview writes it into a nonced stylesheet.
+            const ruleInput = frame.contentDocument.getElementById('filter-rule');
+            ruleInput.value = 'example.com##x{}body{background:url(//evil.example/x)}';
+            frame.contentDocument.getElementById('adg-preview').click();
+
+            assert.strictEqual(saved.preview, null, 'No preview from an untrusted click');
 
             selector.close();
             element.remove();

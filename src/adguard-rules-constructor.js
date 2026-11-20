@@ -1,6 +1,6 @@
 import cssEscape from './libs/css.escape';
 import protectedApi from './protectedApi';
-import { escapeCssString } from './utils/common-utils';
+import { escapeCssString, hasUnescapedBrace } from './utils/common-utils';
 
 /**
  * Adguard rules constructor
@@ -442,8 +442,9 @@ function AdguardRulesConstructorLib(api = {}) {
      * the user can change the rule text in the dialog. The check keeps one
      * rule in one field and rejects the families that the picker cannot
      * build: scriptlets, style injections, HTML filtering rules, exceptions,
-     * comments, and preprocessor directives. A basic URL pattern without an
-     * anchor and a scheme is accepted, because the user can type one by hand.
+     * comments, preprocessor directives, and a rule with an unescaped brace in
+     * the selector. A basic URL pattern without an anchor and a scheme is
+     * accepted, because the user can type one by hand.
      * The check does not limit rule options, for example `$important`.
      *
      * @param {string} ruleText Rule text.
@@ -465,6 +466,13 @@ function AdguardRulesConstructorLib(api = {}) {
         // an element. A preprocessor header is a line that only holds
         // `[name]`, so a cosmetic rule such as `[::1]##div` still passes.
         if (rule[0] === '!' || PREPROCESSOR_HEADER_REGEX.test(rule) || rule.indexOf('@@') === 0) {
+            return false;
+        }
+
+        // A brace that is not escaped ends the selector and opens a
+        // declaration block, so the rule could add styles to the stylesheet
+        // that hides the element. The picker escapes braces in a selector.
+        if (hasUnescapedBrace(rule)) {
             return false;
         }
 
@@ -491,10 +499,13 @@ function AdguardRulesConstructorLib(api = {}) {
      * Returns the selector of a cosmetic rule.
      *
      * The first cosmetic mark decides the selector, so a `#?#` rule whose
-     * selector contains `##` keeps the whole selector.
+     * selector contains `##` keeps the whole selector. A selector with an
+     * unescaped brace is refused, because it closes its rule in the
+     * stylesheet.
      *
      * @param {string} ruleText Rule text.
-     * @returns {string|null} Selector or null if the rule is not cosmetic.
+     * @returns {string|null} Selector, or null if the rule is not cosmetic or
+     * the selector holds an unescaped brace.
      */
     // eslint-disable-next-line no-param-reassign
     api.getCosmeticSelector = (ruleText) => {
@@ -504,7 +515,11 @@ function AdguardRulesConstructorLib(api = {}) {
 
         const match = ruleText.match(/^[^#]*(##|#\?#)([\s\S]*)$/);
 
-        return match ? match[2] : null;
+        if (!match || hasUnescapedBrace(match[2])) {
+            return null;
+        }
+
+        return match[2];
     };
 
     /**

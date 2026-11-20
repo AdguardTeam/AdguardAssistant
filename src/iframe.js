@@ -469,14 +469,15 @@ function IframeController() {
     /**
      * Hides elements by the selected path.
      *
-     * Style elements of the assistant have a CSP nonce, so a value that
-     * breaks out of the attribute selector could add styles that the page
-     * content security policy blocks.
+     * Style elements of the assistant carry the page CSP nonce, so a value
+     * that closes its rule could add styles that the page policy trusts. A
+     * cosmetic rule with an unescaped brace in the selector is refused.
      *
      * @param {string} selectedPath Rule text of the blocked element.
      * @param {string} [styleID] ID of the style element.
      * @param {Element} [element] Selected element.
-     * @returns {boolean|undefined} False if the path is empty.
+     * @returns {boolean|undefined} False if the path is empty or the selector
+     * is refused.
      */
     const hideElementsByPath = (selectedPath, styleID, element) => {
         if (!selectedPath) {

@@ -9,6 +9,17 @@
     padding: 0!important;
     z-index: 2147483647!important;
 
+    // Page CSS must not hide the host or make it the containing block of the
+    // fixed dialog, or the dialog leaves the viewport.
+    visibility: visible!important;
+    opacity: 1!important;
+    pointer-events: auto!important;
+    transform: none!important;
+    filter: none!important;
+    perspective: none!important;
+    will-change: auto!important;
+    contain: none!important;
+
     ::after,
     ::before {
         display: none!important;

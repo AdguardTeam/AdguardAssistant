@@ -328,7 +328,9 @@ test('the mobile dialog is not exposed in the page DOM', (assert) => {
 test('page CSS cannot hide the mobile dialog host', (assert) => {
     const done = assert.async();
     const style = document.createElement('style');
-    style.textContent = 'div:empty { display: none; }';
+    // A transform makes the host the containing block of the fixed dialog.
+    style.textContent = 'div:empty { display: none; }'
+        + ' div { transform: translateZ(0); visibility: hidden; }';
     document.head.appendChild(style);
 
     const ctrl = IframeControllerMobile();
@@ -337,11 +339,10 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
     window.setTimeout(() => {
         const dialogHost = document.querySelector('[data-adguard-assistant-dialog]');
         assert.ok(dialogHost, 'Dialog host is in the page DOM');
-        assert.strictEqual(
-            window.getComputedStyle(dialogHost).display,
-            'block',
-            'Page CSS does not hide the host',
-        );
+        const hostStyle = window.getComputedStyle(dialogHost);
+        assert.strictEqual(hostStyle.display, 'block', 'Page CSS does not hide the host');
+        assert.strictEqual(hostStyle.visibility, 'visible', 'Page CSS does not hide the host content');
+        assert.strictEqual(hostStyle.transform, 'none', 'Page CSS does not move the host');
 
         ctrl.removeIframe();
         style.remove();

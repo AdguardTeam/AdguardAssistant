@@ -1,6 +1,7 @@
 /* global QUnit */
 import IframeController from '../src/iframe';
 import { getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
+import settings from '../src/settings';
 
 const { test, module } = QUnit;
 
@@ -396,6 +397,88 @@ test('URL hiding writes no nonced element when the page blocks adoption', (asser
         assert.strictEqual(getAdoptedStyleSheet(styleID), null, 'No sheet is cached');
     } finally {
         delete document.adoptedStyleSheets;
+    }
+});
+
+test('URL hiding falls back to a nonced style element without constructed sheets', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-hide-element-fallback';
+    const originalConstructor = window.CSSStyleSheet;
+
+    removeSheet(styleID);
+    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
+
+    const target = document.createElement('div');
+    target.className = 'fallback-target';
+    document.getElementById('qunit-fixture').appendChild(target);
+
+    // A browser without constructed style sheets, the branch older Safari
+    // takes.
+    window.CSSStyleSheet = undefined;
+
+    try {
+        ctrl.hideElementsByPath('example.com##.fallback-target', styleID);
+
+        const element = document.getElementById(styleID);
+
+        assert.ok(element, 'A style element is written');
+        assert.strictEqual(
+            element.getAttribute('nonce'),
+            'test-fallback-nonce',
+            'The element carries the nonce',
+        );
+        assert.strictEqual(getAdoptedStyleSheet(styleID), null, 'No sheet is adopted');
+        assert.strictEqual(element.sheet.cssRules.length, 1, 'The rule is in the element sheet');
+        assert.strictEqual(
+            window.getComputedStyle(target).display,
+            'none',
+            'The rule hides the element',
+        );
+
+        // A rule that parses but is not a hiding rule is removed again.
+        const rejected = ctrl.hideElementsByPath(
+            'example.com##body{background:red;{display:none!important}',
+            styleID,
+        );
+
+        assert.strictEqual(rejected, false, 'The rule is refused');
+        assert.strictEqual(
+            document.getElementById(styleID).sheet.cssRules.length,
+            1,
+            'The refused rule is rolled back',
+        );
+        assert.strictEqual(
+            window.getComputedStyle(target).display,
+            'none',
+            'The element stays hidden',
+        );
+
+        ctrl.showHiddenElements(styleID);
+
+        assert.strictEqual(document.getElementById(styleID), null, 'The element is removed');
+        assert.strictEqual(
+            window.getComputedStyle(target).display,
+            'block',
+            'The element is visible again',
+        );
+
+        // A refused first rule removes the element it created.
+        const refusedFirst = ctrl.hideElementsByPath(
+            'example.com##body{background:red;{display:none!important}',
+            styleID,
+        );
+
+        assert.strictEqual(refusedFirst, false, 'The rule is refused');
+        assert.strictEqual(
+            document.getElementById(styleID),
+            null,
+            'The element created for the refused rule is removed',
+        );
+    } finally {
+        window.CSSStyleSheet = originalConstructor;
+        removeSheet(styleID);
+        settings.setAdguardSettings(null);
+        target.remove();
     }
 });
 

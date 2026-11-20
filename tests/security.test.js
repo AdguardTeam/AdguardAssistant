@@ -444,6 +444,45 @@ test('the mobile selector styles are adopted without a page element', (assert) =
     }, 500);
 });
 
+test('the picker falls back to a nonced style element without constructed sheets', (assert) => {
+    const done = assert.async();
+    const originalConstructor = window.CSSStyleSheet;
+
+    removeSheet('adg-styles-selector');
+    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
+
+    // A browser without constructed style sheets, the branch older Safari
+    // takes.
+    window.CSSStyleSheet = undefined;
+
+    const ctrl = IframeControllerMobile();
+    ctrl.showSelectorMenu();
+
+    window.setTimeout(() => {
+        const element = document.getElementById('adg-styles-selector');
+        const ruleCount = element && element.sheet ? element.sheet.cssRules.length : 0;
+
+        assert.ok(element, 'A picker style element is written');
+        assert.strictEqual(
+            element ? element.getAttribute('nonce') : null,
+            'test-fallback-nonce',
+            'The element carries the nonce',
+        );
+        assert.strictEqual(ruleCount > 0, true, 'The picker styles are in the element sheet');
+        assert.strictEqual(
+            getAdoptedStyleSheet('adg-styles-selector'),
+            null,
+            'No picker sheet is adopted',
+        );
+
+        ctrl.removeIframe();
+        window.CSSStyleSheet = originalConstructor;
+        settings.setAdguardSettings(null);
+        removeSheet('adg-styles-selector');
+        done();
+    }, 500);
+});
+
 test('the assistant button is not exposed in the page DOM', (assert) => {
     const done = assert.async();
     const ctrl = IframeController();

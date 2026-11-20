@@ -512,7 +512,7 @@ function AdguardRulesConstructorLib(api = {}) {
         // knows, so a selector that parses into no rule is accepted and never
         // written. A URL rule keeps its braces in the quoted attribute
         // selector, where they are escaped.
-        return isHidingRuleSelector(parts.selector, true);
+        return isHidingRuleSelector(parts.selector);
     };
 
     /**

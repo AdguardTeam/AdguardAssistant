@@ -162,14 +162,14 @@ export const isHidingStyleRule = (rule) => Boolean(rule && rule.style)
  * parser decides, because no lexical check can follow strings, comments, and
  * unquoted url tokens.
  *
+ * A selector that the browser cannot parse is accepted, because extended CSS
+ * may use syntax only the filtering engine knows. It hides nothing now and is
+ * never written, but it must not carry rule syntax outside quotes.
+ *
  * @param {string} selector CSS selector.
- * @param {boolean} [allowUnparsed] Accept a selector that the CSS parser does
- * not understand and that parses into no rule. Extended CSS may use syntax
- * only the filtering engine knows, but such a selector hides nothing now and
- * must not be written.
- * @returns {boolean} True if the selector is safe to write into the stylesheet.
+ * @returns {boolean} True if the selector is safe for the filtering engine.
  */
-export const isHidingRuleSelector = (selector, allowUnparsed) => {
+export const isHidingRuleSelector = (selector) => {
     if (typeof selector !== 'string') {
         return false;
     }
@@ -177,7 +177,7 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
     prepareValidation();
 
     if (!validationSheet) {
-        return allowUnparsed === true && !hasUnquotedRuleSyntax(selector);
+        return !hasUnquotedRuleSyntax(selector);
     }
 
     const ruleText = selector + HIDING_RULE_SUFFIX;
@@ -195,10 +195,6 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
         return hidesOnly;
     } catch (e) {
         // Not one complete rule, the list parse below tells the cases apart.
-    }
-
-    if (allowUnparsed !== true) {
-        return false;
     }
 
     // A text that parses into no rule is extended CSS, or a selector the

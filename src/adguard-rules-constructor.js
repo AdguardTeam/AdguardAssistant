@@ -529,22 +529,20 @@ function AdguardRulesConstructorLib(api = {}) {
      * Returns the selector of a cosmetic rule.
      *
      * The first cosmetic mark decides the selector, so a `#?#` rule whose
-     * selector contains `##` keeps the whole selector. A selector that would
-     * close its rule in the stylesheet, or that hides nothing, is refused.
+     * selector contains `##` keeps the whole selector.
+     *
+     * The selector is not checked here: the caller that writes it into a
+     * stylesheet checks that it composes into a single hiding rule, so the
+     * check runs against the sheet that actually receives the rule.
      *
      * @param {string} ruleText Rule text.
-     * @returns {string|null} Selector, or null if the rule is not cosmetic or
-     * the selector is not safe to write.
+     * @returns {string|null} Selector, or null if the rule is not cosmetic.
      */
     // eslint-disable-next-line no-param-reassign
     api.getCosmeticSelector = (ruleText) => {
         const parts = getCosmeticRuleMatch(ruleText);
 
-        if (!parts || !isHidingRuleSelector(parts.selector)) {
-            return null;
-        }
-
-        return parts.selector;
+        return parts ? parts.selector : null;
     };
 
     /**

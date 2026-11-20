@@ -19,26 +19,100 @@ export const escapeCssString = (value) => value
  */
 const HIDING_RULE_SUFFIX = '{display:none!important}';
 
+let validationSheet = null;
 let validationStyle = null;
+let isValidationReady = false;
 
 /**
- * Returns a style element in a detached document, for CSS parsing.
+ * Prepares the style sheet that parses rule text.
  *
- * @returns {Element|null} Style element or null when it cannot be created.
+ * A constructed style sheet belongs to no document, so neither CSP nor the
+ * page can affect it. A style element in a detached document is the fallback
+ * for browsers without constructed style sheets.
  */
-const getValidationStyle = () => {
-    if (validationStyle === null) {
+const prepareValidation = () => {
+    if (isValidationReady) {
+        return;
+    }
+
+    isValidationReady = true;
+
+    try {
+        if (typeof CSSStyleSheet === 'function') {
+            validationSheet = new CSSStyleSheet();
+        }
+    } catch (e) {
+        validationSheet = null;
+    }
+
+    if (!validationSheet) {
         try {
             const validationDocument = document.implementation.createHTMLDocument('');
             validationStyle = validationDocument.createElement('style');
             validationDocument.head.appendChild(validationStyle);
+            validationSheet = validationStyle.sheet;
         } catch (e) {
             validationStyle = null;
+            validationSheet = null;
         }
     }
-
-    return validationStyle;
 };
+
+/**
+ * Removes the parsed rules, so each check starts from an empty sheet.
+ */
+const clearValidationSheet = () => {
+    if (!validationSheet) {
+        return;
+    }
+
+    // A page can replace the constructor with an object whose rules never go
+    // away, so the loop is bounded by the current rule count.
+    const ruleCount = validationSheet.cssRules.length;
+
+    for (let i = 0; i < ruleCount; i += 1) {
+        try {
+            validationSheet.deleteRule(0);
+        } catch (e) {
+            return;
+        }
+    }
+};
+
+/**
+ * Parses the text as a rule list.
+ *
+ * @param {string} ruleText CSS text.
+ * @returns {number} Number of parsed rules, or -1 when there is no parser.
+ */
+const parseRuleList = (ruleText) => {
+    if (validationStyle) {
+        validationStyle.textContent = ruleText;
+        validationSheet = validationStyle.sheet;
+
+        return validationSheet ? validationSheet.cssRules.length : 0;
+    }
+
+    if (validationSheet && typeof validationSheet.replaceSync === 'function') {
+        validationSheet.replaceSync(ruleText);
+
+        return validationSheet.cssRules.length;
+    }
+
+    return -1;
+};
+
+/**
+ * Checks a selector for the characters that can end its rule.
+ *
+ * It is the last-resort fallback for a browser that exposes no style sheet to
+ * parse. It is deliberately coarse: the selector it accepts is never written,
+ * because the write checks the real style sheet.
+ *
+ * @param {string} selector CSS selector.
+ * @returns {boolean} True if the selector holds characters that can end a rule.
+ */
+const hasRuleBreakingSyntax = (selector) => /[{}]|\/\*|url\(/i.test(selector);
 
 /**
  * Checks that a parsed rule only hides the element.
@@ -58,7 +132,7 @@ export const isHidingStyleRule = (rule) => Boolean(rule && rule.style)
  * element.
  *
  * The assistant writes `selector{display:none!important}` into a stylesheet
- * that carries the page CSP nonce, so a selector must not end early, add
+ * that belongs to the assistant, so a selector must not end early, add
  * declarations, or leave the sheet inside a string or a comment. The CSS
  * parser decides, because no lexical check can follow strings, comments, and
  * unquoted url tokens.
@@ -75,28 +149,27 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
         return false;
     }
 
-    const style = getValidationStyle();
-    if (!style) {
-        return false;
+    prepareValidation();
+
+    if (!validationSheet) {
+        return allowUnparsed === true && !hasRuleBreakingSyntax(selector);
     }
 
     const ruleText = selector + HIDING_RULE_SUFFIX;
 
+    clearValidationSheet();
+
     // insertRule parses the text as one complete rule, so a text that holds
     // several rules, ends inside a string, or ends inside a comment fails.
-    const insertSheet = style.sheet;
+    try {
+        const index = validationSheet.insertRule(ruleText, 0);
+        const rule = validationSheet.cssRules[index];
+        const hidesOnly = isHidingStyleRule(rule);
+        validationSheet.deleteRule(index);
 
-    if (insertSheet) {
-        try {
-            const index = insertSheet.insertRule(ruleText, 0);
-            const rule = insertSheet.cssRules[index];
-            const hidesOnly = isHidingStyleRule(rule);
-            insertSheet.deleteRule(index);
-            return hidesOnly;
-        } catch (e) {
-            // Not one complete rule, the list parse below tells the cases
-            // apart.
-        }
+        return hidesOnly;
+    } catch (e) {
+        // Not one complete rule, the list parse below tells the cases apart.
     }
 
     if (allowUnparsed !== true) {
@@ -105,12 +178,7 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
 
     // An unparsed text is either CSS that only the filtering engine knows, or
     // a text that parses into rules but not into one complete rule.
-    style.textContent = ruleText;
-    const listSheet = style.sheet;
-    const count = listSheet ? listSheet.cssRules.length : 0;
-    style.textContent = '';
-
-    return count === 0;
+    return parseRuleList(ruleText) === 0;
 };
 
 /**

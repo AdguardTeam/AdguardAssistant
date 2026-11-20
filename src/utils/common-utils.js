@@ -90,7 +90,9 @@ const parseRuleList = (ruleText) => {
         validationStyle.textContent = ruleText;
         validationSheet = validationStyle.sheet;
 
-        return validationSheet ? validationSheet.cssRules.length : 0;
+        // A style element without a sheet parses nothing, and must not be
+        // read as "no rules, so the text is fine".
+        return validationSheet ? validationSheet.cssRules.length : -1;
     }
 
     if (validationSheet && typeof validationSheet.replaceSync === 'function') {
@@ -103,16 +105,39 @@ const parseRuleList = (ruleText) => {
 };
 
 /**
- * Checks a selector for the characters that can end its rule.
+ * Checks a selector for rule syntax outside quoted strings.
  *
- * It is the last-resort fallback for a browser that exposes no style sheet to
- * parse. It is deliberately coarse: the selector it accepts is never written,
- * because the write checks the real style sheet.
+ * A brace or a comment outside a quoted string can end the rule that a
+ * selector belongs to. A quoted brace is part of an attribute value, for
+ * example `div[data-code="{x}"]`, and escapes are skipped as in CSS. The
+ * selector it rejects is never written, because the write checks the real
+ * style sheet, so the check only keeps such a rule out of the filtering
+ * engine.
  *
  * @param {string} selector CSS selector.
- * @returns {boolean} True if the selector holds characters that can end a rule.
+ * @returns {boolean} True if the selector holds rule syntax outside quotes.
  */
-const hasRuleBreakingSyntax = (selector) => /[{}]|\/\*|url\(/i.test(selector);
+const hasUnquotedRuleSyntax = (selector) => {
+    let quote = null;
+
+    for (let i = 0; i < selector.length; i += 1) {
+        const char = selector[i];
+
+        if (char === '\\') {
+            i += 1;
+        } else if (quote !== null) {
+            if (char === quote) {
+                quote = null;
+            }
+        } else if (char === '"' || char === "'") {
+            quote = char;
+        } else if (char === '{' || char === '}' || (char === '/' && selector[i + 1] === '*')) {
+            return true;
+        }
+    }
+
+    return false;
+};
 
 /**
  * Checks that a parsed rule only hides the element.
@@ -152,7 +177,7 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
     prepareValidation();
 
     if (!validationSheet) {
-        return allowUnparsed === true && !hasRuleBreakingSyntax(selector);
+        return allowUnparsed === true && !hasUnquotedRuleSyntax(selector);
     }
 
     const ruleText = selector + HIDING_RULE_SUFFIX;
@@ -176,8 +201,13 @@ export const isHidingRuleSelector = (selector, allowUnparsed) => {
         return false;
     }
 
-    // An unparsed text is either CSS that only the filtering engine knows, or
-    // a text that parses into rules but not into one complete rule.
+    // A text that parses into no rule is extended CSS, or a selector the
+    // browser cannot parse. The assistant never writes it, but it must not
+    // carry rule syntax that another stylesheet could act on.
+    if (hasUnquotedRuleSyntax(selector)) {
+        return false;
+    }
+
     return parseRuleList(ruleText) === 0;
 };
 

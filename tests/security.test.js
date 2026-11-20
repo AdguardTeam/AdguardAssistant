@@ -72,6 +72,7 @@ test('accepts the rules that the element picker builds', (assert) => {
         'example.com##a\\{b',
         'example.com##div[data-a="/*"]',
         'example.com#?#div:has-text(ad)',
+        'example.com#?#div[data-x="{x}"]:has-text(y)',
         '||example.com/banner.png',
         '||example.com/banner.png$domain=example.com',
         'https://example.com/banner.png$domain=example.com',
@@ -120,6 +121,9 @@ test('rejects rules of other types and several rules in one field', (assert) => 
         'example.com##x{display:none!important}a"',
         // A single parsed rule that also declares a background.
         'example.com##body{background:red;{display:none!important}',
+        // Unparsed extended CSS that carries rule syntax.
+        'example.com#?#div:has-text(x){}html:has-text(y){background:red}',
+        'example.com#?#div:has-text(x) { color: red }',
         'example.com##a\\\\{b',
         'example.com#@$?#div { color: red }',
         'example.com$@$script[tag-content="x"]',

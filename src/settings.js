@@ -179,7 +179,7 @@ function Settings() {
         if (adguardSettings === null) {
             return '';
         }
-        return adguardSettings.nonce;
+        return adguardSettings.nonce || '';
     };
 
     const getUserPositionForButton = () => {

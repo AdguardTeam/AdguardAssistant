@@ -12,11 +12,27 @@ import { HTML } from '../src/inline-resources';
 import selector from '../src/adguard-selector';
 import gm from '../src/gm';
 import settings from '../src/settings';
+import { getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
 import ioc from '../src/ioc';
 import { adguardAssistantMini as miniAssistant } from '../src/main';
 import { adguardAssistantMini as embeddedMiniAssistant } from '../src/embedded';
 
 const { test, module } = QUnit;
+
+/**
+ * Removes the style sheet and the element the assistant wrote for the id.
+ *
+ * @param {string} id Style sheet id.
+ */
+const removeSheet = (id) => {
+    removeAdoptedStyleSheet(id);
+
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.remove();
+    }
+};
 
 /**
  * Builds a rule text for the given URL attribute value.
@@ -316,6 +332,15 @@ test('the desktop dialog is not exposed in the page DOM', (assert) => {
         const openRoots = Array.from(document.querySelectorAll('*'))
             .filter((element) => element.shadowRoot);
         assert.strictEqual(openRoots.length, 0, 'No open shadow root in the page DOM');
+        assert.ok(
+            getAdoptedStyleSheet('adg-styles-selector'),
+            'The picker styles are adopted',
+        );
+        assert.strictEqual(
+            document.getElementById('adg-styles-selector'),
+            null,
+            'No picker style element in the page DOM',
+        );
         ctrl.removeIframe();
         done();
     }, 500);
@@ -388,29 +413,32 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
     }, 500);
 });
 
-test('the mobile selector styles use the CSP nonce and the id', (assert) => {
+test('the mobile selector styles are adopted without a page element', (assert) => {
     const done = assert.async();
-    const existing = document.getElementById('adg-styles-selector');
-    if (existing) existing.remove();
-
+    removeSheet('adg-styles-selector');
     settings.setAdguardSettings({ nonce: 'test-mobile-nonce' });
+
     const ctrl = IframeControllerMobile();
     ctrl.showSelectorMenu();
 
     window.setTimeout(() => {
-        const styles = document.querySelectorAll('#adg-styles-selector');
+        const sheet = getAdoptedStyleSheet('adg-styles-selector');
 
-        assert.strictEqual(styles.length, 1, 'One selector stylesheet');
+        assert.ok(sheet, 'The selector styles are adopted');
+        assert.ok(sheet && sheet.cssRules.length > 0, 'The selector styles have rules');
         assert.strictEqual(
-            styles.length ? styles[0].getAttribute('nonce') : null,
-            'test-mobile-nonce',
-            'The selector styles carry the nonce',
+            document.getElementById('adg-styles-selector'),
+            null,
+            'No selector style element in the page DOM',
+        );
+        assert.deepEqual(
+            Array.from(document.querySelectorAll('[nonce]')).map((element) => element.tagName),
+            [],
+            'No page element carries the nonce',
         );
 
         ctrl.removeIframe();
-        if (styles.length) {
-            styles[0].remove();
-        }
+        removeAdoptedStyleSheet('adg-styles-selector');
         settings.setAdguardSettings(null);
         done();
     }, 500);
@@ -649,6 +677,14 @@ test('an untrusted click does not save a rule in the mobile menu', (assert) => {
 });
 
 module('mini entry settings');
+
+test('a settings object without a nonce yields an empty nonce', (assert) => {
+    settings.setAdguardSettings({});
+    assert.strictEqual(settings.getStyleNonce(), '', 'No nonce value');
+
+    settings.setAdguardSettings(null);
+    assert.strictEqual(settings.getStyleNonce(), '', 'No settings');
+});
 
 test('the mini entries pass the embedding settings to the assistant', (assert) => {
     const originalSettings = window.AdguardSettings;

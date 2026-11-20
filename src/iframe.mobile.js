@@ -8,6 +8,7 @@ import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
 import settings from './settings';
+import { adoptStyleSheet, supportsAdoptedStyleSheets } from './utils/style-sheet';
 import pkg from '../package.json';
 
 // package.json carries no version outside CI/release builds; show 'dev'
@@ -115,13 +116,16 @@ export default function IframeControllerMobile() {
         }
         iframeAnchor.setAttribute(HOST_ATTRIBUTE, '');
 
-        const adgStylesSelector = protectedApi.createStylesElement(
-            CSS.selector,
-            settings.getStyleNonce(),
-            'adg-styles-selector',
-        );
-        if (adgStylesSelector) {
-            document.documentElement.appendChild(adgStylesSelector);
+        if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
+            && !supportsAdoptedStyleSheets()) {
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                settings.getStyleNonce(),
+                'adg-styles-selector',
+            );
+            if (adgStylesSelector) {
+                document.documentElement.appendChild(adgStylesSelector);
+            }
         }
 
         document.documentElement.appendChild(iframeAnchor);
@@ -170,7 +174,9 @@ export default function IframeControllerMobile() {
             const frameElement = iframe;
             const view = protectedApi.createElement(views[viewName]);
             const iframeStyles = CSS.common + CSS.mobile;
-            view.appendChild(protectedApi.createStylesElement(iframeStyles));
+            view.appendChild(
+                protectedApi.createStylesElement(iframeStyles, settings.getStyleNonce()),
+            );
             appendContent(view);
             localize();
 
@@ -191,13 +197,16 @@ export default function IframeControllerMobile() {
         };
 
         if (!iframe) {
-            const adgStylesSelector = protectedApi.createStylesElement(
-                CSS.selector,
-                settings.getStyleNonce(),
-                'adg-styles-selector',
-            );
-            if (adgStylesSelector) {
-                document.documentElement.appendChild(adgStylesSelector);
+            if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
+                && !supportsAdoptedStyleSheets()) {
+                const adgStylesSelector = protectedApi.createStylesElement(
+                    CSS.selector,
+                    settings.getStyleNonce(),
+                    'adg-styles-selector',
+                );
+                if (adgStylesSelector) {
+                    document.documentElement.appendChild(adgStylesSelector);
+                }
             }
 
             createIframe(onIframeLoad, styles, attrs);

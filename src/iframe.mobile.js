@@ -8,7 +8,6 @@ import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
 import settings from './settings';
-import { adoptStyleSheet, canAdoptStyleSheets } from './utils/style-sheet';
 import pkg from '../package.json';
 
 // package.json carries no version outside CI/release builds; show 'dev'
@@ -116,16 +115,13 @@ export default function IframeControllerMobile() {
         }
         iframeAnchor.setAttribute(HOST_ATTRIBUTE, '');
 
-        if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-            && !canAdoptStyleSheets()) {
-            const adgStylesSelector = protectedApi.createStylesElement(
-                CSS.selector,
-                settings.getStyleNonce(),
-                'adg-styles-selector',
-            );
-            if (adgStylesSelector) {
-                document.documentElement.appendChild(adgStylesSelector);
-            }
+        const adgStylesSelector = protectedApi.createStylesElement(
+            CSS.selector,
+            settings.getStyleNonce(),
+            'adg-styles-selector',
+        );
+        if (adgStylesSelector) {
+            document.documentElement.appendChild(adgStylesSelector);
         }
 
         document.documentElement.appendChild(iframeAnchor);
@@ -197,16 +193,13 @@ export default function IframeControllerMobile() {
         };
 
         if (!iframe) {
-            if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-                && !canAdoptStyleSheets()) {
-                const adgStylesSelector = protectedApi.createStylesElement(
-                    CSS.selector,
-                    settings.getStyleNonce(),
-                    'adg-styles-selector',
-                );
-                if (adgStylesSelector) {
-                    document.documentElement.appendChild(adgStylesSelector);
-                }
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                settings.getStyleNonce(),
+                'adg-styles-selector',
+            );
+            if (adgStylesSelector) {
+                document.documentElement.appendChild(adgStylesSelector);
             }
 
             createIframe(onIframeLoad, styles, attrs);

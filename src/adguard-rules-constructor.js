@@ -1,6 +1,6 @@
 import cssEscape from './libs/css.escape';
 import protectedApi from './protectedApi';
-import { escapeCssString, isHidingRuleSelector } from './utils/common-utils';
+import { escapeCssString } from './utils/common-utils';
 
 /**
  * Adguard rules constructor
@@ -19,48 +19,15 @@ function AdguardRulesConstructorLib(api = {}) {
     const ALLOWED_COSMETIC_MARKS = [CSS_RULE_MARK, EXTENDED_CSS_RULE_MARK];
 
     /**
-     * Marks of the rule types that the element picker must never send to the
-     * filtering engine: scriptlet, style injection, HTML filtering, and
-     * exception rules.
-     */
-    const FORBIDDEN_RULE_MARKS = [
-        // JavaScript injection
-        '#%#',
-        // Style injection in a selector: `#$#` and `#$?#`
-        '#$',
-        // uBO scriptlet syntax, FiltersCompiler converts it to `#%#//scriptlet`
-        '##+js(',
-        // uBO HTML filtering and style injection inside a selector
-        '##^',
-        ':style(',
-        // A cosmetic exception, for example `#@#` or `#@$?#`
-        '#@',
-        // HTML filtering and its exception
-        '$$',
-        '$@$',
-    ];
-
-    /**
      * Characters that separate rules in a filter list.
      */
     // eslint-disable-next-line no-control-regex
     const LINE_SEPARATOR_REGEX = /[\r\n\f\u000b\u0085\u2028\u2029]/;
 
-    /**
-     * Characters of a blocking URL pattern. A hand-typed rule can have no
-     * anchor and no scheme, for example `ads.example.com^`.
-     */
-    const URL_PATTERN_CHARS_REGEX = /[./:^|*]/;
-
     const ABSOLUTE_HTTP_URL_REGEX = /^https?:\/\//i;
     const HTTP_URL_REGEX = /^http:\/\//i;
     const PROTOCOL_RELATIVE_URL_REGEX = /^\/\//;
     const FILTER_SYNTAX_CHARS_REGEX = /[$#*^]/;
-
-    /**
-     * A preprocessor header, for example `[Adblock Plus 2.0]`.
-     */
-    const PREPROCESSOR_HEADER_REGEX = /^\[[^\]]*\]$/;
 
     const linkHelper = protectedApi.createElement('a');
 
@@ -456,20 +423,15 @@ function AdguardRulesConstructorLib(api = {}) {
     };
 
     /**
-     * Checks that the rule text can be passed to the filtering engine.
+     * Checks that the text can be saved as one filter rule.
      *
-     * The element picker builds a cosmetic rule or a blocking URL rule, and
-     * the user can change the rule text in the dialog. The check keeps one
-     * rule in one field and rejects the families that the picker cannot
-     * build: scriptlets, style injections, HTML filtering rules, exceptions,
-     * comments, preprocessor directives, and a plain cosmetic rule whose
-     * selector does not compose into a single hiding rule. A basic URL pattern
-     * without an anchor and a scheme is accepted, because the user can type one
-     * by hand.
-     * The check does not limit rule options, for example `$important`.
+     * The rule text comes from the element picker or from the rule field of
+     * the dialog. The check keeps one rule in one field, so the text cannot
+     * add a second line to the filter list. The receiving side checks the
+     * rule type and the options (AG-62187).
      *
      * @param {string} ruleText Rule text.
-     * @returns {boolean} True if the text is a single blocking rule.
+     * @returns {boolean} True if the text is one non-empty line.
      */
     // eslint-disable-next-line no-param-reassign
     api.isValidRuleText = (ruleText) => {
@@ -479,40 +441,7 @@ function AdguardRulesConstructorLib(api = {}) {
 
         const rule = ruleText.trim();
 
-        if (!rule || LINE_SEPARATOR_REGEX.test(rule)) {
-            return false;
-        }
-
-        // Comments, preprocessor directives, and exception rules do not block
-        // an element. A preprocessor header is a line that only holds
-        // `[name]`, so a cosmetic rule such as `[::1]##div` still passes.
-        if (rule[0] === '!' || PREPROCESSOR_HEADER_REGEX.test(rule) || rule.indexOf('@@') === 0) {
-            return false;
-        }
-
-        if (FORBIDDEN_RULE_MARKS.some((mark) => rule.indexOf(mark) >= 0)) {
-            return false;
-        }
-
-        const hasCosmeticMark = ALLOWED_COSMETIC_MARKS.some((mark) => rule.indexOf(mark) >= 0);
-
-        if (!hasCosmeticMark) {
-            return URL_PATTERN_CHARS_REGEX.test(rule);
-        }
-
-        const parts = getCosmeticRuleMatch(rule);
-
-        if (!parts) {
-            return false;
-        }
-
-        // The selector must compose into a single hiding rule, otherwise the
-        // cosmetic rule could add styles to the stylesheet that hides the
-        // element. Extended CSS may use syntax only the filtering engine
-        // knows, so a selector that parses into no rule is accepted and never
-        // written. A URL rule keeps its braces in the quoted attribute
-        // selector, where they are escaped.
-        return isHidingRuleSelector(parts.selector);
+        return Boolean(rule) && !LINE_SEPARATOR_REGEX.test(rule);
     };
 
     /**
@@ -531,9 +460,8 @@ function AdguardRulesConstructorLib(api = {}) {
      * The first cosmetic mark decides the selector, so a `#?#` rule whose
      * selector contains `##` keeps the whole selector.
      *
-     * The selector is not checked here: the caller that writes it into a
-     * stylesheet checks that it composes into a single hiding rule, so the
-     * check runs against the sheet that actually receives the rule.
+     * The selector is written into the assistant stylesheet as is, so the
+     * caller escapes the page-controlled parts of it.
      *
      * @param {string} ruleText Rule text.
      * @returns {string|null} Selector, or null if the rule is not cosmetic.
@@ -638,9 +566,8 @@ function AdguardRulesConstructorLib(api = {}) {
                 croppedDomain,
             );
 
-            // The gate must accept the built rule, otherwise the dialog would
-            // show a rule that Block drops without a visible result. Fall back
-            // to the CSS rule when the address holds a rejected sequence.
+            // The built rule must pass the same check as a typed rule, so the
+            // dialog never shows a rule that Block drops.
             if (blockUrlRuleText && api.isValidRuleText(blockUrlRuleText)) {
                 return blockUrlRuleText;
             }

@@ -118,9 +118,8 @@ npx puppeteer browsers install chrome
 The suite loads the assistant on a page and asserts that it does not cause
 errors, and that the security invariants hold: the assistant dialogs run in a
 closed shadow root, an untrusted event cannot save or preview a rule, the rule
-gate rejects every family the picker cannot build, and page-controlled element
-attributes cannot change the rule. Test files live in `tests/` and use a
-`.test.js` suffix.
+field keeps one rule in one line, and page-controlled element attributes cannot
+change the rule. Test files live in `tests/` and use a `.test.js` suffix.
 
 The runner fails the command when an assertion fails: `tests/puppeteer.js`
 sets a non-zero exit code when QUnit reports a failed test, so a green

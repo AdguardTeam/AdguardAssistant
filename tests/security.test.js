@@ -12,7 +12,6 @@ import { HTML } from '../src/inline-resources';
 import selector from '../src/adguard-selector';
 import gm from '../src/gm';
 import settings from '../src/settings';
-import { canAdoptStyleSheets, getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
 import ioc from '../src/ioc';
 import { adguardAssistantMini as miniAssistant } from '../src/main';
 import { adguardAssistantMini as embeddedMiniAssistant } from '../src/embedded';
@@ -20,13 +19,11 @@ import { adguardAssistantMini as embeddedMiniAssistant } from '../src/embedded';
 const { test, module } = QUnit;
 
 /**
- * Removes the style sheet and the element the assistant wrote for the id.
+ * Removes the style element the assistant wrote for the id.
  *
- * @param {string} id Style sheet id.
+ * @param {string} id Style element id.
  */
 const removeSheet = (id) => {
-    removeAdoptedStyleSheet(id);
-
     const element = document.getElementById(id);
 
     if (element) {
@@ -61,38 +58,16 @@ const buildRule = (urlMask, overrides) => {
 
 module('rule text validation');
 
-test('accepts the rules that the element picker builds', (assert) => {
+test('saves one non-empty rule per field', (assert) => {
     const rules = [
         'example.com##.banner',
         '##div.ad',
-        'example.com,example.org##.banner',
-        '~example.com##.banner',
         'example.com#?#div:has(> .ad)',
         'example.com##div[data-code="{x}"]',
-        'example.com##a\\{b',
-        'example.com##div[data-a="/*"]',
-        'example.com#?#div:has-text(ad)',
-        'example.com#?#div[data-x="{x}"]:has-text(y)',
-        '||example.com/banner.png',
         '||example.com/banner.png$domain=example.com',
-        'https://example.com/banner.png$domain=example.com',
         '//cdn.example.com/banner.png$domain=example.com',
-        '||example.com^$important',
-        '||example.com^$removeparam=utm_source',
-        '||cdn.example.com/photo.jpg?w={width}',
-    ];
-
-    rules.forEach((rule) => {
-        assert.ok(adguardRulesConstructor.isValidRuleText(rule), `Accepts ${rule}`);
-    });
-});
-
-test('accepts basic URL patterns that the user types by hand', (assert) => {
-    const rules = [
+        'https://example.com/banner.png$domain=example.com',
         'ads.example.com^',
-        '/banner/ad.png',
-        'example.com',
-        '[::1]##div',
     ];
 
     rules.forEach((rule) => {
@@ -100,40 +75,13 @@ test('accepts basic URL patterns that the user types by hand', (assert) => {
     });
 });
 
-test('rejects rules of other types and several rules in one field', (assert) => {
+test('rejects several rules in one field', (assert) => {
     const rules = [
         '',
         '   ',
-        '#%#window.__pwned=1;//$domain=example.com',
-        'example.com#%#window.__pwned=1;//',
-        'example.com#$#body{display:none!important}',
-        'example.com#@#.banner',
-        'example.com##+js(set-constant, foo, true)',
-        '##+js(nowoif)',
-        'example.com##^script:has-text(ad)',
-        'example.com##body:style(color: red)',
-        'example.com#$?#div { color: red }',
-        'example.com##x{}body{background:url(//evil.example/x)}',
-        'example.com##x/*"*/{}body{background:red}',
-        // An unquoted url token is not a comment, so the parser decides.
-        'example.com##url(/*){}body{background:red}',
-        // One clean rule, but the text ends inside an open string.
-        'example.com##x{display:none!important}a"',
-        // A single parsed rule that also declares a background.
-        'example.com##body{background:red;{display:none!important}',
-        // Unparsed extended CSS that carries rule syntax.
-        'example.com#?#div:has-text(x){}html:has-text(y){background:red}',
-        'example.com#?#div:has-text(x) { color: red }',
-        'example.com##a\\\\{b',
-        'example.com#@$?#div { color: red }',
-        'example.com$@$script[tag-content="x"]',
-        '@@||example.com^',
         'example.com##.banner\n#%#window.__pwned=1;//',
         'example.com##.banner\r\n@@||example.com^',
-        'example.com$$script[tag-content="pwned"]',
-        '! comment',
-        '[Adblock Plus 2.0]',
-        'plain text',
+        'example.com##.banner\u2028||evil.example^',
     ];
 
     rules.forEach((rule) => {
@@ -207,12 +155,11 @@ test('does not build a URL rule from page-controlled rule syntax', (assert) => {
     });
 });
 
-test('falls back to a cosmetic rule when the address cannot pass the gate', (assert) => {
-    // The parsed address is usable, but the built rule holds a sequence that
-    // the gate rejects, so the picker must not show a dead URL rule.
+test('keeps a colon expression in the address inside a URL rule', (assert) => {
     const rule = buildRule('https://example.com/x:style(y)');
 
-    assert.ok(rule.includes('##'), 'Falls back to a cosmetic rule');
+    assert.notOk(rule.includes('##'), 'The address becomes a URL rule');
+    assert.ok(rule.includes('x:style(y)'), 'The address keeps the colon expression');
     assert.ok(adguardRulesConstructor.isValidRuleText(rule), 'The shown rule is valid');
 });
 
@@ -318,6 +265,9 @@ test('the desktop dialog is not exposed in the page DOM', (assert) => {
     const ctrl = IframeController();
     let dialogShown = false;
 
+    removeSheet('adg-styles-selector');
+    settings.setAdguardSettings({ nonce: 'test-dialog-nonce' });
+
     ctrl.onShowMenuItem.attach(() => {
         dialogShown = true;
     });
@@ -336,22 +286,26 @@ test('the desktop dialog is not exposed in the page DOM', (assert) => {
         const openRoots = Array.from(document.querySelectorAll('*'))
             .filter((element) => element.shadowRoot);
         assert.strictEqual(openRoots.length, 0, 'No open shadow root in the page DOM');
-        assert.ok(
-            getAdoptedStyleSheet('adg-styles-selector'),
-            'The picker styles are adopted',
-        );
+        const pickerStyles = document.getElementById('adg-styles-selector');
+        assert.ok(pickerStyles, 'The picker styles are in the page');
         assert.strictEqual(
-            document.getElementById('adg-styles-selector'),
-            null,
-            'No picker style element in the page DOM',
+            pickerStyles ? pickerStyles.getAttribute('nonce') : null,
+            'test-dialog-nonce',
+            'The picker styles carry the CSP nonce',
         );
         ctrl.removeIframe();
+        removeSheet('adg-styles-selector');
+        settings.setAdguardSettings(null);
         done();
     }, 500);
 });
 
 test('the mobile dialog is not exposed in the page DOM', (assert) => {
     const done = assert.async();
+
+    removeSheet('adg-styles-selector');
+    settings.setAdguardSettings({ nonce: 'test-dialog-nonce' });
+
     const ctrl = IframeControllerMobile();
 
     ctrl.showSelectorMenu();
@@ -363,12 +317,22 @@ test('the mobile dialog is not exposed in the page DOM', (assert) => {
         assert.ok(dialogHost, 'Dialog host is in the page DOM');
         assert.strictEqual(dialogHost.shadowRoot, null, 'Shadow root is closed');
 
+        const pickerStyles = document.getElementById('adg-styles-selector');
+        assert.ok(pickerStyles, 'The picker styles are in the page');
+        assert.strictEqual(
+            pickerStyles ? pickerStyles.getAttribute('nonce') : null,
+            'test-dialog-nonce',
+            'The picker styles carry the CSP nonce',
+        );
+
         ctrl.removeIframe();
         assert.strictEqual(
             document.querySelector('[data-adguard-assistant-dialog]'),
             null,
             'Dialog host is removed',
         );
+        removeSheet('adg-styles-selector');
+        settings.setAdguardSettings(null);
         done();
     }, 500);
 });
@@ -417,155 +381,6 @@ test('page CSS cannot hide the mobile dialog host', (assert) => {
     }, 500);
 });
 
-test('the mobile selector styles are adopted without a page element', (assert) => {
-    const done = assert.async();
-    removeSheet('adg-styles-selector');
-    settings.setAdguardSettings({ nonce: 'test-mobile-nonce' });
-
-    const ctrl = IframeControllerMobile();
-    ctrl.showSelectorMenu();
-
-    window.setTimeout(() => {
-        const sheet = getAdoptedStyleSheet('adg-styles-selector');
-
-        assert.ok(sheet, 'The selector styles are adopted');
-        assert.ok(sheet && sheet.cssRules.length > 0, 'The selector styles have rules');
-        assert.strictEqual(
-            document.getElementById('adg-styles-selector'),
-            null,
-            'No selector style element in the page DOM',
-        );
-        assert.deepEqual(
-            Array.from(document.querySelectorAll('[nonce]')).map((element) => element.tagName),
-            [],
-            'No page element carries the nonce',
-        );
-
-        ctrl.removeIframe();
-        removeAdoptedStyleSheet('adg-styles-selector');
-        settings.setAdguardSettings(null);
-        done();
-    }, 500);
-});
-
-test('the picker falls back to a nonced style element without constructed sheets', (assert) => {
-    const done = assert.async();
-    const originalConstructor = window.CSSStyleSheet;
-
-    removeSheet('adg-styles-selector');
-    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
-
-    // A browser without constructed style sheets, the branch older Safari
-    // takes.
-    window.CSSStyleSheet = undefined;
-
-    const ctrl = IframeControllerMobile();
-    ctrl.showSelectorMenu();
-
-    window.setTimeout(() => {
-        const element = document.getElementById('adg-styles-selector');
-        const ruleCount = element && element.sheet ? element.sheet.cssRules.length : 0;
-
-        assert.ok(element, 'A picker style element is written');
-        assert.strictEqual(
-            element ? element.getAttribute('nonce') : null,
-            'test-fallback-nonce',
-            'The element carries the nonce',
-        );
-        assert.strictEqual(ruleCount > 0, true, 'The picker styles are in the element sheet');
-        assert.strictEqual(
-            getAdoptedStyleSheet('adg-styles-selector'),
-            null,
-            'No picker sheet is adopted',
-        );
-
-        ctrl.removeIframe();
-        window.CSSStyleSheet = originalConstructor;
-        settings.setAdguardSettings(null);
-        removeSheet('adg-styles-selector');
-        done();
-    }, 500);
-});
-
-test('the mobile picker falls back to a nonced style element when adoption fails', (assert) => {
-    const done = assert.async();
-
-    removeSheet('adg-styles-selector');
-    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
-
-    // A Firefox content script before 153 goes through an Xray wrapper and a
-    // page can shadow the property: the probe throws either way.
-    Object.defineProperty(document, 'adoptedStyleSheets', {
-        value: [],
-        configurable: true,
-    });
-
-    const ctrl = IframeControllerMobile();
-    ctrl.showSelectorMenu();
-
-    window.setTimeout(() => {
-        const element = document.getElementById('adg-styles-selector');
-
-        assert.strictEqual(canAdoptStyleSheets(), false, 'The adoption probe fails');
-        assert.ok(element, 'A picker style element is written');
-        assert.strictEqual(
-            element ? element.getAttribute('nonce') : null,
-            'test-fallback-nonce',
-            'The element carries the nonce',
-        );
-        assert.strictEqual(
-            getAdoptedStyleSheet('adg-styles-selector'),
-            null,
-            'No picker sheet is adopted',
-        );
-
-        ctrl.removeIframe();
-        delete document.adoptedStyleSheets;
-        settings.setAdguardSettings(null);
-        removeSheet('adg-styles-selector');
-        done();
-    }, 500);
-});
-
-test('the desktop picker falls back to a nonced style element when adoption fails', (assert) => {
-    const done = assert.async();
-
-    removeSheet('adg-styles-selector');
-    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
-
-    Object.defineProperty(document, 'adoptedStyleSheets', {
-        value: [],
-        configurable: true,
-    });
-
-    const ctrl = IframeController();
-    ioc.register('iframeController', ctrl);
-    ctrl.showSelectorMenu();
-
-    window.setTimeout(() => {
-        const element = document.getElementById('adg-styles-selector');
-
-        assert.strictEqual(canAdoptStyleSheets(), false, 'The adoption probe fails');
-        assert.ok(element, 'A picker style element is written');
-        assert.strictEqual(
-            element ? element.getAttribute('nonce') : null,
-            'test-fallback-nonce',
-            'The element carries the nonce',
-        );
-        assert.strictEqual(
-            getAdoptedStyleSheet('adg-styles-selector'),
-            null,
-            'No picker sheet is adopted',
-        );
-
-        ctrl.removeIframe();
-        delete document.adoptedStyleSheets;
-        settings.setAdguardSettings(null);
-        removeSheet('adg-styles-selector');
-        done();
-    }, 500);
-});
-
 test('the assistant button is not exposed in the page DOM', (assert) => {
     const done = assert.async();
     const ctrl = IframeController();
@@ -605,7 +420,7 @@ test('blockElement saves only a valid rule', (assert) => {
     };
 
     try {
-        ctrl.blockElement('#%#window.__pwned=1;//$domain=example.com', () => {});
+        ctrl.blockElement('example.com##.banner\n#%#window.__pwned=1;//', () => {});
         assert.strictEqual(saved, null, 'No rule is saved');
 
         ctrl.blockElement('example.com##.banner', () => {});

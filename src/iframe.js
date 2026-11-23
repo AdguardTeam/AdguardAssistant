@@ -1,11 +1,6 @@
 import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
-import { bypassCache, escapeCssString, isHidingStyleRule } from './utils/common-utils';
-import {
-    adoptStyleSheet,
-    removeAdoptedStyleSheet,
-    canAdoptStyleSheets,
-} from './utils/style-sheet';
+import { bypassCache, escapeCssString } from './utils/common-utils';
 import ioc from './ioc';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
@@ -307,16 +302,13 @@ function IframeController() {
         };
 
         if (!iframe) {
-            if (!adoptStyleSheet('adg-styles-selector', CSS.selector)
-                && !canAdoptStyleSheets()) {
-                const adgStylesSelector = protectedApi.createStylesElement(
-                    CSS.selector,
-                    settings.getStyleNonce(),
-                    'adg-styles-selector',
-                );
-                if (adgStylesSelector) {
-                    document.documentElement.appendChild(adgStylesSelector);
-                }
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                settings.getStyleNonce(),
+                'adg-styles-selector',
+            );
+            if (adgStylesSelector) {
+                document.documentElement.appendChild(adgStylesSelector);
             }
 
             createIframe(onIframeLoad);
@@ -335,7 +327,6 @@ function IframeController() {
      * blocked-elements style so previously blocked elements reappear.
      */
     const showHiddenElements = (styleID = blockedElementsStyleID) => {
-        removeAdoptedStyleSheet(styleID);
         const stylesElement = document.documentElement.querySelector(`#${styleID}`);
 
         if (stylesElement) {
@@ -478,16 +469,15 @@ function IframeController() {
     /**
      * Hides elements by the selected path.
      *
-     * The rule is added to the stylesheet as a CSSOM rule, so a selector that
-     * holds strings, comments, or braces cannot add declarations or further
-     * rules. The sheet is adopted by the document when the browser supports
-     * it, so the page cannot read the CSP nonce from an element.
+     * The selector comes from the parsed rule, and the page-controlled parts
+     * are escaped, so the rule text cannot add declarations or further rules
+     * to the assistant stylesheet.
      *
      * @param {string} selectedPath Rule text of the blocked element.
      * @param {string} [styleID] ID of the style element.
      * @param {Element} [element] Selected element.
      * @returns {boolean|undefined} False if the path is empty or the selector
-     * is refused.
+     * is empty.
      */
     const hideElementsByPath = (selectedPath, styleID, element) => {
         if (!selectedPath) {
@@ -510,50 +500,14 @@ function IframeController() {
         }
 
         const style = `${slctr}{display:none!important}`;
+        const stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
 
-        const adoptedSheet = adoptStyleSheet(targetStyleID);
-        let stylesElement = null;
-        let isNewStyle = false;
-
-        if (!adoptedSheet) {
-            stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
-
-            if (!stylesElement) {
-                stylesElement = protectedApi.createStylesElement(
-                    '',
-                    settings.getStyleNonce(),
-                    targetStyleID,
-                );
-                if (stylesElement) {
-                    document.documentElement.appendChild(stylesElement);
-                    isNewStyle = true;
-                }
-            }
-        }
-
-        const sheet = adoptedSheet || (stylesElement ? stylesElement.sheet : null);
-        let ruleIndex = -1;
-
-        if (sheet) {
-            try {
-                ruleIndex = sheet.insertRule(style, sheet.cssRules.length);
-            } catch (e) {
-                ruleIndex = -1;
-            }
-        }
-
-        if (ruleIndex < 0 || !isHidingStyleRule(sheet.cssRules[ruleIndex])) {
-            if (sheet && ruleIndex >= 0) {
-                sheet.deleteRule(ruleIndex);
-            }
-            if (isNewStyle) {
-                document.documentElement.removeChild(stylesElement);
-            }
-            if (adoptedSheet && adoptedSheet.cssRules.length === 0) {
-                removeAdoptedStyleSheet(targetStyleID);
-            }
-            log.error('Can`t block element: the rule cannot be written safely');
-            return false;
+        if (stylesElement) {
+            stylesElement.appendChild(document.createTextNode(` ${style}`));
+        } else {
+            document.documentElement.appendChild(
+                protectedApi.createStylesElement(style, settings.getStyleNonce(), targetStyleID),
+            );
         }
 
         // do not hide assistant div if the user wrote a rule

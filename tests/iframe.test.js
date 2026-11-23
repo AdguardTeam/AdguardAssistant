@@ -299,6 +299,17 @@ test('URL hiding keeps the stylesheet a rule list after a trailing comment', (as
     removeSheet(styleID);
 });
 
+test('the adoption check leaves no probe sheet in the document', (assert) => {
+    const before = Array.from(document.adoptedStyleSheets);
+
+    assert.strictEqual(canAdoptStyleSheets(), true, 'The browser adopts a constructed sheet');
+    assert.deepEqual(
+        Array.from(document.adoptedStyleSheets),
+        before,
+        'The adopted sheets are the same after the check',
+    );
+});
+
 test('URL hiding adopts the rule sheet without a page element', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-hide-adopted';
@@ -393,7 +404,7 @@ test('URL hiding falls back to a nonced element when adoption fails', (assert) =
     document.getElementById('qunit-fixture').appendChild(target);
 
     // A Firefox content script before 153 goes through an Xray wrapper and a
-    // page can shadow the property: the assignment throws either way.
+    // page can shadow the property: the probe throws either way.
     Object.defineProperty(document, 'adoptedStyleSheets', {
         value: [],
         configurable: true,
@@ -404,6 +415,11 @@ test('URL hiding falls back to a nonced element when adoption fails', (assert) =
 
         const element = document.getElementById(styleID);
 
+        assert.strictEqual(
+            canAdoptStyleSheets(),
+            false,
+            'The adoption probe fails when the assignment throws',
+        );
         assert.ok(element, 'A style element is written');
         assert.strictEqual(
             element.getAttribute('nonce'),
@@ -422,6 +438,8 @@ test('URL hiding falls back to a nonced element when adoption fails', (assert) =
         settings.setAdguardSettings(null);
         target.remove();
     }
+
+    assert.strictEqual(canAdoptStyleSheets(), true, 'The probe works again without the shadow');
 });
 
 test('URL hiding falls back to a nonced style element without constructed sheets', (assert) => {

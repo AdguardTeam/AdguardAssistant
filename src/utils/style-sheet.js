@@ -9,17 +9,15 @@
  */
 const adoptedSheets = {};
 
-let isAdoptionChecked = false;
-let isAdoptionSupported = false;
-
 /**
  * Checks that this environment can adopt a constructed style sheet.
  *
  * Some browsers expose the API but refuse the assignment: a Firefox content
  * script before 153 goes through an Xray wrapper and throws on
  * `document.adoptedStyleSheets` (Bugzilla 1751346). The check adopts an empty
- * sheet once, so such a browser falls back to a style element instead of
- * writing nothing.
+ * sheet and removes it again, so such a browser falls back to a style element
+ * instead of writing nothing. It runs on each call, because the page can make
+ * the property refuse the assignment at any time.
  *
  * @returns {boolean} True if adoption works here.
  */
@@ -30,22 +28,26 @@ export const canAdoptStyleSheets = () => {
         return false;
     }
 
-    if (!isAdoptionChecked) {
-        isAdoptionChecked = true;
+    let current;
 
-        try {
-            const sheet = new CSSStyleSheet();
-            const current = document.adoptedStyleSheets;
+    try {
+        // The getter returns the same live array, so take a snapshot first.
+        current = [...document.adoptedStyleSheets];
 
-            document.adoptedStyleSheets = [...current, sheet];
-            document.adoptedStyleSheets = current;
-            isAdoptionSupported = true;
-        } catch (e) {
-            isAdoptionSupported = false;
-        }
+        const probe = new CSSStyleSheet();
+
+        document.adoptedStyleSheets = [...current, probe];
+    } catch (e) {
+        return false;
     }
 
-    return isAdoptionSupported;
+    try {
+        document.adoptedStyleSheets = current;
+    } catch (e) {
+        // The empty probe sheet stays adopted, but it has no rules.
+    }
+
+    return true;
 };
 
 /**

@@ -12,7 +12,7 @@ import { HTML } from '../src/inline-resources';
 import selector from '../src/adguard-selector';
 import gm from '../src/gm';
 import settings from '../src/settings';
-import { getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
+import { canAdoptStyleSheets, getAdoptedStyleSheet, removeAdoptedStyleSheet } from '../src/utils/style-sheet';
 import ioc from '../src/ioc';
 import { adguardAssistantMini as miniAssistant } from '../src/main';
 import { adguardAssistantMini as embeddedMiniAssistant } from '../src/embedded';
@@ -481,6 +481,85 @@ test('the picker falls back to a nonced style element without constructed sheets
 
         ctrl.removeIframe();
         window.CSSStyleSheet = originalConstructor;
+        settings.setAdguardSettings(null);
+        removeSheet('adg-styles-selector');
+        done();
+    }, 500);
+});
+
+test('the mobile picker falls back to a nonced style element when adoption fails', (assert) => {
+    const done = assert.async();
+
+    removeSheet('adg-styles-selector');
+    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
+
+    // A Firefox content script before 153 goes through an Xray wrapper and a
+    // page can shadow the property: the probe throws either way.
+    Object.defineProperty(document, 'adoptedStyleSheets', {
+        value: [],
+        configurable: true,
+    });
+
+    const ctrl = IframeControllerMobile();
+    ctrl.showSelectorMenu();
+
+    window.setTimeout(() => {
+        const element = document.getElementById('adg-styles-selector');
+
+        assert.strictEqual(canAdoptStyleSheets(), false, 'The adoption probe fails');
+        assert.ok(element, 'A picker style element is written');
+        assert.strictEqual(
+            element ? element.getAttribute('nonce') : null,
+            'test-fallback-nonce',
+            'The element carries the nonce',
+        );
+        assert.strictEqual(
+            getAdoptedStyleSheet('adg-styles-selector'),
+            null,
+            'No picker sheet is adopted',
+        );
+
+        ctrl.removeIframe();
+        delete document.adoptedStyleSheets;
+        settings.setAdguardSettings(null);
+        removeSheet('adg-styles-selector');
+        done();
+    }, 500);
+});
+
+test('the desktop picker falls back to a nonced style element when adoption fails', (assert) => {
+    const done = assert.async();
+
+    removeSheet('adg-styles-selector');
+    settings.setAdguardSettings({ nonce: 'test-fallback-nonce' });
+
+    Object.defineProperty(document, 'adoptedStyleSheets', {
+        value: [],
+        configurable: true,
+    });
+
+    const ctrl = IframeController();
+    ioc.register('iframeController', ctrl);
+    ctrl.showSelectorMenu();
+
+    window.setTimeout(() => {
+        const element = document.getElementById('adg-styles-selector');
+
+        assert.strictEqual(canAdoptStyleSheets(), false, 'The adoption probe fails');
+        assert.ok(element, 'A picker style element is written');
+        assert.strictEqual(
+            element ? element.getAttribute('nonce') : null,
+            'test-fallback-nonce',
+            'The element carries the nonce',
+        );
+        assert.strictEqual(
+            getAdoptedStyleSheet('adg-styles-selector'),
+            null,
+            'No picker sheet is adopted',
+        );
+
+        ctrl.removeIframe();
+        delete document.adoptedStyleSheets;
         settings.setAdguardSettings(null);
         removeSheet('adg-styles-selector');
         done();

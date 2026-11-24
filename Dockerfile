@@ -2,7 +2,7 @@
 # image tag so the pre-installed Chrome matches and npx puppeteer browsers
 # install becomes a no-op.
 FROM adguard/puppeteer-runner:22.21.1--24.35.0--0 AS base-puppeteer
-FROM adguard/node-ssh:22.22--0 AS base
+FROM adguard/node-ssh:22.23--0 AS base
 
 WORKDIR /assistant
 

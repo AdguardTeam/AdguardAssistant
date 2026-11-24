@@ -31,7 +31,7 @@ import gm from './gm';
  * removeUserPositionForButton: removeUserPositionForButton,
  * selectedElement: *,
  * setAdguardSettings: setAdguardSettings,
- * getAdguardSettings: getAdguardSettings
+ * getStyleNonce: getStyleNonce
  * }}
  * @constructor
  */
@@ -170,7 +170,17 @@ function Settings() {
         adguardSettings = settings;
     };
 
-    const getAdguardSettings = () => adguardSettings;
+    /**
+     * Returns the nonce for inline stylesheets.
+     *
+     * @returns {string} Content-Security-Policy nonce or an empty string.
+     */
+    const getStyleNonce = () => {
+        if (adguardSettings === null) {
+            return '';
+        }
+        return adguardSettings.nonce || '';
+    };
 
     const getUserPositionForButton = () => {
         let userPosition;
@@ -293,7 +303,7 @@ function Settings() {
         setAdguardSettings,
         setPersonalParam,
         setButtonSide,
-        getAdguardSettings,
+        getStyleNonce,
         getIconSize,
         getPersonalConfig,
     };

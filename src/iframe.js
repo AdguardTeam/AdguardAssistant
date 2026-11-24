@@ -1,6 +1,6 @@
 import { HTML, CSS } from './inline-resources';
 import CustomEvent from './event';
-import { bypassCache } from './utils/common-utils';
+import { bypassCache, escapeCssString } from './utils/common-utils';
 import ioc from './ioc';
 import DetailedMenuController from './controllers/mainMenuController';
 import SelectorMenuController from './controllers/selectorMenuController';
@@ -15,6 +15,7 @@ import uiValidationUtils from './utils/ui-validation-utils';
 import selector from './adguard-selector';
 import uiUtils from './utils/ui-utils';
 import localization from './localization';
+import adguardRulesConstructor from './adguard-rules-constructor';
 
 /**
  * Manages iframe and it's content
@@ -63,21 +64,15 @@ function IframeController() {
     const onCloseMenu = new CustomEvent();
     const onShowMenuItem = new CustomEvent();
 
-    // Important attribute for all inline stylesheets.
-    // It needs for Content-Security-Policy.
-    const getStyleNonce = () => {
-        const adgSettings = settings.getAdguardSettings();
-        if (adgSettings === null) {
-            return '';
-        }
-        return adgSettings.nonce;
-    };
-
     const createShadowRootElement = (iframeAnc) => {
-        const shadowiframeAnchor = iframeAnc.attachShadow({ mode: 'closed' });
+        const shadowiframeAnchor = protectedApi.attachClosedShadowRoot(iframeAnc);
+        if (!shadowiframeAnchor) {
+            return null;
+        }
+
         const stylesElement = protectedApi.createStylesElement(
             CSS.common + CSS.iframe,
-            getStyleNonce(),
+            settings.getStyleNonce(),
         );
         shadowiframeAnchor.appendChild(stylesElement);
 
@@ -114,8 +109,17 @@ function IframeController() {
         });
 
         if (protectedApi.checkShadowDomSupport()) {
-            iframeAnchor = protectedApi.createElement('div');
-            createShadowRootElement(iframeAnchor).appendChild(iframe);
+            iframeAnchor = protectedApi.createElementInPageDocument('div');
+            const shadowRoot = createShadowRootElement(iframeAnchor);
+            if (shadowRoot) {
+                shadowRoot.appendChild(iframe);
+            } else {
+                // The UI is not isolated, so page scripts can reach the
+                // dialog. The rule checks in blockElement() and in the save
+                // handlers reduce the risk, but they do not limit the
+                // capability of a rule. The receiving side must gate it.
+                iframeAnchor = iframe;
+            }
         } else {
             iframeAnchor = iframe;
         }
@@ -260,7 +264,7 @@ function IframeController() {
             const view = protectedApi.createElement(views[viewName]);
             const stylesElement = protectedApi.createStylesElement(
                 CSS.common + CSS.button + CSS.iframe,
-                getStyleNonce(),
+                settings.getStyleNonce(),
             );
             view.appendChild(stylesElement);
             appendContent(view);
@@ -300,7 +304,7 @@ function IframeController() {
         if (!iframe) {
             const adgStylesSelector = protectedApi.createStylesElement(
                 CSS.selector,
-                getStyleNonce(),
+                settings.getStyleNonce(),
                 'adg-styles-selector',
             );
             if (adgStylesSelector) {
@@ -439,36 +443,70 @@ function IframeController() {
         resizeIframe(null, null);
     };
 
-    const hideElementsByPath = (selectedPath, styleID = blockedElementsStyleID) => {
+    /**
+     * Returns a selector that matches the element by its address.
+     *
+     * The rule text holds the parsed address, while the page holds the value
+     * that the author wrote. The values differ when the authored value has
+     * non-ASCII characters, spaces, an explicit port, or an uppercase host.
+     * The raw value is used when it is available, so the element is hidden
+     * right after the user presses Block. The attribute name comes from the
+     * element too, because the address can be in `src` or `data`.
+     *
+     * @param {Element} [element] Selected element.
+     * @param {string} selectedPath Rule text of the blocked element.
+     * @returns {string} Attribute selector.
+     */
+    const getUrlHideSelector = (element, selectedPath) => {
+        const attribute = element ? adguardRulesConstructor.getUrlBlockAttributeName(element) : null;
+        const urlMask = element ? adguardRulesConstructor.getUrlBlockAttribute(element) : null;
+        const ruleValue = selectedPath.split('$domain=')[0].replace(/^\|+/, '');
+        const value = urlMask || ruleValue;
+
+        return `[${attribute || 'src'}*="${escapeCssString(value)}"]`;
+    };
+
+    /**
+     * Hides elements by the selected path.
+     *
+     * The selector comes from the parsed rule, and the page-controlled parts
+     * are escaped, so the rule text cannot add declarations or further rules
+     * to the assistant stylesheet.
+     *
+     * @param {string} selectedPath Rule text of the blocked element.
+     * @param {string} [styleID] ID of the style element.
+     * @param {Element} [element] Selected element.
+     * @returns {boolean|undefined} False if the path is empty or the selector
+     * is empty.
+     */
+    const hideElementsByPath = (selectedPath, styleID, element) => {
         if (!selectedPath) {
             return false;
         }
 
+        const targetStyleID = styleID || blockedElementsStyleID;
         let slctr;
-        let style;
 
-        if (selectedPath.indexOf('://') > 0) {
-            // all images by src
-            slctr = `[src*="${selectedPath.split('$domain=')[0]}"]`;
+        if (adguardRulesConstructor.isCosmeticRuleText(selectedPath)) {
+            slctr = adguardRulesConstructor.getCosmeticSelector(selectedPath);
         } else {
-            // eslint-disable-next-line prefer-destructuring
-            slctr = selectedPath.split('##')[1];
+            // all images by src
+            slctr = getUrlHideSelector(element, selectedPath);
         }
 
-        if (slctr) {
-            style = `${slctr}{display:none!important}`;
-        } else {
+        if (!slctr) {
             log.error('Can`t block element: `selector` path is empty');
             return false;
         }
 
-        const stylesElement = document.documentElement.querySelector(`#${styleID}`);
+        const style = `${slctr}{display:none!important}`;
+        const stylesElement = document.documentElement.querySelector(`#${targetStyleID}`);
 
         if (stylesElement) {
             stylesElement.appendChild(document.createTextNode(` ${style}`));
         } else {
             document.documentElement.appendChild(
-                protectedApi.createStylesElement(style, getStyleNonce(), styleID),
+                protectedApi.createStylesElement(style, settings.getStyleNonce(), targetStyleID),
             );
         }
 
@@ -479,11 +517,18 @@ function IframeController() {
         }
         return undefined;
     };
-    const blockElement = (path, addRule) => {
+    const blockElement = (path, addRule, element) => {
+        const ruleText = typeof path === 'string' ? path.trim() : path;
+
+        if (!adguardRulesConstructor.isValidRuleText(ruleText)) {
+            log.error('Can`t block element: the rule text is not a valid blocking rule');
+            return;
+        }
+
         if (gm.ADG_addRule) {
-            gm.ADG_addRule(path, () => {
+            gm.ADG_addRule(ruleText, () => {
                 removeIframe();
-                hideElementsByPath(path);
+                hideElementsByPath(ruleText, blockedElementsStyleID, element);
                 bypassCache();
             });
         } else {
@@ -491,9 +536,9 @@ function IframeController() {
                 log.error('Callback function `addRule` can\'t be undefined!');
             }
 
-            addRule(path);
+            addRule(ruleText);
             removeIframe();
-            hideElementsByPath(path);
+            hideElementsByPath(ruleText, blockedElementsStyleID, element);
             bypassCache();
         }
     };

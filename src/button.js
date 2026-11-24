@@ -18,18 +18,15 @@ function UIButton() {
     let isFullScreenEventsRegistered = false;
     let iframeController = null;
 
-    // Important attribute for all inline stylesheets.
-    // It needs for Content-Security-Policy.
-    const getStyleNonce = () => {
-        const adgSettings = settings.getAdguardSettings();
-        if (adgSettings === null) {
-            return '';
-        }
-        return adgSettings.nonce;
-    };
+    /**
+     * Marks the element that hosts the assistant button. The element can be a
+     * shadow host, so page scripts cannot find the button by its class.
+     */
+    const HOST_ATTRIBUTE = 'data-adguard-assistant-button';
 
     const isButtonAlreadyInDOM = () => {
-        const alert = document.querySelector('.adguard-alert');
+        const alert = document.querySelector('.adguard-alert')
+            || document.querySelector(`[${HOST_ATTRIBUTE}]`);
         if (alert) {
             log.error('Assistant button is already in DOM');
             return true;
@@ -189,27 +186,36 @@ function UIButton() {
         }
         log.debug('Requirements checked, all ok');
 
-        buttonElement = protectedApi.createElement('div');
+        buttonElement = protectedApi.createElementInPageDocument('div');
         protectedApi.setInnerHtml(buttonElement, HTML.button);
         button = buttonElement.firstChild;
         let adgStylesButton;
-        if (protectedApi.checkShadowDomSupport()) {
-            const shadowbuttonElement = buttonElement.attachShadow({ mode: 'closed' });
+        const shadowRoot = protectedApi.checkShadowDomSupport()
+            ? protectedApi.attachClosedShadowRoot(buttonElement)
+            : null;
+
+        if (shadowRoot) {
             adgStylesButton = protectedApi.createStylesElement(
                 CSS.common + CSS.button,
-                getStyleNonce(),
+                settings.getStyleNonce(),
             );
-            shadowbuttonElement.appendChild(adgStylesButton);
-            shadowbuttonElement.appendChild(button);
+            shadowRoot.appendChild(adgStylesButton);
+            shadowRoot.appendChild(button);
+            buttonElement.setAttribute(HOST_ATTRIBUTE, '');
             document.documentElement.appendChild(buttonElement);
         } else {
-            adgStylesButton = protectedApi.createStylesElement(CSS.button, getStyleNonce(), 'adg-styles-button');
+            adgStylesButton = protectedApi.createStylesElement(
+                CSS.button,
+                settings.getStyleNonce(),
+                'adg-styles-button',
+            );
             if (adgStylesButton) {
                 document.documentElement.appendChild(adgStylesButton);
             }
 
             document.documentElement.appendChild(button);
             buttonElement = button;
+            buttonElement.setAttribute(HOST_ATTRIBUTE, '');
         }
 
         setPositionSettingsToButton(button);

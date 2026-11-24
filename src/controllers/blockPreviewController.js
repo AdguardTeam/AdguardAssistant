@@ -1,4 +1,5 @@
 import log from '../log';
+import { isTrustedEvent } from '../utils/common-utils';
 import { toArray } from '../utils/dom-utils';
 import selector from '../adguard-selector';
 import settings from '../settings';
@@ -34,13 +35,17 @@ export default function BlockPreviewController(addRule, iframe) {
     };
 
     const blockElement = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
         e.stopPropagation();
         // NOTE: preview style cleanup is handled inside iframeCtrl.blockElement
         // → removeIframe() → showHiddenElements(previewStyleID), which runs
         // synchronously right before hideElementsByPath re-hides the element.
         // Calling showElement() here would remove the preview style now, making
         // the element visible until the async GM callback re-hides it (flash).
-        iframeCtrl.blockElement(selectedPath, addRule);
+        iframeCtrl.blockElement(selectedPath, addRule, selectedElement);
     };
 
     const showDetailedMenu = () => {
@@ -67,7 +72,7 @@ export default function BlockPreviewController(addRule, iframe) {
             return;
         }
 
-        iframeCtrl.hideElementsByPath(selectedPath, previewStyleID);
+        iframeCtrl.hideElementsByPath(selectedPath, previewStyleID, selectedElement);
     };
 
     /*

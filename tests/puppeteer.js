@@ -16,6 +16,8 @@ runQunitPuppeteer(qunitArgs)
         printResultSummary(result, console);
         if (result.stats.failed > 0) {
             printFailedTests(result, console);
+            // A failing run must fail the pipeline, not only print a summary.
+            process.exitCode = 1;
         }
     })
     .then(() => {

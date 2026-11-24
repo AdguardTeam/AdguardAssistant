@@ -32,13 +32,18 @@ export const adguardAssistantExtended = () => {
  *
  * adguardAssistant().start(null, callback);
  */
-export const adguardAssistantMini = () => ({
-    start(callback) {
-        ioc.register('addRule', protectedApi.functionBind.call(callback, this));
+export const adguardAssistantMini = () => {
+    const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
+    settings.setAdguardSettings(adguardSettings);
 
-        const iframeController = new IframeControllerMobile();
-        ioc.register('iframeController', iframeController);
+    return {
+        start(callback) {
+            ioc.register('addRule', protectedApi.functionBind.call(callback, this));
 
-        runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
-    },
-});
+            const iframeController = new IframeControllerMobile();
+            ioc.register('iframeController', iframeController);
+
+            runSheduler.onDocumentEnd(iframeController.showSelectorMenu);
+        },
+    };
+};

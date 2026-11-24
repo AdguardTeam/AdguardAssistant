@@ -7,6 +7,7 @@ import protectedApi from './protectedApi';
 import log from './log';
 import selector from './adguard-selector';
 import localization from './localization';
+import settings from './settings';
 import pkg from '../package.json';
 
 // package.json carries no version outside CI/release builds; show 'dev'
@@ -27,7 +28,7 @@ const appVersion = pkg.version || 'dev';
  */
 export default function IframeControllerMobile() {
     let iframe = null;
-    let iframeElement = null;
+    let iframeAnchor = null;
     let currentItem = null;
 
     const onCloseMenu = new CustomEvent();
@@ -37,6 +38,12 @@ export default function IframeControllerMobile() {
 
     views['mobilePopup.html'] = HTML.popup;
     views['mobileMenu.html'] = HTML.mobile_menu;
+
+    /**
+     * Marks the element that hosts the assistant dialog. The element can be a
+     * shadow host, so page scripts cannot find the dialog by the iframe id.
+     */
+    const HOST_ATTRIBUTE = 'data-adguard-assistant-dialog';
 
     const defaultCSS = {
         clip: 'auto',
@@ -72,7 +79,9 @@ export default function IframeControllerMobile() {
     const createIframe = (onIframeLoadCallback, styles, attrs) => {
         log.debug('Creating iframe');
 
-        if (document.querySelector(`#${defaultAttributes.id}`)) {
+        if (iframe
+            || document.querySelector(`#${defaultAttributes.id}`)
+            || document.querySelector(`[${HOST_ATTRIBUTE}]`)) {
             log.error('Iframe already added');
             return;
         }
@@ -84,14 +93,38 @@ export default function IframeControllerMobile() {
             updateIframeStyles(styles);
         });
 
-        iframeElement = iframe;
+        // The dialog is kept in a closed shadow root when Shadow DOM is
+        // available, so page scripts cannot read or change the rule before
+        // the user saves it.
+        if (protectedApi.checkShadowDomSupport()) {
+            const shadowHost = protectedApi.createElementInPageDocument('div');
+            const shadowRoot = protectedApi.attachClosedShadowRoot(shadowHost);
+            if (shadowRoot) {
+                // Without the host reset the page CSS can hide the dialog,
+                // for example `div:empty { display: none }`.
+                shadowRoot.appendChild(
+                    protectedApi.createStylesElement(CSS.host, settings.getStyleNonce()),
+                );
+                shadowRoot.appendChild(iframe);
+                iframeAnchor = shadowHost;
+            }
+        }
 
-        const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
+        if (!iframeAnchor) {
+            iframeAnchor = iframe;
+        }
+        iframeAnchor.setAttribute(HOST_ATTRIBUTE, '');
+
+        const adgStylesSelector = protectedApi.createStylesElement(
+            CSS.selector,
+            settings.getStyleNonce(),
+            'adg-styles-selector',
+        );
         if (adgStylesSelector) {
             document.documentElement.appendChild(adgStylesSelector);
         }
 
-        document.documentElement.appendChild(iframeElement);
+        document.documentElement.appendChild(iframeAnchor);
     };
 
     const appendContent = (view) => {
@@ -137,7 +170,9 @@ export default function IframeControllerMobile() {
             const frameElement = iframe;
             const view = protectedApi.createElement(views[viewName]);
             const iframeStyles = CSS.common + CSS.mobile;
-            view.appendChild(protectedApi.createStylesElement(iframeStyles));
+            view.appendChild(
+                protectedApi.createStylesElement(iframeStyles, settings.getStyleNonce()),
+            );
             appendContent(view);
             localize();
 
@@ -158,7 +193,11 @@ export default function IframeControllerMobile() {
         };
 
         if (!iframe) {
-            const adgStylesSelector = protectedApi.createStylesElement(CSS.selector, 'adg-styles-selector');
+            const adgStylesSelector = protectedApi.createStylesElement(
+                CSS.selector,
+                settings.getStyleNonce(),
+                'adg-styles-selector',
+            );
             if (adgStylesSelector) {
                 document.documentElement.appendChild(adgStylesSelector);
             }
@@ -203,15 +242,15 @@ export default function IframeControllerMobile() {
             return false;
         }
 
-        if (!iframeElement) {
+        if (!iframeAnchor) {
             return false;
         }
 
         document.removeEventListener('click', removeIframe);
         window.removeEventListener('orientationchange', showSelectorMenu);
-        document.documentElement.removeChild(iframeElement);
+        document.documentElement.removeChild(iframeAnchor);
         iframe = null;
-        iframeElement = null;
+        iframeAnchor = null;
         currentItem = null;
         selector.close();
         onCloseMenu.notify();

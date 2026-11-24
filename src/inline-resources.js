@@ -13,6 +13,7 @@ import RESOURCE_CSS_BUTTON from './styles/button.less';
 import RESOURCE_CSS_IFRAME from './styles/menu.less';
 import RESOURCE_CSS_SELECTOR from './styles/selector.less';
 import RESOURCE_CSS_MOBILE from './styles/mobile-style.less';
+import RESOURCE_CSS_HOST from './styles/modules/host.less';
 
 export const CSS = {
     common: RESOURCE_CSS_COMMON,
@@ -20,6 +21,7 @@ export const CSS = {
     iframe: RESOURCE_CSS_IFRAME,
     selector: RESOURCE_CSS_SELECTOR,
     mobile: RESOURCE_CSS_MOBILE,
+    host: RESOURCE_CSS_HOST,
 };
 
 export const HTML = {

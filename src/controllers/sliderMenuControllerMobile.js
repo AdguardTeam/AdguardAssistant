@@ -7,6 +7,8 @@ import {
 } from '../utils/dom-utils';
 import selector from '../adguard-selector';
 import adguardRulesConstructor from '../adguard-rules-constructor';
+import { isTrustedEvent } from '../utils/common-utils';
+import log from '../log';
 
 /**
  * Slider menu controller mobile
@@ -45,21 +47,8 @@ export default function SliderMenuControllerMobile(addRule, iframe) {
         }
     }
 
-    const getUrlBlockAttribute = (element) => {
-        const urlBlockAttributes = ['src', 'data'];
-        for (let i = 0; i < urlBlockAttributes.length; i += 1) {
-            const attr = urlBlockAttributes[i];
-            const value = element.getAttribute(attr);
-            if (value) {
-                return value;
-            }
-        }
-        return null;
-    };
-
     const getFilterText = () => {
         const options = {
-            urlMask: getUrlBlockAttribute(selectedElement),
             cssSelectorType: 'STRICT_FULL',
             isBlockOneDomain: false,
             url: document.location,
@@ -69,10 +58,21 @@ export default function SliderMenuControllerMobile(addRule, iframe) {
         return adguardRulesConstructor.constructRuleText(selectedElement, options);
     };
 
-    const blockElement = () => {
+    const blockElement = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
+        const ruleText = getFilterText();
+
+        if (!adguardRulesConstructor.isValidRuleText(ruleText)) {
+            log.error('Can`t block element: the rule text is not a valid blocking rule');
+            return;
+        }
+
         selectedElement.classList.remove('sg_hide_element');
         selectedElement.style.display = 'none';
-        addRule(getFilterText());
+        addRule(ruleText);
         iframeCtrl.removeIframe();
     };
 

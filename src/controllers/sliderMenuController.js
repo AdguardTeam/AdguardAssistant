@@ -1,4 +1,4 @@
-import { events } from '../utils/common-utils';
+import { events, isTrustedEvent } from '../utils/common-utils';
 import {
     hasClass,
     addClass,
@@ -50,7 +50,11 @@ export default function SliderMenuController(addRule, iframe) {
         }
     };
 
-    const showPreview = () => {
+    const showPreview = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
         const options = {
             isBlockByUrl: contentDocument.getElementById('block-by-url-checkbox').checked,
             isBlockSimilar: contentDocument.getElementById('block-similar-checkbox').checked,
@@ -67,9 +71,13 @@ export default function SliderMenuController(addRule, iframe) {
         );
     };
 
-    const blockElement = () => {
+    const blockElement = (e) => {
+        if (!isTrustedEvent(e)) {
+            return;
+        }
+
         const path = getFilterRuleInputText();
-        iframeCtrl.blockElement(path, addRule);
+        iframeCtrl.blockElement(path, addRule, selectedElement);
     };
 
     const handleShowBlockSettings = (showBlockByUrl, showBlockSimilar) => {
@@ -89,23 +97,6 @@ export default function SliderMenuController(addRule, iframe) {
         }
     };
 
-    const getUrlBlockAttribute = (element) => {
-        const urlBlockAttributes = ['src', 'data'];
-        for (let i = 0; i < urlBlockAttributes.length; i += 1) {
-            const attr = urlBlockAttributes[i];
-            const value = element.getAttribute(attr);
-            if (value) {
-                return value;
-            }
-        }
-        return null;
-    };
-
-    const haveUrlBlockParameter = (element) => {
-        const value = getUrlBlockAttribute(element);
-        return value && value !== '';
-    };
-
     const haveClassAttribute = (element) => {
         const { className } = element;
         return className && typeof className === 'string' && className.trim() !== '';
@@ -121,12 +112,12 @@ export default function SliderMenuController(addRule, iframe) {
         const isBlockOneDomain = contentDocument.getElementById('one-domain-checkbox').checked;
 
         handleShowBlockSettings(
-            haveUrlBlockParameter(selectedElement) && !isBlockSimilar,
+            adguardRulesConstructor.haveUrlBlockParameter(selectedElement) && !isBlockSimilar,
             haveClassAttribute(selectedElement) && !isBlockByUrl,
         );
 
         const options = {
-            urlMask: getUrlBlockAttribute(selectedElement),
+            urlMask: adguardRulesConstructor.getUrlBlockAttribute(selectedElement),
             cssSelectorType: isBlockSimilar ? 'SIMILAR' : 'STRICT_FULL',
             isBlockOneDomain,
             url: document.location,
@@ -172,7 +163,10 @@ export default function SliderMenuController(addRule, iframe) {
 
         makeDefaultCheckboxesForDetailedMenu();
         onScopeChange();
-        handleShowBlockSettings(haveUrlBlockParameter(element), haveClassAttribute(element));
+        handleShowBlockSettings(
+            adguardRulesConstructor.haveUrlBlockParameter(element),
+            haveClassAttribute(element),
+        );
     };
 
     const createSlider = (setElement, savedSliderValue) => {

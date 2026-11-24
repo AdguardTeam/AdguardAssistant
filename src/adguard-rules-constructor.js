@@ -1,5 +1,6 @@
 import cssEscape from './libs/css.escape';
 import protectedApi from './protectedApi';
+import { escapeCssString } from './utils/common-utils';
 
 /**
  * Adguard rules constructor
@@ -7,9 +8,26 @@ import protectedApi from './protectedApi';
  */
 function AdguardRulesConstructorLib(api = {}) {
     const CSS_RULE_MARK = '##';
+    const EXTENDED_CSS_RULE_MARK = '#?#';
     const RULE_OPTIONS_MARK = '$';
 
     const URLBLOCK_ATTRIBUTES = ['src', 'data'];
+
+    /**
+     * Rule marks that the element picker can build.
+     */
+    const ALLOWED_COSMETIC_MARKS = [CSS_RULE_MARK, EXTENDED_CSS_RULE_MARK];
+
+    /**
+     * Characters that separate rules in a filter list.
+     */
+    // eslint-disable-next-line no-control-regex
+    const LINE_SEPARATOR_REGEX = /[\r\n\f\u000b\u0085\u2028\u2029]/;
+
+    const ABSOLUTE_HTTP_URL_REGEX = /^https?:\/\//i;
+    const HTTP_URL_REGEX = /^http:\/\//i;
+    const PROTOCOL_RELATIVE_URL_REGEX = /^\/\//;
+    const FILTER_SYNTAX_CHARS_REGEX = /[$#*^]/;
 
     const linkHelper = protectedApi.createElement('a');
 
@@ -211,14 +229,74 @@ function AdguardRulesConstructorLib(api = {}) {
         return selector ? CSS_RULE_MARK + selector : '';
     };
 
-    const constructUrlBlockRuleText = (element, urlBlockAttribute, oneDomain, domain) => {
-        if (!urlBlockAttribute) {
+    /**
+     * Parses a value of a `src` or `data` attribute into URL parts.
+     *
+     * Only absolute HTTP(S) and protocol-relative addresses are accepted.
+     * Relative addresses, fragments, and data URIs resolve against the page
+     * address, so a page-controlled attribute could turn them into filter
+     * rule syntax. Characters with rule meaning are rejected too: `$` starts
+     * the options, `#` starts a cosmetic rule, and `*` and `^` are URL
+     * pattern operators that would widen the rule.
+     *
+     * @param {string} value Attribute value.
+     * @returns {{protocolRelative: boolean, isHttp: boolean, host: string, path: string}|null}
+     * URL parts or null if the value cannot be used in a rule.
+     */
+    const parseUrlBlockValue = (value) => {
+        if (typeof value !== 'string') {
             return null;
         }
 
-        let blockUrlRuleText = urlBlockAttribute.replace(/^http:\/\/(www\.)?/, '||');
-        if (blockUrlRuleText.indexOf('.') === 0) {
-            blockUrlRuleText = blockUrlRuleText.substring(1);
+        const url = value.trim();
+        const protocolRelative = PROTOCOL_RELATIVE_URL_REGEX.test(url);
+
+        if (!protocolRelative && !ABSOLUTE_HTTP_URL_REGEX.test(url)) {
+            return null;
+        }
+
+        // The helper anchor lives in a document without a base address, so a
+        // protocol-relative address needs an explicit scheme to be parsed.
+        linkHelper.href = protocolRelative ? `https:${url}` : url;
+
+        const { host, pathname, search } = linkHelper;
+        const path = `${pathname}${search}`;
+
+        if (!host || FILTER_SYNTAX_CHARS_REGEX.test(host) || FILTER_SYNTAX_CHARS_REGEX.test(path)) {
+            return null;
+        }
+
+        return {
+            protocolRelative,
+            isHttp: HTTP_URL_REGEX.test(url),
+            host,
+            path,
+        };
+    };
+
+    /**
+     * Builds a rule that blocks the address from a parsed URL value.
+     *
+     * @param {string} urlBlockValue Value of the `src` or `data` attribute.
+     * @param {boolean} oneDomain True to block the address on all sites.
+     * @param {string} domain Page domain.
+     * @returns {string|null} Rule text or null if the value cannot be used.
+     */
+    const constructUrlBlockRuleText = (urlBlockValue, oneDomain, domain) => {
+        const url = parseUrlBlockValue(urlBlockValue);
+
+        if (!url) {
+            return null;
+        }
+
+        let blockUrlRuleText;
+
+        if (url.protocolRelative) {
+            blockUrlRuleText = `//${url.host}${url.path}`;
+        } else if (url.isHttp) {
+            blockUrlRuleText = `||${url.host.replace(/^www\./i, '')}${url.path}`;
+        } else {
+            blockUrlRuleText = `https://${url.host}${url.path}`;
         }
 
         if (!oneDomain) {
@@ -228,18 +306,16 @@ function AdguardRulesConstructorLib(api = {}) {
         return blockUrlRuleText;
     };
 
-    const isValidUrl = (value) => {
-        if (value) {
-            linkHelper.href = value;
-            if (linkHelper.hostname) {
-                return true;
-            }
-        }
-
-        return false;
-    };
-
-    const getUrlBlockAttribute = (element) => {
+    /**
+     * Returns the name of the attribute that holds a usable address.
+     *
+     * The first attribute with a value decides the address. A `data`
+     * attribute is used only when `src` is absent or empty.
+     *
+     * @param {Element} element Element.
+     * @returns {string|null} `src`, `data`, or null.
+     */
+    const getUrlBlockAttributeName = (element) => {
         if (!element || !element.getAttribute) {
             return null;
         }
@@ -247,17 +323,45 @@ function AdguardRulesConstructorLib(api = {}) {
         for (let i = 0; i < URLBLOCK_ATTRIBUTES.length; i += 1) {
             const attr = URLBLOCK_ATTRIBUTES[i];
             const value = element.getAttribute(attr);
-            if (isValidUrl(value)) {
-                return value;
+
+            // The first attribute that holds a value decides the address: a
+            // relative `src` must not fall through to a page-chosen `data`.
+            if (value) {
+                return parseUrlBlockValue(value) ? attr : null;
             }
         }
 
         return null;
     };
 
-    const haveUrlBlockParameter = (element) => {
-        const value = getUrlBlockAttribute(element);
-        return value && value !== '';
+    /**
+     * Returns the value of the attribute that holds a usable address.
+     *
+     * @param {Element} element Element.
+     * @returns {string|null} Attribute value or null.
+     */
+    const getUrlBlockAttribute = (element) => {
+        const attr = getUrlBlockAttributeName(element);
+
+        return attr ? element.getAttribute(attr) : null;
+    };
+
+    const haveUrlBlockParameter = (element) => getUrlBlockAttribute(element) !== null;
+
+    /**
+     * Checks that a value resolves to a host name.
+     *
+     * @param {string} value Attribute value.
+     * @returns {boolean} True if the value resolves to a host name.
+     */
+    const hasHost = (value) => {
+        if (!value) {
+            return false;
+        }
+
+        linkHelper.href = value;
+
+        return Boolean(linkHelper.hostname);
     };
 
     const haveClassAttribute = (element) => element.classList && element.classList.length > 0;
@@ -288,6 +392,86 @@ function AdguardRulesConstructorLib(api = {}) {
      */
     // eslint-disable-next-line no-param-reassign
     api.makeCssNthChildFilter = makeCssNthChildFilter;
+
+    // eslint-disable-next-line no-param-reassign
+    api.getUrlBlockAttribute = getUrlBlockAttribute;
+
+    // eslint-disable-next-line no-param-reassign
+    api.getUrlBlockAttributeName = getUrlBlockAttributeName;
+
+    // eslint-disable-next-line no-param-reassign
+    api.haveUrlBlockParameter = haveUrlBlockParameter;
+
+    /**
+     * Returns the mark and the selector of a cosmetic rule.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {{mark: string, selector: string}|null} Parts or null.
+     */
+    const getCosmeticRuleMatch = (ruleText) => {
+        if (typeof ruleText !== 'string') {
+            return null;
+        }
+
+        const match = ruleText.match(/^[^#]*(##|#\?#)([\s\S]*)$/);
+
+        if (!match) {
+            return null;
+        }
+
+        return { mark: match[1], selector: match[2] };
+    };
+
+    /**
+     * Checks that the text can be saved as one filter rule.
+     *
+     * The rule text comes from the element picker or from the rule field of
+     * the dialog. The check keeps one rule in one field, so the text cannot
+     * add a second line to the filter list. The receiving side checks the
+     * rule type and the options (AG-62187).
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {boolean} True if the text is one non-empty line.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.isValidRuleText = (ruleText) => {
+        if (typeof ruleText !== 'string') {
+            return false;
+        }
+
+        const rule = ruleText.trim();
+
+        return Boolean(rule) && !LINE_SEPARATOR_REGEX.test(rule);
+    };
+
+    /**
+     * Checks that the rule text is a cosmetic rule.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {boolean} True if the rule has a cosmetic mark.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.isCosmeticRuleText = (ruleText) => typeof ruleText === 'string'
+        && ALLOWED_COSMETIC_MARKS.some((mark) => ruleText.indexOf(mark) >= 0);
+
+    /**
+     * Returns the selector of a cosmetic rule.
+     *
+     * The first cosmetic mark decides the selector, so a `#?#` rule whose
+     * selector contains `##` keeps the whole selector.
+     *
+     * The selector is written into the assistant stylesheet as is, so the
+     * caller escapes the page-controlled parts of it.
+     *
+     * @param {string} ruleText Rule text.
+     * @returns {string|null} Selector, or null if the rule is not cosmetic.
+     */
+    // eslint-disable-next-line no-param-reassign
+    api.getCosmeticSelector = (ruleText) => {
+        const parts = getCosmeticRuleMatch(ruleText);
+
+        return parts ? parts.selector : null;
+    };
 
     /**
      * Returns detailed element info
@@ -344,8 +528,8 @@ function AdguardRulesConstructorLib(api = {}) {
         let s = ruleText.substring(0, optionsIndex);
         s = s.replace(/[|]|[\^]/g, '');
 
-        if (isValidUrl(s)) {
-            return `[src*="${s}"]`;
+        if (hasHost(s)) {
+            return `[src*="${escapeCssString(s)}"]`;
         }
 
         return null;
@@ -375,29 +559,28 @@ function AdguardRulesConstructorLib(api = {}) {
     api.constructRuleText = (element, options) => {
         const croppedDomain = cropDomain(options.url);
 
-        const { ruleType } = options;
-
-        if (ruleType === 'URL') {
+        if (options.ruleType === 'URL') {
             const blockUrlRuleText = constructUrlBlockRuleText(
-                element,
                 options.urlMask,
                 options.isBlockOneDomain,
                 croppedDomain,
             );
-            if (blockUrlRuleText) {
+
+            // The built rule must pass the same check as a typed rule, so the
+            // dialog never shows a rule that Block drops.
+            if (blockUrlRuleText && api.isValidRuleText(blockUrlRuleText)) {
                 return blockUrlRuleText;
             }
         }
 
-        let result;
+        // CSS rule, also used when the address cannot be turned into a URL
+        // rule. An attribute value that the picker cannot parse must not
+        // change the type of the rule.
+        let result = constructCssRuleText(element, options);
 
-        if (ruleType === 'CSS') {
-            result = constructCssRuleText(element, options);
-
-            // Append html attributes to css selector
-            if (options.attributes) {
-                result = (result || CSS_RULE_MARK + result) + options.attributes;
-            }
+        // Append html attributes to css selector
+        if (options.attributes) {
+            result = (result || CSS_RULE_MARK + result) + options.attributes;
         }
 
         if (!options.isBlockOneDomain) {

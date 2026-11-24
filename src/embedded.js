@@ -40,6 +40,9 @@ export function adguardAssistantExtended() {
  * adguardAssistantMini function is for mobile browsers
  */
 export function adguardAssistantMini() {
+    const adguardSettings = typeof (AdguardSettings) === 'undefined' ? null : AdguardSettings;
+    settings.setAdguardSettings(adguardSettings);
+
     const iframeController = new IframeControllerMobile();
     ioc.register('iframeController', iframeController);
 

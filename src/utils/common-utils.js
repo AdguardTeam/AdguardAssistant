@@ -1,6 +1,31 @@
 export const cropDomain = (domain) => domain.replace('www.', '').replace(/:\d+/, '');
 
 /**
+ * Escapes a value for a double-quoted string in a CSS stylesheet.
+ *
+ * Values that break out of a string can add styles to a stylesheet built from
+ * page or user data.
+ *
+ * @param {string} value Value to escape.
+ * @returns {string} Escaped value.
+ */
+export const escapeCssString = (value) => value
+    .replace(/\\/g, '\\\\')
+    .replace(/"/g, '\\"')
+    .replace(/[\r\n\f]/g, '');
+
+/**
+ * Checks that the user produced the event.
+ *
+ * Page scripts can dispatch events, and a dispatched event has `isTrusted`
+ * set to false. Privileged actions must run only after a real user action.
+ *
+ * @param {Event} event DOM event.
+ * @returns {boolean} True if a real user action produced the event.
+ */
+export const isTrustedEvent = (event) => Boolean(event) && event.isTrusted === true;
+
+/**
  * Force clear the page cache
  * see: https://stackoverflow.com/questions/10719505/force-a-reload-of-page-in-chrome-using-javascript-no-cache/27058362#27058362
  * @param callback
@@ -92,6 +117,8 @@ export const events = {
  * Common utils
  * @type {{
  * cropDomain: Function,
+ * escapeCssString: Function,
+ * isTrustedEvent: Function,
  * bypassCache: Function,
  * reloadPageBypassCache: Function,
  * events: Object
@@ -99,6 +126,8 @@ export const events = {
  */
 const CommonUtils = {
     cropDomain,
+    escapeCssString,
+    isTrustedEvent,
     bypassCache,
     reloadPageBypassCache,
     events,

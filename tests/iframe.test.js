@@ -3,53 +3,296 @@ import IframeController from '../src/iframe';
 
 const { test, module } = QUnit;
 
+/**
+ * Returns the style sheet the assistant wrote for the given id.
+ *
+ * @param {string} id Style element id.
+ * @returns {CSSStyleSheet|null} Sheet of the style element.
+ */
+const getSheet = (id) => {
+    const element = document.getElementById(id);
+
+    return element ? element.sheet : null;
+};
+
+/**
+ * Returns the CSS text of the rules in a style sheet.
+ *
+ * @param {CSSStyleSheet} sheet Style sheet.
+ * @returns {string} Serialized rules.
+ */
+const getSheetText = (sheet) => (sheet
+    ? Array.from(sheet.cssRules).map((rule) => rule.cssText).join('\n')
+    : '');
+
+/**
+ * Removes the style element the assistant wrote for the id.
+ *
+ * @param {string} id Style element id.
+ */
+const removeSheet = (id) => {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.remove();
+    }
+};
+
 module('iframe controller — hideElementsByPath');
+
+test('URL hiding uses the raw attribute value', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-raw';
+
+    removeSheet(styleID);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://site.ru/картинка.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    // The rule text holds the parsed address, the attribute keeps the
+    // authored value.
+    ctrl.hideElementsByPath(
+        'https://site.ru/%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B0.png$domain=site.ru',
+        styleID,
+        img,
+    );
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[src*="https://site.ru/картинка.png"]'),
+        'Selector uses the raw src',
+    );
+    assert.ok(img.matches('[src*="https://site.ru/картинка.png"]'), 'Selector matches the element');
+
+    removeSheet(styleID);
+    img.remove();
+});
+
+test('URL hiding covers domain-anchored rules', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-anchor';
+
+    removeSheet(styleID);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'http://www.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('||example.com/a.png$domain=example.com', styleID, img);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[src*="http://www.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    removeSheet(styleID);
+    img.remove();
+});
+
+test('URL hiding covers protocol-relative rules', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-protocol';
+
+    removeSheet(styleID);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', '//cdn.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('//cdn.example.com/a.png$domain=example.com', styleID, img);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[src*="//cdn.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    removeSheet(styleID);
+    img.remove();
+});
+
+test('URL hiding uses the attribute that holds the address', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-data';
+
+    removeSheet(styleID);
+
+    const object = document.createElement('object');
+    object.setAttribute('data', 'https://example.com/obj.svg');
+    document.getElementById('qunit-fixture').appendChild(object);
+
+    ctrl.hideElementsByPath('https://example.com/obj.svg$domain=example.com', styleID, object);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[data*="https://example.com/obj.svg"]'),
+        'Selector uses the data attribute',
+    );
+
+    removeSheet(styleID);
+    object.remove();
+});
+
+test('URL hiding covers a rule without an anchor', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-basic';
+
+    removeSheet(styleID);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://ads.example.com/a.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('ads.example.com^', styleID, img);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[src*="https://ads.example.com/a.png"]'),
+        'Selector uses the raw src',
+    );
+
+    removeSheet(styleID);
+    img.remove();
+});
+
+test('URL hiding keeps a #?# rule on the CSS branch', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-extended';
+
+    removeSheet(styleID);
+
+    ctrl.hideElementsByPath('example.com#?#div:has(> .ad)', styleID);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('div:has(> .ad) { display: none !important; }'),
+        'Selector comes from the cosmetic rule',
+    );
+
+    removeSheet(styleID);
+});
+
+test('URL hiding keeps a #?# selector that contains a cosmetic mark', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-extended-hash';
+
+    removeSheet(styleID);
+
+    ctrl.hideElementsByPath('example.com#?#div[data-x="##"]', styleID);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('div[data-x="##"] { display: none !important; }'),
+        'The whole selector is kept',
+    );
+
+    removeSheet(styleID);
+});
+
+test('URL hiding escapes quotes in the address', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-escape';
+
+    removeSheet(styleID);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', 'https://example.com/a"b.png');
+    document.getElementById('qunit-fixture').appendChild(img);
+
+    ctrl.hideElementsByPath('https://example.com/a.png$domain=example.com', styleID, img);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(getSheetText(sheet).includes('a\\"b.png'), 'The quote is escaped');
+    assert.notOk(getSheetText(sheet).includes('a"b.png'), 'The quote does not break out of the selector');
+
+    removeSheet(styleID);
+    img.remove();
+});
+
+test('URL hiding falls back to the rule text without an element', (assert) => {
+    const ctrl = IframeController();
+    const styleID = 'test-url-hide-rule';
+    const anchorStyleID = 'test-url-hide-rule-anchor';
+
+    [styleID, anchorStyleID].forEach((id) => {
+        removeSheet(id);
+    });
+
+    ctrl.hideElementsByPath('https://example.com/a.png$domain=example.com', styleID);
+
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.ok(
+        getSheetText(sheet).includes('[src*="https://example.com/a.png"]'),
+        'Selector uses the rule text',
+    );
+
+    ctrl.hideElementsByPath('||example.com/a.png$domain=example.com', anchorStyleID);
+
+    const anchorSheet = getSheet(anchorStyleID);
+    assert.ok(anchorSheet, 'Anchor style sheet exists');
+    assert.ok(
+        getSheetText(anchorSheet).includes('[src*="example.com/a.png"]'),
+        'Selector drops the domain anchor',
+    );
+
+    removeSheet(styleID);
+    removeSheet(anchorStyleID);
+});
 
 test('CSS is valid after multiple hideElementsByPath calls', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-hide-style';
 
     // Clean up any leftover
-    const existing = document.querySelector(`#${styleID}`);
-    if (existing) existing.remove();
+    removeSheet(styleID);
 
     // Call 3 times with different selectors
     ctrl.hideElementsByPath('example.com##.foo', styleID);
     ctrl.hideElementsByPath('example.com##.bar', styleID);
     ctrl.hideElementsByPath('example.com##.baz', styleID);
 
-    const styleEl = document.querySelector(`#${styleID}`);
-    assert.ok(styleEl, 'Style element exists after calls');
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists after calls');
 
-    const css = styleEl.textContent;
+    const css = getSheetText(sheet);
     // Must NOT contain HTML wrapper artifacts
     assert.notOk(css.includes('<'), 'CSS does not contain <');
     assert.notOk(css.includes('>'), 'CSS does not contain >');
 
     // Must contain all three selectors
-    assert.ok(css.includes('.foo{display:none!important}'), 'Contains .foo rule');
-    assert.ok(css.includes('.bar{display:none!important}'), 'Contains .bar rule');
-    assert.ok(css.includes('.baz{display:none!important}'), 'Contains .baz rule');
+    assert.ok(css.includes('.foo { display: none !important; }'), 'Contains .foo rule');
+    assert.ok(css.includes('.bar { display: none !important; }'), 'Contains .bar rule');
+    assert.ok(css.includes('.baz { display: none !important; }'), 'Contains .baz rule');
 
     // Cleanup
-    styleEl.remove();
+    removeSheet(styleID);
 });
 
 test('CSS is valid after single hideElementsByPath call', (assert) => {
     const ctrl = IframeController();
     const styleID = 'test-hide-single';
 
-    const existing = document.querySelector(`#${styleID}`);
-    if (existing) existing.remove();
+    removeSheet(styleID);
 
     ctrl.hideElementsByPath('example.com##.single', styleID);
 
-    const styleEl = document.querySelector(`#${styleID}`);
-    assert.ok(styleEl, 'Style element exists');
-    assert.notOk(styleEl.textContent.includes('<'), 'CSS does not contain <');
-    assert.ok(styleEl.textContent.includes('.single{display:none!important}'), 'Contains rule');
+    const sheet = getSheet(styleID);
+    assert.ok(sheet, 'Style sheet exists');
+    assert.notOk(getSheetText(sheet).includes('<'), 'CSS does not contain <');
+    assert.ok(getSheetText(sheet).includes('.single { display: none !important; }'), 'Contains rule');
 
-    styleEl.remove();
+    removeSheet(styleID);
 });
 
 module('iframe controller — removeIframe cleanup');
@@ -102,21 +345,20 @@ test('blockElement from preview removes preview style before blocking', (assert)
 
     // Simulate preview: hide element with preview style ID
     ctrl.hideElementsByPath('example.com##.preview-target', previewStyleID);
-    assert.ok(document.querySelector(`#${previewStyleID}`), 'Preview style exists after preview');
+    assert.ok(getSheet(previewStyleID), 'Preview sheet exists after preview');
 
     // Simulate block from preview: clean up preview, then block
     ctrl.showHiddenElements(previewStyleID);
-    assert.notOk(document.querySelector(`#${previewStyleID}`), 'Preview style removed before block');
+    assert.strictEqual(getSheet(previewStyleID), null, 'Preview sheet removed before block');
 
     // Now block (this creates the blocked-elements style)
     const blockedStyleID = 'ag-hide-elements-style-id';
-    const existingBlocked = document.querySelector(`#${blockedStyleID}`);
-    if (existingBlocked) existingBlocked.remove();
+    removeSheet(blockedStyleID);
 
     ctrl.hideElementsByPath('example.com##.preview-target');
-    const blockedEl = document.querySelector(`#${blockedStyleID}`);
-    assert.ok(blockedEl, 'Blocked style created');
-    assert.notOk(blockedEl.textContent.includes('<'), 'Blocked CSS is valid');
+    const blockedSheet = getSheet(blockedStyleID);
+    assert.ok(blockedSheet, 'Blocked style sheet created');
+    assert.notOk(getSheetText(blockedSheet).includes('<'), 'Blocked CSS is valid');
 
     // Cleanup
     ctrl.showHiddenElements(blockedStyleID);
@@ -132,24 +374,23 @@ test('End preview removes preview style via showHiddenElements', (assert) => {
     const blockedStyleID = 'ag-hide-elements-style-id';
 
     // Clean up any leftover
-    const existingPreview = document.querySelector(`#${previewStyleID}`);
-    if (existingPreview) existingPreview.remove();
-    const existingBlocked = document.querySelector(`#${blockedStyleID}`);
-    if (existingBlocked) existingBlocked.remove();
+    removeSheet(previewStyleID);
+    removeSheet(blockedStyleID);
 
     // Simulate preview: hide element with preview style ID
     ctrl.hideElementsByPath('example.com##.preview-end-target', previewStyleID);
     assert.ok(
-        document.querySelector(`#${previewStyleID}`),
-        'Preview style exists during preview',
+        getSheet(previewStyleID),
+        'Preview sheet exists during preview',
     );
 
     // Simulate "End preview": showDetailedMenu calls showElement() which
     // calls showHiddenElements(previewStyleID)
     ctrl.showHiddenElements(previewStyleID);
-    assert.notOk(
-        document.querySelector(`#${previewStyleID}`),
-        'Preview style removed after End preview',
+    assert.strictEqual(
+        getSheet(previewStyleID),
+        null,
+        'Preview sheet removed after End preview',
     );
 });
 
@@ -165,22 +406,21 @@ test('Block completes: hide-elements style persists after close so element stays
     const blockedStyleID = 'ag-hide-elements-style-id';
 
     // Clean up
-    const existing = document.querySelector(`#${blockedStyleID}`);
-    if (existing) existing.remove();
+    removeSheet(blockedStyleID);
 
     // Simulate block: hideElementsByPath creates a fresh style
     ctrl.hideElementsByPath('example.com##.lifecycle-target');
-    const styleAfterBlock = document.querySelector(`#${blockedStyleID}`);
-    assert.ok(styleAfterBlock, 'Fresh style element created after block');
+    const styleAfterBlock = getSheet(blockedStyleID);
+    assert.ok(styleAfterBlock, 'Fresh style sheet created after block');
     assert.notOk(
-        styleAfterBlock.textContent.includes('<'),
+        getSheetText(styleAfterBlock).includes('<'),
         'Fresh style CSS is valid',
     );
 
     // After the iframe closes, the hide-elements style MUST still be present
     // so the blocked element remains hidden.
     assert.ok(
-        document.querySelector(`#${blockedStyleID}`),
+        getSheet(blockedStyleID),
         'Hide-elements style persists after close (blocked element stays hidden)',
     );
 
@@ -199,15 +439,14 @@ test('showHiddenElements removes only the requested style, not others', (assert)
     const otherStyleID = 'other-style-id';
 
     // Clean up
-    const existingBlocked = document.querySelector(`#${blockedStyleID}`);
-    if (existingBlocked) existingBlocked.remove();
+    removeSheet(blockedStyleID);
     const existingOther = document.querySelector(`#${otherStyleID}`);
     if (existingOther) existingOther.remove();
 
     // Create a blocked-elements style (simulating a previous block)
     ctrl.hideElementsByPath('example.com##.blocked-target');
     assert.ok(
-        document.querySelector(`#${blockedStyleID}`),
+        getSheet(blockedStyleID),
         'Blocked style exists',
     );
 
@@ -224,8 +463,9 @@ test('showHiddenElements removes only the requested style, not others', (assert)
 
     // Remove only the blocked-elements style
     ctrl.showHiddenElements(blockedStyleID);
-    assert.notOk(
-        document.querySelector(`#${blockedStyleID}`),
+    assert.strictEqual(
+        getSheet(blockedStyleID),
+        null,
         'Blocked style removed',
     );
     assert.ok(

@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 
 ### Security
 
+## [4.4.17] - 2026-11-24
+
+### Security
+
 - Rule injection through the element picker: the dialog now runs in a closed
   shadow root when Shadow DOM is available, blocking URL rules are built from
   the parsed address, and a rule is saved only after a trusted user action
@@ -133,7 +137,8 @@ The format is based on [Keep a Changelog], and this project adheres to [Semantic
 [AdguardForMac#1246]: https://github.com/AdguardTeam/AdguardForMac/issues/1246
 
 [#448]: https://github.com/AdguardTeam/AdguardAssistant/issues/448
-[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.16...HEAD
+[Unreleased]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.17...HEAD
+[4.4.17]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.16...v4.4.17
 [4.4.16]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.16-beta.0...v4.4.16
 [4.4.16-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.15-beta.0...v4.4.16-beta.0
 [4.4.15-beta.0]: https://github.com/AdguardTeam/AdguardAssistant/compare/v4.4.15...v4.4.15-beta.0
